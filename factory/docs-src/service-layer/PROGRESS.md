@@ -4,11 +4,11 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartados `limitations` (#7), `high-availability-load-balancing` (#8) and `faq` (#9) planned (decisions delegated to the supervisor via grill-with-docs), transcribed (1 unit each), reviewed (limitations and faq clean; HA had 2 real discrepancies, fixed by the supervisor: "load-balancing" hyphen restored, Figure line kept as a described diagram) and integrated: 3 index.md files, 3 intent and 5 confusable-term rows in SKILL.md, the TODO(link) to 3.10 resolved, 3 images copied, 5 rows settled in REVIEW.md. `verify_section.py` exits 0 for all 9 done apartados.
-**Next:** plan apartado `appendix-di-api-comparison` (#10, ch. 11 and 12, pp. 229-248, 20 pages: expect tables and several units). Dangling until integrated: `../appendix-di-api-comparison/index.md`.
+**Done last session:** apartado `appendix-di-api-comparison` (#10) planned (decisions delegated to the supervisor via grill-with-docs), transcribed (3 units), reviewed (u2, u3 clean; u1 had 2 items: missing p234-01 asset copied at integration, bold sub-headings in company-service-apis.md made `###`) and integrated: index.md, intent row and 5 confusable-term rows in SKILL.md, p234-01 copied, 3 rows settled in REVIEW.md. `verify_section.py` exits 0 for all 10 apartados.
+**Next:** the build is complete (all apartados `done`). Publishing to `sbo-skills/plugins/docs-service-layer/` is a separate manual step, only when the user asks and confirms.
 **Waiting on the user:** nothing.
 **Open decisions:** none.
-**Suggested skills:** /build-docs-from-sl-pdf
+**Suggested skills:** none
 
 ## Apartados
 
@@ -23,7 +23,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 7 | limitations | 8 | 225 | done |
 | 8 | high-availability-load-balancing | 9 | 226 | done |
 | 9 | faq | 10 | 227-228 | done |
-| 10 | appendix-di-api-comparison | 11, 12 | 229-248 | approved |
+| 10 | appendix-di-api-comparison | 11, 12 | 229-248 | done |
 
 ## Plan: introduction-getting-started
 
@@ -429,9 +429,9 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 229-236 | 11, 11.1, 11.2, 11.3, 11.4 | crud-apis.md, company-service-apis.md, transaction-apis.md, query-apis.md | pending | p236 shared with u2: u1 takes only the end of 11.4, u2 takes 11.5 (and 11.5.1) from its heading. 8 pages, ~18 code blocks, 1 image on p234. |
-| u2 | 236-244 | 11.5, 11.6 | udo-apis.md, udf-apis.md | pending | p236 shared with u1. 9 pages, ~29 code blocks, densest. udo-apis.md anchor index: Creating UDOs (11.5.1), CRUD and Query Operations (11.5.2); udf-apis.md: CRUD Operations (11.6.1), Performing Operations on Entities with UDFs (11.6.2). |
-| u3 | 245-248 | 12 | metadata-naming-differences.md | pending | 4 pages, 3 long tables, no code; 12.1 table spans pp. 245-247 (continues markers on p246, p248). Anchor index: 12.1, 12.2, 12.3. Chapter 12 intro goes in this hoja; chapter 11 intro in crud-apis.md. |
+| u1 | 229-236 | 11, 11.1, 11.2, 11.3, 11.4 | crud-apis.md, company-service-apis.md, transaction-apis.md, query-apis.md | reviewed | p236 shared with u2: u1 takes only the end of 11.4, u2 takes 11.5 (and 11.5.1) from its heading. 8 pages, ~18 code blocks, 1 image on p234. |
+| u2 | 236-244 | 11.5, 11.6 | udo-apis.md, udf-apis.md | reviewed | p236 shared with u1. 9 pages, ~29 code blocks, densest. udo-apis.md anchor index: Creating UDOs (11.5.1), CRUD and Query Operations (11.5.2); udf-apis.md: CRUD Operations (11.6.1), Performing Operations on Entities with UDFs (11.6.2). |
+| u3 | 245-248 | 12 | metadata-naming-differences.md | reviewed | 4 pages, 3 long tables, no code; 12.1 table spans pp. 245-247 (continues markers on p246, p248). Anchor index: 12.1, 12.2, 12.3. Chapter 12 intro goes in this hoja; chapter 11 intro in crud-apis.md. |
 
 ### Disambiguation candidates
 
@@ -511,3 +511,4 @@ Approved: 2026-10-01
 - limitations u1 source defects, transcribed as printed: p225 "data functions" (probably "date functions") and lowercase "Service layer" in the Note.
 - faq u1 source defects, transcribed as printed: p228 "Service layer" lowercase, "turn on it again", "symbol link"; `b1s<port>` plain text on p227. c228-05 retagged `text`.
 - high-availability-load-balancing: the extraction renders p226 "loadbalancing"; the render shows a line-end hyphen of "load-balancing". Fixed in the hoja only.
+- appendix-di-api-comparison: u1 review 1: 2 items (p234-01 asset not yet in DOCS/assets, done at integration; bold GetCompanyInfo/UpdateCompanyInfo made `###`). u2 and u3 review 1 clean. u1 source defects, as printed: p232 `Console.WriteLine` repeats "company name: {1}"/"{2}" with the literal wrapped; p234 batch boundaries wrapped mid-token and the changeset boundary is shorter than a GUID. u2: p236 DI API `"@MYOrder"` vs Service Layer `@MYORDER`; p240 `udf .Name`; p242 PATCH body trailing comma; p241 DI API samples with inconsistent leading spaces. u3: p246 "EmployeePreviousEmpoymentInfoLines" / "EmployeePrevEmpoymentInfo" (as printed). DI API samples tagged `csharp` (u2's `text` retagged by the supervisor); c239-01 merged into c238-04 (unmarked tail). query-apis.md source is pp. 234-235 (p236 starts 11.5).
