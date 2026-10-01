@@ -7,6 +7,12 @@
       "skillPath": "skills/engineering/ask-matt/SKILL.md",
       "computedHash": "2cfee0bfa1d618b47aa7e32eb369c076fb3934f0654de2efd63edfde21c67a6f"
     },
+    "book-to-skill": {
+      "source": "virgiliojr94/book-to-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "d6768966d94cb503f5f68df28a3b433c59e14d1b85e74421de5a4fa3f3ab87c7"
+    },
     "claude-handoff": {
       "source": "mattpocock/skills",
       "sourceType": "github",
