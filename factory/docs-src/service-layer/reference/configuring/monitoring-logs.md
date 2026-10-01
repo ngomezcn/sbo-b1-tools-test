@@ -1,10 +1,10 @@
 ---
-title: Monitoring Service Layer logs
+title: Monitoring Service Layer Logs
 source: pdf pp. 175-178, sec 6.4, 6.4.1, 6.4.2, 6.4.3, 6.4.4, 6.4.5
 summary: The Monitor tab of the Service Layer Controller: list and detail views of normal and error requests, and request/response detailed logs.
 ---
 
-# Monitoring Service Layer logs
+# Monitoring Service Layer Logs
 
 - [List View of Normal Requests](#list-view-of-normal-requests)
 - [Detailed View of Normal Requests](#detailed-view-of-normal-requests)

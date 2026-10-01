@@ -1,10 +1,10 @@
 ---
-title: Other configuration options (b1s.conf)
+title: Other Configuration Options for Service Layer
 source: pdf pp. 174-174, sec 6.2
 summary: The options of the b1s.conf file that control Service Layer behavior (Server, SLDAddress, Schema, PageSize, EnableAudienceValidation).
 ---
 
-# Other configuration options (b1s.conf)
+# Other Configuration Options for Service Layer
 
 You can also specify the configuration options to control the behavior of the service in the file `/ ServiceLayer/conf/b1s.conf`. The file is in the JSON format and the options are case-sensitive. Once you save the changes, all configuration options take effect after you restart Service Layer.
 
