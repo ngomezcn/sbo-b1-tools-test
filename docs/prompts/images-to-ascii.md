@@ -20,7 +20,11 @@ El usuario te da una lista de IDs de imagen, por ejemplo: `p013-01 p024-01`.
 
 1. **Mira la imagen** (`Read` sobre el PNG) y el texto que la rodea en el `.md`, para entender qué ilustra.
 2. **Decide el tipo**:
-   - **Diagrama** (arquitectura, flujo, secuencia, componentes, estados, clases, despliegue): conviértelo con la skill `/plantuml-ascii`. Escribe el `.puml` en el scratchpad, genera con `plantuml -utxt` y revisa el resultado. Etiquetas cortas; si el diagrama es complejo, simplifícalo conservando todas las entidades y relaciones relevantes. Mantén los nombres exactamente como aparecen en la imagen.
+   - **Diagrama** (arquitectura, flujo, secuencia, componentes, estados, clases, despliegue): conviértelo con la skill `/plantuml-ascii`. Escribe el `.puml` en el scratchpad y genera con `plantuml -utxt`. Mantén los nombres exactamente como aparecen en la imagen.
+     - **Fidelidad a la imagen (obligatorio).** El ASCII debe conservar la **misma disposición y tipo de diagrama** que la imagen: si es de izquierda a derecha con un cliente, un balanceador y cajas a la derecha, el ASCII es así, no un diagrama de secuencia equivalente. Incluye todas las cajas (también placeholders como `......`), las etiquetas de las flechas (`HTTPS`, `HTTP`) y la dirección de cada flecha. No reinterpretes el diagrama en otro tipo para que plantuml lo renderice mejor.
+     - **Si plantuml no lo conserva** (pierde etiquetas de enlaces, nombres multilínea, la disposición), **no cambies de tipo de diagrama**: dibújalo a mano con caracteres de caja (`┌ ┐ └ ┘ │ ─ ┼ > v`) respetando la disposición original. No lo menciones como un problema al usuario; simplemente entrega el resultado bueno.
+     - **Verifica la alineación antes de mostrarlo.** Escribe el ASCII a un fichero y comprueba con un script (Python) que las cajas tienen todas las filas de igual ancho y que los conectores (`│`, `┼`, `┐`, `>`) caen en la misma columna que la caja o línea con la que conectan. Corrige hasta que pase. **Muestra solo la versión final verificada**: nunca enseñes al usuario borradores, versiones "corregidas después" ni digas que aún tienes que ajustar la alineación.
+     - Si el diagrama es muy ancho (más de ~100 columnas), reduce el padding o apila verticalmente **solo si** la disposición original lo permite; en caso contrario, mantén la disposición.
    - **No es diagrama** (captura de pantalla de SAP B1, navegador, Postman, explorador de Windows, etc.): no inventes un diagrama. Identifica lo importante: qué ventana o pantalla es, qué elementos están **resaltados, seleccionados o marcados** (recuadros, flechas, campos rellenos), y qué texto o valores relevantes se leen. Escribe una descripción que diga qué muestra la captura y qué señala, por ejemplo: "SAP attaches a screenshot of the *Service Layer Controller* window with the *Port* field highlighted and set to `50000`".
 3. **Redacta el reemplazo en inglés**:
 
@@ -35,7 +39,9 @@ El usuario te da una lista de IDs de imagen, por ejemplo: `p013-01 p024-01`.
    ````
 
    Para una captura: solo el párrafo descriptivo (sin bloque `text`), empezando por `Figure:` si ya había caption original.
-4. **No toques el `.md` todavía.** Muestra al usuario, por cada imagen: el ID, el tipo decidido, el ASCII (si aplica), la explicación y el fichero + línea donde se sustituirá.
+
+   **Texto ya existente junto a la imagen.** Antes de redactar, mira las líneas vecinas: si ya hay un `Figure:` caption, **consérvalo tal cual** (no lo dupliques ni lo reescribas). Si ya hay un párrafo `Description:` de una pasada anterior, no lo dejes además de tu explicación: tu explicación **lo sustituye**. Indícalo explícitamente en la propuesta ("sustituye la línea N `Description:`").
+4. **No toques el `.md` todavía.** Muestra al usuario, por cada imagen, en este orden y de forma compacta: ID y tipo; el ASCII final verificado; la explicación; y qué líneas del `.md` cambian (la de la imagen y, si procede, el `Description:`) más qué otros ficheros se actualizarán (PNG, `PROGRESS.md`, `REVIEW.md`). Termina con una sola pregunta de aprobación. No enumeres alternativas ni planes de pasos que ya están en este prompt.
 
 ## Aprobación
 
@@ -45,6 +51,9 @@ El usuario debe aprobar explícitamente **cada** ASCII y su explicación antes d
 2. Borra `factory/docs-src/service-layer/assets/<ID>.png`. **No borres** la copia de `factory/.work/service-layer/assets/` ni los renders.
 3. Comprueba con `grep -rn "<ID>" factory/docs-src/service-layer` que no quedan referencias.
 4. Anota en `factory/docs-src/service-layer/PROGRESS.md` (formato existente) que `<ID>` pasó a texto.
+5. Si `REVIEW.md` tiene una fila de `<ID>` (p. ej. "described"), actualízala para reflejar que ahora es ASCII/texto en la docs. No preguntes por esto: es parte de la aprobación.
+
+Si el usuario rechaza un resultado, **no tocas nada**; pregunta qué cambiar en una frase, sin repetir las opciones ya descritas, y rehaz hasta tener una versión verificada.
 
 No hagas `git commit` salvo que el usuario lo pida.
 

@@ -5,23 +5,19 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | id | kind | page | hoja | target | status | note |
 |---|---|---|---|---|---|---|
 | p013-01 | image | 13 | introduction-getting-started/architecture-and-installation.md | 934x655 | described | architecture diagram described in the hoja (supervisor decision, delegated by the user) |
-| p013-02 | image | 13 | introduction-getting-started/architecture-and-installation.md | 927x368 | described | load balancer topology described in the hoja (supervisor decision, delegated by the user) |
 | l012-01 | link | 12 | introduction-getting-started/system-requirements.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | keep | official SAP Help Portal URL, visible in the hoja (supervisor decision, delegated by the user) |
 | p024-01 | image | 24 | consuming-service-layer/crud-operations.md | 393x304 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p053-01 | image | 53 | consuming-service-layer/semantic-layer-views/deployment-and-scope.md | 624x375 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p057-04 | image | 57 | consuming-service-layer/semantic-layer-views/view-authorization.md | 624x363 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p062-01 | image | 62 | consuming-service-layer/semantic-layer-views/view-query.md | 624x374 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p063-01 | image | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | 16x10 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
 | p064-01 | image | 64 | consuming-service-layer/semantic-layer-views/customized-views.md | 624x501 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p065-01 | image | 65 | consuming-service-layer/semantic-layer-views/customized-views.md | 624x366 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p066-01 | image | 66 | consuming-service-layer/semantic-layer-views/basic-authentication.md | 16x10 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
 | p066-02 | image | 66 | consuming-service-layer/semantic-layer-views/basic-authentication.md | 624x447 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p074-01 | image | 74 | consuming-service-layer/sql-view-exposure/authorize-view.md | 10x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
 | p074-02 | image | 74 | consuming-service-layer/sql-view-exposure/authorize-view.md | 7x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
 | p074-03 | image | 74 | consuming-service-layer/sql-view-exposure/authorize-view.md | 8x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
 | p101-01 | image | 101 | consuming-service-layer/attachments/setup-folder.md | 500x362 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p102-01 | image | 102 | consuming-service-layer/attachments/setup-folder.md | 1086x693 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p103-01 | image | 103 | consuming-service-layer/attachments/setup-folder.md | 16x10 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
 | p105-01 | image | 105 | consuming-service-layer/attachments/upload.md | 624x144 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p105-02 | image | 105 | consuming-service-layer/attachments/upload.md | 624x191 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p107-01 | image | 107 | consuming-service-layer/attachments/download-and-update.md | 603x217 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |

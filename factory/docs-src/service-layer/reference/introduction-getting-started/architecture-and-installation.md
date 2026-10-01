@@ -34,9 +34,21 @@ The Service Layer is an application server that provides Web access to SAP Busin
 
 Figure: The Service Layer architecture with a load balancer and load balancer members.
 
-![p013-02](../../assets/p013-02.png)
+```text
+                                             ┌──────────────────────────┐
+                                     ┌─HTTP─>│ Service Layer            │
+                                     │       │ Load Balancer Member 1   │
+                                     │       └──────────────────────────┘
+┌────────┐        ┌───────────────┐  │       ┌──────────────────────────┐
+│ Client │─HTTPS─>│ Service Layer │──┼─HTTP─>│          ......          │
+└────────┘        │ Load Balancer │  │       └──────────────────────────┘
+                  └───────────────┘  │       ┌──────────────────────────┐
+                                     └─HTTP─>│ Service Layer            │
+                                             │ Load Balancer Member n   │
+                                             └──────────────────────────┘
+```
 
-Description: A client connects over HTTPS to a Service Layer Load Balancer, which forwards requests over HTTP to Service Layer Load Balancer Members 1 to n.
+The client connects to the Service Layer Load Balancer over HTTPS. The load balancer forwards requests over plain HTTP to the Service Layer Load Balancer Members, numbered 1 to n; the `......` box stands for any number of additional members. Only the client-facing leg is encrypted, which is why the Recommendation below restricts member access by firewall.
 
 > **Recommendation**
 >
