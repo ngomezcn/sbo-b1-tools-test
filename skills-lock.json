@@ -175,6 +175,12 @@
       "skillPath": "skills/pdf/SKILL.md",
       "computedHash": "37226d4220d844377e6b2a386c51a011df4cd130855ff0b80bcc22f9c28abd57"
     },
+    "plantuml-ascii": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/plantuml-ascii/SKILL.md",
+      "computedHash": "2fb2b41487ea6559f4ccf877fe397c87214b35049528685ff1c02bb792b027d1"
+    },
     "pptx": {
       "source": "anthropics/skills",
       "sourceType": "github",
