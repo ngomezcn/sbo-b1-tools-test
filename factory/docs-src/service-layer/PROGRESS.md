@@ -214,6 +214,35 @@ Approved: 2026-10-01
 4. query-errors.md as one hoja with anchor index over 4.10.1-4.10.7 (recommended) or a query-errors/ subfolder.
 5. Section 4 intro at the top of overview-and-business-object-metadata.md (recommended) or a separate overview.md.
 
+## Plan: etag
+
+Approved: pending (proposed 2026-10-01)
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| etag/etag-usage.md | ETag usage: introduction and scenarios | 5, 5.1, 5.2 | 161-164 | u1 |
+| etag/etag-entities-and-metadata.md | Entities with ETag and ETag metadata | 5.3, 5.4 | 164-166 | u1 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 161-166 | 5, 5.1, 5.2, 5.3, 5.4 | etag-usage.md, etag-entities-and-metadata.md | pending | 6 pages, 20 code blocks, 1 block image (p161-01, in 5.1, needs a Figure line), no tables. etag-usage.md needs an anchor index after the title (one link per 5.2.x scenario). Code copied with the PDF's visual wraps (p164 "-2039" message). p164 is shared by 5.2.5 and 5.3, both in u1; p166 continues 5.4. |
+
+### Disambiguation candidates
+
+- ETag Metadata (5.4) vs Metadata Document (3.2) vs Business Object Metadata (4.1) vs Metadata Naming Difference (Appendix II, 12).
+- ETag in Entity Action (5.2.5, `POST .../Cancel` with `If-Match`) vs entity actions in 3.4 and the UDO action in 3.15.
+- ETag in Entity Update and Delete (5.2.3, 5.2.4: `If-Match`, 412) vs CRUD Operations (3.4, no ETag concurrency) and `$batch` change sets (3.9.4).
+- Entities with ETag (5.3, ETag-enabled from 10.0 FP 2102) vs the general entity listings in 3.4.
+
+### Questions
+
+1. Hoja split: 2 hojas, with 5.3 and 5.4 merged into etag-entities-and-metadata.md (recommended; 5.3 is a bare list and 5.4 two short code blocks). Alternatives: one etag.md for all 6 pages, or 3 hojas with 5.3 and 5.4 separate.
+2. Folder: `reference/etag/` with an index.md (recommended, matches the other apartados) or flat hojas under `reference/`.
+
 ## Decisions
 
 - 2026-10-01 user: apartado list confirmed as in profile.md.
