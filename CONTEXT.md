@@ -47,6 +47,18 @@ Estado, limitado a una sesión, en el que el desarrollador dispensa a la IA de p
 Persona usuaria del paquete: conoce B1, tiene juicio técnico y opera con credenciales de manager.
 _Avoid_: Usuario final, usuario funcional
 
+**sbo-skills**:
+Repositorio interior y producto instalable: contiene los plugins que recibe el desarrollador. Es lo único que se publica.
+_Avoid_: Marketplace (como nombre del repo)
+
+**Fábrica**:
+Repositorio exterior donde se construye el producto: fuentes de documentación, scripts y skills de construcción. Incluye a `sbo-skills` enlazado y nunca se instala.
+_Avoid_: Repo de desarrollo, tooling
+
+**Skill de construcción (`build-`)**:
+Skill propia de la fábrica que ayuda a fabricar el producto (por ejemplo, generar la documentación a partir de las fuentes). No se publica en `sbo-skills`.
+_Avoid_: Plugin (no se distribuye)
+
 ## Relationships
 
 - Un **Plugin de uso** necesita su **Plugin de configuración** y su **Plugin de documentación** para operar; el **Plugin de documentación** necesita el **Plugin de configuración** pero no el **Plugin de uso**, así que se puede consultar sin él (por ejemplo, un agente de código que programa contra Service Layer).

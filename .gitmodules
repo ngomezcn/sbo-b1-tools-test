@@ -1,0 +1,3 @@
+[submodule "sbo-skills"]
+	path = sbo-skills
+	url = https://github.com/ngomezcn/sbo-skills.git
