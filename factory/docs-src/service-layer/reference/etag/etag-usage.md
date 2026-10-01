@@ -6,11 +6,8 @@ summary: What ETag and optimistic concurrency are in the Service Layer, and how 
 
 # ETag usage: introduction and scenarios
 
-- [ETag in Entity Creation](#etag-in-entity-creation)
-- [ETag in Entity Retrieval](#etag-in-entity-retrieval)
-- [ETag in Entity Update](#etag-in-entity-update)
-- [ETag in Entity Delete](#etag-in-entity-delete)
-- [ETag in Entity Action](#etag-in-entity-action)
+- [ETag Introduction](#etag-introduction)
+- [ETag Scenarios](#etag-scenarios)
 
 ## ETag Introduction
 

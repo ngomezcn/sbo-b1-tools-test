@@ -21,6 +21,7 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Write, deploy and call server-side JavaScript | "how do I deploy a script", "how do I use EntitySet.query", "ScriptException", "call a script from .NET" | [javascript-extension](reference/consuming-service-layer/javascript-extension/index.md) |
 | Call Service Layer from a browser on another origin, or check that a node is alive | "how do I enable CORS", "what does /ping return" | [consuming-service-layer](reference/consuming-service-layer/index.md) |
 | Store, run, page and troubleshoot SQL queries through `SQLQueries`; allowlists, keywords, parameters, permissions | "how do I create a stored SQL query", "which tables can SQL Query read", "can I use union in a query", "why 403 on SQLQueries", "SQL query with parameters" | [sql-query](reference/sql-query/index.md) |
+| Prevent blind concurrent updates with ETag and `If-Match`, find ETag-enabled entities | "how do I use If-Match", "what is a 412 on PATCH", "which entities support ETag", "ETag in $metadata" | [etag](reference/etag/index.md) |
 
 ## Confusable terms
 
@@ -46,3 +47,5 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Query allowlist vs permission control | which tables and columns are queryable (sec 4.5) vs which users may run queries (sec 4.11) | [query-allowlist](reference/sql-query/query-allowlist/index.md) |
 | Business object metadata | the `SQLQuery` EntityType and `List` function (sec 4.1), not the metadata document (sec 3.2) | [overview-and-business-object-metadata](reference/sql-query/overview-and-business-object-metadata.md) |
 | SQL Query limitations | what stored queries cannot access (sec 4.13), not general limitations (ch. 8) | [sql-query-limitations](reference/sql-query/sql-query-limitations.md) |
+| ETag metadata | ETag annotations of entities in `$metadata` (sec 5.4), not the metadata document (sec 3.2), `SQLQuery` metadata (sec 4.1) or metadata naming differences (ch. 12) | [etag-entities-and-metadata](reference/etag/etag-entities-and-metadata.md) |
+| ETag on update, delete and action | `If-Match` and 412 for concurrent changes (sec 5.2), not plain entity CRUD (sec 3.4), actions (sec 3.5) or `$batch` change sets (sec 3.9) | [etag-usage](reference/etag/etag-usage.md) |

@@ -4,9 +4,9 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `sql-query` (#3) planned, approved (delegated), transcribed (u1-u3), reviewed (u1, u3 clean; u2 one discrepancy, "or or" in sql-keywords.md, fixed by the supervisor against the p148 render) and integrated: sql-query/index.md and query-allowlist/index.md written, SKILL.md intent row and 5 confusable-term rows added, 5 images copied to DOCS/assets, 5 REVIEW.md rows settled `keep`. `verify_section.py sql-query` exits 0 (14 hojas).
-**Next:** plan apartado `etag` (#4, ch. 5, pp. 161-166): dispatch the planner. Dangling cross-apartado links to resolve later: `../limitations/index.md` (from sql-query/index.md, when `limitations` is integrated); `TODO(link: sec 6.x)` in cors.md x2 and user-defined-schemas.md (when `configuring` is integrated).
-**Waiting on the user:** nothing (plans and REVIEW.md settled by the supervisor under the standing delegation).
+**Done last session:** apartado `etag` (#4) planned, approved by the user, transcribed (u1), reviewed (two findings: missing asset copy, handled at integration; anchor index changed to the two `##` headings by the supervisor) and integrated: etag/index.md written, SKILL.md intent row and 2 confusable-term rows added, p161-01.png copied to DOCS/assets, 3 REVIEW.md rows settled `keep`. `verify_section.py etag` exits 0 (2 hojas).
+**Next:** plan apartado `configuring` (#5, ch. 6, pp. 167-178): dispatch the planner. When integrating it, resolve `TODO(link: sec 6.x)` in cors.md x2 and user-defined-schemas.md. Dangling: `../limitations/index.md` (from sql-query/index.md, when `limitations` is integrated).
+**Waiting on the user:** nothing.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
 
@@ -17,7 +17,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 1 | introduction-getting-started | 1, 2 | 11-14 | done |
 | 2 | consuming-service-layer | 3 | 15-139 | done |
 | 3 | sql-query | 4 | 140-160 | done |
-| 4 | etag | 5 | 161-166 | pending |
+| 4 | etag | 5 | 161-166 | done |
 | 5 | configuring | 6 | 167-178 | pending |
 | 6 | webhooks | 7 | 179-224 | pending |
 | 7 | limitations | 8 | 225 | pending |
@@ -229,7 +229,7 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 161-166 | 5, 5.1, 5.2, 5.3, 5.4 | etag-usage.md, etag-entities-and-metadata.md | transcribed | 6 pages, 20 code blocks, 1 block image (p161-01, in 5.1, needs a Figure line), no tables. etag-usage.md needs an anchor index after the title (one link per 5.2.x scenario). Code copied with the PDF's visual wraps (p164 "-2039" message). p164 is shared by 5.2.5 and 5.3, both in u1; p166 continues 5.4. |
+| u1 | 161-166 | 5, 5.1, 5.2, 5.3, 5.4 | etag-usage.md, etag-entities-and-metadata.md | reviewed | 6 pages, 20 code blocks, 1 block image (p161-01, in 5.1, needs a Figure line), no tables. etag-usage.md needs an anchor index after the title (one link per 5.2.x scenario). Code copied with the PDF's visual wraps (p164 "-2039" message). p164 is shared by 5.2.5 and 5.3, both in u1; p166 continues 5.4. |
 
 ### Disambiguation candidates
 
@@ -254,6 +254,7 @@ Approved: 2026-10-01
 - 2026-10-01 supervisor: integration of consuming-service-layer. The 3.6 table lives in the new hoja query-options/options-reference.md (index.md files are not counted as hojas by verify_section.py, so page 32 and table markers t032-01/t033-01 need a hoja); query-options/index.md is routing-only. Other subfolder indexes keep their short 3.7, 3.8, 3.15, 3.16, 3.19 intro text above the routing entries. Queue rows settled `keep` (inline icons, UI screenshots, source URLs) and p117-01 `described`.
 - 2026-10-01 user (delegated: "como tu consideres y ejecutalo"): sql-query plan approved with all 5 planner recommendations (4.3/4.4 two hojas, 4.13 own hoja, 4.6/4.7 separate, 4.10 one hoja with anchor index, ch. 4 intro at top of overview-and-business-object-metadata.md). Supervisor runs u1-u3 in parallel through to integration.
 - 2026-10-01 user: etag plan approved ("aprobado todo"): 2 hojas (5.3+5.4 merged), folder reference/etag/ with index.md.
+- 2026-10-01 supervisor: etag review finding 2 (anchor index listed the ### scenarios, leaf-format says ## headings) fixed by editing the index to ETag Introduction / ETag Scenarios.
 
 ## Notes
 

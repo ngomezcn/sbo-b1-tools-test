@@ -67,3 +67,6 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | p158-03 | image | 158 | sql-query/query-with-permission-control.md | 8x13 | keep | inline breadcrumb icon (supervisor decision, delegated by the user) |
 | p158-04 | image | 158 | sql-query/query-with-permission-control.md | 624x431 | keep | UI screenshot of General Authorizations, Figure line in the hoja (supervisor decision, delegated by the user) |
 | p159-01 | image | 159 | sql-query/query-with-permission-control.md | 1333x706 | keep | UI screenshot of General Authorizations, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p161-01 | image | 161 | etag/etag-usage.md | 16x10 | keep | inline external-link icon (supervisor decision, delegated by the user) |
+| l161-01 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
+| l161-02 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | keep | same URL as l161-01, wrapped link text (supervisor decision, delegated by the user) |
