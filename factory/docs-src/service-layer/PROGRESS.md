@@ -229,7 +229,7 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 161-166 | 5, 5.1, 5.2, 5.3, 5.4 | etag-usage.md, etag-entities-and-metadata.md | transcribing | 6 pages, 20 code blocks, 1 block image (p161-01, in 5.1, needs a Figure line), no tables. etag-usage.md needs an anchor index after the title (one link per 5.2.x scenario). Code copied with the PDF's visual wraps (p164 "-2039" message). p164 is shared by 5.2.5 and 5.3, both in u1; p166 continues 5.4. |
+| u1 | 161-166 | 5, 5.1, 5.2, 5.3, 5.4 | etag-usage.md, etag-entities-and-metadata.md | transcribed | 6 pages, 20 code blocks, 1 block image (p161-01, in 5.1, needs a Figure line), no tables. etag-usage.md needs an anchor index after the title (one link per 5.2.x scenario). Code copied with the PDF's visual wraps (p164 "-2039" message). p164 is shared by 5.2.5 and 5.3, both in u1; p166 continues 5.4. |
 
 ### Disambiguation candidates
 
@@ -256,6 +256,8 @@ Approved: 2026-10-01
 - 2026-10-01 user: etag plan approved ("aprobado todo"): 2 hojas (5.3+5.4 merged), folder reference/etag/ with index.md.
 
 ## Notes
+
+- etag u1 transcriber defects/notes: p162 "theSAP Business One client" missing space (PDF); p162-164 error message wrap `... modified data; to` / `continue, ...` (visual wrap, kept); "Etag"/"ETag" mixed in pp. 161, 165; p161-01 is the inline external-link arrow (no Figure line); msdn URL link-text space was a wrap (written as bare URL).
 
 - p14: PDF reads "charpter" (should be "chapter"); transcribed as printed.
 - p12: PDF reads "create/ retrieve/update/delete" with a stray space after the slash; transcribed as printed.
