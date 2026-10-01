@@ -245,7 +245,7 @@ Approved: 2026-10-01
 
 ## Plan: configuring
 
-Approved: pending (proposed 2026-10-01)
+Approved: 2026-10-01
 
 ### Hojas
 
@@ -334,3 +334,4 @@ Approved: pending (proposed 2026-10-01)
 - p151 (4.8): c151-03 `as COL1 ... as COL1` (second probably COL2); c151-04 unclosed quote in `from "ORDR -- normalized on SAP HANA`; as printed.
 - p152 (4.9): GET example uses `sql07` while the query was created as `sql01`; as printed.
 - u2 callouts (Note, Sample Code) contain fenced code inside blockquotes; check verify_section.py accepts it at integration.
+- 2026-10-01 user (delegated: "tu mismo revisalo y apruebalo, no me preguntes nada"): supervisor reviewed the configuring plan against CONTEXT.md and ADRs (no conflicts, no new terms) and approved it with all 4 recommendations (6.2/6.3 separate, intro merged into 6.1, 6.4 one hoja, 6.1 one hoja). Supervisor runs u1-u2 through to integration without asking.
