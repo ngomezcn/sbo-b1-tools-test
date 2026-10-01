@@ -5,8 +5,8 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 ## RESUME HERE
 
 **Done last session:** apartado `consuming-service-layer` (#2) integrated and verified: u9-u13 (pp. 92-139) transcribed and reviewed, all 13 units `reviewed`; index.md files (apartado and six subfolders), SKILL.md rows, in-apartado `TODO(link)` resolved, 46 images in DOCS/assets, 55 REVIEW.md rows settled, `verify_section.py consuming-service-layer` exits 0.
-**Next:** plan apartado `sql-query` (#3, ch. 4, pp. 140-160): dispatch the planner. Remaining `TODO(link: sec 6.x)` (cors.md x2, user-defined-schemas.md) resolve when `configuring` is integrated.
-**Waiting on the user:** nothing (REVIEW.md settled by the supervisor under the standing delegation).
+**Next:** planner returned the `sql-query` plan (in ledger, not approved). Waiting for the user to approve it / answer its 5 questions, then dispatch u1-u3 transcribers. Remaining `TODO(link: sec 6.x)` (cors.md x2, user-defined-schemas.md) resolve when `configuring` is integrated.
+**Waiting on the user:** approval of the sql-query plan.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
 
@@ -161,6 +161,58 @@ No unit exceeds 15 pages. 3.19.5 is split between u11 (own text, Http request/re
 6. 3.19.10 (.NET consumption) merged into use-cases.md (recommended) or separate.
 7. 3.15 UDO as user-defined-objects/ (index + 2 hojas) and 3.16 as attachments/ (index + 3 hojas), recommended; or one hoja each.
 8. 3.13 UDFs and 3.14 UDTs flat, one hoja each (recommended) or a combined subfolder.
+
+## Plan: sql-query
+
+Approved: not yet (awaiting user)
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| sql-query/overview-and-business-object-metadata.md | SQL Query overview and SQLQuery business object metadata | 4, 4.1 | 140-141 | u1 |
+| sql-query/crud-operations.md | CRUD operations on SQLQuery entities | 4.2 | 141-143 | u1 |
+| sql-query/list-operation.md | List operation (running a stored query) | 4.3 | 143-144 | u1 |
+| sql-query/list-with-paging.md | List with paging | 4.4 | 144-145 | u1 |
+| sql-query/query-allowlist/index.md | Query allowlist (overview, routing only) | none | 145-145 | u2 |
+| sql-query/query-allowlist/table-allowlist.md | Table allowlist | 4.5, 4.5.1 | 145-147 | u2 |
+| sql-query/query-allowlist/column-allowlist.md | Column allowlist | 4.5.2 | 147-148 | u2 |
+| sql-query/sql-keywords.md | Supported SQL keywords | 4.6 | 148-149 | u2 |
+| sql-query/sql-functions.md | Supported SQL functions | 4.7 | 149-150 | u2 |
+| sql-query/sql-normalization.md | SQL normalization (table/column, alias, function) | 4.8 | 150-151 | u2 |
+| sql-query/query-with-parameter.md | Query with parameters | 4.9 | 151-153 | u2 |
+| sql-query/query-errors.md | Query errors and exceptions | 4.10 | 153-157 | u3 |
+| sql-query/query-with-permission-control.md | Query with permission control | 4.11 | 157-159 | u3 |
+| sql-query/security-considerations.md | Security considerations (SQL injection, logging, sensitive data) | 4.12 | 159-160 | u3 |
+| sql-query/sql-query-limitations.md | SQL Query limitations and by-design behaviour | 4.13 | 160-160 | u3 |
+| sql-query/index.md | SQL Query (routing only, not a hoja) | none | - | u3 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 140-145 | 4, 4.1, 4.2, 4.3, 4.4 | overview-and-business-object-metadata.md, crud-operations.md, list-operation.md, list-with-paging.md | pending | 6 pages, ~19 code blocks (XML metadata, HTTP). p145 shared with u2: u1 takes end of 4.4, u2 takes 4.5 from y~598. |
+| u2 | 145-153 | 4.5, 4.5.1, 4.5.2, 4.6, 4.7, 4.8, 4.9 | query-allowlist/index.md, table-allowlist.md, column-allowlist.md, sql-keywords.md, sql-functions.md, sql-normalization.md, query-with-parameter.md | pending | 9 pages. pp. 145-147 long bullet lists of table names. 4.6 and 4.7 one table each. p153 shared with u3: u2 takes end of 4.9, u3 takes 4.10 from y~540. |
+| u3 | 153-160 | 4.10, 4.11, 4.12, 4.13 | query-errors.md, query-with-permission-control.md, security-considerations.md, sql-query-limitations.md, index.md | pending | 8 pages. 4.10 has 13 request/response code blocks. 4.11 has 5 images (4 on p158). c160-01 continues c159-02. u3 also writes sql-query/index.md (routing only). |
+
+### Disambiguation candidates
+
+- SQL Query (ch. 4, `SQLQuery` entity and `List`) vs Semantic Layer View Exposure (3.7) and SQL View Exposure (3.8): ch. 4 runs stored SQL text under an allowlist, no view deployment; 3.7/3.8 need views deployed manually.
+- CRUD Operations (4.2, `SQLQueries`) vs CRUD Operations (3.4) vs CRUD APIs (11.1).
+- Business Object Metadata (4.1) vs Metadata Document (3.2) vs Metadata Naming Difference (12) vs ETag Metadata (5.4).
+- List with Paging (4.4) vs Query Options (3.6) vs Paginate the Selected Orders (3.6.6) vs Query APIs (11.4).
+- Limitations or By Design (4.13) vs Limitations (ch. 8).
+- Query Allowlist (4.5) vs Query with Permission Control (4.11, per-user authorization) vs Row-level filter (3.6.10).
+- Query with Parameter (4.9, `ParamList`) vs Query Options (3.6).
+- 4.10.4-4.10.6 (alias and `SELECT *` errors) overlap in wording with 4.8 SQL Normalization: cross-reference only.
+
+### Questions
+
+1. Keep list-operation.md (4.3) and list-with-paging.md (4.4) as two hojas (recommended) or merge into one (~3 pages).
+2. Keep 4.13 as its own hoja (recommended) or merge into security-considerations.md.
+3. Keep sql-keywords.md and sql-functions.md separate (recommended) or one supported-sql-syntax.md.
+4. query-errors.md as one hoja with anchor index over 4.10.1-4.10.7 (recommended) or a query-errors/ subfolder.
+5. Section 4 intro at the top of overview-and-business-object-metadata.md (recommended) or a separate overview.md.
 
 ## Decisions
 
