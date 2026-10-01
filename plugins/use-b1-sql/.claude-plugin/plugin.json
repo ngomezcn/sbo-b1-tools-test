@@ -1,6 +1,0 @@
-{
-  "name": "use-b1-sql",
-  "version": "0.1.0",
-  "description": "Consultas SQL de solo lectura contra la base de datos de SAP B1.",
-  "author": { "name": "naim" }
-}

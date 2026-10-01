@@ -1,6 +1,0 @@
-{
-  "name": "use-service-layer",
-  "version": "0.1.0",
-  "description": "Conector a SAP B1 Service Layer con perfiles, cache de metadatos y modo solo lectura por defecto.",
-  "author": { "name": "naim" }
-}
