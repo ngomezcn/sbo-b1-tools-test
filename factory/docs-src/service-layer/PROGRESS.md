@@ -4,10 +4,10 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `configuring` (#5) planned, approved (delegated to the supervisor), transcribed (u1, u2), reviewed (u1: assets copy and anchor index fixed at integration; u2: titles aligned with PDF headings) and integrated: configuring/index.md written, SKILL.md intent row and 2 confusable-term rows added, 15 images copied to DOCS/assets, 15 image and 3 link rows settled `keep` in REVIEW.md, TODO(link: sec 6.x/3.12) resolved in cors.md, user-defined-schemas.md and b1s-conf-options.md. `verify_section.py configuring` exits 0 (4 hojas).
-**Next:** plan apartado `webhooks` (#6, ch. 7, pp. 179-224, 46 pages): dispatch the planner; expect several units. Dangling: `../limitations/index.md` (from sql-query/index.md), `../high-availability-load-balancing/index.md` and `../webhooks/index.md` (from configuring/index.md), until those apartados are integrated.
-**Waiting on the user:** nothing.
-**Open decisions:** none.
+**Done last session:** apartado `webhooks` (#6) planned by the planner (6 units, 18 hojas, 8 questions) and written to the ledger as `planned`; WORK re-extracted (counts match profile.md).
+**Next:** once the user approves (or revises) the webhooks plan, set it `approved` with the date and dispatch transcribers for u1-u6 (max 4 in parallel). Dangling until integrated: `../limitations/index.md`, `../high-availability-load-balancing/index.md`, `../webhooks/index.md`.
+**Waiting on the user:** approval of the webhooks plan and its 8 questions (all recommendations listed first).
+**Open decisions:** the 8 planner questions.
 **Suggested skills:** /build-docs-from-sl-pdf
 
 ## Apartados
@@ -19,7 +19,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 3 | sql-query | 4 | 140-160 | done |
 | 4 | etag | 5 | 161-166 | done |
 | 5 | configuring | 6 | 167-178 | done |
-| 6 | webhooks | 7 | 179-224 | pending |
+| 6 | webhooks | 7 | 179-224 | planned |
 | 7 | limitations | 8 | 225 | pending |
 | 8 | high-availability-load-balancing | 9 | 226 | pending |
 | 9 | faq | 10 | 227-228 | pending |
@@ -277,6 +277,70 @@ Approved: 2026-10-01
 2. Chapter 6 intro merged into 6.1's hoja (recommended) or its own hoja.
 3. 6.4 as one hoja with anchor index (recommended) or a monitoring-logs/ subfolder with five hojas.
 4. 6.1 kept as one hoja (recommended; no bookmarked subsections) or split.
+
+## Plan: webhooks
+
+Approved: pending
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| webhooks/overview-and-quick-start.md | Webhooks overview and quick start | 7, 7.1 | 179-180 | u1 |
+| webhooks/event-catalog.md | Event catalog | 7.2 | 180-181 | u1 |
+| webhooks/event-subscription/subscription-operations.md | EventSubscription operations | 7.3, 7.3.1 | 181-184 | u1 |
+| webhooks/event-subscription/handshake-mechanism.md | Handshake mechanism | 7.3.1.1 | 184-186 | u1 |
+| webhooks/event-subscription/subscription-properties.md | EventSubscription properties | 7.3.2 | 186-192 | u2 |
+| webhooks/event-subscription/subscription-permission-control.md | EventSubscription permission control | 7.3.3 | 192-193 | u2 |
+| webhooks/event-notification/notifications-query.md | EventNotifications query and properties | 7.4, 7.4.1, 7.4.1.1 | 194-198 | u3 |
+| webhooks/event-notification/payload-structure.md | Notification payload structure | 7.4.2 | 198-200 | u3 |
+| webhooks/webhook-configuration.md | Webhook configuration | 7.5 | 200-202 | u3 |
+| webhooks/webhook-messenger.md | Webhook Messenger (health check, certificate import) | 7.6 | 202-203 | u3 |
+| webhooks/webhook-formula/formula-basics.md | Literals, variables and operators | 7.7, 7.7.1, 7.7.2, 7.7.3, 7.7.4, 7.7.5, 7.7.6, 7.7.7 | 203-207 | u4 |
+| webhooks/webhook-formula/string-functions.md | String functions | 7.7.8 | 207-211 | u4 |
+| webhooks/webhook-formula/date-functions.md | Date functions | 7.7.9 | 211-213 | u5 |
+| webhooks/webhook-formula/time-functions.md | Time functions | 7.7.10 | 214-216 | u5 |
+| webhooks/webhook-formula/math-functions.md | Math functions | 7.7.11 | 216-219 | u5 |
+| webhooks/webhook-formula/logical-functions.md | Logical functions | 7.7.12 | 219-220 | u5 |
+| webhooks/webhook-formula/app-level-variables.md | App-level variables | 7.7.13 | 220-221 | u5 |
+| webhooks/faq.md | Webhooks FAQ | 7.8 | 222-224 | u6 |
+
+Routing-only `index.md` files (written at integration, not hojas): `webhooks/index.md`, `event-subscription/index.md`, `event-notification/index.md`, `webhook-formula/index.md` (repeats the short 7.7 intro).
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 179-186 | 7, 7.1, 7.2, 7.3, 7.3.1, 7.3.1.1 | overview-and-quick-start.md, event-catalog.md, subscription-operations.md, handshake-mechanism.md | pending | 8 pages, 21 code blocks, 1 block image (p179-01). p180 holds end of 7.1 (c180-01 continues c179-01) and start of 7.2; p181 end of 7.2 and start of 7.3. p186 shared with u2: u1 takes the end of 7.3.1.1, u2 takes 7.3.2 from its heading. Anchor index likely for subscription-operations.md. |
+| u2 | 186-193 | 7.3.2, 7.3.3 | subscription-properties.md, subscription-permission-control.md | pending | 7 pages, 5 wide tables, 6 code blocks, 1 block image (p193-01). Outline says 7.3.3 ends p194, but p194 starts at 7.4: it ends on p193. |
+| u3 | 194-203 | 7.4, 7.4.1, 7.4.1.1, 7.4.2, 7.5, 7.6 | notifications-query.md, payload-structure.md, webhook-configuration.md, webhook-messenger.md | pending | 10 pages, 9 tables, 10 code blocks. c199-02 continues as c200-01 across the 7.4.2/7.5 border; p202 opens with c202-01 (tail of 7.5) then 7.6 starts. p203 shared with u4: u3 takes everything above the `7.7 Webhook Formula` heading. Check p200-p202 to place 7.5 vs 7.6 content. |
+| u4 | 203-211 | 7.7, 7.7.1-7.7.8 | formula-basics.md, string-functions.md | pending | 9 pages, light but fragmentary (~18 tables, 9 code blocks). Function names are unbookmarked bold lines: `###` headings, with Usage/Parameters/Examples as `####`. p211 opens with the tail of SUBSTITUTE: u4 takes everything above `7.7.9 Date Functions`. string-functions.md needs an anchor index. |
+| u5 | 211-221 | 7.7.9-7.7.13 | date-functions.md, time-functions.md, math-functions.md, logical-functions.md, app-level-variables.md | pending | 11 pages, ~37 small tables, 17 code blocks, uniform structure. p219 holds the end of MAX and start of IFNULL; p220 opens with the IFNULL Examples tail and starts 7.7.13. Anchor index per function hoja. |
+| u6 | 222-224 | 7.8 | faq.md | pending | 3 pages, text only, 1 code block (c223-01 continues as c224-01). Questions as bold lines become `###` headings. |
+
+### Disambiguation candidates
+
+- Webhooks FAQ (7.8) vs FAQ (ch. 10): webhook-specific vs general Service Layer questions.
+- Webhook Configuration (7.5, `AdminInfo`, `EnableWebhook`) vs Configuring (ch. 6) vs Configuration by Request (6.3) vs Quick Start step 1 (7.1).
+- Webhook Messenger (7.6) vs High Availability and Load Balancing (ch. 9) vs Node Management / logs (6.1, 6.4).
+- Event Subscription (7.3, `EventSubscriptions`) vs Event Notification (7.4, `EventNotifications`): what to listen to vs what was sent.
+- Handshake Mechanism (7.3.1.1) vs Login and Logout / Session (3.1) vs Semantic Layer Basic Authentication (3.7.10).
+- EventSubscription Permission Control (7.3.3) vs Semantic Layer View Authorization (3.7.6), Authorize View (3.8.5), Query with Permission Control (4.11).
+- Webhook Formula (7.7, `FilterExpr`) vs OData `$filter` (3.6, 3.6.10) vs SQL Query functions (4.7) and keywords (4.6).
+- Notification Payload Structure (7.4.2) and Event Catalog (7.2) vs metadata and service documents (3.2, 3.3).
+- Replay (7.3.1) vs retry (7.8 FAQ): both in this apartado, keep the distinction explicit.
+- Formula function names (7.7.8-7.7.12) vs `$filter` functions (3.6) and SQL Functions (4.7), e.g. `LEN`, `ROUND`, `TRIM`.
+
+### Questions
+
+1. Subfolders `event-subscription/` (7.3), `event-notification/` (7.4) and `webhook-formula/` (7.7) with routing-only indexes (recommended), or flat hojas under `webhooks/`, or only 7.7 as a subfolder.
+2. 7.3.1.1 Handshake as its own hoja (recommended) or merged into subscription-operations.md.
+3. 7.4.1 + 7.4.1.1 merged into notifications-query.md (recommended) or two hojas.
+4. 7.5 Webhook Configuration separate from 7.6 Webhook Messenger (recommended) or merged.
+5. 7.7.1-7.7.7 merged into formula-basics.md (recommended) or one hoja per section.
+6. Function categories as 5 hojas plus app-level-variables (recommended) or one functions-reference.md (~15 pages).
+7. 7.7.12 Logical Functions (only IFNULL) as its own hoja (recommended) or merged into math-functions.md.
+8. 7.8 FAQ as one hoja with `###` questions (recommended).
 
 ## Decisions
 
