@@ -1,0 +1,47 @@
+---
+title: Semantic Layer View Authorization
+source: pdf pp. 57-58, sec 3.7.6
+summary: Why a normal user gets 401 on Semantic Layer views by default and how to grant view permission in General Authorizations.
+---
+
+# Semantic Layer View Authorization
+
+For SAP Business One forms, only authorized users have the privilege to access the corresponding views.
+
+By default, a normal user has no permission to access views. Attempting to access would result in failure.
+
+For example, log in to Service Layer with a normal user (e.g. **user1**) and then send a request to retrieve *BalanceSheetQuery*.
+
+```http
+GET /b1s/v1/sml.svc/
+BalanceSheetQueryParameters(P_FinancialPeriod='2017',P_AddVoucher='N')/
+BalanceSheetQuery
+```
+
+Service returns:
+
+```http
+HTTP/1.1 401 Unauthorized
+{
+    "error": {
+        "code": -1,
+        "message": {
+            "lang": "en-us",
+            "value": "No permission to access this view 'BalanceSheetQuery' for
+the current user 'user1'"
+        }
+    }
+}
+```
+
+To grant the view permission to a normal user, log on to the SAP Business One client with the superuser and then open the *General Authorizations* window from ![p057-01](../../../assets/p057-01.png)*System Initialization* ![p057-02](../../../assets/p057-02.png)*Authorizations* ![p057-03](../../../assets/p057-03.png).
+
+Figure: The General Authorizations window.
+
+![p057-04](../../../assets/p057-04.png)
+
+> **Note**
+>
+> Superusers have permission to access all exposed views.
+>
+> The updated authorization for the normal user would not take effect immediately. To get the latest data, log off and log on to the service again or simply restart the service.

@@ -21,6 +21,8 @@ Figure: The Service Layer architecture, from client through Apache to the SAP HA
 
 ![p013-01](../../assets/p013-01.png)
 
+Description: A client (HTML5, Mobile) connects over HTTP/OData to Apache. Inside Apache, an Apache module hosts the OData Parser, the DI Core and the Session Manager (among other components), and the OBServer (multi-threading enabled) hosts several C++ business objects. Apache connects to the SAP HANA database.
+
 In order to achieve even higher availability and scalability, we recommend deploying multiple Service Layer instances with a load balancer in the front. The benefits include the following:
 
 - Client requests can be dispatched to different Service Layer instances and executed in parallel.
@@ -33,6 +35,8 @@ The Service Layer is an application server that provides Web access to SAP Busin
 Figure: The Service Layer architecture with a load balancer and load balancer members.
 
 ![p013-02](../../assets/p013-02.png)
+
+Description: A client connects over HTTPS to a Service Layer Load Balancer, which forwards requests over HTTP to Service Layer Load Balancer Members 1 to n.
 
 > **Recommendation**
 >

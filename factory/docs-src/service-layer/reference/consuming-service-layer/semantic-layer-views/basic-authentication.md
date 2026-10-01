@@ -1,0 +1,23 @@
+---
+title: Semantic Layer Basic Authentication
+source: pdf pp. 66-67, sec 3.7.10
+summary: How to access Semantic Layer views through browser basic authentication by combining user name and company database in the user name.
+---
+
+# Semantic Layer Basic Authentication
+
+Semantic Layer allows you to access views through basic authentication in browsers. For more information, see https://www.httpwatch.com/httpgallery/authentication/ ![p066-01](../../../assets/p066-01.png).
+
+However, basic authentication only allows you to input user name and password. There is not a third input box for company database.
+
+To address this issue, the solution combines the SAP Business One user name and company database together in a JSON format as the user name for basic authentication.
+
+For example, for the browser Microsoft Edge, log on as follows:
+
+Figure: Logging on with basic authentication in Microsoft Edge.
+
+![p066-02](../../../assets/p066-02.png)
+
+> **Note**
+>
+> Basic authentication is another login mechanism just for Semantic Layer service. The authenticated session is not allowed to be reused to access the Service Layer resources (for example, BusinessPartners, Orders).

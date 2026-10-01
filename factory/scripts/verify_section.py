@@ -216,11 +216,27 @@ def main():
     for c in elements["code"]:
         if c["page"] in pages:
             parts[c.get("continues", c["id"])].append(c)
+    # empty gray boxes (no text drawn) carry nothing to transcribe; renders confirm them empty
+    parts = {k: v for k, v in parts.items() if squash("".join(p["text"] for p in v))}
     fenced = [b for t in texts.values() for b in fenced_blocks(t)]
     haystack = squash("\n".join(fenced))
     problems = []
-    if len(fenced) != len(parts):
-        problems.append(f"{len(fenced)} fenced blocks in hojas, {len(parts)} code blocks extracted")
+    # a block split by a page break without a "continues" marker is extracted as separate parts;
+    # a hoja that merges them into one fenced block is faithful, so those parts cost no block
+    squashed = [squash(b) for b in fenced]
+    exact = set(squashed)
+    hosts, loose = set(), 0
+    for ps in parts.values():
+        t = squash("".join(p["text"] for p in ps))
+        if t in exact:
+            continue
+        cands = [i for i, b in enumerate(squashed) if t in b]
+        if cands:
+            loose += 1
+            hosts.add(min(cands, key=lambda i: len(squashed[i])))
+    expected = len(parts) - (loose - len(hosts))
+    if len(fenced) != expected:
+        problems.append(f"{len(fenced)} fenced blocks in hojas, {expected} expected from {len(parts)} code blocks extracted")
     for cid, ps in sorted(parts.items()):
         if squash("".join(p["text"] for p in ps)) not in haystack:
             problems.append(f"{cid} (p{ps[0]['page']}) not found verbatim in any fenced block")
