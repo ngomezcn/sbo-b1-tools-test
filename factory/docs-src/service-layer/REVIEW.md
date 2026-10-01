@@ -91,3 +91,9 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | p179-01 | image | 179 | webhooks/overview-and-quick-start.md | 498x241 | keep | diagram; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
 | p193-01 | image | 193 | webhooks/event-subscription/subscription-permission-control.md | 788x631 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
 | l180-01 | link | 180 | webhooks/overview-and-quick-start.md | https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
+| p225-01 | image | 225 | limitations/limitations.md | 16x16 | keep | inline external-link arrow after the oasis URL (supervisor decision, delegated by the user) |
+| p226-01 | image | 226 | high-availability-load-balancing/high-availability-load-balancing.md | diagram | described | load balancing architecture described in the Figure line (supervisor decision, delegated by the user) |
+| p227-01 | image | 227 | faq/faq.md | 16x16 | keep | inline external-link arrow after the odata.org URL (supervisor decision, delegated by the user) |
+| l225-01 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
+| l225-02 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | keep | same URL as l225-01 (line-wrapped anchor) (supervisor decision, delegated by the user) |
+| l227-01 | link | 227 | faq/faq.md | http://www.odata.org/libraries/ | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |

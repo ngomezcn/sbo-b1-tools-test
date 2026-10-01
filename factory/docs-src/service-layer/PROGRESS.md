@@ -4,8 +4,8 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `webhooks` (#6) transcribed (u1-u6), reviewed (u1, u2, u3 needed a fix job and a second review; u4, u5, u6 clean) and integrated: 4 index.md files (webhooks, event-subscription, event-notification, webhook-formula), 2 intent and 8 confusable-term rows in SKILL.md, all TODO(link) resolved, 2 images copied, 3 rows settled `keep` in REVIEW.md. `verify_section.py webhooks` exits 0 (18 hojas). `verify_section.py` host heuristic fixed for merged blocks that repeat elsewhere (see Notes); all 6 done apartados still pass.
-**Next:** plan apartado `limitations` (#7, ch. 8, p. 225, one page), then `high-availability-load-balancing` (#8, p. 226) and `faq` (#9, pp. 227-228): all three are tiny and can go through plan, transcribe, review and integration in one session. Dangling until integrated: `../limitations/index.md`, `../high-availability-load-balancing/index.md`, `../faq/index.md`.
+**Done last session:** apartados `limitations` (#7), `high-availability-load-balancing` (#8) and `faq` (#9) planned (decisions delegated to the supervisor via grill-with-docs), transcribed (1 unit each), reviewed (limitations and faq clean; HA had 2 real discrepancies, fixed by the supervisor: "load-balancing" hyphen restored, Figure line kept as a described diagram) and integrated: 3 index.md files, 3 intent and 5 confusable-term rows in SKILL.md, the TODO(link) to 3.10 resolved, 3 images copied, 5 rows settled in REVIEW.md. `verify_section.py` exits 0 for all 9 done apartados.
+**Next:** plan apartado `appendix-di-api-comparison` (#10, ch. 11 and 12, pp. 229-248, 20 pages: expect tables and several units). Dangling until integrated: `../appendix-di-api-comparison/index.md`.
 **Waiting on the user:** nothing.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
@@ -20,9 +20,9 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 4 | etag | 5 | 161-166 | done |
 | 5 | configuring | 6 | 167-178 | done |
 | 6 | webhooks | 7 | 179-224 | done |
-| 7 | limitations | 8 | 225 | pending |
-| 8 | high-availability-load-balancing | 9 | 226 | pending |
-| 9 | faq | 10 | 227-228 | pending |
+| 7 | limitations | 8 | 225 | done |
+| 8 | high-availability-load-balancing | 9 | 226 | done |
+| 9 | faq | 10 | 227-228 | done |
 | 10 | appendix-di-api-comparison | 11, 12 | 229-248 | pending |
 
 ## Plan: introduction-getting-started
@@ -356,7 +356,7 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 225-225 | 8, 8.1, 8.2 | limitations.md | pending | 1 prose page, 2 bullet lists, 1 Note (JSONP). p225-01 is an inline external-link arrow (no Figure). Link "Retrieving Individual Properties [page 79]" becomes TODO(link: sec 3.10). Source wrap: `docs.oasis- open.org` in the URL text; write the bare URL. |
+| u1 | 225-225 | 8, 8.1, 8.2 | limitations.md | reviewed | 1 prose page, 2 bullet lists, 1 Note (JSONP). p225-01 is an inline external-link arrow (no Figure). Link "Retrieving Individual Properties [page 79]" becomes TODO(link: sec 3.10). Source wrap: `docs.oasis- open.org` in the URL text; write the bare URL. |
 
 ### Disambiguation candidates
 
@@ -379,7 +379,7 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 226-226 | 9 | high-availability-load-balancing.md | pending | 3 paragraphs, 1 block image (p226-01, architecture diagram between paragraphs 2 and 3): needs a Figure line described from the render. |
+| u1 | 226-226 | 9 | high-availability-load-balancing.md | reviewed | 3 paragraphs, 1 block image (p226-01, architecture diagram between paragraphs 2 and 3): needs a Figure line described from the render. |
 
 ### Disambiguation candidates
 
@@ -400,7 +400,7 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 227-228 | 10 | faq.md | pending | 6 bold-question entries become `##` headings, with an anchor index after the title. 7 code blocks, all on p228; the autostart answer crosses the page break, keep it contiguous. c228-05 is a bare path tagged `javascript` by extraction: retag `text`. p227-01 is an inline link arrow. Source defects to transcribe as printed: "Service layer" (p228), "turn on it again", "symbol link". |
+| u1 | 227-228 | 10 | faq.md | reviewed | 6 bold-question entries become `##` headings, with an anchor index after the title. 7 code blocks, all on p228; the autostart answer crosses the page break, keep it contiguous. c228-05 is a bare path tagged `javascript` by extraction: retag `text`. p227-01 is an inline link arrow. Source defects to transcribe as printed: "Service layer" (p228), "turn on it again", "symbol link". |
 
 ### Disambiguation candidates
 
@@ -474,3 +474,6 @@ Approved: 2026-10-01
 - webhooks u1-u6 source defects, transcribed as printed: p180 JSON has a trailing comma after `"EnableWebhook": "tYES",`; p181 `SAPB1.EventCatagory` misspelt; p185 "headers.If authentication fails" lacks a space; p202 (c201-01/c202-01) JSON has no comma after `"MaxNumberOfWebHooks": 20`; p206 `DocDueDate — DocDate` and `EndTime — StartTime` use a long dash where the neighbouring formulas use a minus; p217 FLOOR is described as rounding "toward zero" but `FLOOR(-4.5)` = -5, CEILING "away from zero" but `CEILING(-4.5)` = -4, and p218 `ROUND(-4.5)` = -4 beside `ROUND(4.5)` = 5.
 - webhooks u2: the second EventCollection example is split by a page break into c191-02 and c192-01; the hoja keeps two fenced blocks with the `t192-01` marker between them, because `verify_section.py` requires both (a reviewer's request to merge them was reverted for that reason).
 - `factory/scripts/verify_section.py` (code check): when a part's shortest containing block is an unrelated block elsewhere that repeats its text (webhook-configuration c201-01 + c202-01 merged into one block), the part now counts against the merged block that another part needs and that starts with it, if exactly one such block exists. Verified on all six done apartados.
+- limitations u1 source defects, transcribed as printed: p225 "data functions" (probably "date functions") and lowercase "Service layer" in the Note.
+- faq u1 source defects, transcribed as printed: p228 "Service layer" lowercase, "turn on it again", "symbol link"; `b1s<port>` plain text on p227. c228-05 retagged `text`.
+- high-availability-load-balancing: the extraction renders p226 "loadbalancing"; the render shows a line-end hyphen of "load-balancing". Fixed in the hoja only.

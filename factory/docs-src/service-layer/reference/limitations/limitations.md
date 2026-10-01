@@ -14,7 +14,7 @@ In the OData protocol implementation perspective, the Service Layer has the foll
 
 - OData Version 1.0 and OData Version 2.0 are not supported.
 - Request/Response of XML format is not supported for the general entity CRUD operations.
-- Accessing the property of a complex type is not allowed (details in section Retrieving Individual Properties [page 79] TODO(link: sec 3.10)).
+- Accessing the property of a complex type is not allowed (details in section [Retrieving Individual Properties](../consuming-service-layer/individual-properties.md)).
 - Managing values and properties directly is not supported.
 - OData-batch: rollback, an OData batch operation, is not supported.
 - Metadata option `odata=fullmetadata` for OData version 3 is not supported.

@@ -24,6 +24,9 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Prevent blind concurrent updates with ETag and `If-Match`, find ETag-enabled entities | "how do I use If-Match", "what is a 412 on PATCH", "which entities support ETag", "ETag in $metadata" | [etag](reference/etag/index.md) |
 | Configure the server: Service Layer Controller, `b1s.conf` options, load balancer nodes, per-request headers, monitor request logs | "how do I change b1s.conf", "Service Layer Controller URL", "B1S-PageSize header", "where are the request logs", "add a node" | [configuring](reference/configuring/index.md) |
 | Enable webhooks, subscribe to business object events, manage subscriptions, read notifications and payloads, configure and troubleshoot the Webhook Messenger | "how do I create a webhook subscription", "what is the webhook payload", "how do I replay events", "webhook handshake fails", "EventSubscriptions", "error 10001237" | [webhooks](reference/webhooks/index.md) |
+| Check what Service Layer does not support: OData versions, XML payloads, batch rollback, query functions, JSONP, user transactions, ImportFromXML/ExportToXML | "does Service Layer support JSONP", "can I roll back a batch", "is there StartTransaction", "arithmetic in $filter" | [limitations](reference/limitations/index.md) |
+| Understand high availability, load balancing, sticky sessions and node failover | "what happens when a node fails", "sticky sessions", "how is the load balanced" | [high-availability-load-balancing](reference/high-availability-load-balancing/index.md) |
+| Look up general FAQs: DI API vs Service Layer, PUT vs PATCH, X-HTTP-Method-Override, service autostart, HANA client path | "what if my client does not support PATCH", "does b1s start with the system", "HANA client not in default location" | [faq](reference/faq/index.md) |
 | Filter webhook events with a formula (operators, string, date, time, math and logical functions, app variables) | "how do I filter webhook events", "FilterExpr syntax", "IFNULL in a webhook formula" | [webhook-formula](reference/webhooks/webhook-formula/index.md) |
 
 ## Confusable terms
@@ -62,3 +65,8 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Webhook permission control | who may manage event subscriptions (sec 7.3.3), not view or query permissions (sec 3.7.6, 3.8.5, 4.11) | [subscription-permission-control](reference/webhooks/event-subscription/subscription-permission-control.md) |
 | Webhook formula | `FilterExpr` language with its own functions (sec 7.7), not OData `$filter` (sec 3.6) or SQL functions (sec 4.7) | [webhook-formula](reference/webhooks/webhook-formula/index.md) |
 | Replay vs retry | replaying a subscription's events (sec 7.3.1) vs automatic retry of failed deliveries (sec 7.8) | [faq](reference/webhooks/faq.md) |
+| Limitations | service-wide unsupported features (ch. 8); stored SQL query limits are sec 4.13 | [limitations](reference/limitations/limitations.md) |
+| Sticky sessions | why same-session requests reach the same node, and failover via the shared session (ch. 9); not login and session usage (sec 3.1) | [high-availability-load-balancing](reference/high-availability-load-balancing/high-availability-load-balancing.md) |
+| FAQ | general Service Layer questions (ch. 10); webhooks questions are sec 7.8 | [faq](reference/faq/faq.md) |
+| PUT vs PATCH | replacement vs differential update and the `X-HTTP-Method-Override` header (ch. 10); entity CRUD is sec 3.4, `If-Match` concurrency is sec 5.2 | [faq](reference/faq/faq.md) |
+| Service Layer vs DI API / DI Server | the short differences in the FAQ (ch. 10), the functional gaps in sec 8.2, the full comparison in Appendix I and II | [faq](reference/faq/faq.md) |
