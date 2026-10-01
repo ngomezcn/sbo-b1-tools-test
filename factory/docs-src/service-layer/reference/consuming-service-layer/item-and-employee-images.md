@@ -129,6 +129,10 @@ GET /b1s/v1/ItemImages('i001')/$value
 
 On success, the response in the browser is as follows:
 
+Figure: The updated item image displayed in the browser.
+
+![p115-01](../../assets/p115-01.png)
+
 > **Note**
 >
 > For test purposes only, you can use the Chrome plug-in `POSTMAN` to update an item image.

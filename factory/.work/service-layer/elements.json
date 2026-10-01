@@ -4,8 +4,8 @@
   "code_parts": 650,
   "tables": 94,
   "table_parts": 108,
-  "images": 28,
-  "image_placements": 29,
+  "images": 29,
+  "image_placements": 30,
   "links": 291,
   "links_internal": 263,
   "links_external": 28
@@ -8052,6 +8052,25 @@
    "y0": 396.8,
    "inline": false,
    "sec": "3.16.4"
+  },
+  {
+   "id": "p115-01",
+   "page": 115,
+   "xref": 1132,
+   "width": 624,
+   "height": 267,
+   "placements": 1,
+   "bboxes": [
+    [
+     70.9,
+     140.8,
+     524.4,
+     334.9
+    ]
+   ],
+   "y0": 140.8,
+   "inline": false,
+   "sec": "3.18.3"
   },
   {
    "id": "p117-01",
