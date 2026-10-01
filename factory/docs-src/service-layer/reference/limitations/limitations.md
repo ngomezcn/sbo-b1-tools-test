@@ -20,7 +20,7 @@ In the OData protocol implementation perspective, the Service Layer has the foll
 - Metadata option `odata=fullmetadata` for OData version 3 is not supported.
 - Metadata option `odata.metadata=full` for OData version 4 is not supported.
 - OData-query: arithmetic operators (for example, add/sub/mul/div/mod) in OData queries are not supported yet.
-- OData-query: some OData query functions are not supported yet, for example, data functions, math functions, type case functions, string functions. For details of these functions, see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html.
+- OData-query: some OData query functions are not supported yet, for example, data functions, math functions, type case functions, string functions. For details of these functions, see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html ![p225-01](../../assets/p225-01.png).
 
 ## Functional Limitations versus SAP Business One DI API
 
