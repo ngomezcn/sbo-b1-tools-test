@@ -59,6 +59,20 @@ _Avoid_: Repo de desarrollo, tooling
 Skill propia de la fábrica que ayuda a fabricar el producto (por ejemplo, generar la documentación a partir de las fuentes). No se publica en `sbo-skills`.
 _Avoid_: Plugin (no se distribuye)
 
+**Apartado**:
+Parte de primer nivel del PDF fuente con carpeta propia en `reference/` y su `index.md`.
+_Avoid_: Capítulo, sección (ambiguos con los del PDF)
+
+**Hoja**:
+Fichero de documentación con un tema concreto, con el que el agente consumidor responde una consulta.
+_Avoid_: Página (se confunde con las del PDF)
+
+**Unidad de trabajo**:
+Tramo contiguo de páginas del PDF que un transcriptor convierte en una o varias hojas sin partir un tema por la mitad.
+
+**Cola de revisión**:
+Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conservar, describir o quitar.
+
 ## Relationships
 
 - Un **Plugin de uso** necesita su **Plugin de configuración** y su **Plugin de documentación** para operar; el **Plugin de documentación** necesita el **Plugin de configuración** pero no el **Plugin de uso**, así que se puede consultar sin él (por ejemplo, un agente de código que programa contra Service Layer).
