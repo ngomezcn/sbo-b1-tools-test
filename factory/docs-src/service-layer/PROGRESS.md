@@ -342,6 +342,73 @@ Routing-only `index.md` files (written at integration, not hojas): `webhooks/ind
 7. 7.7.12 Logical Functions (only IFNULL) as its own hoja (recommended) or merged into math-functions.md.
 8. 7.8 FAQ as one hoja with `###` questions (recommended).
 
+## Plan: limitations
+
+Approved: 2026-10-01
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| limitations/limitations.md | Service Layer limitations | 8, 8.1, 8.2 | 225-225 | u1 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 225-225 | 8, 8.1, 8.2 | limitations.md | pending | 1 prose page, 2 bullet lists, 1 Note (JSONP). p225-01 is an inline external-link arrow (no Figure). Link "Retrieving Individual Properties [page 79]" becomes TODO(link: sec 3.10). Source wrap: `docs.oasis- open.org` in the URL text; write the bare URL. |
+
+### Disambiguation candidates
+
+- Limitations (ch. 8) vs SQL Query Limitations or By Design (4.13).
+- 8.1 complex-type property access vs Retrieving Individual Properties (3.10).
+- 8.1 batch rollback vs Batch Operations (3.9, change sets 3.9.4).
+- 8.2 no user transactions vs Login and Logout / Session (3.1) and ch. 9 sticky sessions.
+
+## Plan: high-availability-load-balancing
+
+Approved: 2026-10-01
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| high-availability-load-balancing/high-availability-load-balancing.md | High availability and load balancing | 9 | 226-226 | u1 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 226-226 | 9 | high-availability-load-balancing.md | pending | 3 paragraphs, 1 block image (p226-01, architecture diagram between paragraphs 2 and 3): needs a Figure line described from the render. |
+
+### Disambiguation candidates
+
+- Sticky sessions (ch. 9) vs Login and Logout / Session (3.1).
+- Load balancer and nodes (ch. 9) vs Node Management (6.1, `configuring`) vs the b1s services in the FAQ (ch. 10).
+
+## Plan: faq
+
+Approved: 2026-10-01
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| faq/faq.md | Frequently asked questions | 10 | 227-228 | u1 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 227-228 | 10 | faq.md | pending | 6 bold-question entries become `##` headings, with an anchor index after the title. 7 code blocks, all on p228; the autostart answer crosses the page break, keep it contiguous. c228-05 is a bare path tagged `javascript` by extraction: retag `text`. p227-01 is an inline link arrow. Source defects to transcribe as printed: "Service layer" (p228), "turn on it again", "symbol link". |
+
+### Disambiguation candidates
+
+- FAQ (ch. 10) vs webhooks FAQ (7.8).
+- DI API / DI Server differences vs Appendix I and II (ch. 11, 12) and 8.2.
+- PUT/PATCH and `X-HTTP-Method-Override` vs CRUD Operations (3.4) and ETag If-Match (5.2.3).
+- b1s services / load balancer node vs ch. 9 and Node Management (6.1).
+
 ## Decisions
 
 - 2026-10-01 user: apartado list confirmed as in profile.md.
@@ -356,6 +423,8 @@ Routing-only `index.md` files (written at integration, not hojas): `webhooks/ind
 - 2026-10-01 supervisor: etag review finding 2 (anchor index listed the ### scenarios, leaf-format says ## headings) fixed by editing the index to ETag Introduction / ETag Scenarios.
 
 - 2026-10-01 user (delegated: "si lo ves bien apruebalo"): webhooks plan approved with all 8 planner recommendations; supervisor verified section page ranges against outline.json and the p221/p222 and p193/p194 boundaries.
+
+- 2026-10-01 user (delegated: "usa la /grill-with-docs para decidir"): plans for limitations, high-availability-load-balancing and faq approved with all planner recommendations, decided by the supervisor via grill-with-docs (no new term or ADR needed): one hoja per apartado (8.1+8.2 together; FAQ as one hoja with `##` per question and anchor index), each in its own folder with index.md. All three run in one session.
 
 ## Notes
 
