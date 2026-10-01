@@ -10,9 +10,27 @@ As of SAP Business One 10.0 FP 2602, the Service Layer supports webhooks.
 
 Webhooks let you receive instant notifications about specific events that occur in your SAP Business One system. When you subscribe to events, you can use webhooks to trigger actions in your applications when certain events happen, such as creating or updating business objects.
 
-Figure: Webhooks in the Service Layer.
+```text
+┌──────────────────────────┐                    ┌───────────────────────────────┐
+│                          │                    │   SAP Business One Webhook    │
+│                          │                    │                               │
+│  ┌────────────────────┐  │       R ▶          │      ┌─────────────────┐      │
+│  │                    ├──┼─────────○──────────┼──────┤  Service Layer  │      │
+│  │                    │  │    OData Query     │      └─────────────────┘      │
+│  │                    │  │                    │                               │
+│  │     Partner's      │  │                    │                               │
+│  │  Webhook Service   │  │                    │                               │
+│  │                    │  │     ◀ R            │      ┌─────────────────┐      │
+│  │                    ├──┼─────────○──────────┼──────┤     Webhook     │      │
+│  │                    │  │ Push Notification  │      │    Messenger    │      │
+│  │                    │  │                    │      └─────────────────┘      │
+│  └────────────────────┘  │                    │                               │
+│                          │                    │                               │
+│                          │                    │              ...              │
+└──────────────────────────┘                    └───────────────────────────────┘
+```
 
-![p179-01](../../assets/p179-01.png)
+Figure: Webhooks in the Service Layer. The Partner's Webhook Service sits outside the SAP Business One Webhook boundary. It reaches the Service Layer through an OData Query interface (request direction: partner to Service Layer). The Webhook Messenger delivers events back to the partner through a Push Notification interface (direction: Messenger to partner). The ellipsis indicates further components inside the SAP Business One Webhook boundary.
 
 To support the webhook feature, a new component called Webhook Messenger Service is introduced to the SAP Business One landscape. It runs as a daemon service behind the Service Layer at the service unit level and handles the delivery of webhook notifications. The webhook mechanism with Service Layer is designed to be flexible and secure. It supports different authentication methods and ensures reliable delivery of notifications.
 

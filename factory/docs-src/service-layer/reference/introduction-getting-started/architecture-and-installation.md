@@ -17,11 +17,46 @@ Within the Web server, several key components are involved in handling incoming 
 - The session manager implements session stickiness, working with the Service Layer load balancer, so that requests from the same client will be handled by the same Service Layer node.
 - OBServer is the body of business logic dealing with the actual work, for example, tax calculation, posting, and so on. Service Layer achieves high performance and scalability by leveraging multi-processing.
 
-Figure: The Service Layer architecture, from client through Apache to the SAP HANA database.
+```text
+   ┌───────────────────────┐
+ ┌───────────────────────┐ │
+ │        Client         │ │
+ │    (HTML5, Mobile)    │─┘
+ └───────────────────────┘
+             │
+HTTP / OData ○ R
+             │ ▼
+┌────────────┴──────────────────────────────────────────────────────────────┐
+│                                  Apache                                   │
+│ ┌───────────────────────────────────────────────────────────────────────┐ │
+│ │ Apache module                                                         │ │
+│ │                     ┌───────────┐    ┌───────────┐    ┌───────────┐   │ │
+│ │                     │   OData   │    │  DI Core  │    │  Session  │   │ │
+│ │                     │  Parser   │ ...│           │ ...│  Manager  │   │ │
+│ │                     └───────────┘    └───────────┘    └───────────┘   │ │
+│ │                                                                       │ │
+│ │ ┌───────────────────────────────────────────────────────────────────┐ │ │
+│ │ │ OBServer                                                          │ │ │
+│ │ │ (multi-threading  ┌───────────┐    ┌───────────┐    ┌───────────┐ │ │ │
+│ │ │ enabled)          │    C++    │    │    C++    │    │    C++    │ │ │ │
+│ │ │                   │ business  │ ...│ business  │ ...│ business  │ │ │ │
+│ │ │                   │  object   │    │  object   │    │  object   │ │ │ │
+│ │ │                   └───────────┘    └───────────┘    └───────────┘ │ │ │
+│ │ │                                                                   │ │ │
+│ │ └───────────────────────────────────────────────────────────────────┘ │ │
+│ │                                                                       │ │
+│ └───────────────────────────────────────────────────────────────────────┘ │
+└────────────┬──────────────────────────────────────────────────────────────┘
+             │
+             ○ R
+             │ ▼
+             │
+┌────────────┴──────────────────────────────────────────────────────────────┐
+│                             SAP HANA Database                             │
+└───────────────────────────────────────────────────────────────────────────┘
+```
 
-![p013-01](../../assets/p013-01.png)
-
-Description: A client (HTML5, Mobile) connects over HTTP/OData to Apache. Inside Apache, an Apache module hosts the OData Parser, the DI Core and the Session Manager (among other components), and the OBServer (multi-threading enabled) hosts several C++ business objects. Apache connects to the SAP HANA database.
+Figure: The Service Layer architecture, from client through Apache to the SAP HANA database. A client (HTML5, Mobile) connects over HTTP/OData to Apache. Inside Apache, the Apache module hosts the OData Parser, the DI Core and the Session Manager (among other components), and the OBServer (multi-threading enabled) hosts several C++ business objects. Apache in turn connects to the SAP HANA Database.
 
 In order to achieve even higher availability and scalability, we recommend deploying multiple Service Layer instances with a load balancer in the front. The benefits include the following:
 

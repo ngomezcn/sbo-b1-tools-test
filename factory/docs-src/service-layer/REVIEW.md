@@ -4,7 +4,6 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 
 | id | kind | page | hoja | target | status | note |
 |---|---|---|---|---|---|---|
-| p013-01 | image | 13 | introduction-getting-started/architecture-and-installation.md | 934x655 | described | architecture diagram described in the hoja (supervisor decision, delegated by the user) |
 | l012-01 | link | 12 | introduction-getting-started/system-requirements.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | keep | official SAP Help Portal URL, visible in the hoja (supervisor decision, delegated by the user) |
 | p024-01 | image | 24 | consuming-service-layer/crud-operations.md | 393x304 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | p053-01 | image | 53 | consuming-service-layer/semantic-layer-views/deployment-and-scope.md | 624x375 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
@@ -43,10 +42,8 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l169-01 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l169-02 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/ | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l173-01 | link | 173 | configuring/service-layer-controller-settings.md | https://me.sap.com/notes/3157498 | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
-| p179-01 | image | 179 | webhooks/overview-and-quick-start.md | 498x241 | keep | diagram; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
 | p193-01 | image | 193 | webhooks/event-subscription/subscription-permission-control.md | 788x631 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
 | l180-01 | link | 180 | webhooks/overview-and-quick-start.md | https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
-| p226-01 | image | 226 | high-availability-load-balancing/high-availability-load-balancing.md | diagram | described | load balancing architecture described in the Figure line (supervisor decision, delegated by the user) |
 | l225-01 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l225-02 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | keep | same URL as l225-01 (line-wrapped anchor) (supervisor decision, delegated by the user) |
 | l227-01 | link | 227 | faq/faq.md | http://www.odata.org/libraries/ | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
