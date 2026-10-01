@@ -38,7 +38,7 @@ To grant the view permission to a normal user, log on to the SAP Business One cl
 
 Figure: The General Authorizations window.
 
-![p057-04](../../../assets/p057-04.png)
+Screenshot of the *Authorizations* window with the user `andy` selected in the *Users* list on the left. The tree on the right is expanded along *Analytics > Semantic Layer > Financials > Financial Accounting*. The *Balance Sheet Query* row is highlighted: its *Authorization* column is set to `Full Authorization` and its *Effective Authorization* column also shows `Full Authorization`. The other visible rows, such as *Balance Sheet Comparison Query* and *Cash Flow Statement Query*, show `No Authorization`. The *Full Authorization*, *Read Only* and *No Authorization* buttons are at the bottom right.
 
 > **Note**
 >

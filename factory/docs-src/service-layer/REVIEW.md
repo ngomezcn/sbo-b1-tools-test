@@ -5,12 +5,6 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | id | kind | page | hoja | target | status | note |
 |---|---|---|---|---|---|---|
 | l012-01 | link | 12 | introduction-getting-started/system-requirements.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | keep | official SAP Help Portal URL, visible in the hoja (supervisor decision, delegated by the user) |
-| p024-01 | image | 24 | consuming-service-layer/crud-operations.md | 393x304 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p053-01 | image | 53 | consuming-service-layer/semantic-layer-views/deployment-and-scope.md | 624x375 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p057-04 | image | 57 | consuming-service-layer/semantic-layer-views/view-authorization.md | 624x363 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p062-01 | image | 62 | consuming-service-layer/semantic-layer-views/view-query.md | 624x374 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p064-01 | image | 64 | consuming-service-layer/semantic-layer-views/customized-views.md | 624x501 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
-| p065-01 | image | 65 | consuming-service-layer/semantic-layer-views/customized-views.md | 624x366 | keep | UI screenshot; the steps and values it shows are in the surrounding text (supervisor decision, delegated by the user) |
 | l016-01 | link | 16 | consuming-service-layer/login-logout-session.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l063-01 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://me.sap.com/notes/2008991 | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l063-02 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/ | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |

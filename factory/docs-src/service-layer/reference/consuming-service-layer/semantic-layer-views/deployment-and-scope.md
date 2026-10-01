@@ -36,7 +36,7 @@ All eligible views are not exposed by default. To expose them, you can manually 
 
 Figure: The SAP HANA Model Management window with the Service Layer Expose checkbox.
 
-![p053-01](../../../assets/p053-01.png)
+Screenshot of the *SAP HANA Model Management* window. The top grid lists one model package, `SAP HANA Model Package` (author `SAP`, version `1.2`, status `Deployed`, language English (United States)). The lower grid lists views by package name, view name, view type (all *Calculation View*), menu description, *Menu Enable* and *Service Layer Expose*. The *Service Layer Expose* checkbox of the `AveragePurchasingPriceQuery` row is checked and that row is highlighted; the other visible rows are unchecked. The *Compatible Versions* tables list SAP HANA `1.0.74`, `1.0.81` and `1.0.83`, and SAP Business One `9.10.105`, `9.10.106` and `9.10.107`. The *OK*, *Deploy* and *Import* buttons are at the bottom.
 
 ## View Exposure OData Version
 

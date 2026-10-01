@@ -12,11 +12,7 @@ Besides the system built-in views, the customer designed views are also able to 
 
 To achieve this, first use the latest **SAP HANA Model Package Tool** to generate a compressed model package after exporting the designed SAP HANA models from SAP HANA Studio. As for how to download and use this tool, see SAP Note 2008991 (https://me.sap.com/notes/2008991) or this blog (https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/).
 
-Compared to the old versions, in the *SAP HANA Model Packaging Wizard for SAP Business One*, a column named as *Enable for Service Layer* is added with checkbox type as below:
-
-Figure: The Enable for Service Layer column in the SAP HANA Model Packaging Wizard for SAP Business One.
-
-![p064-01](../../../assets/p064-01.png)
+Compared to the old versions, in the *SAP HANA Model Packaging Wizard for SAP Business One*, a column named as *Enable for Service Layer* is added with checkbox type.
 
 For this newly introduced column, the behaviors are described as follows:
 
@@ -30,7 +26,7 @@ Once the model package is ready, open the *SAP HANA Model Management* window in 
 
 Figure: The SAP HANA Model Management window.
 
-![p065-01](../../../assets/p065-01.png)
+Screenshot of the *SAP HANA Model Management* window. The top grid has two rows: `SAP HANA Model Package` (author `SAP`, version `1.2`, status `Deployed`) and the highlighted row `partner_model` (author `andy`, version `1`, status `Imported`), whose description reads "it is a test". The lower grid lists five views: `MyItem` and `SalesExView` (*Calculation View*), `AN_MY_INVOICE` (*Analytic View*), and `DIM_MYBP` and `DIM_MYDATE` (*Attribute View*). The *Service Layer Expose* cell of the first row (`MyItem`) is highlighted and its checkbox is unchecked. The *OK*, *Deploy* and *Import* buttons are at the bottom.
 
 > **Note**
 >

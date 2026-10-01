@@ -4,8 +4,8 @@
   "code_parts": 650,
   "tables": 94,
   "table_parts": 108,
-  "images": 20,
-  "image_placements": 21,
+  "images": 17,
+  "image_placements": 18,
   "links": 291,
   "links_internal": 263,
   "links_external": 28
@@ -7668,25 +7668,6 @@
    "sec": "2.3"
   },
   {
-   "id": "p024-01",
-   "page": 24,
-   "xref": 197,
-   "width": 393,
-   "height": 304,
-   "placements": 1,
-   "bboxes": [
-    [
-     70.9,
-     104.0,
-     365.7,
-     332.1
-    ]
-   ],
-   "y0": 104.0,
-   "inline": false,
-   "sec": "3.4"
-  },
-  {
    "id": "p053-01",
    "page": 53,
    "xref": 459,
@@ -7723,44 +7704,6 @@
    "y0": 443.8,
    "inline": false,
    "sec": "3.7.6"
-  },
-  {
-   "id": "p062-01",
-   "page": 62,
-   "xref": 553,
-   "width": 624,
-   "height": 374,
-   "placements": 1,
-   "bboxes": [
-    [
-     70.9,
-     180.5,
-     524.4,
-     452.3
-    ]
-   ],
-   "y0": 180.5,
-   "inline": false,
-   "sec": "3.7.7.5"
-  },
-  {
-   "id": "p064-01",
-   "page": 64,
-   "xref": 579,
-   "width": 624,
-   "height": 501,
-   "placements": 1,
-   "bboxes": [
-    [
-     70.9,
-     136.8,
-     524.4,
-     500.9
-    ]
-   ],
-   "y0": 136.8,
-   "inline": false,
-   "sec": "3.7.8"
   },
   {
    "id": "p065-01",

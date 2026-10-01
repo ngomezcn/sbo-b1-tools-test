@@ -253,9 +253,7 @@ BalanceSheetQuery(1)?$select=FiscalYear, AccountCode
 
 ## Querying View with Aggregation
 
-In SAP HANA Studio, you can preview the query view data from multiple dimensions, such as displayed in the following screenshot:
-
-![p062-01](../../../assets/p062-01.png)
+In SAP HANA Studio, you can preview the query view data from multiple dimensions, for example by year and month.
 
 The produced grid is as follows:
 

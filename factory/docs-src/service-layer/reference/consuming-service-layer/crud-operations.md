@@ -6,11 +6,7 @@ summary: Creating, retrieving, updating and deleting OData entities with POST, G
 
 # CRUD operations on entities
 
-OData protocol defines a standard way to create/retrieve/update/delete (CRUD) an entity. The CRUD operations are all similar. You can refer to the API reference document for details (see the screenshot below).
-
-Figure: The API reference document, referred to for CRUD operation details.
-
-![p024-01](../../assets/p024-01.png)
+OData protocol defines a standard way to create/retrieve/update/delete (CRUD) an entity. The CRUD operations are all similar. You can refer to the API reference document for details.
 
 ## Creating Entities
 
