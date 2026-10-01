@@ -257,7 +257,7 @@ summary: The properties of an EventSubscription (WebhookID, WebhookURL, authenti
       Available as of SAP Business One 10.0 FP 2608
 
       - **Type**: String
-      - **Description**: A boolean formula used to filter events for subscription. The formula is evaluated against the business object fields, and only events that satisfy the condition trigger notifications. For formula details, refer to the Webhook Formula [page 203] TODO(link: sec 7.7) section.
+      - **Description**: A boolean formula used to filter events for subscription. The formula is evaluated against the business object fields, and only events that satisfy the condition trigger notifications. For formula details, refer to the [Webhook Formula](../webhook-formula/formula-basics.md) [page 203] section.
       - **Constraints**:
         - Optional
         - If provided, must be a valid boolean expression using the supported syntax and operators
@@ -314,6 +314,10 @@ summary: The properties of an EventSubscription (WebhookID, WebhookURL, authenti
 
       CardCode,
       DocTotal",
+      ```
+
+      <!-- table: t192-01 -->
+      ```json
       "FilterExp
       r":
       "DocTotal

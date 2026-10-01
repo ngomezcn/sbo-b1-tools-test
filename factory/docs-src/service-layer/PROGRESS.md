@@ -4,8 +4,8 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `webhooks` (#6) planned and approved (delegated to the supervisor); WORK re-extracted.
-**Next:** dispatch transcribers for webhooks u1-u6 (max 4 in parallel), then reviewers, then integrate. Dangling until integrated: `../limitations/index.md`, `../high-availability-load-balancing/index.md`, `../webhooks/index.md`.
+**Done last session:** apartado `webhooks` (#6) transcribed (u1-u6), reviewed (u1, u2, u3 needed a fix job and a second review; u4, u5, u6 clean) and integrated: 4 index.md files (webhooks, event-subscription, event-notification, webhook-formula), 2 intent and 8 confusable-term rows in SKILL.md, all TODO(link) resolved, 2 images copied, 3 rows settled `keep` in REVIEW.md. `verify_section.py webhooks` exits 0 (18 hojas). `verify_section.py` host heuristic fixed for merged blocks that repeat elsewhere (see Notes); all 6 done apartados still pass.
+**Next:** plan apartado `limitations` (#7, ch. 8, p. 225, one page), then `high-availability-load-balancing` (#8, p. 226) and `faq` (#9, pp. 227-228): all three are tiny and can go through plan, transcribe, review and integration in one session. Dangling until integrated: `../limitations/index.md`, `../high-availability-load-balancing/index.md`, `../faq/index.md`.
 **Waiting on the user:** nothing.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
@@ -19,7 +19,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 3 | sql-query | 4 | 140-160 | done |
 | 4 | etag | 5 | 161-166 | done |
 | 5 | configuring | 6 | 167-178 | done |
-| 6 | webhooks | 7 | 179-224 | approved |
+| 6 | webhooks | 7 | 179-224 | done |
 | 7 | limitations | 8 | 225 | pending |
 | 8 | high-availability-load-balancing | 9 | 226 | pending |
 | 9 | faq | 10 | 227-228 | pending |
@@ -311,12 +311,12 @@ Routing-only `index.md` files (written at integration, not hojas): `webhooks/ind
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 179-186 | 7, 7.1, 7.2, 7.3, 7.3.1, 7.3.1.1 | overview-and-quick-start.md, event-catalog.md, subscription-operations.md, handshake-mechanism.md | pending | 8 pages, 21 code blocks, 1 block image (p179-01). p180 holds end of 7.1 (c180-01 continues c179-01) and start of 7.2; p181 end of 7.2 and start of 7.3. p186 shared with u2: u1 takes the end of 7.3.1.1, u2 takes 7.3.2 from its heading. Anchor index likely for subscription-operations.md. |
-| u2 | 186-193 | 7.3.2, 7.3.3 | subscription-properties.md, subscription-permission-control.md | pending | 7 pages, 5 wide tables, 6 code blocks, 1 block image (p193-01). Outline says 7.3.3 ends p194, but p194 starts at 7.4: it ends on p193. |
-| u3 | 194-203 | 7.4, 7.4.1, 7.4.1.1, 7.4.2, 7.5, 7.6 | notifications-query.md, payload-structure.md, webhook-configuration.md, webhook-messenger.md | pending | 10 pages, 9 tables, 10 code blocks. c199-02 continues as c200-01 across the 7.4.2/7.5 border; p202 opens with c202-01 (tail of 7.5) then 7.6 starts. p203 shared with u4: u3 takes everything above the `7.7 Webhook Formula` heading. Check p200-p202 to place 7.5 vs 7.6 content. |
-| u4 | 203-211 | 7.7, 7.7.1-7.7.8 | formula-basics.md, string-functions.md | pending | 9 pages, light but fragmentary (~18 tables, 9 code blocks). Function names are unbookmarked bold lines: `###` headings, with Usage/Parameters/Examples as `####`. p211 opens with the tail of SUBSTITUTE: u4 takes everything above `7.7.9 Date Functions`. string-functions.md needs an anchor index. |
-| u5 | 211-221 | 7.7.9-7.7.13 | date-functions.md, time-functions.md, math-functions.md, logical-functions.md, app-level-variables.md | pending | 11 pages, ~37 small tables, 17 code blocks, uniform structure. p219 holds the end of MAX and start of IFNULL; p220 opens with the IFNULL Examples tail and starts 7.7.13. Anchor index per function hoja. |
-| u6 | 222-224 | 7.8 | faq.md | pending | 3 pages, text only, 1 code block (c223-01 continues as c224-01). Questions as bold lines become `###` headings. |
+| u1 | 179-186 | 7, 7.1, 7.2, 7.3, 7.3.1, 7.3.1.1 | overview-and-quick-start.md, event-catalog.md, subscription-operations.md, handshake-mechanism.md | reviewed | 8 pages, 21 code blocks, 1 block image (p179-01). p180 holds end of 7.1 (c180-01 continues c179-01) and start of 7.2; p181 end of 7.2 and start of 7.3. p186 shared with u2: u1 takes the end of 7.3.1.1, u2 takes 7.3.2 from its heading. Anchor index likely for subscription-operations.md. |
+| u2 | 186-193 | 7.3.2, 7.3.3 | subscription-properties.md, subscription-permission-control.md | reviewed | 7 pages, 5 wide tables, 6 code blocks, 1 block image (p193-01). Outline says 7.3.3 ends p194, but p194 starts at 7.4: it ends on p193. |
+| u3 | 194-203 | 7.4, 7.4.1, 7.4.1.1, 7.4.2, 7.5, 7.6 | notifications-query.md, payload-structure.md, webhook-configuration.md, webhook-messenger.md | reviewed | 10 pages, 9 tables, 10 code blocks. c199-02 continues as c200-01 across the 7.4.2/7.5 border; p202 opens with c202-01 (tail of 7.5) then 7.6 starts. p203 shared with u4: u3 takes everything above the `7.7 Webhook Formula` heading. Check p200-p202 to place 7.5 vs 7.6 content. |
+| u4 | 203-211 | 7.7, 7.7.1-7.7.8 | formula-basics.md, string-functions.md | reviewed | 9 pages, light but fragmentary (~18 tables, 9 code blocks). Function names are unbookmarked bold lines: `###` headings, with Usage/Parameters/Examples as `####`. p211 opens with the tail of SUBSTITUTE: u4 takes everything above `7.7.9 Date Functions`. string-functions.md needs an anchor index. |
+| u5 | 211-221 | 7.7.9-7.7.13 | date-functions.md, time-functions.md, math-functions.md, logical-functions.md, app-level-variables.md | reviewed | 11 pages, ~37 small tables, 17 code blocks, uniform structure. p219 holds the end of MAX and start of IFNULL; p220 opens with the IFNULL Examples tail and starts 7.7.13. Anchor index per function hoja. |
+| u6 | 222-224 | 7.8 | faq.md | reviewed | 3 pages, text only, 1 code block (c223-01 continues as c224-01). Questions as bold lines become `###` headings. |
 
 ### Disambiguation candidates
 
@@ -402,3 +402,6 @@ Routing-only `index.md` files (written at integration, not hojas): `webhooks/ind
 - u2 callouts (Note, Sample Code) contain fenced code inside blockquotes; check verify_section.py accepts it at integration.
 - 2026-10-01 user (delegated: "tu mismo revisalo y apruebalo, no me preguntes nada"): supervisor reviewed the configuring plan against CONTEXT.md and ADRs (no conflicts, no new terms) and approved it with all 4 recommendations (6.2/6.3 separate, intro merged into 6.1, 6.4 one hoja, 6.1 one hoja). Supervisor runs u1-u2 through to integration without asking.
 - 2026-10-01 supervisor: configuring integration. Source defects reported: p173 "Prior toSAP Business One" and "conf/ httpd-b1s-lb.conf" stray space, p178 "trouble shooting", p174 empty Type cell for EnableAudienceValidation, all transcribed as printed. Cross-apartado page refs like "[page 174]" are kept after the link text.
+- webhooks u1-u6 source defects, transcribed as printed: p180 JSON has a trailing comma after `"EnableWebhook": "tYES",`; p181 `SAPB1.EventCatagory` misspelt; p185 "headers.If authentication fails" lacks a space; p202 (c201-01/c202-01) JSON has no comma after `"MaxNumberOfWebHooks": 20`; p206 `DocDueDate — DocDate` and `EndTime — StartTime` use a long dash where the neighbouring formulas use a minus; p217 FLOOR is described as rounding "toward zero" but `FLOOR(-4.5)` = -5, CEILING "away from zero" but `CEILING(-4.5)` = -4, and p218 `ROUND(-4.5)` = -4 beside `ROUND(4.5)` = 5.
+- webhooks u2: the second EventCollection example is split by a page break into c191-02 and c192-01; the hoja keeps two fenced blocks with the `t192-01` marker between them, because `verify_section.py` requires both (a reviewer's request to merge them was reverted for that reason).
+- `factory/scripts/verify_section.py` (code check): when a part's shortest containing block is an unrelated block elsewhere that repeats its text (webhook-configuration c201-01 + c202-01 merged into one block), the part now counts against the merged block that another part needs and that starts with it, if exactly one such block exists. Verified on all six done apartados.

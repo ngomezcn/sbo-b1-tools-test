@@ -23,6 +23,8 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Store, run, page and troubleshoot SQL queries through `SQLQueries`; allowlists, keywords, parameters, permissions | "how do I create a stored SQL query", "which tables can SQL Query read", "can I use union in a query", "why 403 on SQLQueries", "SQL query with parameters" | [sql-query](reference/sql-query/index.md) |
 | Prevent blind concurrent updates with ETag and `If-Match`, find ETag-enabled entities | "how do I use If-Match", "what is a 412 on PATCH", "which entities support ETag", "ETag in $metadata" | [etag](reference/etag/index.md) |
 | Configure the server: Service Layer Controller, `b1s.conf` options, load balancer nodes, per-request headers, monitor request logs | "how do I change b1s.conf", "Service Layer Controller URL", "B1S-PageSize header", "where are the request logs", "add a node" | [configuring](reference/configuring/index.md) |
+| Enable webhooks, subscribe to business object events, manage subscriptions, read notifications and payloads, configure and troubleshoot the Webhook Messenger | "how do I create a webhook subscription", "what is the webhook payload", "how do I replay events", "webhook handshake fails", "EventSubscriptions", "error 10001237" | [webhooks](reference/webhooks/index.md) |
+| Filter webhook events with a formula (operators, string, date, time, math and logical functions, app variables) | "how do I filter webhook events", "FilterExpr syntax", "IFNULL in a webhook formula" | [webhook-formula](reference/webhooks/webhook-formula/index.md) |
 
 ## Confusable terms
 
@@ -52,3 +54,11 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | ETag on update, delete and action | `If-Match` and 412 for concurrent changes (sec 5.2), not plain entity CRUD (sec 3.4), actions (sec 3.5) or `$batch` change sets (sec 3.9) | [etag-usage](reference/etag/etag-usage.md) |
 | Configuration by request vs server configuration | per-request HTTP headers (sec 6.3) vs `b1s.conf` options (sec 6.2) and Controller settings (sec 6.1); webhook configuration is sec 7.5 | [configuration-by-request](reference/configuring/configuration-by-request.md) |
 | Monitoring Service Layer logs | Controller request logs (sec 6.4), not SQL query log modification (sec 4.12.2) | [monitoring-logs](reference/configuring/monitoring-logs.md) |
+| Webhooks FAQ | retry, replay, ordering, duplicates and URL validation of webhooks (sec 7.8); general Service Layer questions are ch. 10 | [faq](reference/webhooks/faq.md) |
+| Webhook configuration | company-level `AdminInfo` webhook settings (sec 7.5), not server settings (ch. 6) or per-request headers (sec 6.3) | [webhook-configuration](reference/webhooks/webhook-configuration.md) |
+| Webhook Messenger | the daemon that delivers notifications, health check and certificate import (sec 7.6); load balancing is ch. 9 | [webhook-messenger](reference/webhooks/webhook-messenger.md) |
+| Event subscription vs event notification | `EventSubscriptions` define what to listen to (sec 7.3); `EventNotifications` record what was sent (sec 7.4) | [subscription-operations](reference/webhooks/event-subscription/subscription-operations.md) |
+| Webhook handshake | endpoint validation of a webhook URL (sec 7.3.1.1), not Service Layer login (sec 3.1) | [handshake-mechanism](reference/webhooks/event-subscription/handshake-mechanism.md) |
+| Webhook permission control | who may manage event subscriptions (sec 7.3.3), not view or query permissions (sec 3.7.6, 3.8.5, 4.11) | [subscription-permission-control](reference/webhooks/event-subscription/subscription-permission-control.md) |
+| Webhook formula | `FilterExpr` language with its own functions (sec 7.7), not OData `$filter` (sec 3.6) or SQL functions (sec 4.7) | [webhook-formula](reference/webhooks/webhook-formula/index.md) |
+| Replay vs retry | replaying a subscription's events (sec 7.3.1) vs automatic retry of failed deliveries (sec 7.8) | [faq](reference/webhooks/faq.md) |

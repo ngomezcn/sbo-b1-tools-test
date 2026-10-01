@@ -120,4 +120,4 @@ GET CompanyService_GetAdminInfo
 > **Note**
 >
 > - Use the OData V4 protocol for all Service Layer API calls related to webhooks. The relative path should be `/b1s/v2/`.
-> - If the `CompanyService_UpdateAdminInfo` API returns an error such as "10001237 – Enter valid folder path", check that the relevant directories (for example, **ExcelFolderPath** and **XMLFileFolderPath**) exist on the server. For more information, see the FAQ [page 222] TODO(link: sec 7.8) section.
+> - If the `CompanyService_UpdateAdminInfo` API returns an error such as "10001237 – Enter valid folder path", check that the relevant directories (for example, **ExcelFolderPath** and **XMLFileFolderPath**) exist on the server. For more information, see the [FAQ](faq.md) [page 222] section.

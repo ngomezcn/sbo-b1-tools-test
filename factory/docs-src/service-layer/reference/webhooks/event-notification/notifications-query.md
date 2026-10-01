@@ -16,9 +16,9 @@ When an event that you subscribe to occurs, the Webhook Messenger Service sends 
 
 **Related Information**
 
-EventNotifications Query [page 194] TODO(link: sec 7.4.1)
+[EventNotifications Query](notifications-query.md#eventnotifications-query) [page 194]
 
-Notification Payload Structure [page 198] TODO(link: sec 7.4.2)
+[Notification Payload Structure](payload-structure.md) [page 198]
 
 ## EventNotifications Query
 
@@ -43,7 +43,7 @@ GET EventNotifications('3f03e9da-8dd6-4601-be18-5cad6790bfd3')
 
 **Related Information**
 
-EventNotifications Properties [page 195] TODO(link: sec 7.4.1.1)
+[EventNotifications Properties](notifications-query.md#eventnotifications-properties) [page 195]
 
 ## EventNotifications Properties
 

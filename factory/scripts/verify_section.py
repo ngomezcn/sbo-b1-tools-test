@@ -225,7 +225,7 @@ def main():
     # a hoja that merges them into one fenced block is faithful, so those parts cost no block
     squashed = [squash(b) for b in fenced]
     exact = set(squashed)
-    hosts, loose = set(), 0
+    hosts, loose, loose_cands = set(), 0, []
     for ps in parts.values():
         t = squash("".join(p["text"] for p in ps))
         if t in exact:
@@ -233,7 +233,14 @@ def main():
         cands = [i for i, b in enumerate(squashed) if t in b]
         if cands:
             loose += 1
-            hosts.add(min(cands, key=lambda i: len(squashed[i])))
+            loose_cands.append((t, cands))
+    # parts merged into one block share it: when a part's own shortest host is a block elsewhere
+    # that merely repeats its text, use the merged block that another part already needs and
+    # that starts with this part
+    firsts = {min(c, key=lambda i: len(squashed[i])) for _, c in loose_cands if len(c) == 1}
+    for t, cands in loose_cands:
+        shared = [i for i in cands if i in firsts and squashed[i].startswith(t)]
+        hosts.add(shared[0] if len(shared) == 1 else min(cands, key=lambda i: len(squashed[i])))
     expected = len(parts) - (loose - len(hosts))
     if len(fenced) != expected:
         problems.append(f"{len(fenced)} fenced blocks in hojas, {expected} expected from {len(parts)} code blocks extracted")

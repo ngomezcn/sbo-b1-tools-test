@@ -19,9 +19,9 @@ Event subscriptions are managed through the `EventSubscriptions` entity in the S
 
 ## Related Information
 
-- EventSubscription Operations [page 182] TODO(link: sec 7.3.1)
-- EventSubscription Properties [page 186] TODO(link: sec 7.3.2)
-- EventSubscription Permission Control [page 192] TODO(link: sec 7.3.3)
+- [EventSubscription Operations](subscription-operations.md) [page 182]
+- [EventSubscription Properties](subscription-properties.md) [page 186]
+- [EventSubscription Permission Control](subscription-permission-control.md) [page 192]
 
 ## Create Event Subscription
 
@@ -51,7 +51,7 @@ POST EventSubscriptions
 }
 ```
 
-For more information about the properties of the `EventSubscription` entity, see EventSubscription Properties [page 186] TODO(link: sec 7.3.2).
+For more information about the properties of the `EventSubscription` entity, see [EventSubscription Properties](subscription-properties.md) [page 186].
 
 ## Retrieve Event Subscriptions
 
@@ -146,7 +146,7 @@ POST EventSubscriptions('MyWebhook')/Handshake
 
 On a successful handshake, the Service Layer returns status code 204. The Webhook service is ready to receive event notifications. If the handshake fails, the Service Layer returns an error message that describes the reason for the failure.
 
-For more information, see Handshake Mechanism [page 184] TODO(link: sec 7.3.1.1).
+For more information, see [Handshake Mechanism](handshake-mechanism.md) [page 184].
 
 ## Replay Event Subscription
 

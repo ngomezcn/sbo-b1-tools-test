@@ -14,19 +14,19 @@ A formula is an expression made up of literals, variables, operators, and functi
 
 **Related Information**
 
-Literals [page 204] TODO(link: sec 7.7.1)
-Variables [page 204] TODO(link: sec 7.7.2)
-Relational Operators [page 204] TODO(link: sec 7.7.3)
-Logical Operators [page 205] TODO(link: sec 7.7.4)
-Parenthesis Operators [page 205] TODO(link: sec 7.7.5)
-Arithmetic Operators [page 205] TODO(link: sec 7.7.6)
-Overloaded Operators [page 205] TODO(link: sec 7.7.7)
-String Functions [page 207] TODO(link: sec 7.7.8)
-Date Functions [page 211] TODO(link: sec 7.7.9)
-Time Functions [page 214] TODO(link: sec 7.7.10)
-Math Functions [page 216] TODO(link: sec 7.7.11)
-Logical Functions [page 219] TODO(link: sec 7.7.12)
-App-Level Variables [page 220] TODO(link: sec 7.7.13)
+[Literals](formula-basics.md#literals) [page 204]
+[Variables](formula-basics.md#variables) [page 204]
+[Relational Operators](formula-basics.md#relational-operators) [page 204]
+[Logical Operators](formula-basics.md#logical-operators) [page 205]
+[Parenthesis Operators](formula-basics.md#parenthesis-operators) [page 205]
+[Arithmetic Operators](formula-basics.md#arithmetic-operators) [page 205]
+[Overloaded Operators](formula-basics.md#overloaded-operators) [page 205]
+[String Functions](string-functions.md) [page 207]
+[Date Functions](date-functions.md) [page 211]
+[Time Functions](time-functions.md) [page 214]
+[Math Functions](math-functions.md) [page 216]
+[Logical Functions](logical-functions.md) [page 219]
+[App-Level Variables](app-level-variables.md) [page 220]
 
 ## Literals
 
