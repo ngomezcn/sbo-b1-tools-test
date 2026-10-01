@@ -6,6 +6,7 @@ summary: The SAP Business One Service Layer Controller, its Service Layer Settin
 
 # Service Layer Controller and settings
 
+- [Managing Service Layer Settings](#managing-service-layer-settings)
 - [Node Management](#node-management)
 - [Service Layer Configuration](#service-layer-configuration)
 
@@ -23,8 +24,8 @@ You can access the SAP Business One Service Layer Controller after you install t
 
 In the SAP Business One Service Layer Controller, you can:
 
-- Managing Service Layer Settings TODO(link: sec 6.1)
-- Monitoring Service Layer Logs TODO(link: sec 6.4)
+- [Managing Service Layer Settings](#managing-service-layer-settings)
+- [Monitoring Service Layer Logs](monitoring-logs.md)
 
 > **Note**
 >

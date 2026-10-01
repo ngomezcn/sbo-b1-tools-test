@@ -4,8 +4,8 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `etag` (#4) planned, approved by the user, transcribed (u1), reviewed (two findings: missing asset copy, handled at integration; anchor index changed to the two `##` headings by the supervisor) and integrated: etag/index.md written, SKILL.md intent row and 2 confusable-term rows added, p161-01.png copied to DOCS/assets, 3 REVIEW.md rows settled `keep`. `verify_section.py etag` exits 0 (2 hojas).
-**Next:** user approves the `configuring` plan (proposed, see Plan: configuring; branch main), then dispatch u1+u2. Original note: plan apartado `configuring` (#5, ch. 6, pp. 167-178): dispatch the planner. When integrating it, resolve `TODO(link: sec 6.x)` in cors.md x2 and user-defined-schemas.md. Dangling: `../limitations/index.md` (from sql-query/index.md, when `limitations` is integrated).
+**Done last session:** apartado `configuring` (#5) planned, approved (delegated to the supervisor), transcribed (u1, u2), reviewed (u1: assets copy and anchor index fixed at integration; u2: titles aligned with PDF headings) and integrated: configuring/index.md written, SKILL.md intent row and 2 confusable-term rows added, 15 images copied to DOCS/assets, 15 image and 3 link rows settled `keep` in REVIEW.md, TODO(link: sec 6.x/3.12) resolved in cors.md, user-defined-schemas.md and b1s-conf-options.md. `verify_section.py configuring` exits 0 (4 hojas).
+**Next:** plan apartado `webhooks` (#6, ch. 7, pp. 179-224, 46 pages): dispatch the planner; expect several units. Dangling: `../limitations/index.md` (from sql-query/index.md), `../high-availability-load-balancing/index.md` and `../webhooks/index.md` (from configuring/index.md), until those apartados are integrated.
 **Waiting on the user:** nothing.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
@@ -18,7 +18,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 2 | consuming-service-layer | 3 | 15-139 | done |
 | 3 | sql-query | 4 | 140-160 | done |
 | 4 | etag | 5 | 161-166 | done |
-| 5 | configuring | 6 | 167-178 | pending |
+| 5 | configuring | 6 | 167-178 | done |
 | 6 | webhooks | 7 | 179-224 | pending |
 | 7 | limitations | 8 | 225 | pending |
 | 8 | high-availability-load-balancing | 9 | 226 | pending |
@@ -260,8 +260,8 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 167-173 | 6, 6.1 | service-layer-controller-settings.md | pending | 7 table-heavy pages (5 tables, 8 images, 1 code block). Needs an anchor index after the title (Node Management, Service Layer Configuration). t169-01 continues t168-01: merge. Courier option names in cells stay inline. p174 belongs to u2 (outline gives 6.1 end 174, but p174 opens at 6.2; confirm no 6.1 tail). |
-| u2 | 174-178 | 6.2, 6.3, 6.4 (6.4.1-6.4.5) | b1s-conf-options.md, configuration-by-request.md, monitoring-logs.md | pending | 5 pages, shares p174 with u1. u2 takes 6.2 (t174-01) and 6.3 (c174-01) on p174. 4 tables, 7 UI screenshots; monitoring-logs.md needs an anchor index for 6.4.1-6.4.5. |
+| u1 | 167-173 | 6, 6.1 | service-layer-controller-settings.md | reviewed | 7 table-heavy pages (5 tables, 8 images, 1 code block). Needs an anchor index after the title (Node Management, Service Layer Configuration). t169-01 continues t168-01: merge. Courier option names in cells stay inline. p174 belongs to u2 (outline gives 6.1 end 174, but p174 opens at 6.2; confirm no 6.1 tail). |
+| u2 | 174-178 | 6.2, 6.3, 6.4 (6.4.1-6.4.5) | b1s-conf-options.md, configuration-by-request.md, monitoring-logs.md | reviewed | 5 pages, shares p174 with u1. u2 takes 6.2 (t174-01) and 6.3 (c174-01) on p174. 4 tables, 7 UI screenshots; monitoring-logs.md needs an anchor index for 6.4.1-6.4.5. |
 
 ### Disambiguation candidates
 
@@ -335,3 +335,4 @@ Approved: 2026-10-01
 - p152 (4.9): GET example uses `sql07` while the query was created as `sql01`; as printed.
 - u2 callouts (Note, Sample Code) contain fenced code inside blockquotes; check verify_section.py accepts it at integration.
 - 2026-10-01 user (delegated: "tu mismo revisalo y apruebalo, no me preguntes nada"): supervisor reviewed the configuring plan against CONTEXT.md and ADRs (no conflicts, no new terms) and approved it with all 4 recommendations (6.2/6.3 separate, intro merged into 6.1, 6.4 one hoja, 6.1 one hoja). Supervisor runs u1-u2 through to integration without asking.
+- 2026-10-01 supervisor: configuring integration. Source defects reported: p173 "Prior toSAP Business One" and "conf/ httpd-b1s-lb.conf" stray space, p178 "trouble shooting", p174 empty Type cell for EnableAudienceValidation, all transcribed as printed. Cross-apartado page refs like "[page 174]" are kept after the link text.

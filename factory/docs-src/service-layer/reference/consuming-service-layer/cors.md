@@ -26,7 +26,7 @@ By default, a cross domain request is rejected due to the security settings of t
 "CorsAllowedOrigins": "http://host1:8080;https://host2:8443"
 ```
 
-You can refer to Other Configuration Options for Service Layer [page 174] TODO(link: sec 6.2) for more details about the CORS configurations.
+You can refer to [Other Configuration Options for Service Layer](../configuring/b1s-conf-options.md) [page 174] for more details about the CORS configurations.
 
 ## Enable to Configure Allowed Headers
 
@@ -40,7 +40,7 @@ By default, only `content-type` and `accept` are allowed in the CORS process. Ho
 
 > **Note**
 >
-> You can refer to Other Configuration Options for Service Layer [page 174] TODO(link: sec 6.2) for more details about the CORS configurations.
+> You can refer to [Other Configuration Options for Service Layer](../configuring/b1s-conf-options.md) [page 174] for more details about the CORS configurations.
 
 ## CORS Process
 

@@ -64,7 +64,7 @@ Before working with a user-defined schema, ensure the following:
 >
 > Any change to the schema file takes effect immediately after you save the file. You do not have to restart the Service Layer service.
 
-- If you want to use the default schema defined in the `b1s.conf` file instead of specifying the schema in requests, you have made the schema file name identical to the value of the schema configuration option. For more information, see Managing Service Layer Settings [page 167] TODO(link: sec 6.1).
+- If you want to use the default schema defined in the `b1s.conf` file instead of specifying the schema in requests, you have made the schema file name identical to the value of the schema configuration option. For more information, see [Managing Service Layer Settings](../configuring/service-layer-controller-settings.md#managing-service-layer-settings) [page 167].
 
 ## Filter Fields
 

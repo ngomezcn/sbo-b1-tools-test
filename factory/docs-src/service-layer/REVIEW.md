@@ -70,3 +70,21 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | p161-01 | image | 161 | etag/etag-usage.md | 16x10 | keep | inline external-link icon (supervisor decision, delegated by the user) |
 | l161-01 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l161-02 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | keep | same URL as l161-01, wrapped link text (supervisor decision, delegated by the user) |
+| p169-01 | image | 169 | configuring/service-layer-controller-settings.md | 16x10 | keep | inline external-link icon, kept at its position (supervisor decision, delegated by the user) |
+| p171-01 | image | 171 | configuring/service-layer-controller-settings.md | 10x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
+| p171-02 | image | 171 | configuring/service-layer-controller-settings.md | 7x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
+| p171-03 | image | 171 | configuring/service-layer-controller-settings.md | 8x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
+| p173-01 | image | 173 | configuring/service-layer-controller-settings.md | 10x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
+| p173-02 | image | 173 | configuring/service-layer-controller-settings.md | 7x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
+| p173-03 | image | 173 | configuring/service-layer-controller-settings.md | 8x13 | keep | inline breadcrumb or link icon, kept at its position (supervisor decision, delegated by the user) |
+| p173-04 | image | 173 | configuring/service-layer-controller-settings.md | 16x10 | keep | inline external-link icon, kept at its position (supervisor decision, delegated by the user) |
+| p175-01 | image | 175 | configuring/monitoring-logs.md | 624x206 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p175-02 | image | 175 | configuring/monitoring-logs.md | 557x37 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p176-01 | image | 176 | configuring/monitoring-logs.md | 780x258 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p177-01 | image | 177 | configuring/monitoring-logs.md | 780x241 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p177-02 | image | 177 | configuring/monitoring-logs.md | 780x264 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p178-01 | image | 178 | configuring/monitoring-logs.md | 780x238 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p178-02 | image | 178 | configuring/monitoring-logs.md | 624x143 | keep | UI screenshot; the content it shows is in the surrounding text, Figure line in the hoja (supervisor decision, delegated by the user) |
+| l169-01 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
+| l169-02 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/ | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |
+| l173-01 | link | 173 | configuring/service-layer-controller-settings.md | https://me.sap.com/notes/3157498 | keep | official reference URL, visible in the hoja (supervisor decision, delegated by the user) |

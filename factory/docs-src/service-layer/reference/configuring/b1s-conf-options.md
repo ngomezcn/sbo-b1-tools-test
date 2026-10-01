@@ -25,7 +25,7 @@ You can also specify the configuration options to control the behavior of the se
 
     Available as of 9.1 patch level 03.
 
-    The value is a file name under the conf folder, which defines the required properties for each type in metadata. For more information, see User-Defined Schemas [page 84] TODO(link: sec 3.12).
+    The value is a file name under the conf folder, which defines the required properties for each type in metadata. For more information, see [User-Defined Schemas](../consuming-service-layer/user-defined-schemas.md) [page 84].
 
     Default value is empty.
 

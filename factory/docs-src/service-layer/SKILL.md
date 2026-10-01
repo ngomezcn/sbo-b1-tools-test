@@ -22,6 +22,7 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Call Service Layer from a browser on another origin, or check that a node is alive | "how do I enable CORS", "what does /ping return" | [consuming-service-layer](reference/consuming-service-layer/index.md) |
 | Store, run, page and troubleshoot SQL queries through `SQLQueries`; allowlists, keywords, parameters, permissions | "how do I create a stored SQL query", "which tables can SQL Query read", "can I use union in a query", "why 403 on SQLQueries", "SQL query with parameters" | [sql-query](reference/sql-query/index.md) |
 | Prevent blind concurrent updates with ETag and `If-Match`, find ETag-enabled entities | "how do I use If-Match", "what is a 412 on PATCH", "which entities support ETag", "ETag in $metadata" | [etag](reference/etag/index.md) |
+| Configure the server: Service Layer Controller, `b1s.conf` options, load balancer nodes, per-request headers, monitor request logs | "how do I change b1s.conf", "Service Layer Controller URL", "B1S-PageSize header", "where are the request logs", "add a node" | [configuring](reference/configuring/index.md) |
 
 ## Confusable terms
 
@@ -49,3 +50,5 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | SQL Query limitations | what stored queries cannot access (sec 4.13), not general limitations (ch. 8) | [sql-query-limitations](reference/sql-query/sql-query-limitations.md) |
 | ETag metadata | ETag annotations of entities in `$metadata` (sec 5.4), not the metadata document (sec 3.2), `SQLQuery` metadata (sec 4.1) or metadata naming differences (ch. 12) | [etag-entities-and-metadata](reference/etag/etag-entities-and-metadata.md) |
 | ETag on update, delete and action | `If-Match` and 412 for concurrent changes (sec 5.2), not plain entity CRUD (sec 3.4), actions (sec 3.5) or `$batch` change sets (sec 3.9) | [etag-usage](reference/etag/etag-usage.md) |
+| Configuration by request vs server configuration | per-request HTTP headers (sec 6.3) vs `b1s.conf` options (sec 6.2) and Controller settings (sec 6.1); webhook configuration is sec 7.5 | [configuration-by-request](reference/configuring/configuration-by-request.md) |
+| Monitoring Service Layer logs | Controller request logs (sec 6.4), not SQL query log modification (sec 4.12.2) | [monitoring-logs](reference/configuring/monitoring-logs.md) |
