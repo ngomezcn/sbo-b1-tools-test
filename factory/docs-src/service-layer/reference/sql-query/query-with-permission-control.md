@@ -35,13 +35,13 @@ To grant permission to a normal user, log on the SAP Business One client with a 
 
 Figure: The General Authorizations window with the Service Layer SQL Query subject.
 
-![p158-04](../../assets/p158-04.png)
+The Users tab shows `user1` selected. In the Subject grid the *Service Layer SQL Query* group is expanded, with Authorization *Various Authorizations*. It lists the individual queries *SalesQuery1 Partner1*, *SalesQuery2 Partner1*, *SalesQuery3 Partner1*, *BPQuery1 Partner2*, *BPQuery2 Partner2* and *BPQuery3 Partner2*. Only *SalesQuery1 Partner1* is set to *Full Authorization*; the rest are *No Authorization*. This is where an administrator grants a normal user access to specific SQL queries.
 
 To grant a normal user the authorization to create, update, remove and read Service Layer SQL queries, login to the SAP Business One client with a super user, then open the *General Authorizations* window from the menu *Administration* > *System Initialization* > *Authorizations*, and grant *Full Authorization* to the user on the subject *Modify SQL Queries in Service Layer*.
 
 Figure: The General Authorizations window with the Modify SQL Queries in Service Layer subject highlighted.
 
-![p159-01](../../assets/p159-01.png)
+The Users tab shows `APCN_A1` selected and the Subject grid lists the authorizations. The row *Modify SQL Queries in Service Layer* is outlined in red, with Authorization and Effective Authorization both set to *Full Authorization*.
 
 > **Note**
 >

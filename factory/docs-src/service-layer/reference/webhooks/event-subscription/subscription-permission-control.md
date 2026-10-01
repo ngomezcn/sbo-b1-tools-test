@@ -12,7 +12,7 @@ To grant permission to a normal user, log in to the SAP Business One client as a
 
 Figure: The General Authorizations window with the Webhook Manipulation permission entry.
 
-![p193-01](../../../assets/p193-01.png)
+The window lists users on the left (AlertSvc, B1i, EDsUser, manager, Support, `user1`, Workflow) with `user1` selected. In the Subject/Authorization grid, *Webhook Manipulation* is outlined in red, with Authorization *Full Authorization* and Effective Authorization *Full Authorization*. Every other visible subject, such as *Modify SQL Queries in Service Layer* and *Disable DI API Permission Check*, is set to *No Authorization*.
 
 The permission ID for this webhook permission entry is 2249. To grant permission programmatically as a superuser, use the Service Layer API `SBOBobService_SetSystemPermission` to update authorizations for a specific user. Here is an example of how to grant full authorization for webhook manipulation to a user with user ID "user1":
 

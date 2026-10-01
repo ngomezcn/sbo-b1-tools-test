@@ -24,11 +24,29 @@ The V8 JavaScript engine is an open source JavaScript engine developed by The Ch
 
 To facilitate the development of an extension application, Service Layer provides a JavaScript framework for users to easily operate the business objects and services. The diagram below shows the basic structure of the framework.
 
-Figure: Basic structure of the JavaScript extension framework.
+```text
+┌──────────────────────────────────────────────┐
+│           Service Layer Extension            │
+│                                              │
+│ ┌┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┐ │
+│ ┆     User's JavaScript Extension App      ┆ │
+│ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ │
+│ ┌──────────────────────────────────────────┐ │
+│ │              JavaScript SDK              │ │
+│ └──────────────────────────────────────────┘ │
+│ ┌──────────────────────────────────────────┐ │
+│ │              C++/JS Interop              │ │
+│ └──────────────────────────────────────────┘ │
+│ ┌──────────────────┐  ┌────────────────────┐ │
+│ │      SLCore      │  │                    │ │
+│ └──────────────────┘  │         V8         │ │
+│ ┌──────────────────┐  │                    │ │
+│ │      DICore      │  │                    │ │
+│ └──────────────────┘  └────────────────────┘ │
+└──────────────────────────────────────────────┘
+```
 
-![p117-01](../../../assets/p117-01.png)
-
-Description of the figure: the Service Layer Extension is a stack, from top to bottom: the user's JavaScript extension app (dashed box), the JavaScript SDK, and C++/JS Interop. Below the interop layer sit SLCore and DICore (one above the other) beside V8.
+Figure: Basic structure of the JavaScript extension framework. The Service Layer Extension is a layered stack. At the top is the user's JavaScript extension app (dashed box), which sits on the JavaScript SDK, which sits on the C++/JS Interop layer. Below the interop layer are SLCore and DICore stacked on the left, and V8 on the right spanning their full height. Extension apps reach SLCore and DICore only through the SDK and the interop layer, and V8 runs the JavaScript.
 
 > **Note**
 >
