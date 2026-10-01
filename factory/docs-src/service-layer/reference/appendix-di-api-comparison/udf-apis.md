@@ -19,7 +19,7 @@ This section demonstrates how to create, retrieve, update, and delete UDFs of an
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.UserFieldsMD udf =
 > (UserFieldsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserFields);
 > udf .Name = "u1";
@@ -39,7 +39,7 @@ This section demonstrates how to create, retrieve, update, and delete UDFs of an
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.UserFieldsMD udf =
 > (UserFieldsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserFields);
 > string tableName = "OCRD";
@@ -61,7 +61,7 @@ This section demonstrates how to create, retrieve, update, and delete UDFs of an
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.UserFieldsMD udf =
 > (UserFieldsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserFields);
 > string tableName = "OCRD";
@@ -77,7 +77,7 @@ This section demonstrates how to create, retrieve, update, and delete UDFs of an
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.UserFieldsMD udf =
 > (UserFieldsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserFields);
 > string tableName = "OCRD";
@@ -172,7 +172,7 @@ This section shows how to perform operations on entities (`BusinessPartners`) wi
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.BusinessPartners bp =
 > (BusinessPartners)oCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
 > bp.CardCode = "bp_001";
@@ -189,7 +189,7 @@ This section shows how to perform operations on entities (`BusinessPartners`) wi
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.BusinessPartners bp =
 > (BusinessPartners)oCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
 > bool bRet = bp.GetByKey("bp_001");
@@ -207,7 +207,7 @@ This section shows how to perform operations on entities (`BusinessPartners`) wi
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.BusinessPartners bp =
 > (BusinessPartners)oCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
 > bool bRet = bp.GetByKey("bp_001");

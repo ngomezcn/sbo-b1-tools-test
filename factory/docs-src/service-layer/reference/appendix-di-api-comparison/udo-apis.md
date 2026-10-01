@@ -19,7 +19,7 @@ You need to perform five steps to create an UDO. The creation process is very si
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > //Create UDT "MyOrder" as main table
 > SAPbobsCOM.UserTablesMD udtMyOrder =
 > (UserTablesMD)oCompany.GetBusinessObject(BoObjectTypes.oUserTables);
@@ -33,7 +33,7 @@ You need to perform five steps to create an UDO. The creation process is very si
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > //Add UDF CustomerName to table "MyOrder"
 > SAPbobsCOM.UserFieldsMD udfCustomerName =
 > (UserFieldsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserFields);
@@ -59,7 +59,7 @@ You need to perform five steps to create an UDO. The creation process is very si
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > //Create UDT "MyOrderLines" as child table
 > SAPbobsCOM.UserTablesMD udtMyOrderLines =
 > (UserTablesMD)oCompany.GetBusinessObject(BoObjectTypes.oUserTables);
@@ -73,7 +73,7 @@ You need to perform five steps to create an UDO. The creation process is very si
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > //Add UDF ItemName to table "MyOrderLines"
 > SAPbobsCOM.UserFieldsMD udfItemName =
 > (UserFieldsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserFields);
@@ -108,7 +108,7 @@ You need to perform five steps to create an UDO. The creation process is very si
 
 > **Sample Code**
 >
-> ```text
+> ```csharp
 > SAPbobsCOM.UserObjectsMD udoMyOrder =
 > (UserObjectsMD)oCompany.GetBusinessObject(BoObjectTypes.oUserObjectsMD);
 > udoMyOrder.Code = "MyOrders";

@@ -10,7 +10,7 @@ We take the objects **GetCompanyInfo** and **UpdateCompanyInfo** as examples to 
 
 ## DI API
 
-**GetCompanyInfo**
+### GetCompanyInfo
 
 > **Sample Code**
 >
@@ -23,7 +23,7 @@ name: {2},",
 companyInfo.AutoCreateCustomerEqCard);
 ```
 
-**UpdateCompanyInfo**
+### UpdateCompanyInfo
 
 > **Sample Code**
 >
@@ -40,7 +40,7 @@ companyInfo.AutoCreateCustomerEqCard);
 
 ## Service Layer
 
-**GetCompanyInfo**
+### GetCompanyInfo
 
 > **Sample Code**
 >
@@ -48,7 +48,7 @@ companyInfo.AutoCreateCustomerEqCard);
 POST /CompanyService_GetCompanyInfo
 ```
 
-**UpdateCompanyInfo**
+### UpdateCompanyInfo
 
 > **Sample Code**
 >
