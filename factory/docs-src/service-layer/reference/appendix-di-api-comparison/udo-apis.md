@@ -192,9 +192,6 @@ You need to perform five steps to create an UDO. The creation process is very si
 >     "Name": "Price",
 >     "Type": "db_Float",
 >     "Description": "Unit price",
-> ```
-
-> ```text
 >     "SubType": "st_Price",
 >     "TableName": "@MYORDERLINES"
 > }
