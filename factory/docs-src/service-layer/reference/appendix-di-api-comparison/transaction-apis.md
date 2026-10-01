@@ -69,4 +69,4 @@ Content-Type: application/json
 > - The batch request does not provide a chance for clients to rollback transactions. If all operations are successful, the batch automatically performs this transaction.
 > - You can enclose complex business logic in one transaction via DI API, while you cannot do it via Service Layer.
 >
-> For more information about batch specifications, see http://www.odata.org/documentation/odata-version-3-0/batch-processing/ ![p234-01](../../assets/p234-01.png) .
+> For more information about batch specifications, see http://www.odata.org/documentation/odata-version-3-0/batch-processing/ .

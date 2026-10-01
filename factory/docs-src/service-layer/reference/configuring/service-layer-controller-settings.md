@@ -124,7 +124,7 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
 - **Option**: `Busy`
   - **Description and Default Values**: Indicates whether the member is busy processing the request. If the member is busy, then it shows 1 else 0.
 - **Option**: `Load`
-  - **Description and Default Values**: Shows how many requests each worker is currently assigned based on the algorithm mentioned in Apache documentation (https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html) ![p169-01](../../assets/p169-01.png).
+  - **Description and Default Values**: Shows how many requests each worker is currently assigned based on the algorithm mentioned in Apache documentation (https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html).
 - **Option**: `From`
   - **Description and Default Values**: Data outflow (size) – Usually this is the response size.
 - **Option**: `To`
@@ -132,7 +132,7 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
 
 > **Note**
 >
-> All above definitions are based on the Apache documentation (https://httpd.apache.org/docs/) ![p169-01](../../assets/p169-01.png).
+> All above definitions are based on the Apache documentation (https://httpd.apache.org/docs/).
 
 ## Service Layer Configuration
 
@@ -199,7 +199,7 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
     - Linux: `/usr/sap/SAPBusinessOne/ServiceLayer/logs/`
     - Windows: `C:\Program Files\SAP\SAP Business One ServerTools\ServiceLayer\logs`
 
-    You can download logs using the *Download* button from ![p171-01](../../assets/p171-01.png)*SAP Business One Service Layer Controller* ![p171-02](../../assets/p171-02.png)*Download Logs* ![p171-03](../../assets/p171-03.png).
+    You can download logs using the *Download* button from *SAP Business One Service Layer Controller* > *Download Logs*.
 
     Configuration is saved in `/ServiceLayer/conf/httpd-b1s-lb.conf`.
 
@@ -295,7 +295,7 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
     - Linux: `/usr/sap/SAPBusinessOne/ServiceLayer/logs/`
     - Windows: `C:\Program Files\SAP\SAP Business One ServerTools\ServiceLayer\logs`
 
-    You can download logs using the *Download* button from ![p173-01](../../assets/p173-01.png)*SAP Business One Service Layer Controller* ![p173-02](../../assets/p173-02.png)*Download Logs* ![p173-03](../../assets/p173-03.png).
+    You can download logs using the *Download* button from *SAP Business One Service Layer Controller* > *Download Logs*.
 
     Configuration is saved in `ServiceLayer/conf/b1s.conf`.
 
@@ -335,4 +335,4 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
 >
 > All configuration options take effect after you restart Service Layer.
 
-For Service Layer log file configuration, please refer to SAP Knowledge Base Article 3157498 (https://me.sap.com/notes/3157498) ![p173-04](../../assets/p173-04.png).
+For Service Layer log file configuration, please refer to SAP Knowledge Base Article 3157498 (https://me.sap.com/notes/3157498).

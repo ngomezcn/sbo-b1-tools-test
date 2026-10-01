@@ -31,13 +31,13 @@ As expected, service returns:
 > }
 > ```
 
-To grant permission to a normal user, log on the SAP Business One client with a super user, then open the *General Authorizations* window from the menu ![p158-01](../../assets/p158-01.png)*Administration* ![p158-02](../../assets/p158-02.png)*System Initialization* ![p158-02](../../assets/p158-02.png)*Authorizations* ![p158-03](../../assets/p158-03.png), find the specific SQL Query from *Service Layer SQL Query* subject, and then change *No Authorization* to *Full Authorization*.
+To grant permission to a normal user, log on the SAP Business One client with a super user, then open the *General Authorizations* window from the menu *Administration* > *System Initialization* > *Authorizations*, find the specific SQL Query from *Service Layer SQL Query* subject, and then change *No Authorization* to *Full Authorization*.
 
 Figure: The General Authorizations window with the Service Layer SQL Query subject.
 
 ![p158-04](../../assets/p158-04.png)
 
-To grant a normal user the authorization to create, update, remove and read Service Layer SQL queries, login to the SAP Business One client with a super user, then open the *General Authorizations* window from the menu ![p158-01](../../assets/p158-01.png)*Administration* ![p158-02](../../assets/p158-02.png)*System Initialization* ![p158-02](../../assets/p158-02.png)*Authorizations* ![p158-03](../../assets/p158-03.png), and grant *Full Authorization* to the user on the subject *Modify SQL Queries in Service Layer*.
+To grant a normal user the authorization to create, update, remove and read Service Layer SQL queries, login to the SAP Business One client with a super user, then open the *General Authorizations* window from the menu *Administration* > *System Initialization* > *Authorizations*, and grant *Full Authorization* to the user on the subject *Modify SQL Queries in Service Layer*.
 
 Figure: The General Authorizations window with the Modify SQL Queries in Service Layer subject highlighted.
 

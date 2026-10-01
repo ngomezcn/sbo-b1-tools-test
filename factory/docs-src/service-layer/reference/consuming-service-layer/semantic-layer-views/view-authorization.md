@@ -34,7 +34,7 @@ the current user 'user1'"
 }
 ```
 
-To grant the view permission to a normal user, log on to the SAP Business One client with the superuser and then open the *General Authorizations* window from ![p057-01](../../../assets/p057-01.png)*System Initialization* ![p057-02](../../../assets/p057-02.png)*Authorizations* ![p057-03](../../../assets/p057-03.png).
+To grant the view permission to a normal user, log on to the SAP Business One client with the superuser and then open the *General Authorizations* window from *System Initialization* > *Authorizations*.
 
 Figure: The General Authorizations window.
 

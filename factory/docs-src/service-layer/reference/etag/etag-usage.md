@@ -15,7 +15,7 @@ Optimistic concurrency control is a concurrency methodology typically applied to
 
 Although the stateless nature of HTTP makes locking infeasible for web user interfaces, HTTP does provide an alternative form of built-in optimistic concurrency control. The response to an initial `GET` request can include an ETag for subsequent `PATCH` requests to use in the `If-Match` header. Any `PATCH` requests with an out-of-date ETag in the `If-Match` header can then be rejected.
 
-In HTTP protocol, ETag is short for entity tag and is used for identifying specific versions of a resource. It is an opaque identifier whose exact values are implementation dependent. ETag values occur in two varieties: strong and weak validation. For more information about ETag, see https://msdn.microsoft.com/library/dd541486.aspx ![p161-01](../../assets/p161-01.png).
+In HTTP protocol, ETag is short for entity tag and is used for identifying specific versions of a resource. It is an opaque identifier whose exact values are implementation dependent. ETag values occur in two varieties: strong and weak validation. For more information about ETag, see https://msdn.microsoft.com/library/dd541486.aspx.
 
 In the Service Layer, we use weak validation, which guarantees the resource representation is semantically equivalent to the same ETag value. The format is as follows:
 

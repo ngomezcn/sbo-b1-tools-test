@@ -6,7 +6,7 @@ summary: Uploading stream entities (Attachments2, Pictures) with the Slug header
 
 # Stream Entity Upload
 
-As of SAP Business One 10.0 FP 2202, Service Layer allows users to upload a stream entity with the Slug mechanism. Slug is an HTTP entity-header whose presence in a POST to a Collection constitutes a request by the client to use the header's value as part of any URIs that would normally be used to retrieve the to-be-created Entry or Media Resources. For information about Slug, please see its specification (https://datatracker.ietf.org/doc/html/rfc5023#page-30) ![p110-01](../../assets/p110-01.png).
+As of SAP Business One 10.0 FP 2202, Service Layer allows users to upload a stream entity with the Slug mechanism. Slug is an HTTP entity-header whose presence in a POST to a Collection constitutes a request by the client to use the header's value as part of any URIs that would normally be used to retrieve the to-be-created Entry or Media Resources. For information about Slug, please see its specification (https://datatracker.ietf.org/doc/html/rfc5023#page-30).
 
 In the Service Layer, the following entities have streaming capabilities and can be used to leverage the Slug mechanism:
 
@@ -32,7 +32,7 @@ The following section will give some samples that demonstrate how to use the Slu
 
 ## OData Client Sample
 
-The code snippet below uses the oData client library (https://docs.microsoft.com/en-us/odata/client/getting-started) ![p110-01](../../assets/p110-01.png) to upload an attachment to the Service Layer. For more details on how to use the oData client library to work with the Service Layer, please see .
+The code snippet below uses the oData client library (https://docs.microsoft.com/en-us/odata/client/getting-started) to upload an attachment to the Service Layer. For more details on how to use the oData client library to work with the Service Layer, please see .
 
 > **Sample Code**
 >

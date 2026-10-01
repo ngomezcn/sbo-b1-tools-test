@@ -22,10 +22,6 @@ As of SAP Business One 10.0 FP 2202, the Service Layer Controller is enhanced to
 
 On the Service Layer Controller home page, a new *Monitor* tab is added to display the logs, and you can choose a recent day of logs by selecting from a dropdown list. For example, the days range from 1 day to 10 days.
 
-Figure: The Monitor tab on the Service Layer Controller home page.
-
-![p175-01](../../assets/p175-01.png)
-
 For all views, a pagination control is displayed to allow you to browse the requests page-by-page. By default, 20 rows are displayed per page.
 
 Figure: The pagination control of the log views.

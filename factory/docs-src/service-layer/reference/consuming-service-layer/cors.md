@@ -12,9 +12,9 @@ summary: Enabling CORS in b1s.conf, configuring allowed origins and headers, and
 
 As of SAP Business One 9.1 patch level 08, version for SAP HANA, CORS is supported to allow trusted origins to access the resource of Service Layer. For more information about CORS, please check the links below:
 
-http://enable-cors.org/ ![p136-01](../../assets/p136-01.png)
+http://enable-cors.org/
 
-http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials ![p136-01](../../assets/p136-01.png)
+http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials
 
 ## Enabling CORS
 
