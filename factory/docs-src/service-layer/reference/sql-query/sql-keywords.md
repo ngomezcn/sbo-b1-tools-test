@@ -14,7 +14,7 @@ Considering the gap between the set of query keywords on SAP HANA and the Micros
 | Select ... From ... Where | `select ItemCode, ItemName, ItmsGrpCod from oitm where 1 ItemCode > 'i01'` |
 | Alias | `select t1.DocEntry as Col1 , t1.DocNum as Col2 from ORDR t1 where t1.DocEntry > 0` |
 | And, Or, Not | `select t1.DocEntry, t1.DocNum from ORDR t1 where not t1.DocEntry = 1 and t1.DocNum = 1 or t1.Comments <> '1234'` |
-| Parenthesis | `select t1.DocEntry, t1.DocNum from ORDR t1 where not (t1.DocEntry = 1 or t1.Comments <> '1234') and t1.DocNum = 1` |
+| Parenthesis | `select t1.DocEntry, t1.DocNum from ORDR t1 where not (t1.DocEntry = 1 or or t1.Comments <> '1234') and t1.DocNum = 1` |
 | Between ... And ... | `select "DocEntry" from ordr where "DocEntry" BETWEEN 1 AND 10` |
 | Order By | `select t1.DocEntry, t1.DocNum, t1.DocTotal from ORDR t1 order by t1.DocEntry` |
 | Group By | `select DocStatus, DocType, count(*) as GroupCount from ordr group by DocStatus, DocType having count(*) > 0` |

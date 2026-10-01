@@ -4,9 +4,9 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `consuming-service-layer` (#2) integrated and verified: u9-u13 (pp. 92-139) transcribed and reviewed, all 13 units `reviewed`; index.md files (apartado and six subfolders), SKILL.md rows, in-apartado `TODO(link)` resolved, 46 images in DOCS/assets, 55 REVIEW.md rows settled, `verify_section.py consuming-service-layer` exits 0.
-**Next:** sql-query plan approved; u1-u3 transcribers dispatched in parallel, then reviewers, then integrate. Remaining `TODO(link: sec 6.x)` (cors.md x2, user-defined-schemas.md) resolve when `configuring` is integrated.
-**Waiting on the user:** nothing.
+**Done last session:** apartado `sql-query` (#3) planned, approved (delegated), transcribed (u1-u3), reviewed (u1, u3 clean; u2 one discrepancy, "or or" in sql-keywords.md, fixed by the supervisor against the p148 render) and integrated: sql-query/index.md and query-allowlist/index.md written, SKILL.md intent row and 5 confusable-term rows added, 5 images copied to DOCS/assets, 5 REVIEW.md rows settled `keep`. `verify_section.py sql-query` exits 0 (14 hojas).
+**Next:** plan apartado `etag` (#4, ch. 5, pp. 161-166): dispatch the planner. Dangling cross-apartado links to resolve later: `../limitations/index.md` (from sql-query/index.md, when `limitations` is integrated); `TODO(link: sec 6.x)` in cors.md x2 and user-defined-schemas.md (when `configuring` is integrated).
+**Waiting on the user:** nothing (plans and REVIEW.md settled by the supervisor under the standing delegation).
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
 
@@ -16,7 +16,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 |---|---|---|---|---|
 | 1 | introduction-getting-started | 1, 2 | 11-14 | done |
 | 2 | consuming-service-layer | 3 | 15-139 | done |
-| 3 | sql-query | 4 | 140-160 | transcribing |
+| 3 | sql-query | 4 | 140-160 | done |
 | 4 | etag | 5 | 161-166 | pending |
 | 5 | configuring | 6 | 167-178 | pending |
 | 6 | webhooks | 7 | 179-224 | pending |
@@ -192,8 +192,8 @@ Approved: 2026-10-01
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
 | u1 | 140-145 | 4, 4.1, 4.2, 4.3, 4.4 | overview-and-business-object-metadata.md, crud-operations.md, list-operation.md, list-with-paging.md | reviewed | 6 pages, ~19 code blocks (XML metadata, HTTP). p145 shared with u2: u1 takes end of 4.4, u2 takes 4.5 from y~598. |
-| u2 | 145-153 | 4.5, 4.5.1, 4.5.2, 4.6, 4.7, 4.8, 4.9 | query-allowlist/index.md, table-allowlist.md, column-allowlist.md, sql-keywords.md, sql-functions.md, sql-normalization.md, query-with-parameter.md | transcribed | 9 pages. pp. 145-147 long bullet lists of table names. 4.6 and 4.7 one table each. p153 shared with u3: u2 takes end of 4.9, u3 takes 4.10 from y~540. |
-| u3 | 153-160 | 4.10, 4.11, 4.12, 4.13 | query-errors.md, query-with-permission-control.md, security-considerations.md, sql-query-limitations.md, index.md | transcribed | 8 pages. 4.10 has 13 request/response code blocks. 4.11 has 5 images (4 on p158). c160-01 continues c159-02. u3 also writes sql-query/index.md (routing only). |
+| u2 | 145-153 | 4.5, 4.5.1, 4.5.2, 4.6, 4.7, 4.8, 4.9 | query-allowlist/index.md, table-allowlist.md, column-allowlist.md, sql-keywords.md, sql-functions.md, sql-normalization.md, query-with-parameter.md | reviewed | 9 pages. pp. 145-147 long bullet lists of table names. 4.6 and 4.7 one table each. p153 shared with u3: u2 takes end of 4.9, u3 takes 4.10 from y~540. |
+| u3 | 153-160 | 4.10, 4.11, 4.12, 4.13 | query-errors.md, query-with-permission-control.md, security-considerations.md, sql-query-limitations.md, index.md | reviewed | 8 pages. 4.10 has 13 request/response code blocks. 4.11 has 5 images (4 on p158). c160-01 continues c159-02. u3 also writes sql-query/index.md (routing only). |
 
 ### Disambiguation candidates
 
@@ -262,7 +262,7 @@ Approved: 2026-10-01
 - p153: sample prints `length(...)as lenItemCode` without a space; as printed.
 - p158-159 (4.11): Figure lines for p158-04 and p159-01 are the transcriber's wording from the render, not PDF captions.
 - p147 (sql-query 4.5.2): heading printed "Column Allowist"; hoja titled "Column allowlist".
-- p148 (4.6): stray "1" in `where 1 ItemCode > 'i01'` and `'string' 1 as c2`; as printed. Extraction "or or" in the Parenthesis example is an extraction artifact (render shows one "or"); transcribed as one.
+- p148 (4.6): stray "1" in `where 1 ItemCode > 'i01'` and `'string' 1 as c2`; as printed. The Parenthesis example prints "or or" doubled in the PDF (confirmed on the p148 render); reviewer caught the transcriber collapsing it, supervisor restored "or or" (one-token fix, sql-keywords.md:17).
 - p151 (4.8): c151-03 `as COL1 ... as COL1` (second probably COL2); c151-04 unclosed quote in `from "ORDR -- normalized on SAP HANA`; as printed.
 - p152 (4.9): GET example uses `sql07` while the query was created as `sql01`; as printed.
 - u2 callouts (Note, Sample Code) contain fenced code inside blockquotes; check verify_section.py accepts it at integration.

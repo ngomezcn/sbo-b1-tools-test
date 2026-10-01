@@ -62,3 +62,8 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l119-02 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l136-01 | link | 136 | consuming-service-layer/cors.md | http://enable-cors.org/ | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
 | l136-02 | link | 136 | consuming-service-layer/cors.md | http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials | keep | source URL, visible in the hoja (supervisor decision, delegated by the user) |
+| p158-01 | image | 158 | sql-query/query-with-permission-control.md | 10x13 | keep | inline breadcrumb icon (supervisor decision, delegated by the user) |
+| p158-02 | image | 158 | sql-query/query-with-permission-control.md | 7x13 | keep | inline breadcrumb icon (supervisor decision, delegated by the user) |
+| p158-03 | image | 158 | sql-query/query-with-permission-control.md | 8x13 | keep | inline breadcrumb icon (supervisor decision, delegated by the user) |
+| p158-04 | image | 158 | sql-query/query-with-permission-control.md | 624x431 | keep | UI screenshot of General Authorizations, Figure line in the hoja (supervisor decision, delegated by the user) |
+| p159-01 | image | 159 | sql-query/query-with-permission-control.md | 1333x706 | keep | UI screenshot of General Authorizations, Figure line in the hoja (supervisor decision, delegated by the user) |

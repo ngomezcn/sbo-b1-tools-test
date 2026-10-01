@@ -20,6 +20,7 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Upload, download or update attachments, upload streams, handle item and employee images | "how do I upload an attachment", "attachment folder on Linux", "Slug header", "get an item picture" | [consuming-service-layer](reference/consuming-service-layer/index.md) |
 | Write, deploy and call server-side JavaScript | "how do I deploy a script", "how do I use EntitySet.query", "ScriptException", "call a script from .NET" | [javascript-extension](reference/consuming-service-layer/javascript-extension/index.md) |
 | Call Service Layer from a browser on another origin, or check that a node is alive | "how do I enable CORS", "what does /ping return" | [consuming-service-layer](reference/consuming-service-layer/index.md) |
+| Store, run, page and troubleshoot SQL queries through `SQLQueries`; allowlists, keywords, parameters, permissions | "how do I create a stored SQL query", "which tables can SQL Query read", "can I use union in a query", "why 403 on SQLQueries", "SQL query with parameters" | [sql-query](reference/sql-query/index.md) |
 
 ## Confusable terms
 
@@ -39,3 +40,9 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | User-defined schemas / fields / tables / objects | schema files (sec 3.12), UDFs (sec 3.13), UDTs (sec 3.14), UDOs (sec 3.15) | [consuming-service-layer](reference/consuming-service-layer/index.md) |
 | CORS | browser cross-origin settings in `b1s.conf` (sec 3.20); other settings are ch. 6 | [cors](reference/consuming-service-layer/cors.md) |
 | Ping Pong API | `/ping` health endpoints (sec 3.21); load balancing configuration is ch. 9 | [ping-pong-api](reference/consuming-service-layer/ping-pong-api.md) |
+| SQL Query | the `SQLQueries` entity running stored SQL under an allowlist (ch. 4); views are SQL View Exposure (sec 3.8) / Semantic Layer (sec 3.7) | [sql-query](reference/sql-query/index.md) |
+| CRUD on SQLQueries | CRUD of stored queries (sec 4.2), not entity CRUD (sec 3.4) or the DI API comparison (ch. 11) | [crud-operations](reference/sql-query/crud-operations.md) |
+| List with paging | paging a stored query's `List` result (sec 4.4), not `$top`/`$skip` (sec 3.6.6) | [list-with-paging](reference/sql-query/list-with-paging.md) |
+| Query allowlist vs permission control | which tables and columns are queryable (sec 4.5) vs which users may run queries (sec 4.11) | [query-allowlist](reference/sql-query/query-allowlist/index.md) |
+| Business object metadata | the `SQLQuery` EntityType and `List` function (sec 4.1), not the metadata document (sec 3.2) | [overview-and-business-object-metadata](reference/sql-query/overview-and-business-object-metadata.md) |
+| SQL Query limitations | what stored queries cannot access (sec 4.13), not general limitations (ch. 8) | [sql-query-limitations](reference/sql-query/sql-query-limitations.md) |
