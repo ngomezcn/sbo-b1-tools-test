@@ -5,8 +5,8 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 ## RESUME HERE
 
 **Done last session:** apartado `consuming-service-layer` (#2) integrated and verified: u9-u13 (pp. 92-139) transcribed and reviewed, all 13 units `reviewed`; index.md files (apartado and six subfolders), SKILL.md rows, in-apartado `TODO(link)` resolved, 46 images in DOCS/assets, 55 REVIEW.md rows settled, `verify_section.py consuming-service-layer` exits 0.
-**Next:** planner returned the `sql-query` plan (in ledger, not approved). Waiting for the user to approve it / answer its 5 questions, then dispatch u1-u3 transcribers. Remaining `TODO(link: sec 6.x)` (cors.md x2, user-defined-schemas.md) resolve when `configuring` is integrated.
-**Waiting on the user:** approval of the sql-query plan.
+**Next:** sql-query plan approved; u1-u3 transcribers dispatched in parallel, then reviewers, then integrate. Remaining `TODO(link: sec 6.x)` (cors.md x2, user-defined-schemas.md) resolve when `configuring` is integrated.
+**Waiting on the user:** nothing.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
 
@@ -16,7 +16,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 |---|---|---|---|---|
 | 1 | introduction-getting-started | 1, 2 | 11-14 | done |
 | 2 | consuming-service-layer | 3 | 15-139 | done |
-| 3 | sql-query | 4 | 140-160 | pending |
+| 3 | sql-query | 4 | 140-160 | transcribing |
 | 4 | etag | 5 | 161-166 | pending |
 | 5 | configuring | 6 | 167-178 | pending |
 | 6 | webhooks | 7 | 179-224 | pending |
@@ -164,7 +164,7 @@ No unit exceeds 15 pages. 3.19.5 is split between u11 (own text, Http request/re
 
 ## Plan: sql-query
 
-Approved: not yet (awaiting user)
+Approved: 2026-10-01
 
 ### Hojas
 
@@ -223,6 +223,7 @@ Approved: not yet (awaiting user)
 - 2026-10-01 user (delegated to supervisor): review queue rows p013-01 and p013-02 settled `described` (English descriptions added to architecture-and-installation.md), l012-01 `keep`. verify_section.py introduction-getting-started passes. From now on the supervisor settles queue rows as the integration step adds them, unless the user says otherwise (standing delegation: "tu mismo revisa el REVIEW.md, las decisiones son tuyas").
 
 - 2026-10-01 supervisor: integration of consuming-service-layer. The 3.6 table lives in the new hoja query-options/options-reference.md (index.md files are not counted as hojas by verify_section.py, so page 32 and table markers t032-01/t033-01 need a hoja); query-options/index.md is routing-only. Other subfolder indexes keep their short 3.7, 3.8, 3.15, 3.16, 3.19 intro text above the routing entries. Queue rows settled `keep` (inline icons, UI screenshots, source URLs) and p117-01 `described`.
+- 2026-10-01 user (delegated: "como tu consideres y ejecutalo"): sql-query plan approved with all 5 planner recommendations (4.3/4.4 two hojas, 4.13 own hoja, 4.6/4.7 separate, 4.10 one hoja with anchor index, ch. 4 intro at top of overview-and-business-object-metadata.md). Supervisor runs u1-u3 in parallel through to integration.
 
 ## Notes
 
