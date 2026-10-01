@@ -347,17 +347,37 @@ def render_code(lines):
         return ""
     xs = Counter(round(l.x0) for l in lines)
     base_x = xs.most_common(1)[0][0]
+    left_x = min(l.x0 for l in lines if round(l.x0) == base_x)
     out = []
     prev = None
-    for l in lines:
+    skip_blank = 0
+    for i, l in enumerate(lines):
+        pitch = l.size * 1.1
+        cw = 0.6 * l.size
         if prev is not None:
-            pitch = l.size * 1.1
             gap = l.base - prev.base
             if gap > pitch * 1.75:
-                out.extend([""] * max(1, round(gap / max(pitch, 1)) - 1))
-        extra = max(0, round((l.x0 - base_x) / (0.6 * l.size)))
-        text = "".join(s["text"] for s in l.spans).replace("\xa0", " ").rstrip()
-        out.append(" " * extra + text)
+                out.extend([""] * max(0, max(1, round(gap / max(pitch, 1)) - 1) - skip_blank))
+        skip_blank = 0
+        text = "".join(s["text"] for s in l.spans).replace(" ", " ").rstrip()
+        # Indentation is measured from the drawn position of the first glyph: the text layer
+        # carries leading spaces that are never drawn, so counting them overstates the indent.
+        first = next((sp for sp in l.spans if sp["text"].strip()), None)
+        if first is not None and first.get("lead_x") is not None:
+            indent = max(0, round((first["lead_x"] - left_x) / cw))
+            text = text.lstrip(" ")
+        else:
+            indent = max(0, round((l.x0 - base_x) / cw))
+        # The text layer also fuses an opening brace with the next visual line
+        # ('{    "key": ...', one space standing for the line break) and leaves a double
+        # line gap after it. Split it back and drop the phantom blank line.
+        m = re.match(r"^([{\[])( {2,})(\S.*)$", text)
+        if m and i + 1 < len(lines) and lines[i + 1].base - l.base > pitch * 1.75:
+            out.append(" " * indent + m.group(1))
+            indent = len(m.group(2)) - 1
+            text = m.group(3)
+            skip_blank = 1
+        out.append(" " * indent + text)
         prev = l
     return "\n".join(out).strip("\n")
 
@@ -699,11 +719,16 @@ class Extractor:
         images = self.extract_images(page, pno)
         code_boxes, callout_boxes, rules = page_boxes(page, warn, pno)
 
-        flags = pymupdf.TEXTFLAGS_DICT & ~pymupdf.TEXT_PRESERVE_IMAGES
+        flags = pymupdf.TEXTFLAGS_RAWDICT & ~pymupdf.TEXT_PRESERVE_IMAGES
         spans = []
-        for b in page.get_text("dict", flags=flags)["blocks"]:
+        for b in page.get_text("rawdict", flags=flags)["blocks"]:
             for ln in b.get("lines", []):
                 for s in ln["spans"]:
+                    chars = s.pop("chars", [])
+                    s["text"] = "".join(c["c"] for c in chars)
+                    # x of the first drawn glyph: the text layer sometimes carries leading
+                    # spaces that are not drawn, so code indentation is measured from here.
+                    s["lead_x"] = next((c["origin"][0] for c in chars if c["c"].strip()), None)
                     if s["bbox"][1] >= LAYOUT["footer_top"] and s["size"] <= LAYOUT["footer_max_size"]:
                         continue
                     if not s["text"]:
