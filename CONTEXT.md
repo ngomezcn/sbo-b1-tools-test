@@ -1,0 +1,58 @@
+# SAP B1 Tools
+
+Paquete de plugins y skills para que desarrolladores de SAP Business One trabajen con la IA contra sus sistemas. Se centra por ahora en Service Layer y se ampliará a otros sistemas.
+
+## Language
+
+**Plugin de uso (`use-`)**:
+Plugin que permite a la IA operar contra un sistema B1 real: hacer las llamadas, iniciar sesión, gestionar credenciales y explorar metadatos.
+_Avoid_: Conector, connector
+
+**Plugin de documentación (`docs-`)**:
+Plugin que aporta el conocimiento de un sistema, único y global para todas sus versiones de B1. Marca dónde una función no existe o cambia según la versión. Necesita el Setup del sistema hecho (para conocer la versión de B1), pero no necesita ningún plugin de uso.
+_Avoid_: Plugin de conocimiento, knowledge plugin, documentación por versión, pack de documentación
+
+**Service Layer**:
+API REST de SAP Business One sobre la que se construye la primera pareja de plugins.
+
+**Caché de metadatos**:
+Copia local de los metadatos que un sistema expone sobre sí mismo, construida por el plugin de configuración.
+_Avoid_: Índice, catálogo
+
+**Sistema**:
+Tecnología de B1 contra la que se opera: Service Layer, SQL, DI API, etc. Cada sistema tiene su propio plugin de configuración, de uso y de documentación, y su propia carpeta `.sbo-b1/<sistema>/`.
+
+**Entorno**:
+Instancia B1 concreta a la que un desarrollador se conecta mediante un sistema, con sus credenciales y su propia caché de metadatos. Solo hay tres: dev, uat y prod, y pertenecen a un único cliente por proyecto. Vive en una carpeta local del repositorio desde donde se ejecuta la skill (`.sbo-b1/<sistema>/<entorno>/`), ignorada por git.
+_Avoid_: Perfil, empresa, tenant
+
+**Plugin de configuración (`setup-`)**:
+Plugin, propio de cada sistema, que prepara `.sbo-b1/<sistema>/`: guarda las credenciales de cada entorno, prueba el login, genera su caché de metadatos y pregunta y guarda la versión de B1. Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
+_Avoid_: Setup como comando de un plugin de uso
+
+**Setup**:
+Ejecución del plugin de configuración de un sistema.
+
+**Versión de B1**:
+Versión de SAP B1 (por ejemplo FP 2202) que el desarrollador declara en el Setup de un sistema, elegida de la lista de versiones soportadas, y que se guarda en `.sbo-b1/<sistema>/config.md`. Vale para todos los entornos de ese sistema. La IA la usa para comprobar que una función existe en esa versión. El sistema no la detecta ni la contrasta entre sistemas: es responsabilidad del desarrollador declararla bien.
+_Avoid_: Versión del proyecto, versión del servidor
+
+**Confirmación de escritura**:
+Permiso que la IA pide al desarrollador antes de cada operación que modifica datos (POST, PATCH, DELETE).
+
+**Autoridad total**:
+Estado, limitado a una sesión, en el que el desarrollador dispensa a la IA de pedir confirmación de escritura. Solo lo concede el desarrollador; la IA nunca lo propone.
+
+**Desarrollador**:
+Persona usuaria del paquete: conoce B1, tiene juicio técnico y opera con credenciales de manager.
+_Avoid_: Usuario final, usuario funcional
+
+## Relationships
+
+- Un **Plugin de uso** necesita su **Plugin de configuración** y su **Plugin de documentación** para operar; el **Plugin de documentación** necesita el **Plugin de configuración** pero no el **Plugin de uso**, así que se puede consultar sin él (por ejemplo, un agente de código que programa contra Service Layer).
+- Instalar un **Plugin de uso** instala siempre su **Plugin de configuración** y su **Plugin de documentación**. No hay elección de versiones de documentación.
+- Si falta el Setup del sistema (`.sbo-b1/<sistema>/` o su `config.md`), tanto el **Plugin de uso** como el **Plugin de documentación** fallan con error que indica ejecutar el Setup.
+- El **Setup** de un **Sistema** pregunta al desarrollador la **Versión de B1** y la guarda; el sistema no detecta la versión del servidor por su cuenta.
+- Cada **Sistema** guarda su propia **Versión de B1**; los sistemas no las comparan entre sí.
+- Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, con la fecha en que se obtuvo.
+- La **Caché de metadatos** la genera el **Setup**; la IA solo puede pedir permiso al desarrollador para regenerarla.
