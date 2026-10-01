@@ -24,10 +24,6 @@ On the Service Layer Controller home page, a new *Monitor* tab is added to displ
 
 For all views, a pagination control is displayed to allow you to browse the requests page-by-page. By default, 20 rows are displayed per page.
 
-Figure: The pagination control of the log views.
-
-![p175-02](../../assets/p175-02.png)
-
 ## List View of Normal Requests
 
 The list view of normal requests shows the basic information for a given group of requests.
@@ -42,10 +38,6 @@ The list view of normal requests shows the basic information for a given group o
 | Detail | A clickable link for the detailed view. |
 
 The list view is grouped by **Method** and **URL**. You can click the refresh icon on the right upper corner to get the latest logs.
-
-Figure: The list view of normal requests.
-
-![p176-01](../../assets/p176-01.png)
 
 ## Detailed View of Normal Requests
 
@@ -63,10 +55,6 @@ The detailed view of a group of normal requests shows more detailed information.
 | Pid | The process number which handles the request. |
 | Client IP | The IP of the client from which the request is sent. |
 
-Figure: The detailed view of a group of normal requests.
-
-![p177-01](../../assets/p177-01.png)
-
 ## List View of Error Requests
 
 The list view of error requests shows the basic information of a group of error requests.
@@ -81,10 +69,6 @@ The list view of error requests shows the basic information of a group of error 
 | Details | A clickable link for the detailed view. |
 
 The list view is grouped by **Method** and **URL**. You can choose the refresh icon on the right upper corner to get the latest logs.
-
-Figure: The list view of error requests.
-
-![p177-02](../../assets/p177-02.png)
 
 ## Detailed View of Error Requests
 
@@ -102,14 +86,7 @@ The detailed view of a group of error requests shows more detailed information.
 | Pid | The process number which handles the request. |
 | Client IP | The IP of the client from which the request is sent. |
 
-Figure: The detailed view of a group of error requests.
-
-![p178-01](../../assets/p178-01.png)
-
 ## Request/Response Detailed Logs
 
 This logging is for trouble shooting purposes. In the Service Layer Configuration, click the *Request & Response Logs* checkbox to enable/disable the logging. A dropdown list is available to allow you to download log files according to the selected duration.
 
-Figure: The Request & Response Logs option in the Service Layer Configuration.
-
-![p178-02](../../assets/p178-02.png)

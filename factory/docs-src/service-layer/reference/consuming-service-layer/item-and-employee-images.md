@@ -31,7 +31,7 @@ As of SAP Business Onee 9.3 patch level 12, version for SAP HANA, `EmployeeImage
 
 The item image folder is a shared folder on Windows platform for the SAP Business One client. To make it accessible for Service Layer on Linux, `CIFS` is required. The setup steps for the item image folder are similar to those of the attachment folder, as follows:
 
-1. Create a shared folder with read and write permissions on Windows (for example, `\\windows_server\SharedFolder\Images`) and configure it as the item image folder in *General Settings* of the SAP Business One client (*Main Menu* > *Administration* > *System Initialization* > *General Settings* ![p113-03](../../assets/p113-03.png)). Make sure the folder path is a network path.
+1. Create a shared folder with read and write permissions on Windows (for example, `\\windows_server\SharedFolder\Images`) and configure it as the item image folder in *General Settings* of the SAP Business One client (*Main Menu* > *Administration* > *System Initialization* > *General Settings*). Make sure the folder path is a network path.
 2. Create a folder on Linux, (for example, `/mnt/images`).
 3. Mount the Linux folder to the Windows folder by running a command such as:
 
@@ -58,10 +58,6 @@ GET /b1s/v1/ItemImages('i001')/$value
 ```
 
 On success, the response in the browser is as follows:
-
-Figure: The item image displayed in the browser.
-
-![p113-04](../../assets/p113-04.png)
 
 > **Note**
 >
@@ -133,17 +129,9 @@ GET /b1s/v1/ItemImages('i001')/$value
 
 On success, the response in the browser is as follows:
 
-Figure: The updated item image displayed in the browser.
-
-![p115-01](../../assets/p115-01.png)
-
 > **Note**
 >
 > For test purposes only, you can use the Chrome plug-in `POSTMAN` to update an item image.
->
-> Figure: Updating an item image with POSTMAN.
->
-> ![p115-02](../../assets/p115-02.png)
 
 ## Deleting an Item Image
 

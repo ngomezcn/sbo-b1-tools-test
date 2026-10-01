@@ -34,15 +34,7 @@ DBType="HANA" ClientType="S">
 2. Compress the `ard` file and script file into a `zip` file (e.g. `Items.zip`).
 3. Upload `Items.zip` to the extension manager from the *Extension Import Wizard*.
 
-Figure: The Extension Import Wizard.
-
-![p131-01](../../../assets/p131-01.png)
-
 4. From the *Extension Assignment Wizard*, assign the extension application to one company.
-
-Figure: The Extension Assignment Wizard.
-
-![p132-01](../../../assets/p132-01.png)
 
 5. Log in to the company with Service Layer and access the script with the following URL: `/b1s/v1/script/mtcsys/items`
 

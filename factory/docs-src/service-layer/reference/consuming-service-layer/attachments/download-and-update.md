@@ -108,10 +108,6 @@ Service Layer allows you to update an attachment via PATCH and there are two typ
 >
 > On success, the response in browser is as follows:
 >
-> Figure: The newly created attachment line line3.png shown in the browser.
->
-> ![p109-01](../../../assets/p109-01.png)
-
 > **Note**
 >
 > - From the business logic perspective, it is not allowed to delete an attachment or attachment line.
