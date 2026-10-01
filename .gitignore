@@ -5,3 +5,4 @@ __pycache__/
 *.local.json
 profiles.json
 metadata-cache/
+factory/.work/
