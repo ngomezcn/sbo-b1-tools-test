@@ -5,7 +5,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 ## RESUME HERE
 
 **Done last session:** apartado `etag` (#4) planned, approved by the user, transcribed (u1), reviewed (two findings: missing asset copy, handled at integration; anchor index changed to the two `##` headings by the supervisor) and integrated: etag/index.md written, SKILL.md intent row and 2 confusable-term rows added, p161-01.png copied to DOCS/assets, 3 REVIEW.md rows settled `keep`. `verify_section.py etag` exits 0 (2 hojas).
-**Next:** plan apartado `configuring` (#5, ch. 6, pp. 167-178): dispatch the planner. When integrating it, resolve `TODO(link: sec 6.x)` in cors.md x2 and user-defined-schemas.md. Dangling: `../limitations/index.md` (from sql-query/index.md, when `limitations` is integrated).
+**Next:** user approves the `configuring` plan (proposed, see Plan: configuring; branch main), then dispatch u1+u2. Original note: plan apartado `configuring` (#5, ch. 6, pp. 167-178): dispatch the planner. When integrating it, resolve `TODO(link: sec 6.x)` in cors.md x2 and user-defined-schemas.md. Dangling: `../limitations/index.md` (from sql-query/index.md, when `limitations` is integrated).
 **Waiting on the user:** nothing.
 **Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
@@ -242,6 +242,41 @@ Approved: 2026-10-01
 
 1. Hoja split: 2 hojas, with 5.3 and 5.4 merged into etag-entities-and-metadata.md (recommended; 5.3 is a bare list and 5.4 two short code blocks). Alternatives: one etag.md for all 6 pages, or 3 hojas with 5.3 and 5.4 separate.
 2. Folder: `reference/etag/` with an index.md (recommended, matches the other apartados) or flat hojas under `reference/`.
+
+## Plan: configuring
+
+Approved: pending (proposed 2026-10-01)
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| configuring/service-layer-controller-settings.md | Service Layer Controller and settings | 6, 6.1 | 167-173 | u1 |
+| configuring/b1s-conf-options.md | Other configuration options (b1s.conf) | 6.2 | 174-174 | u2 |
+| configuring/configuration-by-request.md | Configuration by request | 6.3 | 174-175 | u2 |
+| configuring/monitoring-logs.md | Monitoring Service Layer logs | 6.4 | 175-178 | u2 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 167-173 | 6, 6.1 | service-layer-controller-settings.md | pending | 7 table-heavy pages (5 tables, 8 images, 1 code block). Needs an anchor index after the title (Node Management, Service Layer Configuration). t169-01 continues t168-01: merge. Courier option names in cells stay inline. p174 belongs to u2 (outline gives 6.1 end 174, but p174 opens at 6.2; confirm no 6.1 tail). |
+| u2 | 174-178 | 6.2, 6.3, 6.4 (6.4.1-6.4.5) | b1s-conf-options.md, configuration-by-request.md, monitoring-logs.md | pending | 5 pages, shares p174 with u1. u2 takes 6.2 (t174-01) and 6.3 (c174-01) on p174. 4 tables, 7 UI screenshots; monitoring-logs.md needs an anchor index for 6.4.1-6.4.5. |
+
+### Disambiguation candidates
+
+- Configuring (ch. 6) vs Webhook Configuration (7.5) vs Configuration by Request (6.3).
+- Other Configuration Options (6.2, b1s.conf: CorsEnable, schema option) vs CORS (3.20, cors.md) vs User-Defined Schemas (3.12).
+- Managing Service Layer Settings (6.1, controller UI) vs Other Configuration Options (6.2, same options via b1s.conf).
+- Node Management (6.1) vs High Availability and Load Balancing (ch. 9).
+- Monitoring Service Layer Logs (6.4) vs Log SQL Query Modification (4.12.2) vs Log Levels / Request & Response Logs options (6.1).
+
+### Questions
+
+1. Keep 6.2 and 6.3 as separate hojas (recommended: file-wide vs per-request HTTP headers), or merge into one other-configuration-options.md.
+2. Chapter 6 intro merged into 6.1's hoja (recommended) or its own hoja.
+3. 6.4 as one hoja with anchor index (recommended) or a monitoring-logs/ subfolder with five hojas.
+4. 6.1 kept as one hoja (recommended; no bookmarked subsections) or split.
 
 ## Decisions
 
