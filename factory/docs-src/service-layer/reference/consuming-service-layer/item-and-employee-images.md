@@ -129,9 +129,7 @@ GET /b1s/v1/ItemImages('i001')/$value
 
 On success, the response in the browser is as follows:
 
-Figure: The updated item image displayed in the browser.
-
-![p115-01](../../assets/p115-01.png)
+The browser displays the updated image of item `i001` (a "Powered by SAP HANA" logo in this example).
 
 > **Note**
 >

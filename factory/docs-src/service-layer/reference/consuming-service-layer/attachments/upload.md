@@ -58,15 +58,11 @@ On success, the response is as follows:
 
 The source file is saved in the destination attachment folder on Linux (`/mnt/attachments2`).
 
-Figure: The source file saved in the destination attachment folder on Linux.
-
-![p105-01](../../../assets/p105-01.png)
+Listing the directory (for example, with `ls -l /mnt/attachments2`) shows the uploaded file, such as `my_attach_1.dat`.
 
 Open the Windows folder (`\\<databaseserver>\temp\SL\attachments`); the source file is saved there as well.
 
-Figure: The source file saved in the Windows folder.
-
-![p105-02](../../../assets/p105-02.png)
+The folder contains the uploaded file, such as `my_attach_1.dat`.
 
 ## Uploading Source File to a Remote Service Layer
 

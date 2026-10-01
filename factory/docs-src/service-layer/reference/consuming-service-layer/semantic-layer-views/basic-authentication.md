@@ -12,11 +12,10 @@ However, basic authentication only allows you to input user name and password. T
 
 To address this issue, the solution combines the SAP Business One user name and company database together in a JSON format as the user name for basic authentication.
 
-For example, for the browser Microsoft Edge, log on as follows:
+For example, for the browser Microsoft Edge, the sign-in dialog for `/b1s/v1/sml.svc/$metadata` takes the following values:
 
-Figure: Logging on with basic authentication in Microsoft Edge.
-
-![p066-02](../../../assets/p066-02.png)
+- **User name**: `{"CompanyDB": "US0926","UserName": "manager"}`
+- **Password**: the password of the SAP Business One user (`manager` in this example).
 
 > **Note**
 >

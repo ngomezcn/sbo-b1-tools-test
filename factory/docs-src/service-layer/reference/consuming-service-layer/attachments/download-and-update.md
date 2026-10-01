@@ -16,9 +16,13 @@ GET /b1s/v1/Attachments2(3)/$value
 
 On success, the response in browser is as follows:
 
-Figure: The downloaded first attachment line shown in the browser.
+The browser displays the content of the first attachment line as plain text:
 
-![p107-01](../../../assets/p107-01.png)
+```text
+Introduction
+B1 Service Layer (SL) is a new generation of extension API for consuming B1 objects and services
+via web service with high scalability and high availability.
+```
 
 If you want to download an attachment line other than the first attachment line, you need to specify the full file name (including the file extension) in the request URL. For example:
 
@@ -28,9 +32,7 @@ GET /b1s/v1/Attachments2(3)/$value?filename='line2.png'
 
 On success, the response in browser is as follows:
 
-Figure: The downloaded attachment line line2.png shown in the browser.
-
-![p107-02](../../../assets/p107-02.png)
+The browser displays the content of `line2.png` as an image (the SAP logo in this example).
 
 ## Updating Attachment
 
@@ -72,9 +74,13 @@ Service Layer allows you to update an attachment via PATCH and there are two typ
 >
 > On success, the response in browser is as follows:
 >
-> Figure: The updated attachment line line1.txt shown in the browser.
+> The browser displays the updated text, whose first line is now `Introduction(Updated)`:
 >
-> ![p108-01](../../../assets/p108-01.png)
+> ```text
+> Introduction(Updated)
+> B1 Service Layer (SL) is a new generation of extension API for consuming B1 objects and services
+> via web service with high scalability and high availability.
+> ```
 
 > **Example**
 >

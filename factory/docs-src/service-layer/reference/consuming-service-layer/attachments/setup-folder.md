@@ -12,9 +12,7 @@ An attachment folder is generally a shared folder on the Windows platform for th
 
 Since Service Layer runs under the Network Service account by default, the shared folder must be configured to grant this account read and write permissions. Without these permissions, Service Layer may fail to recognize that the folder exists.
 
-Figure: The shared folder permissions for the Network Service account.
-
-![p101-01](../../../assets/p101-01.png)
+In the *Network access* dialog of the shared folder, add the `NETWORK SERVICE` account and set its permission level to *Read/Write*. The list of people with access then shows `Administrator` (Read/Write), `Administrators` (Owner), and `NETWORK SERVICE` (Read/Write).
 
 ## Service Layer Running on SAP HANA on Linux
 
@@ -28,9 +26,7 @@ Take the following steps to set up:
 
 1. Create a network shared folder with read and write permissions on Windows (for example, `\\windows_server\SharedFolder\Attachment`) and configure it as the attachment folder in *General Settings* in the SAP Business One client (*Main Menu* > *Administration* > *System Initialization* > *General Settings*).
 
-   Figure: The attachment folder configured in General Settings.
-
-   ![p102-01](../../../assets/p102-01.png)
+   In *General Settings*, on the *Path* tab, the *Attachments Folder* field contains `\\windows_server\SharedFolder\Attachment`.
 
 2. Log in to the Linux server and create a corresponding attachment directory (for example, `/mnt/attachments`) by running the following command:
 
