@@ -12,17 +12,17 @@ summary: Date functions usable in webhook formulas: DATE, TODAY, YEAR, MONTH and
 - [MONTH](#month)
 - [DAY](#day)
 
-### DATE
+## DATE
 
 Returns a date value for a specific date. The string representation of the date is in `YYYYMMDD` format.
 
-#### Usage
+### Usage
 
 ```text
 DATE(year, month, day)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t211-03 -->
 | Parameter | Type | Description |
@@ -31,7 +31,7 @@ DATE(year, month, day)
 | month | number | The month component of the date (1-12) |
 | day | number | The day component of the date |
 
-#### Examples
+### Examples
 
 
 <!-- table: t212-01 -->
@@ -41,41 +41,41 @@ DATE(year, month, day)
 | `DATE(2020, 2, 29) + 1` | `DATE(2020, 3, 1)` |
 | `DATE(2020, 2, 29) + 365` | `DATE(2021, 2, 28)` |
 
-### TODAY
+## TODAY
 
 Returns the current local `DATE` value on the client machine.
 
-#### Usage
+### Usage
 
 ```text
 TODAY()
 ```
 
-#### Examples
+### Examples
 
 <!-- table: t212-02 -->
 | Formula | Return value |
 |---|---|
 | `TODAY()` | `DATE(2026, 7, 17)` |
 
-### YEAR
+## YEAR
 
 Extracts the year from a given date or a string value in `YYYYMMDD` format.
 
-#### Usage
+### Usage
 
 ```text
 YEAR(date)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t212-03 -->
 | Parameter | Type | Description |
 |---|---|---|
 | date | DATE, string | A date or a string date in `YYYYMMDD` format |
 
-#### Examples
+### Examples
 
 <!-- table: t212-04 -->
 | Formula | Return value |
@@ -85,24 +85,24 @@ YEAR(date)
 | `YEAR(DATE(2026, 7, 17))` | 2026 |
 
 
-### MONTH
+## MONTH
 
 Extracts the month from a given date or a string value in `YYYYMMDD` format.
 
-#### Usage
+### Usage
 
 ```text
 MONTH(date)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t213-01 -->
 | Parameter | Type | Description |
 |---|---|---|
 | date | DATE, string | A date or a string date in `YYYYMMDD` format |
 
-#### Examples
+### Examples
 
 <!-- table: t213-02 -->
 | Formula | Return value |
@@ -110,24 +110,24 @@ MONTH(date)
 | `MONTH('20000101')` | 1 |
 | `MONTH(DATE(2026, 7, 17))` | 7 |
 
-### DAY
+## DAY
 
 Extracts the day from a given date or a string value in `YYYYMMDD` format.
 
-#### Usage
+### Usage
 
 ```text
 DAY(date)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t213-03 -->
 | Parameter | Type | Description |
 |---|---|---|
 | date | DATE, string | A date or a string date in `YYYYMMDD` format |
 
-#### Examples
+### Examples
 
 <!-- table: t213-04 -->
 | Formula | Return value |

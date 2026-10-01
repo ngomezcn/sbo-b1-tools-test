@@ -13,24 +13,24 @@ summary: Math functions usable in webhook formulas: ABS, FLOOR, CEILING, ROUND, 
 - [MIN](#min)
 - [MAX](#max)
 
-### ABS
+## ABS
 
 Calculates the absolute value of a number. If the number is negative, the positive value is returned.
 
-#### Usage
+### Usage
 
 ```text
 ABS(numeric)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t216-03 -->
 | Parameter | Type | Description |
 |---|---|---|
 | numeric | number | The numeric value for which to find the absolute value |
 
-#### Examples
+### Examples
 
 <!-- table: t216-04 -->
 | Formula | Return value |
@@ -39,24 +39,24 @@ ABS(numeric)
 | `ABS(5)` | 5 |
 | `ABS(0)` | 0 |
 
-### FLOOR
+## FLOOR
 
 Rounds a numeric value down, toward zero, to the nearest integer.
 
-#### Usage
+### Usage
 
 ```text
 FLOOR(numeric)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t217-02 -->
 | Parameter | Type | Description |
 |---|---|---|
 | numeric | number | The numeric value to round down |
 
-#### Examples
+### Examples
 
 <!-- table: t217-03 -->
 | Formula | Return value |
@@ -65,24 +65,24 @@ FLOOR(numeric)
 | `FLOOR(-4.5)` | -5 |
 | `FLOOR(0)` | 0 |
 
-### CEILING
+## CEILING
 
 Rounds a numeric value up, away from zero, to the nearest integer.
 
-#### Usage
+### Usage
 
 ```text
 CEILING(numeric)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t217-04 -->
 | Parameter | Type | Description |
 |---|---|---|
 | numeric | number | The numeric value to round up |
 
-#### Examples
+### Examples
 
 <!-- table: t217-05 -->
 | Formula | Return value |
@@ -91,24 +91,24 @@ CEILING(numeric)
 | `CEILING(-4.5)` | -4 |
 | `CEILING(0)` | 0 |
 
-### ROUND
+## ROUND
 
 Rounds a numeric value to the nearest integer.
 
-#### Usage
+### Usage
 
 ```text
 ROUND(numeric)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t218-02 -->
 | Parameter | Type | Description |
 |---|---|---|
 | numeric | number | The numeric value to round |
 
-#### Examples
+### Examples
 
 <!-- table: t218-03 -->
 | Formula | Return value |
@@ -117,17 +117,17 @@ ROUND(numeric)
 | `ROUND(4.4)` | 4 |
 | `ROUND(-4.5)` | -4 |
 
-### MIN
+## MIN
 
 Returns the smallest element in a set of elements.
 
-#### Usage
+### Usage
 
 ```text
 MIN(e1, [e2], ...)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t218-04 -->
 | Parameter | Type | Description |
@@ -135,7 +135,7 @@ MIN(e1, [e2], ...)
 | e1 | string or number | The first element in the set |
 | e2 | string or number | (Optional) Additional elements to compare |
 
-#### Examples
+### Examples
 
 
 <!-- table: t219-01 -->
@@ -145,17 +145,17 @@ MIN(e1, [e2], ...)
 | `MIN('a', 'b')` | 'a' |
 | `MIN(0)` | 0 |
 
-### MAX
+## MAX
 
 Returns the largest element in a set of elements.
 
-#### Usage
+### Usage
 
 ```text
 MAX(e1, [e2], ...)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t219-02 -->
 | Parameter | Type | Description |
@@ -163,7 +163,7 @@ MAX(e1, [e2], ...)
 | e1 | string or number | The first element in the set |
 | e2 | string or number | (Optional) Additional elements to compare |
 
-#### Examples
+### Examples
 
 <!-- table: t219-03 -->
 | Formula | Return value |

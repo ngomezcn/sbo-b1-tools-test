@@ -16,65 +16,65 @@ summary: Webhook formula string functions (UPPER, LOWER, CONTAINS, TRIM, LEN, LE
 - [MID](#mid)
 - [SUBSTITUTE](#substitute)
 
-### UPPER
+## UPPER
 
 Converts all letters in the specified text string to uppercase.
 
-#### Usage
+### Usage
 
 ```text
 UPPER(text)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t207-01 -->
 | Parameter | Type | Description |
 |---|---|---|
 | text | string | The text to convert to uppercase |
 
-#### Examples
+### Examples
 
 <!-- table: t207-02 -->
 | Formula | Return value |
 |---|---|
 | `UPPER("abcABC")` | 'ABCABC' |
 
-### LOWER
+## LOWER
 
 Converts all letters in the specified text string to lowercase.
 
-#### Usage
+### Usage
 
 ```text
 LOWER(text)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t207-03 -->
 | Parameter | Type | Description |
 |---|---|---|
 | text | string | The text to convert to lowercase |
 
-#### Examples
+### Examples
 
 <!-- table: t207-04 -->
 | Formula | Return value |
 |---|---|
 | `LOWER("abcABC")` | 'abcabc' |
 
-### CONTAINS
+## CONTAINS
 
 Compares two text arguments and returns `true` if the first argument contains the second argument. Otherwise, returns `false`.
 
-#### Usage
+### Usage
 
 ```text
 CONTAINS(text, compare_text)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t208-01 -->
 | Parameter | Type | Description |
@@ -82,7 +82,7 @@ CONTAINS(text, compare_text)
 | text | string | The main string to search within |
 | compare_text | string | The substring to search for in text |
 
-#### Examples
+### Examples
 
 <!-- table: t208-02 -->
 | Formula | Return value |
@@ -90,24 +90,24 @@ CONTAINS(text, compare_text)
 | `CONTAINS('abcABC', 'ABC')` | true |
 | `CONTAINS('ABC', 'CDE')` | false |
 
-### TRIM
+## TRIM
 
 Removes all leading and trailing spaces from a text string.
 
-#### Usage
+### Usage
 
 ```text
 TRIM(text)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t208-03 -->
 | Parameter | Type | Description |
 |---|---|---|
 | text | string | The text to be trimmed |
 
-#### Examples
+### Examples
 
 <!-- table: t208-04 -->
 | Formula | Return value |
@@ -115,24 +115,24 @@ TRIM(text)
 | `TRIM(' Hello World ')` | 'Hello World' |
 | `TRIM('Multiple Spaces')` | 'Multiple Spaces' |
 
-### LEN
+## LEN
 
 Calculates the length of a text string, counting all characters including spaces and special characters.
 
-#### Usage
+### Usage
 
 ```text
 LEN(text)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t209-01 -->
 | Parameter | Type | Description |
 |---|---|---|
 | text | string | The text for which to calculate the length |
 
-#### Examples
+### Examples
 
 <!-- table: t209-02 -->
 | Formula | Return value |
@@ -140,17 +140,17 @@ LEN(text)
 | `LEN('')` | 0 |
 | `LEN('Hello World')` | 11 |
 
-### LEFT
+## LEFT
 
 Returns the specified number of characters from the start of a text string.
 
-#### Usage
+### Usage
 
 ```text
 LEFT(text, num_chars)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t209-03 -->
 | Parameter | Type | Description |
@@ -158,7 +158,7 @@ LEFT(text, num_chars)
 | text | string | The text from which to extract characters |
 | num_chars | number | The number of characters to extract |
 
-#### Examples
+### Examples
 
 <!-- table: t209-04 -->
 | Formula | Return value |
@@ -166,17 +166,17 @@ LEFT(text, num_chars)
 | `LEFT('Hello World', 5)` | 'Hello' |
 | `LEFT('Analytics', 0)` | '' |
 
-### RIGHT
+## RIGHT
 
 Returns the specified number of characters from the end of a text string.
 
-#### Usage
+### Usage
 
 ```text
 RIGHT(text, num_chars)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t210-01 -->
 | Parameter | Type | Description |
@@ -184,7 +184,7 @@ RIGHT(text, num_chars)
 | text | string | The text from which to extract characters |
 | num_chars | number | The number of characters to extract |
 
-#### Examples
+### Examples
 
 <!-- table: t210-02 -->
 | Formula | Return value |
@@ -192,17 +192,17 @@ RIGHT(text, num_chars)
 | `RIGHT('Hello World', 5)` | 'World' |
 | `RIGHT('Analytics', 0)` | '' |
 
-### MID
+## MID
 
 Returns a specific number of characters from a text string, starting at the position specified.
 
-#### Usage
+### Usage
 
 ```text
 MID(text, start_num, num_chars)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t210-03 -->
 | Parameter | Type | Description |
@@ -211,7 +211,7 @@ MID(text, start_num, num_chars)
 | start_num | number | The position of the first character to extract |
 | num_chars | number | The number of characters to extract |
 
-#### Examples
+### Examples
 
 <!-- table: t210-04 -->
 | Formula | Return value |
@@ -221,17 +221,17 @@ MID(text, start_num, num_chars)
 | `MID('Sample', 2, 10)` | 'mple' |
 | `MID('Hello World', '6', '5')` | 'World' |
 
-### SUBSTITUTE
+## SUBSTITUTE
 
 Replaces occurrences of a specified substring within a text string with another substring.
 
-#### Usage
+### Usage
 
 ```text
 SUBSTITUTE(text, old_text, new_text)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t211-01 -->
 | Parameter | Type | Description |
@@ -240,7 +240,7 @@ SUBSTITUTE(text, old_text, new_text)
 | old_text | string | The substring to be replaced |
 | new_text | string | The substring to replace with |
 
-#### Examples
+### Examples
 
 <!-- table: t211-02 -->
 | Formula | Return value |

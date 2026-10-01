@@ -12,17 +12,17 @@ summary: Time functions usable in webhook formulas: TIME, NOW, HOUR, MINUTE and 
 - [MINUTE](#minute)
 - [SECOND](#second)
 
-### TIME
+## TIME
 
 Creates a time value using separate hour, minute, and second components. The string representation of the time is in `HHMMSS` format. The hour is represented in 24-hour format.
 
-#### Usage
+### Usage
 
 ```text
 TIME(hours, minutes, seconds)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t214-01 -->
 | Parameter | Type | Description |
@@ -31,7 +31,7 @@ TIME(hours, minutes, seconds)
 | minutes | number | The minutes component of the time (0-59) |
 | seconds | number | The seconds component of the time (0-59) |
 
-#### Examples
+### Examples
 
 <!-- table: t214-02 -->
 | Formula | Return value |
@@ -39,17 +39,17 @@ TIME(hours, minutes, seconds)
 | `TIME(12, 12, 12) + 1` | `TIME(12, 12, 13)` |
 | `TIME(23, 59, 59) + 1` | `TIME(0, 0, 0)` |
 
-### NOW
+## NOW
 
 Returns the current local `TIME` value on the client machine.
 
-#### Usage
+### Usage
 
 ```text
 NOW()
 ```
 
-#### Examples
+### Examples
 
 <!-- table: t214-03 -->
 | Formula | Return value |
@@ -57,24 +57,24 @@ NOW()
 | `NOW()` | `TIME(12, 12, 13)` |
 
 
-### HOUR
+## HOUR
 
 Extracts the hour from a given `TIME` value or a time string in `HHMMSS` or `HHMM` format.
 
-#### Usage
+### Usage
 
 ```text
 HOUR(timeValue)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t215-01 -->
 | Parameter | Type | Description |
 |---|---|---|
 | timeValue | TIME, string | A TIME value or a time string in `HHMMSS` or `HHMM` format |
 
-#### Examples
+### Examples
 
 <!-- table: t215-02 -->
 | Formula | Return value |
@@ -83,24 +83,24 @@ HOUR(timeValue)
 | `HOUR('123045')` | 12 |
 | `HOUR('2359')` | 23 |
 
-### MINUTE
+## MINUTE
 
 Extracts the minute from a given `TIME` value or a time string in `HHMMSS` or `HHMM` format.
 
-#### Usage
+### Usage
 
 ```text
 MINUTE(timeValue)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t215-03 -->
 | Parameter | Type | Description |
 |---|---|---|
 | timeValue | TIME, string | A `TIME` value or a time string in `HHMMSS` or `HHMM` format |
 
-#### Examples
+### Examples
 
 <!-- table: t215-04 -->
 | Formula | Return value |
@@ -110,24 +110,24 @@ MINUTE(timeValue)
 | `MINUTE('2359')` | 59 |
 
 
-### SECOND
+## SECOND
 
 Extracts the second from a given `TIME` value or a time string in `HHMMSS` or `HHMM` format.
 
-#### Usage
+### Usage
 
 ```text
 SECOND(timeValue)
 ```
 
-#### Parameters
+### Parameters
 
 <!-- table: t216-01 -->
 | Parameter | Type | Description |
 |---|---|---|
 | timeValue | TIME, string | A `TIME` value or a time string in `HHMMSS` or `HHMM` format |
 
-#### Examples
+### Examples
 
 <!-- table: t216-02 -->
 | Formula | Return value |

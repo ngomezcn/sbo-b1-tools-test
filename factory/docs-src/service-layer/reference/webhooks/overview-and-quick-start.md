@@ -10,7 +10,7 @@ As of SAP Business One 10.0 FP 2602, the Service Layer supports webhooks.
 
 Webhooks let you receive instant notifications about specific events that occur in your SAP Business One system. When you subscribe to events, you can use webhooks to trigger actions in your applications when certain events happen, such as creating or updating business objects.
 
-Figure: Webhook architecture: the partner's webhook service, the Service Layer (OData query) and the Webhook Messenger (push notification).
+Figure: Webhooks in the Service Layer.
 
 ![p179-01](../../assets/p179-01.png)
 

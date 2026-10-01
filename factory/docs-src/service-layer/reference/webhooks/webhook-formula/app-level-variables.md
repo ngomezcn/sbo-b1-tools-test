@@ -17,11 +17,11 @@ The following variables are available in the `app` namespace.
 - [app.VersionStr](#appversionstr)
 - [app.OS](#appos)
 
-### app.CurrentUser
+## app.CurrentUser
 
 Gets the user code of the currently logged-in user.
 
-#### Examples
+### Examples
 
 <!-- table: t220-03 -->
 | Formula | Return value |
@@ -29,11 +29,11 @@ Gets the user code of the currently logged-in user.
 | `app.CurrentUser` | `'manager'` |
 | `'Current user is: ' + app.CurrentUser` | `'Current user is: manager'` |
 
-### app.CurrentCompany
+## app.CurrentCompany
 
 Gets the company name of the currently logged-in company.
 
-#### Examples
+### Examples
 
 <!-- table: t220-04 -->
 | Formula | Return value |
@@ -41,11 +41,11 @@ Gets the company name of the currently logged-in company.
 | `app.CurrentCompany` | `'SQLTA OEC Computers'` |
 | `'Current company is: ' + app.CurrentCompany` | `'Current company is: SQLTA OEC Computers'` |
 
-### app.Name
+## app.Name
 
 Gets the process name of the current application. This returns the executable name of the process without the file extension.
 
-#### Examples
+### Examples
 
 <!-- table: t221-02 -->
 | Formula | Return value | Application |
@@ -53,22 +53,22 @@ Gets the process name of the current application. This returns the executable na
 | `app.Name` | `'SAP Business One'` | SAP Business One Desktop Client |
 | `app.Name` | `'httpd'` | Service Layer |
 
-### app.VersionStr
+## app.VersionStr
 
 Gets the version string of the current application.
 
-#### Examples
+### Examples
 
 <!-- table: t221-03 -->
 | Formula | Return value |
 |---|---|
 | `app.VersionStr` | `'10.00.340'` |
 
-### app.OS
+## app.OS
 
 Gets the operating system name that the current application is running on.
 
-#### Examples
+### Examples
 
 <!-- table: t221-04 -->
 | Formula | Return value |

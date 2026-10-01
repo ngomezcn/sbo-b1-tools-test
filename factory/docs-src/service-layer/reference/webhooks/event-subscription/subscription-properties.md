@@ -314,10 +314,6 @@ summary: The properties of an EventSubscription (WebhookID, WebhookURL, authenti
 
       CardCode,
       DocTotal",
-      ```
-
-      <!-- table: t192-01 -->
-      ```json
       "FilterExp
       r":
       "DocTotal
