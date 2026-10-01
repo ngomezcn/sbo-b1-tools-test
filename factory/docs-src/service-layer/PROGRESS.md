@@ -4,10 +4,10 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `webhooks` (#6) planned by the planner (6 units, 18 hojas, 8 questions) and written to the ledger as `planned`; WORK re-extracted (counts match profile.md).
-**Next:** once the user approves (or revises) the webhooks plan, set it `approved` with the date and dispatch transcribers for u1-u6 (max 4 in parallel). Dangling until integrated: `../limitations/index.md`, `../high-availability-load-balancing/index.md`, `../webhooks/index.md`.
-**Waiting on the user:** approval of the webhooks plan and its 8 questions (all recommendations listed first).
-**Open decisions:** the 8 planner questions.
+**Done last session:** apartado `webhooks` (#6) planned and approved (delegated to the supervisor); WORK re-extracted.
+**Next:** dispatch transcribers for webhooks u1-u6 (max 4 in parallel), then reviewers, then integrate. Dangling until integrated: `../limitations/index.md`, `../high-availability-load-balancing/index.md`, `../webhooks/index.md`.
+**Waiting on the user:** nothing.
+**Open decisions:** none.
 **Suggested skills:** /build-docs-from-sl-pdf
 
 ## Apartados
@@ -19,7 +19,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 3 | sql-query | 4 | 140-160 | done |
 | 4 | etag | 5 | 161-166 | done |
 | 5 | configuring | 6 | 167-178 | done |
-| 6 | webhooks | 7 | 179-224 | planned |
+| 6 | webhooks | 7 | 179-224 | approved |
 | 7 | limitations | 8 | 225 | pending |
 | 8 | high-availability-load-balancing | 9 | 226 | pending |
 | 9 | faq | 10 | 227-228 | pending |
@@ -280,7 +280,7 @@ Approved: 2026-10-01
 
 ## Plan: webhooks
 
-Approved: pending
+Approved: 2026-10-01
 
 ### Hojas
 
@@ -354,6 +354,8 @@ Routing-only `index.md` files (written at integration, not hojas): `webhooks/ind
 - 2026-10-01 user (delegated: "como tu consideres y ejecutalo"): sql-query plan approved with all 5 planner recommendations (4.3/4.4 two hojas, 4.13 own hoja, 4.6/4.7 separate, 4.10 one hoja with anchor index, ch. 4 intro at top of overview-and-business-object-metadata.md). Supervisor runs u1-u3 in parallel through to integration.
 - 2026-10-01 user: etag plan approved ("aprobado todo"): 2 hojas (5.3+5.4 merged), folder reference/etag/ with index.md.
 - 2026-10-01 supervisor: etag review finding 2 (anchor index listed the ### scenarios, leaf-format says ## headings) fixed by editing the index to ETag Introduction / ETag Scenarios.
+
+- 2026-10-01 user (delegated: "si lo ves bien apruebalo"): webhooks plan approved with all 8 planner recommendations; supervisor verified section page ranges against outline.json and the p221/p222 and p193/p194 boundaries.
 
 ## Notes
 
