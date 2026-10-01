@@ -1,0 +1,2589 @@
+[
+ {
+  "id": "l002-01",
+  "page": 2,
+  "anchor": "1 Introduction. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11",
+  "kind": "internal",
+  "target_page": 11,
+  "target_sec": "1",
+  "target_title": "1 Introduction"
+ },
+ {
+  "id": "l002-02",
+  "page": 2,
+  "anchor": "1.1 About This Document. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11",
+  "kind": "internal",
+  "target_page": 11,
+  "target_sec": "1.1",
+  "target_title": "1.1 About This Document"
+ },
+ {
+  "id": "l002-03",
+  "page": 2,
+  "anchor": "1.2 Target Audience. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .11",
+  "kind": "internal",
+  "target_page": 11,
+  "target_sec": "1.2",
+  "target_title": "1.2 Target Audience"
+ },
+ {
+  "id": "l002-04",
+  "page": 2,
+  "anchor": "1.3 About SAP Business One Service Layer. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11",
+  "kind": "internal",
+  "target_page": 11,
+  "target_sec": "1.3",
+  "target_title": "1.3 About SAP Business One Service Layer"
+ },
+ {
+  "id": "l002-05",
+  "page": 2,
+  "anchor": "2 Getting Started. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .12",
+  "kind": "internal",
+  "target_page": 12,
+  "target_sec": "2",
+  "target_title": "2 Getting Started"
+ },
+ {
+  "id": "l002-06",
+  "page": 2,
+  "anchor": "2.1 System Requirements. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12",
+  "kind": "internal",
+  "target_page": 12,
+  "target_sec": "2.1",
+  "target_title": "2.1 System Requirements"
+ },
+ {
+  "id": "l002-07",
+  "page": 2,
+  "anchor": "2.2 Architecture Overview. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12",
+  "kind": "internal",
+  "target_page": 12,
+  "target_sec": "2.2",
+  "target_title": "2.2 Architecture Overview"
+ },
+ {
+  "id": "l002-08",
+  "page": 2,
+  "anchor": "2.3 Installing SAP Business One Service Layer. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .13",
+  "kind": "internal",
+  "target_page": 13,
+  "target_sec": "2.3",
+  "target_title": "2.3 Installing SAP Business One Service Layer"
+ },
+ {
+  "id": "l002-09",
+  "page": 2,
+  "anchor": "3 Consuming SAP Business One Service Layer. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15",
+  "kind": "internal",
+  "target_page": 15,
+  "target_sec": "3",
+  "target_title": "3 Consuming SAP Business One Service Layer"
+ },
+ {
+  "id": "l002-10",
+  "page": 2,
+  "anchor": "3.1 Login and Logout. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16",
+  "kind": "internal",
+  "target_page": 16,
+  "target_sec": "3.1",
+  "target_title": "3.1 Login and Logout"
+ },
+ {
+  "id": "l002-11",
+  "page": 2,
+  "anchor": "Session. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17",
+  "kind": "internal",
+  "target_page": 17,
+  "target_sec": "3.1.1",
+  "target_title": "3.1.1 Session"
+ },
+ {
+  "id": "l002-12",
+  "page": 2,
+  "anchor": "3.2 Metadata Document. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17",
+  "kind": "internal",
+  "target_page": 17,
+  "target_sec": "3.2",
+  "target_title": "3.2 Metadata Document"
+ },
+ {
+  "id": "l002-13",
+  "page": 2,
+  "anchor": "Metadata Query with Annotation (OData V4). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19",
+  "kind": "internal",
+  "target_page": 19,
+  "target_sec": "3.2.1",
+  "target_title": "3.2.1 Metadata Query with Annotation (OData V4)"
+ },
+ {
+  "id": "l002-14",
+  "page": 2,
+  "anchor": "3.3 Service Document. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23",
+  "kind": "internal",
+  "target_page": 23,
+  "target_sec": "3.3",
+  "target_title": "3.3 Service Document"
+ },
+ {
+  "id": "l002-15",
+  "page": 2,
+  "anchor": "3.4 Create/Retrieve/Update/Delete (CRUD) Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23",
+  "kind": "internal",
+  "target_page": 23,
+  "target_sec": "3.4",
+  "target_title": "3.4 Create/Retrieve/Update/Delete (CRUD) Operations"
+ },
+ {
+  "id": "l002-16",
+  "page": 2,
+  "anchor": "Creating Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24",
+  "kind": "internal",
+  "target_page": 24,
+  "target_sec": "3.4.1",
+  "target_title": "3.4.1 Creating Entities"
+ },
+ {
+  "id": "l002-17",
+  "page": 2,
+  "anchor": "Retrieving Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26",
+  "kind": "internal",
+  "target_page": 26,
+  "target_sec": "3.4.2",
+  "target_title": "3.4.2 Retrieving Entities"
+ },
+ {
+  "id": "l002-18",
+  "page": 2,
+  "anchor": "Updating Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27",
+  "kind": "internal",
+  "target_page": 27,
+  "target_sec": "3.4.3",
+  "target_title": "3.4.3 Updating Entities"
+ },
+ {
+  "id": "l002-19",
+  "page": 2,
+  "anchor": "Deleting Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27",
+  "kind": "internal",
+  "target_page": 27,
+  "target_sec": "3.4.4",
+  "target_title": "3.4.4 Deleting Entities"
+ },
+ {
+  "id": "l002-20",
+  "page": 2,
+  "anchor": "Create Entity with No Content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .28",
+  "kind": "internal",
+  "target_page": 28,
+  "target_sec": "3.4.5",
+  "target_title": "3.4.5 Create Entity with No Content"
+ },
+ {
+  "id": "l002-21",
+  "page": 2,
+  "anchor": "3.5 Actions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28",
+  "kind": "internal",
+  "target_page": 28,
+  "target_sec": "3.5",
+  "target_title": "3.5 Actions"
+ },
+ {
+  "id": "l002-22",
+  "page": 2,
+  "anchor": "3.6 Query Options. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31",
+  "kind": "internal",
+  "target_page": 31,
+  "target_sec": "3.6",
+  "target_title": "3.6 Query Options"
+ },
+ {
+  "id": "l002-23",
+  "page": 2,
+  "anchor": "Get All Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .33",
+  "kind": "internal",
+  "target_page": 33,
+  "target_sec": "3.6.1",
+  "target_title": "3.6.1 Get All Entities"
+ },
+ {
+  "id": "l002-24",
+  "page": 2,
+  "anchor": "Get Fields of an Entity. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33",
+  "kind": "internal",
+  "target_page": 33,
+  "target_sec": "3.6.2",
+  "target_title": "3.6.2 Get Fields of an Entity"
+ },
+ {
+  "id": "l002-25",
+  "page": 2,
+  "anchor": "Query Properties of the Enumeration Type. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33",
+  "kind": "internal",
+  "target_page": 33,
+  "target_sec": "3.6.3",
+  "target_title": "3.6.3 Query Properties of the Enumeration Type"
+ },
+ {
+  "id": "l002-26",
+  "page": 2,
+  "anchor": "Query Properties of the Datetime Type. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+  "kind": "internal",
+  "target_page": 34,
+  "target_sec": "3.6.4",
+  "target_title": "3.6.4 Query Properties of the Datetime Type"
+ },
+ {
+  "id": "l002-27",
+  "page": 2,
+  "anchor": "Query Properties of the Time Type. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .34",
+  "kind": "internal",
+  "target_page": 34,
+  "target_sec": "3.6.5",
+  "target_title": "3.6.5 Query Properties of the Time Type"
+ },
+ {
+  "id": "l002-28",
+  "page": 2,
+  "anchor": "Paginate the Selected Orders. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+  "kind": "internal",
+  "target_page": 34,
+  "target_sec": "3.6.6",
+  "target_title": "3.6.6 Paginate the Selected Orders"
+ },
+ {
+  "id": "l002-29",
+  "page": 2,
+  "anchor": "Aggregation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35",
+  "kind": "internal",
+  "target_page": 35,
+  "target_sec": "3.6.7",
+  "target_title": "3.6.7 Aggregation"
+ },
+ {
+  "id": "l002-30",
+  "page": 2,
+  "anchor": "Grouping. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40",
+  "kind": "internal",
+  "target_page": 40,
+  "target_sec": "3.6.8",
+  "target_title": "3.6.8 Grouping"
+ },
+ {
+  "id": "l002-31",
+  "page": 2,
+  "anchor": "Cross-Joins. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .42",
+  "kind": "internal",
+  "target_page": 42,
+  "target_sec": "3.6.9",
+  "target_title": "3.6.9 Cross-Joins"
+ },
+ {
+  "id": "l002-32",
+  "page": 2,
+  "anchor": "Row-Level Filter. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47",
+  "kind": "internal",
+  "target_page": 47,
+  "target_sec": "3.6.10",
+  "target_title": "3.6.10 Row-Level Filter"
+ },
+ {
+  "id": "l002-33",
+  "page": 2,
+  "anchor": "Expand Query Enhancements. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .50",
+  "kind": "internal",
+  "target_page": 50,
+  "target_sec": "3.6.11",
+  "target_title": "3.6.11 Expand Query Enhancements"
+ },
+ {
+  "id": "l002-34",
+  "page": 2,
+  "anchor": "3.7 SAP Business One Semantic Layer View Exposure. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52",
+  "kind": "internal",
+  "target_page": 52,
+  "target_sec": "3.7",
+  "target_title": "3.7 SAP Business One Semantic Layer View Exposure"
+ },
+ {
+  "id": "l002-35",
+  "page": 2,
+  "anchor": "Views Deployment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52",
+  "kind": "internal",
+  "target_page": 52,
+  "target_sec": "3.7.1",
+  "target_title": "3.7.1 Views Deployment"
+ },
+ {
+  "id": "l003-01",
+  "page": 3,
+  "anchor": "View Exposure Scope. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52",
+  "kind": "internal",
+  "target_page": 52,
+  "target_sec": "3.7.2",
+  "target_title": "3.7.2 View Exposure Scope"
+ },
+ {
+  "id": "l003-02",
+  "page": 3,
+  "anchor": "View Exposure OData Version. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53",
+  "kind": "internal",
+  "target_page": 53,
+  "target_sec": "3.7.3",
+  "target_title": "3.7.3 View Exposure OData Version"
+ },
+ {
+  "id": "l003-03",
+  "page": 3,
+  "anchor": "Semantic Layer Service Root. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53",
+  "kind": "internal",
+  "target_page": 53,
+  "target_sec": "3.7.4",
+  "target_title": "3.7.4 Semantic Layer Service Root"
+ },
+ {
+  "id": "l003-04",
+  "page": 3,
+  "anchor": "Semantic Layer Service Metadata. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54",
+  "kind": "internal",
+  "target_page": 54,
+  "target_sec": "3.7.5",
+  "target_title": "3.7.5 Semantic Layer Service Metadata"
+ },
+ {
+  "id": "l003-05",
+  "page": 3,
+  "anchor": "Semantic Layer View Authorization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57",
+  "kind": "internal",
+  "target_page": 57,
+  "target_sec": "3.7.6",
+  "target_title": "3.7.6 Semantic Layer View Authorization"
+ },
+ {
+  "id": "l003-06",
+  "page": 3,
+  "anchor": "Semantic Layer View Query. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58",
+  "kind": "internal",
+  "target_page": 58,
+  "target_sec": "3.7.7",
+  "target_title": "3.7.7 Semantic Layer View Query"
+ },
+ {
+  "id": "l003-07",
+  "page": 3,
+  "anchor": "Customized Views Exposure. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63",
+  "kind": "internal",
+  "target_page": 63,
+  "target_sec": "3.7.8",
+  "target_title": "3.7.8 Customized Views Exposure"
+ },
+ {
+  "id": "l003-08",
+  "page": 3,
+  "anchor": "Customized Views Query. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65",
+  "kind": "internal",
+  "target_page": 65,
+  "target_sec": "3.7.9",
+  "target_title": "3.7.9 Customized Views Query"
+ },
+ {
+  "id": "l003-09",
+  "page": 3,
+  "anchor": "Semantic Layer Basic Authentication. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66",
+  "kind": "internal",
+  "target_page": 66,
+  "target_sec": "3.7.10",
+  "target_title": "3.7.10 Semantic Layer Basic Authentication"
+ },
+ {
+  "id": "l003-10",
+  "page": 3,
+  "anchor": "3.8 SQL View Exposure. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67",
+  "kind": "internal",
+  "target_page": 67,
+  "target_sec": "3.8",
+  "target_title": "3.8 SQL View Exposure"
+ },
+ {
+  "id": "l003-11",
+  "page": 3,
+  "anchor": "Create View. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .67",
+  "kind": "internal",
+  "target_page": 67,
+  "target_sec": "3.8.1",
+  "target_title": "3.8.1 Create View"
+ },
+ {
+  "id": "l003-12",
+  "page": 3,
+  "anchor": "Expose View. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 68",
+  "kind": "internal",
+  "target_page": 68,
+  "target_sec": "3.8.2",
+  "target_title": "3.8.2 Expose View"
+ },
+ {
+  "id": "l003-13",
+  "page": 3,
+  "anchor": "View Service Endpoint. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 69",
+  "kind": "internal",
+  "target_page": 69,
+  "target_sec": "3.8.3",
+  "target_title": "3.8.3 View Service Endpoint"
+ },
+ {
+  "id": "l003-14",
+  "page": 3,
+  "anchor": "Query View. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70",
+  "kind": "internal",
+  "target_page": 70,
+  "target_sec": "3.8.4",
+  "target_title": "3.8.4 Query View"
+ },
+ {
+  "id": "l003-15",
+  "page": 3,
+  "anchor": "Authorize View. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73",
+  "kind": "internal",
+  "target_page": 73,
+  "target_sec": "3.8.5",
+  "target_title": "3.8.5 Authorize View"
+ },
+ {
+  "id": "l003-16",
+  "page": 3,
+  "anchor": "3.9 Batch Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 74",
+  "kind": "internal",
+  "target_page": 74,
+  "target_sec": "3.9",
+  "target_title": "3.9 Batch Operations"
+ },
+ {
+  "id": "l003-17",
+  "page": 3,
+  "anchor": "Batch Request Method and URI. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .74",
+  "kind": "internal",
+  "target_page": 74,
+  "target_sec": "3.9.1",
+  "target_title": "3.9.1 Batch Request Method and URI"
+ },
+ {
+  "id": "l003-18",
+  "page": 3,
+  "anchor": "Batch Request Headers. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75",
+  "kind": "internal",
+  "target_page": 75,
+  "target_sec": "3.9.2",
+  "target_title": "3.9.2 Batch Request Headers"
+ },
+ {
+  "id": "l003-19",
+  "page": 3,
+  "anchor": "Batch Request Body. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .75",
+  "kind": "internal",
+  "target_page": 75,
+  "target_sec": "3.9.3",
+  "target_title": "3.9.3 Batch Request Body"
+ },
+ {
+  "id": "l003-20",
+  "page": 3,
+  "anchor": "Change Sets. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 76",
+  "kind": "internal",
+  "target_page": 76,
+  "target_sec": "3.9.4",
+  "target_title": "3.9.4 Change Sets"
+ },
+ {
+  "id": "l003-21",
+  "page": 3,
+  "anchor": "Batch Request Sample Codes. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 76",
+  "kind": "internal",
+  "target_page": 76,
+  "target_sec": "3.9.5",
+  "target_title": "3.9.5 Batch Request Sample Codes"
+ },
+ {
+  "id": "l003-22",
+  "page": 3,
+  "anchor": "Batch Response. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .77",
+  "kind": "internal",
+  "target_page": 77,
+  "target_sec": "3.9.6",
+  "target_title": "3.9.6 Batch Response"
+ },
+ {
+  "id": "l003-23",
+  "page": 3,
+  "anchor": "3.10 Retrieving Individual Properties. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79",
+  "kind": "internal",
+  "target_page": 79,
+  "target_sec": "3.10",
+  "target_title": "3.10 Retrieving Individual Properties"
+ },
+ {
+  "id": "l003-24",
+  "page": 3,
+  "anchor": "3.11 Associations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .81",
+  "kind": "internal",
+  "target_page": 81,
+  "target_sec": "3.11",
+  "target_title": "3.11 Associations"
+ },
+ {
+  "id": "l003-25",
+  "page": 3,
+  "anchor": "Metadata Definitions of Associations and Navigation Properties. . . . . . . . . . . . . . . . . . . . . . . . . 81",
+  "kind": "internal",
+  "target_page": 81,
+  "target_sec": "3.11.1",
+  "target_title": "3.11.1 Metadata Definitions of Associations and Navigation Properties"
+ },
+ {
+  "id": "l003-26",
+  "page": 3,
+  "anchor": "Retrieving Navigation Properties as Entity. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82",
+  "kind": "internal",
+  "target_page": 82,
+  "target_sec": "3.11.2",
+  "target_title": "3.11.2 Retrieving Navigation Properties as Entity"
+ },
+ {
+  "id": "l003-27",
+  "page": 3,
+  "anchor": "Retrieving Navigation Properties via $expand. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 83",
+  "kind": "internal",
+  "target_page": 83,
+  "target_sec": "3.11.3",
+  "target_title": "3.11.3 Retrieving Navigation Properties via $expand"
+ },
+ {
+  "id": "l003-28",
+  "page": 3,
+  "anchor": "3.12 User-Defined Schemas. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 84",
+  "kind": "internal",
+  "target_page": 84,
+  "target_sec": "3.12",
+  "target_title": "3.12 User-Defined Schemas"
+ },
+ {
+  "id": "l003-29",
+  "page": 3,
+  "anchor": "Filter Fields. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 85",
+  "kind": "internal",
+  "target_page": 85,
+  "target_sec": "3.12.1",
+  "target_title": "3.12.1 Filter Fields"
+ },
+ {
+  "id": "l003-30",
+  "page": 3,
+  "anchor": "3.13 User-Defined Fields (UDFs). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 86",
+  "kind": "internal",
+  "target_page": 86,
+  "target_sec": "3.13",
+  "target_title": "3.13 User-Defined Fields (UDFs)"
+ },
+ {
+  "id": "l003-31",
+  "page": 3,
+  "anchor": "Managing Metadata of UDFs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .86",
+  "kind": "internal",
+  "target_page": 86,
+  "target_sec": "3.13.1",
+  "target_title": "3.13.1 Managing Metadata of UDFs"
+ },
+ {
+  "id": "l003-32",
+  "page": 3,
+  "anchor": "CRUD Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 89",
+  "kind": "internal",
+  "target_page": 89,
+  "target_sec": "3.13.2",
+  "target_title": "3.13.2 CRUD Operations"
+ },
+ {
+  "id": "l003-33",
+  "page": 3,
+  "anchor": "3.14 User-Defined Tables (UDTs). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .90",
+  "kind": "internal",
+  "target_page": 90,
+  "target_sec": "3.14",
+  "target_title": "3.14 User-Defined Tables (UDTs)"
+ },
+ {
+  "id": "l003-34",
+  "page": 3,
+  "anchor": "Managing Metadata of UDTs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 90",
+  "kind": "internal",
+  "target_page": 90,
+  "target_sec": "3.14.1",
+  "target_title": "3.14.1 Managing Metadata of UDTs"
+ },
+ {
+  "id": "l003-35",
+  "page": 3,
+  "anchor": "CRUD Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .91",
+  "kind": "internal",
+  "target_page": 91,
+  "target_sec": "3.14.2",
+  "target_title": "3.14.2 CRUD Operations"
+ },
+ {
+  "id": "l003-36",
+  "page": 3,
+  "anchor": "3.15 User-Defined Objects (UDOs). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 92",
+  "kind": "internal",
+  "target_page": 92,
+  "target_sec": "3.15",
+  "target_title": "3.15 User-Defined Objects (UDOs)"
+ },
+ {
+  "id": "l003-37",
+  "page": 3,
+  "anchor": "Managing Metadata of UDOs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 92",
+  "kind": "internal",
+  "target_page": 92,
+  "target_sec": "3.15.1",
+  "target_title": "3.15.1 Managing Metadata of UDOs"
+ },
+ {
+  "id": "l003-38",
+  "page": 3,
+  "anchor": "Creating Entity for a UDO. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 96",
+  "kind": "internal",
+  "target_page": 96,
+  "target_sec": "3.15.2",
+  "target_title": "3.15.2 Creating Entity for a UDO"
+ },
+ {
+  "id": "l003-39",
+  "page": 3,
+  "anchor": "Retrieving Entity for UDO. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 97",
+  "kind": "internal",
+  "target_page": 97,
+  "target_sec": "3.15.3",
+  "target_title": "3.15.3 Retrieving Entity for UDO"
+ },
+ {
+  "id": "l003-40",
+  "page": 3,
+  "anchor": "Updating Entity for UDO. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .99",
+  "kind": "internal",
+  "target_page": 99,
+  "target_sec": "3.15.4",
+  "target_title": "3.15.4 Updating Entity for UDO"
+ },
+ {
+  "id": "l003-41",
+  "page": 3,
+  "anchor": "Deleting Entity for UDO. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99",
+  "kind": "internal",
+  "target_page": 99,
+  "target_sec": "3.15.5",
+  "target_title": "3.15.5 Deleting Entity for UDO"
+ },
+ {
+  "id": "l004-01",
+  "page": 4,
+  "anchor": "Canceling/Closing Entity for UDO. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99",
+  "kind": "internal",
+  "target_page": 99,
+  "target_sec": "3.15.6",
+  "target_title": "3.15.6 Canceling/Closing Entity for UDO"
+ },
+ {
+  "id": "l004-02",
+  "page": 4,
+  "anchor": "3.16 Attachments. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100",
+  "kind": "internal",
+  "target_page": 100,
+  "target_sec": "3.16",
+  "target_title": "3.16 Attachments"
+ },
+ {
+  "id": "l004-03",
+  "page": 4,
+  "anchor": "Setting Up an Attachment Folder. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .100",
+  "kind": "internal",
+  "target_page": 100,
+  "target_sec": "3.16.1",
+  "target_title": "3.16.1 Setting Up an Attachment Folder"
+ },
+ {
+  "id": "l004-04",
+  "page": 4,
+  "anchor": "Uploading an Attachment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104",
+  "kind": "internal",
+  "target_page": 104,
+  "target_sec": "3.16.2",
+  "target_title": "3.16.2 Uploading an Attachment"
+ },
+ {
+  "id": "l004-05",
+  "page": 4,
+  "anchor": "Downloading Attachments. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107",
+  "kind": "internal",
+  "target_page": 107,
+  "target_sec": "3.16.3",
+  "target_title": "3.16.3 Downloading Attachments"
+ },
+ {
+  "id": "l004-06",
+  "page": 4,
+  "anchor": "Updating Attachment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107",
+  "kind": "internal",
+  "target_page": 107,
+  "target_sec": "3.16.4",
+  "target_title": "3.16.4 Updating Attachment"
+ },
+ {
+  "id": "l004-07",
+  "page": 4,
+  "anchor": "3.17 Stream Entity Upload. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .110",
+  "kind": "internal",
+  "target_page": 110,
+  "target_sec": "3.17",
+  "target_title": "3.17 Stream Entity Upload"
+ },
+ {
+  "id": "l004-08",
+  "page": 4,
+  "anchor": "OData Client Sample. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .110",
+  "kind": "internal",
+  "target_page": 110,
+  "target_sec": "3.17.1",
+  "target_title": "3.17.1 OData Client Sample"
+ },
+ {
+  "id": "l004-09",
+  "page": 4,
+  "anchor": "SAP UI5 Sample. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111",
+  "kind": "internal",
+  "target_page": 111,
+  "target_sec": "3.17.2",
+  "target_title": "3.17.2 SAP UI5 Sample"
+ },
+ {
+  "id": "l004-10",
+  "page": 4,
+  "anchor": "3.18 Item Image and Employee Image. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .112",
+  "kind": "internal",
+  "target_page": 112,
+  "target_sec": "3.18",
+  "target_title": "3.18 Item Image and Employee Image"
+ },
+ {
+  "id": "l004-11",
+  "page": 4,
+  "anchor": "Setting up an Item Image Folder. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 113",
+  "kind": "internal",
+  "target_page": 113,
+  "target_sec": "3.18.1",
+  "target_title": "3.18.1 Setting up an Item Image Folder"
+ },
+ {
+  "id": "l004-12",
+  "page": 4,
+  "anchor": "Getting an Item Image or an Employee Image. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 113",
+  "kind": "internal",
+  "target_page": 113,
+  "target_sec": "3.18.2",
+  "target_title": "3.18.2 Getting an Item Image or an Employee Image"
+ },
+ {
+  "id": "l004-13",
+  "page": 4,
+  "anchor": "Updating or Uploading an Item Image. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114",
+  "kind": "internal",
+  "target_page": 114,
+  "target_sec": "3.18.3",
+  "target_title": "3.18.3 Updating or Uploading an Item Image"
+ },
+ {
+  "id": "l004-14",
+  "page": 4,
+  "anchor": "Deleting an Item Image. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115",
+  "kind": "internal",
+  "target_page": 115,
+  "target_sec": "3.18.4",
+  "target_title": "3.18.4 Deleting an Item Image"
+ },
+ {
+  "id": "l004-15",
+  "page": 4,
+  "anchor": "3.19 JavaScript Extension. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 116",
+  "kind": "internal",
+  "target_page": 116,
+  "target_sec": "3.19",
+  "target_title": "3.19 JavaScript Extension"
+ },
+ {
+  "id": "l004-16",
+  "page": 4,
+  "anchor": "JavaScript Parsing Engine. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 116",
+  "kind": "internal",
+  "target_page": 116,
+  "target_sec": "3.19.1",
+  "target_title": "3.19.1 JavaScript Parsing Engine"
+ },
+ {
+  "id": "l004-17",
+  "page": 4,
+  "anchor": "JavaScript Extension Framework. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 116",
+  "kind": "internal",
+  "target_page": 116,
+  "target_sec": "3.19.2",
+  "target_title": "3.19.2 JavaScript Extension Framework"
+ },
+ {
+  "id": "l004-18",
+  "page": 4,
+  "anchor": "JavaScript Entry Function. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117",
+  "kind": "internal",
+  "target_page": 117,
+  "target_sec": "3.19.3",
+  "target_title": "3.19.3 JavaScript Entry Function"
+ },
+ {
+  "id": "l004-19",
+  "page": 4,
+  "anchor": "JavaScript URL Mapping. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118",
+  "kind": "internal",
+  "target_page": 118,
+  "target_sec": "3.19.4",
+  "target_title": "3.19.4 JavaScript URL Mapping"
+ },
+ {
+  "id": "l004-20",
+  "page": 4,
+  "anchor": "JavaScript SDK. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119",
+  "kind": "internal",
+  "target_page": 119,
+  "target_sec": "3.19.5",
+  "target_title": "3.19.5 JavaScript SDK"
+ },
+ {
+  "id": "l004-21",
+  "page": 4,
+  "anchor": "Logging. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129",
+  "kind": "internal",
+  "target_page": 129,
+  "target_sec": "3.19.6",
+  "target_title": "3.19.6 Logging"
+ },
+ {
+  "id": "l004-22",
+  "page": 4,
+  "anchor": "JavaScript SDK Generator Tool. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129",
+  "kind": "internal",
+  "target_page": 129,
+  "target_sec": "3.19.7",
+  "target_title": "3.19.7 JavaScript SDK Generator Tool"
+ },
+ {
+  "id": "l004-23",
+  "page": 4,
+  "anchor": "JavaScript Deployment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .130",
+  "kind": "internal",
+  "target_page": 130,
+  "target_sec": "3.19.8",
+  "target_title": "3.19.8 JavaScript Deployment"
+ },
+ {
+  "id": "l004-24",
+  "page": 4,
+  "anchor": "Typical User Cases of Applying Script. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .132",
+  "kind": "internal",
+  "target_page": 132,
+  "target_sec": "3.19.9",
+  "target_title": "3.19.9 Typical User Cases of Applying Script"
+ },
+ {
+  "id": "l004-25",
+  "page": 4,
+  "anchor": "Consume Script Service from .Net Application. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 135",
+  "kind": "internal",
+  "target_page": 135,
+  "target_sec": "3.19.10",
+  "target_title": "3.19.10 Consume Script Service from .Net Application"
+ },
+ {
+  "id": "l004-26",
+  "page": 4,
+  "anchor": "3.20 Cross Origin Resource Sharing (CORS). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 136",
+  "kind": "internal",
+  "target_page": 136,
+  "target_sec": "3.20",
+  "target_title": "3.20 Cross Origin Resource Sharing (CORS)"
+ },
+ {
+  "id": "l004-27",
+  "page": 4,
+  "anchor": "Enabling CORS. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .136",
+  "kind": "internal",
+  "target_page": 136,
+  "target_sec": "3.20.1",
+  "target_title": "3.20.1 Enabling CORS"
+ },
+ {
+  "id": "l004-28",
+  "page": 4,
+  "anchor": "Enable to Configure Allowed Headers. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 137",
+  "kind": "internal",
+  "target_page": 137,
+  "target_sec": "3.20.2",
+  "target_title": "3.20.2 Enable to Configure Allowed Headers"
+ },
+ {
+  "id": "l004-29",
+  "page": 4,
+  "anchor": "CORS Process. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 137",
+  "kind": "internal",
+  "target_page": 137,
+  "target_sec": "3.20.3",
+  "target_title": "3.20.3 CORS Process"
+ },
+ {
+  "id": "l004-30",
+  "page": 4,
+  "anchor": "3.21 Ping Pong API. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 137",
+  "kind": "internal",
+  "target_page": 137,
+  "target_sec": "3.21",
+  "target_title": "3.21 Ping Pong API"
+ },
+ {
+  "id": "l004-31",
+  "page": 4,
+  "anchor": "4 SQL Query. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140",
+  "kind": "internal",
+  "target_page": 140,
+  "target_sec": "4",
+  "target_title": "4 SQL Query"
+ },
+ {
+  "id": "l004-32",
+  "page": 4,
+  "anchor": "4.1 Business Object Metadata. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140",
+  "kind": "internal",
+  "target_page": 140,
+  "target_sec": "4.1",
+  "target_title": "4.1 Business Object Metadata"
+ },
+ {
+  "id": "l004-33",
+  "page": 4,
+  "anchor": "4.2 CRUD Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .141",
+  "kind": "internal",
+  "target_page": 141,
+  "target_sec": "4.2",
+  "target_title": "4.2 CRUD Operations"
+ },
+ {
+  "id": "l004-34",
+  "page": 4,
+  "anchor": "Create. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141",
+  "kind": "internal",
+  "target_page": 141,
+  "target_sec": "4.2.1",
+  "target_title": "4.2.1 Create"
+ },
+ {
+  "id": "l004-35",
+  "page": 4,
+  "anchor": "Retrieve by Key. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .141",
+  "kind": "internal",
+  "target_page": 141,
+  "target_sec": "4.2.2",
+  "target_title": "4.2.2 Retrieve by Key"
+ },
+ {
+  "id": "l004-36",
+  "page": 4,
+  "anchor": "Patch. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142",
+  "kind": "internal",
+  "target_page": 142,
+  "target_sec": "4.2.3",
+  "target_title": "4.2.3 Patch"
+ },
+ {
+  "id": "l004-37",
+  "page": 4,
+  "anchor": "Delete. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142",
+  "kind": "internal",
+  "target_page": 142,
+  "target_sec": "4.2.4",
+  "target_title": "4.2.4 Delete"
+ },
+ {
+  "id": "l004-38",
+  "page": 4,
+  "anchor": "Retrieve All. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142",
+  "kind": "internal",
+  "target_page": 142,
+  "target_sec": "4.2.5",
+  "target_title": "4.2.5 Retrieve All"
+ },
+ {
+  "id": "l004-39",
+  "page": 4,
+  "anchor": "4.3 List Operation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 143",
+  "kind": "internal",
+  "target_page": 143,
+  "target_sec": "4.3",
+  "target_title": "4.3 List Operation"
+ },
+ {
+  "id": "l004-40",
+  "page": 4,
+  "anchor": "4.4 List with Paging. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .144",
+  "kind": "internal",
+  "target_page": 144,
+  "target_sec": "4.4",
+  "target_title": "4.4 List with Paging"
+ },
+ {
+  "id": "l004-41",
+  "page": 4,
+  "anchor": "4.5 Query Allowlist. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145",
+  "kind": "internal",
+  "target_page": 145,
+  "target_sec": "4.5",
+  "target_title": "4.5 Query Allowlist"
+ },
+ {
+  "id": "l005-01",
+  "page": 5,
+  "anchor": "Table Allowlist. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145",
+  "kind": "internal",
+  "target_page": 145,
+  "target_sec": "4.5.1",
+  "target_title": "4.5.1 Table Allowlist"
+ },
+ {
+  "id": "l005-02",
+  "page": 5,
+  "anchor": "Column Allowist. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 147",
+  "kind": "internal",
+  "target_page": 147,
+  "target_sec": "4.5.2",
+  "target_title": "4.5.2 Column Allowist"
+ },
+ {
+  "id": "l005-03",
+  "page": 5,
+  "anchor": "4.6 SQL Keywords. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148",
+  "kind": "internal",
+  "target_page": 148,
+  "target_sec": "4.6",
+  "target_title": "4.6 SQL Keywords"
+ },
+ {
+  "id": "l005-04",
+  "page": 5,
+  "anchor": "4.7 SQL Functions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 149",
+  "kind": "internal",
+  "target_page": 149,
+  "target_sec": "4.7",
+  "target_title": "4.7 SQL Functions"
+ },
+ {
+  "id": "l005-05",
+  "page": 5,
+  "anchor": "4.8 SQL Normalization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 150",
+  "kind": "internal",
+  "target_page": 150,
+  "target_sec": "4.8",
+  "target_title": "4.8 SQL Normalization"
+ },
+ {
+  "id": "l005-06",
+  "page": 5,
+  "anchor": "Table/Column Normalization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .150",
+  "kind": "internal",
+  "target_page": 150,
+  "target_sec": "4.8.1",
+  "target_title": "4.8.1 Table/Column Normalization"
+ },
+ {
+  "id": "l005-07",
+  "page": 5,
+  "anchor": "Alias Normalization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 150",
+  "kind": "internal",
+  "target_page": 150,
+  "target_sec": "4.8.2",
+  "target_title": "4.8.2 Alias Normalization"
+ },
+ {
+  "id": "l005-08",
+  "page": 5,
+  "anchor": "Function Normalization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 151",
+  "kind": "internal",
+  "target_page": 151,
+  "target_sec": "4.8.3",
+  "target_title": "4.8.3 Function Normalization"
+ },
+ {
+  "id": "l005-09",
+  "page": 5,
+  "anchor": "4.9 Query with Parameter. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 151",
+  "kind": "internal",
+  "target_page": 151,
+  "target_sec": "4.9",
+  "target_title": "4.9 Query with Parameter"
+ },
+ {
+  "id": "l005-10",
+  "page": 5,
+  "anchor": "4.10 Query Errors and Exceptions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 153",
+  "kind": "internal",
+  "target_page": 153,
+  "target_sec": "4.10",
+  "target_title": "4.10 Query Errors and Exceptions"
+ },
+ {
+  "id": "l005-11",
+  "page": 5,
+  "anchor": "Table or Column not in Allowlist. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 153",
+  "kind": "internal",
+  "target_page": 153,
+  "target_sec": "4.10.1",
+  "target_title": "4.10.1 Table or Column not in Allowlist"
+ },
+ {
+  "id": "l005-12",
+  "page": 5,
+  "anchor": "SQL Grammar Error. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 154",
+  "kind": "internal",
+  "target_page": 154,
+  "target_sec": "4.10.2",
+  "target_title": "4.10.2 SQL Grammar Error"
+ },
+ {
+  "id": "l005-13",
+  "page": 5,
+  "anchor": "SQL Keyword/Symbol Not Supported. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 155",
+  "kind": "internal",
+  "target_page": 155,
+  "target_sec": "4.10.3",
+  "target_title": "4.10.3 SQL Keyword/Symbol Not Supported"
+ },
+ {
+  "id": "l005-14",
+  "page": 5,
+  "anchor": "Multiple Identical Aliases. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .155",
+  "kind": "internal",
+  "target_page": 155,
+  "target_sec": "4.10.4",
+  "target_title": "4.10.4 Multiple Identical Aliases"
+ },
+ {
+  "id": "l005-15",
+  "page": 5,
+  "anchor": "Computed Columns Without Alias. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 156",
+  "kind": "internal",
+  "target_page": 156,
+  "target_sec": "4.10.5",
+  "target_title": "4.10.5 Computed Columns Without Alias"
+ },
+ {
+  "id": "l005-16",
+  "page": 5,
+  "anchor": "Select All Columns from One Table. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .156",
+  "kind": "internal",
+  "target_page": 156,
+  "target_sec": "4.10.6",
+  "target_title": "4.10.6 Select All Columns from One Table"
+ },
+ {
+  "id": "l005-17",
+  "page": 5,
+  "anchor": "SQL DML. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 157",
+  "kind": "internal",
+  "target_page": 157,
+  "target_sec": "4.10.7",
+  "target_title": "4.10.7 SQL DML"
+ },
+ {
+  "id": "l005-18",
+  "page": 5,
+  "anchor": "4.11 Query with Permission Control. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 157",
+  "kind": "internal",
+  "target_page": 157,
+  "target_sec": "4.11",
+  "target_title": "4.11 Query with Permission Control"
+ },
+ {
+  "id": "l005-19",
+  "page": 5,
+  "anchor": "4.12 Security Considerations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .159",
+  "kind": "internal",
+  "target_page": 159,
+  "target_sec": "4.12",
+  "target_title": "4.12 Security Considerations"
+ },
+ {
+  "id": "l005-20",
+  "page": 5,
+  "anchor": "SQL Injection. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 159",
+  "kind": "internal",
+  "target_page": 159,
+  "target_sec": "4.12.1",
+  "target_title": "4.12.1 SQL Injection"
+ },
+ {
+  "id": "l005-21",
+  "page": 5,
+  "anchor": "Log SQL Query Modification. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 160",
+  "kind": "internal",
+  "target_page": 160,
+  "target_sec": "4.12.2",
+  "target_title": "4.12.2 Log SQL Query Modification"
+ },
+ {
+  "id": "l005-22",
+  "page": 5,
+  "anchor": "Sensitive Data Accessibility. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .160",
+  "kind": "internal",
+  "target_page": 160,
+  "target_sec": "4.12.3",
+  "target_title": "4.12.3 Sensitive Data Accessibility"
+ },
+ {
+  "id": "l005-23",
+  "page": 5,
+  "anchor": "4.13 Limitations or By Design. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 160",
+  "kind": "internal",
+  "target_page": 160,
+  "target_sec": "4.13",
+  "target_title": "4.13 Limitations or By Design"
+ },
+ {
+  "id": "l005-24",
+  "page": 5,
+  "anchor": "5 Service Layer ETag. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 161",
+  "kind": "internal",
+  "target_page": 161,
+  "target_sec": "5",
+  "target_title": "5 Service Layer ETag"
+ },
+ {
+  "id": "l005-25",
+  "page": 5,
+  "anchor": "5.1 ETag Introduction. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 161",
+  "kind": "internal",
+  "target_page": 161,
+  "target_sec": "5.1",
+  "target_title": "5.1 ETag Introduction"
+ },
+ {
+  "id": "l005-26",
+  "page": 5,
+  "anchor": "5.2 ETag Scenarios. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 161",
+  "kind": "internal",
+  "target_page": 161,
+  "target_sec": "5.2",
+  "target_title": "5.2 ETag Scenarios"
+ },
+ {
+  "id": "l005-27",
+  "page": 5,
+  "anchor": "ETag in Entity Creation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 161",
+  "kind": "internal",
+  "target_page": 161,
+  "target_sec": "5.2.1",
+  "target_title": "5.2.1 ETag in Entity Creation"
+ },
+ {
+  "id": "l005-28",
+  "page": 5,
+  "anchor": "ETag in Entity Retrieval. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 162",
+  "kind": "internal",
+  "target_page": 162,
+  "target_sec": "5.2.2",
+  "target_title": "5.2.2 ETag in Entity Retrieval"
+ },
+ {
+  "id": "l005-29",
+  "page": 5,
+  "anchor": "ETag in Entity Update. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 162",
+  "kind": "internal",
+  "target_page": 162,
+  "target_sec": "5.2.3",
+  "target_title": "5.2.3 ETag in Entity Update"
+ },
+ {
+  "id": "l005-30",
+  "page": 5,
+  "anchor": "ETag in Entity Delete. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 163",
+  "kind": "internal",
+  "target_page": 163,
+  "target_sec": "5.2.4",
+  "target_title": "5.2.4 ETag in Entity Delete"
+ },
+ {
+  "id": "l005-31",
+  "page": 5,
+  "anchor": "ETag in Entity Action. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .164",
+  "kind": "internal",
+  "target_page": 164,
+  "target_sec": "5.2.5",
+  "target_title": "5.2.5 ETag in Entity Action"
+ },
+ {
+  "id": "l005-32",
+  "page": 5,
+  "anchor": "5.3 Entities with ETag. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 164",
+  "kind": "internal",
+  "target_page": 164,
+  "target_sec": "5.3",
+  "target_title": "5.3 Entities with ETag"
+ },
+ {
+  "id": "l005-33",
+  "page": 5,
+  "anchor": "5.4 ETag Metadata. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 165",
+  "kind": "internal",
+  "target_page": 165,
+  "target_sec": "5.4",
+  "target_title": "5.4 ETag Metadata"
+ },
+ {
+  "id": "l005-34",
+  "page": 5,
+  "anchor": "6 Configuring SAP Business One Service Layer. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 167",
+  "kind": "internal",
+  "target_page": 167,
+  "target_sec": "6",
+  "target_title": "6 Configuring SAP Business One Service Layer"
+ },
+ {
+  "id": "l005-35",
+  "page": 5,
+  "anchor": "6.1 Managing Service Layer Settings. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 167",
+  "kind": "internal",
+  "target_page": 167,
+  "target_sec": "6.1",
+  "target_title": "6.1 Managing Service Layer Settings"
+ },
+ {
+  "id": "l005-36",
+  "page": 5,
+  "anchor": "6.2 Other Configuration Options for Service Layer. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 174",
+  "kind": "internal",
+  "target_page": 174,
+  "target_sec": "6.2",
+  "target_title": "6.2 Other Configuration Options for Service Layer"
+ },
+ {
+  "id": "l005-37",
+  "page": 5,
+  "anchor": "6.3 Configuration by Request. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 174",
+  "kind": "internal",
+  "target_page": 174,
+  "target_sec": "6.3",
+  "target_title": "6.3 Configuration by Request"
+ },
+ {
+  "id": "l005-38",
+  "page": 5,
+  "anchor": "6.4 Monitoring Service Layer Logs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 175",
+  "kind": "internal",
+  "target_page": 175,
+  "target_sec": "6.4",
+  "target_title": "6.4 Monitoring Service Layer Logs"
+ },
+ {
+  "id": "l005-39",
+  "page": 5,
+  "anchor": "List View of Normal Requests. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .175",
+  "kind": "internal",
+  "target_page": 175,
+  "target_sec": "6.4.1",
+  "target_title": "6.4.1 List View of Normal Requests"
+ },
+ {
+  "id": "l005-40",
+  "page": 5,
+  "anchor": "Detailed View of Normal Requests. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 176",
+  "kind": "internal",
+  "target_page": 176,
+  "target_sec": "6.4.2",
+  "target_title": "6.4.2 Detailed View of Normal Requests"
+ },
+ {
+  "id": "l006-01",
+  "page": 6,
+  "anchor": "List View of Error Requests. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 177",
+  "kind": "internal",
+  "target_page": 177,
+  "target_sec": "6.4.3",
+  "target_title": "6.4.3 List View of Error Requests"
+ },
+ {
+  "id": "l006-02",
+  "page": 6,
+  "anchor": "Detailed View of Error Requests. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 177",
+  "kind": "internal",
+  "target_page": 177,
+  "target_sec": "6.4.4",
+  "target_title": "6.4.4 Detailed View of Error Requests"
+ },
+ {
+  "id": "l006-03",
+  "page": 6,
+  "anchor": "Request/Response Detailed Logs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .178",
+  "kind": "internal",
+  "target_page": 178,
+  "target_sec": "6.4.5",
+  "target_title": "6.4.5 Request/Response Detailed Logs"
+ },
+ {
+  "id": "l006-04",
+  "page": 6,
+  "anchor": "7 Webhooks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 179",
+  "kind": "internal",
+  "target_page": 179,
+  "target_sec": "7",
+  "target_title": "7 Webhooks"
+ },
+ {
+  "id": "l006-05",
+  "page": 6,
+  "anchor": "7.1 Quick Start. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 179",
+  "kind": "internal",
+  "target_page": 179,
+  "target_sec": "7.1",
+  "target_title": "7.1 Quick Start"
+ },
+ {
+  "id": "l006-06",
+  "page": 6,
+  "anchor": "7.2 Event Catalog. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 180",
+  "kind": "internal",
+  "target_page": 180,
+  "target_sec": "7.2",
+  "target_title": "7.2 Event Catalog"
+ },
+ {
+  "id": "l006-07",
+  "page": 6,
+  "anchor": "7.3 Event Subscription. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .181",
+  "kind": "internal",
+  "target_page": 181,
+  "target_sec": "7.3",
+  "target_title": "7.3 Event Subscription"
+ },
+ {
+  "id": "l006-08",
+  "page": 6,
+  "anchor": "EventSubscription Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 182",
+  "kind": "internal",
+  "target_page": 182,
+  "target_sec": "7.3.1",
+  "target_title": "7.3.1 EventSubscription Operations"
+ },
+ {
+  "id": "l006-09",
+  "page": 6,
+  "anchor": "EventSubscription Properties. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 186",
+  "kind": "internal",
+  "target_page": 186,
+  "target_sec": "7.3.2",
+  "target_title": "7.3.2 EventSubscription Properties"
+ },
+ {
+  "id": "l006-10",
+  "page": 6,
+  "anchor": "EventSubscription Permission Control. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 192",
+  "kind": "internal",
+  "target_page": 192,
+  "target_sec": "7.3.3",
+  "target_title": "7.3.3 EventSubscription Permission Control"
+ },
+ {
+  "id": "l006-11",
+  "page": 6,
+  "anchor": "7.4 Event Notification. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 194",
+  "kind": "internal",
+  "target_page": 194,
+  "target_sec": "7.4",
+  "target_title": "7.4 Event Notification"
+ },
+ {
+  "id": "l006-12",
+  "page": 6,
+  "anchor": "EventNotifications Query. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 194",
+  "kind": "internal",
+  "target_page": 194,
+  "target_sec": "7.4.1",
+  "target_title": "7.4.1 EventNotifications Query"
+ },
+ {
+  "id": "l006-13",
+  "page": 6,
+  "anchor": "Notification Payload Structure. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .198",
+  "kind": "internal",
+  "target_page": 198,
+  "target_sec": "7.4.2",
+  "target_title": "7.4.2 Notification Payload Structure"
+ },
+ {
+  "id": "l006-14",
+  "page": 6,
+  "anchor": "7.5 Webhook Configuration. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .200",
+  "kind": "internal",
+  "target_page": 200,
+  "target_sec": "7.5",
+  "target_title": "7.5 Webhook Configuration"
+ },
+ {
+  "id": "l006-15",
+  "page": 6,
+  "anchor": "7.6 Webhook Messenger. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .202",
+  "kind": "internal",
+  "target_page": 202,
+  "target_sec": "7.6",
+  "target_title": "7.6 Webhook Messenger"
+ },
+ {
+  "id": "l006-16",
+  "page": 6,
+  "anchor": "7.7 Webhook Formula. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .203",
+  "kind": "internal",
+  "target_page": 203,
+  "target_sec": "7.7",
+  "target_title": "7.7 Webhook Formula"
+ },
+ {
+  "id": "l006-17",
+  "page": 6,
+  "anchor": "Literals. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 204",
+  "kind": "internal",
+  "target_page": 204,
+  "target_sec": "7.7.1",
+  "target_title": "7.7.1 Literals"
+ },
+ {
+  "id": "l006-18",
+  "page": 6,
+  "anchor": "Variables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .204",
+  "kind": "internal",
+  "target_page": 204,
+  "target_sec": "7.7.2",
+  "target_title": "7.7.2 Variables"
+ },
+ {
+  "id": "l006-19",
+  "page": 6,
+  "anchor": "Relational Operators. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 204",
+  "kind": "internal",
+  "target_page": 204,
+  "target_sec": "7.7.3",
+  "target_title": "7.7.3 Relational Operators"
+ },
+ {
+  "id": "l006-20",
+  "page": 6,
+  "anchor": "Logical Operators. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 205",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.4",
+  "target_title": "7.7.4 Logical Operators"
+ },
+ {
+  "id": "l006-21",
+  "page": 6,
+  "anchor": "Parenthesis Operators. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 205",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.5",
+  "target_title": "7.7.5 Parenthesis Operators"
+ },
+ {
+  "id": "l006-22",
+  "page": 6,
+  "anchor": "Arithmetic Operators. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 205",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.6",
+  "target_title": "7.7.6 Arithmetic Operators"
+ },
+ {
+  "id": "l006-23",
+  "page": 6,
+  "anchor": "Overloaded Operators. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 205",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.7",
+  "target_title": "7.7.7 Overloaded Operators"
+ },
+ {
+  "id": "l006-24",
+  "page": 6,
+  "anchor": "String Functions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 207",
+  "kind": "internal",
+  "target_page": 207,
+  "target_sec": "7.7.8",
+  "target_title": "7.7.8 String Functions"
+ },
+ {
+  "id": "l006-25",
+  "page": 6,
+  "anchor": "Date Functions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 211",
+  "kind": "internal",
+  "target_page": 211,
+  "target_sec": "7.7.9",
+  "target_title": "7.7.9 Date Functions"
+ },
+ {
+  "id": "l006-26",
+  "page": 6,
+  "anchor": "Time Functions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 214",
+  "kind": "internal",
+  "target_page": 214,
+  "target_sec": "7.7.10",
+  "target_title": "7.7.10 Time Functions"
+ },
+ {
+  "id": "l006-27",
+  "page": 6,
+  "anchor": "Math Functions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 216",
+  "kind": "internal",
+  "target_page": 216,
+  "target_sec": "7.7.11",
+  "target_title": "7.7.11 Math Functions"
+ },
+ {
+  "id": "l006-28",
+  "page": 6,
+  "anchor": "Logical Functions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 219",
+  "kind": "internal",
+  "target_page": 219,
+  "target_sec": "7.7.12",
+  "target_title": "7.7.12 Logical Functions"
+ },
+ {
+  "id": "l006-29",
+  "page": 6,
+  "anchor": "App-Level Variables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 220",
+  "kind": "internal",
+  "target_page": 220,
+  "target_sec": "7.7.13",
+  "target_title": "7.7.13 App-Level Variables"
+ },
+ {
+  "id": "l006-30",
+  "page": 6,
+  "anchor": "7.8 FAQ. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 222",
+  "kind": "internal",
+  "target_page": 222,
+  "target_sec": "7.8",
+  "target_title": "7.8 FAQ"
+ },
+ {
+  "id": "l006-31",
+  "page": 6,
+  "anchor": "8 Limitations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 225",
+  "kind": "internal",
+  "target_page": 225,
+  "target_sec": "8",
+  "target_title": "8 Limitations"
+ },
+ {
+  "id": "l006-32",
+  "page": 6,
+  "anchor": "8.1 OData Protocol Implementation Limitations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 225",
+  "kind": "internal",
+  "target_page": 225,
+  "target_sec": "8.1",
+  "target_title": "8.1 OData Protocol Implementation Limitations"
+ },
+ {
+  "id": "l006-33",
+  "page": 6,
+  "anchor": "8.2 Functional Limitations versus SAP Business One DI API. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 225",
+  "kind": "internal",
+  "target_page": 225,
+  "target_sec": "8.2",
+  "target_title": "8.2 Functional Limitations versus SAP Business One DI API"
+ },
+ {
+  "id": "l006-34",
+  "page": 6,
+  "anchor": "9 High Availability and Load Balancing. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 226",
+  "kind": "internal",
+  "target_page": 226,
+  "target_sec": "9",
+  "target_title": "9 High Availability and Load Balancing"
+ },
+ {
+  "id": "l006-35",
+  "page": 6,
+  "anchor": "10 FAQ. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .227",
+  "kind": "internal",
+  "target_page": 227,
+  "target_sec": "10",
+  "target_title": "10 FAQ"
+ },
+ {
+  "id": "l006-36",
+  "page": 6,
+  "anchor": "11 Appendix I: Service Layer versus DI API. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229",
+  "kind": "internal",
+  "target_page": 229,
+  "target_sec": "11",
+  "target_title": "11 Appendix I: Service Layer versus DI API"
+ },
+ {
+  "id": "l006-37",
+  "page": 6,
+  "anchor": "11.1 CRUD APIs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .229",
+  "kind": "internal",
+  "target_page": 229,
+  "target_sec": "11.1",
+  "target_title": "11.1 CRUD APIs"
+ },
+ {
+  "id": "l006-38",
+  "page": 6,
+  "anchor": "Creating Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229",
+  "kind": "internal",
+  "target_page": 229,
+  "target_sec": "11.1.1",
+  "target_title": "11.1.1 Creating Entities"
+ },
+ {
+  "id": "l007-01",
+  "page": 7,
+  "anchor": "Retrieving Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 230",
+  "kind": "internal",
+  "target_page": 230,
+  "target_sec": "11.1.2",
+  "target_title": "11.1.2 Retrieving Entities"
+ },
+ {
+  "id": "l007-02",
+  "page": 7,
+  "anchor": "Updating Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 231",
+  "kind": "internal",
+  "target_page": 231,
+  "target_sec": "11.1.3",
+  "target_title": "11.1.3 Updating Entities"
+ },
+ {
+  "id": "l007-03",
+  "page": 7,
+  "anchor": "Deleting Entities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .231",
+  "kind": "internal",
+  "target_page": 231,
+  "target_sec": "11.1.4",
+  "target_title": "11.1.4 Deleting Entities"
+ },
+ {
+  "id": "l007-04",
+  "page": 7,
+  "anchor": "11.2 Company Service APIs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 232",
+  "kind": "internal",
+  "target_page": 232,
+  "target_sec": "11.2",
+  "target_title": "11.2 Company Service APIs"
+ },
+ {
+  "id": "l007-05",
+  "page": 7,
+  "anchor": "11.3 Transaction APIs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .233",
+  "kind": "internal",
+  "target_page": 233,
+  "target_sec": "11.3",
+  "target_title": "11.3 Transaction APIs"
+ },
+ {
+  "id": "l007-06",
+  "page": 7,
+  "anchor": "11.4 Query APIs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .234",
+  "kind": "internal",
+  "target_page": 234,
+  "target_sec": "11.4",
+  "target_title": "11.4 Query APIs"
+ },
+ {
+  "id": "l007-07",
+  "page": 7,
+  "anchor": "11.5 UDO APIs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .236",
+  "kind": "internal",
+  "target_page": 236,
+  "target_sec": "11.5",
+  "target_title": "11.5 UDO APIs"
+ },
+ {
+  "id": "l007-08",
+  "page": 7,
+  "anchor": "Creating UDOs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 236",
+  "kind": "internal",
+  "target_page": 236,
+  "target_sec": "11.5.1",
+  "target_title": "11.5.1 Creating UDOs"
+ },
+ {
+  "id": "l007-09",
+  "page": 7,
+  "anchor": "CRUD and Query Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .239",
+  "kind": "internal",
+  "target_page": 239,
+  "target_sec": "11.5.2",
+  "target_title": "11.5.2 CRUD and Query Operations"
+ },
+ {
+  "id": "l007-10",
+  "page": 7,
+  "anchor": "11.6 UDF APIs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 240",
+  "kind": "internal",
+  "target_page": 240,
+  "target_sec": "11.6",
+  "target_title": "11.6 UDF APIs"
+ },
+ {
+  "id": "l007-11",
+  "page": 7,
+  "anchor": "CRUD Operations. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 240",
+  "kind": "internal",
+  "target_page": 240,
+  "target_sec": "11.6.1",
+  "target_title": "11.6.1 CRUD Operations"
+ },
+ {
+  "id": "l007-12",
+  "page": 7,
+  "anchor": "Performing Operations on Entities with UDFs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 243",
+  "kind": "internal",
+  "target_page": 243,
+  "target_sec": "11.6.2",
+  "target_title": "11.6.2 Performing Operations on Entities with UDFs"
+ },
+ {
+  "id": "l007-13",
+  "page": 7,
+  "anchor": "12 Appendix II: Metadata Naming Difference between Service Layer and DI API. . . . . . . . . . . . . 245",
+  "kind": "internal",
+  "target_page": 245,
+  "target_sec": "12",
+  "target_title": "12 Appendix II: Metadata Naming Difference between Service Layer and DI API"
+ },
+ {
+  "id": "l007-14",
+  "page": 7,
+  "anchor": "12.1 Collection Object Naming Difference. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .245",
+  "kind": "internal",
+  "target_page": 245,
+  "target_sec": "12.1",
+  "target_title": "12.1 Collection Object Naming Difference"
+ },
+ {
+  "id": "l007-15",
+  "page": 7,
+  "anchor": "12.2 Business Object Naming Difference. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 247",
+  "kind": "internal",
+  "target_page": 247,
+  "target_sec": "12.2",
+  "target_title": "12.2 Business Object Naming Difference"
+ },
+ {
+  "id": "l007-16",
+  "page": 7,
+  "anchor": "12.3 Property Naming Difference. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .247",
+  "kind": "internal",
+  "target_page": 247,
+  "target_sec": "12.3",
+  "target_title": "12.3 Property Naming Difference"
+ },
+ {
+  "id": "l012-01",
+  "page": 12,
+  "anchor": "SAP Help Portal.",
+  "kind": "external",
+  "url": "https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE"
+ },
+ {
+  "id": "l016-01",
+  "page": 16,
+  "anchor": "SAP Help Portal.",
+  "kind": "external",
+  "url": "https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE"
+ },
+ {
+  "id": "l033-01",
+  "page": 33,
+  "anchor": "inlinecount [page 39].",
+  "kind": "internal",
+  "target_page": 39,
+  "target_sec": "3.6.7.7",
+  "target_title": "3.6.7.7 inlinecount"
+ },
+ {
+  "id": "l063-01",
+  "page": 63,
+  "anchor": "2008991",
+  "raw_url": "http://help.sap.com/disclaimer?site=https://me.sap.com/notes/2008991",
+  "kind": "external",
+  "url": "https://me.sap.com/notes/2008991"
+ },
+ {
+  "id": "l063-02",
+  "page": 63,
+  "anchor": "blog .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fblogs.sap.com%2F2014%2F07%2F24%2Fhow-to-export-and-deploy-hana-model-for-sap-business-one%2F",
+  "kind": "external",
+  "url": "https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/"
+ },
+ {
+  "id": "l066-01",
+  "page": 66,
+  "anchor": "https://www.httpwatch.com/httpgallery/authentication/ .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fwww.httpwatch.com%2Fhttpgallery%2Fauthentication%2F",
+  "kind": "external",
+  "url": "https://www.httpwatch.com/httpgallery/authentication/"
+ },
+ {
+  "id": "l075-01",
+  "page": 75,
+  "anchor": "Batch Request Body [page 75]",
+  "kind": "internal",
+  "target_page": 75,
+  "target_sec": "3.9.3",
+  "target_title": "3.9.3 Batch Request Body"
+ },
+ {
+  "id": "l083-01",
+  "page": 83,
+  "anchor": "Metadata Definitions of Associations and Navigation Properties [page",
+  "kind": "internal",
+  "target_page": 81,
+  "target_sec": "3.11.1",
+  "target_title": "3.11.1 Metadata Definitions of Associations and Navigation Properties"
+ },
+ {
+  "id": "l083-02",
+  "page": 83,
+  "anchor": "81])",
+  "kind": "internal",
+  "target_page": 81,
+  "target_sec": "3.11.1",
+  "target_title": "3.11.1 Metadata Definitions of Associations and Navigation Properties"
+ },
+ {
+  "id": "l083-03",
+  "page": 83,
+  "anchor": "Metadata Definitions of Associations and Navigation Properties [page",
+  "kind": "internal",
+  "target_page": 81,
+  "target_sec": "3.11.1",
+  "target_title": "3.11.1 Metadata Definitions of Associations and Navigation Properties"
+ },
+ {
+  "id": "l083-04",
+  "page": 83,
+  "anchor": "81])",
+  "kind": "internal",
+  "target_page": 81,
+  "target_sec": "3.11.1",
+  "target_title": "3.11.1 Metadata Definitions of Associations and Navigation Properties"
+ },
+ {
+  "id": "l085-01",
+  "page": 85,
+  "anchor": "Managing Service Layer Settings [page 167].",
+  "kind": "internal",
+  "target_page": 167,
+  "target_sec": "6.1",
+  "target_title": "6.1 Managing Service Layer Settings"
+ },
+ {
+  "id": "l087-01",
+  "page": 87,
+  "anchor": "Creating Entities [page 24].",
+  "kind": "internal",
+  "target_page": 24,
+  "target_sec": "3.4.1",
+  "target_title": "3.4.1 Creating Entities"
+ },
+ {
+  "id": "l087-02",
+  "page": 87,
+  "anchor": "Retrieving Entities [page 26].",
+  "kind": "internal",
+  "target_page": 26,
+  "target_sec": "3.4.2",
+  "target_title": "3.4.2 Retrieving Entities"
+ },
+ {
+  "id": "l088-01",
+  "page": 88,
+  "anchor": "Query Options [page 31].",
+  "kind": "internal",
+  "target_page": 31,
+  "target_sec": "3.6",
+  "target_title": "3.6 Query Options"
+ },
+ {
+  "id": "l088-02",
+  "page": 88,
+  "anchor": "Updating Entities [page 27].",
+  "kind": "internal",
+  "target_page": 27,
+  "target_sec": "3.4.3",
+  "target_title": "3.4.3 Updating Entities"
+ },
+ {
+  "id": "l099-01",
+  "page": 99,
+  "anchor": "Updating Entities [page 27]",
+  "kind": "internal",
+  "target_page": 27,
+  "target_sec": "3.4.3",
+  "target_title": "3.4.3 Updating Entities"
+ },
+ {
+  "id": "l101-01",
+  "page": 101,
+  "anchor": "https://technet.microsoft.com/en-us/library/cc939973.aspx",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Ftechnet.microsoft.com%2Fen-us%2Flibrary%2Fcc939973.aspx",
+  "kind": "external",
+  "url": "https://technet.microsoft.com/en-us/library/cc939973.aspx"
+ },
+ {
+  "id": "l101-02",
+  "page": 101,
+  "anchor": "https://www.samba.org/cifs/",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fwww.samba.org%2Fcifs%2F",
+  "kind": "external",
+  "url": "https://www.samba.org/cifs/"
+ },
+ {
+  "id": "l103-01",
+  "page": 103,
+  "anchor": "Create and use strong passwords .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fsupport.microsoft.com%2Fen-us%2Fwindows%2Fcreate-and-use-strong-passwords-c5cebb49-8c53-4f5e-2bc4-fe357ca048eb",
+  "kind": "external",
+  "url": "https://support.microsoft.com/en-us/windows/create-and-use-strong-passwords-c5cebb49-8c53-4f5e-2bc4-fe357ca048eb"
+ },
+ {
+  "id": "l110-01",
+  "page": 110,
+  "anchor": "specification .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fdatatracker.ietf.org%2Fdoc%2Fhtml%2Frfc5023%23page-30",
+  "kind": "external",
+  "url": "https://datatracker.ietf.org/doc/html/rfc5023#page-30"
+ },
+ {
+  "id": "l110-02",
+  "page": 110,
+  "anchor": "oData client library",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fodata%2Fclient%2Fgetting-started",
+  "kind": "external",
+  "url": "https://docs.microsoft.com/en-us/odata/client/getting-started"
+ },
+ {
+  "id": "l113-01",
+  "page": 113,
+  "anchor": "Setting Up an Attachment Folder [page 100]",
+  "kind": "internal",
+  "target_page": 100,
+  "target_sec": "3.16.1",
+  "target_title": "3.16.1 Setting Up an Attachment Folder"
+ },
+ {
+  "id": "l116-01",
+  "page": 116,
+  "anchor": "https://developers.google.com/v8 .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fdevelopers.google.com%2Fv8",
+  "kind": "external",
+  "url": "https://developers.google.com/v8"
+ },
+ {
+  "id": "l118-01",
+  "page": 118,
+  "anchor": "JavaScript Deployment",
+  "kind": "internal",
+  "target_page": 130,
+  "target_sec": "3.19.8",
+  "target_title": "3.19.8 JavaScript Deployment"
+ },
+ {
+  "id": "l118-02",
+  "page": 118,
+  "anchor": "[page 130].",
+  "kind": "internal",
+  "target_page": 130,
+  "target_sec": "3.19.8",
+  "target_title": "3.19.8 JavaScript Deployment"
+ },
+ {
+  "id": "l119-01",
+  "page": 119,
+  "anchor": "(https://",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fwww.visualstudio.com%2Fen-us%2Ffeatures%2Fnode-js-vs.aspx",
+  "kind": "external",
+  "url": "https://www.visualstudio.com/en-us/features/node-js-vs.aspx"
+ },
+ {
+  "id": "l119-02",
+  "page": 119,
+  "anchor": "www.visualstudio.com/en-us/features/node-js-vs.aspx )",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fwww.visualstudio.com%2Fen-us%2Ffeatures%2Fnode-js-vs.aspx",
+  "kind": "external",
+  "url": "https://www.visualstudio.com/en-us/features/node-js-vs.aspx"
+ },
+ {
+  "id": "l136-01",
+  "page": 136,
+  "anchor": "http://enable-cors.org/",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fenable-cors.org%2F",
+  "kind": "external",
+  "url": "http://enable-cors.org/"
+ },
+ {
+  "id": "l136-02",
+  "page": 136,
+  "anchor": "http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fwww.html5rocks.com%2Fen%2Ftutorials%2Fcors%2F%23toc-withcredentials",
+  "kind": "external",
+  "url": "http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials"
+ },
+ {
+  "id": "l137-01",
+  "page": 137,
+  "anchor": "Other Configuration Options for Service Layer [page 174]",
+  "kind": "internal",
+  "target_page": 174,
+  "target_sec": "6.2",
+  "target_title": "6.2 Other Configuration Options for Service Layer"
+ },
+ {
+  "id": "l137-02",
+  "page": 137,
+  "anchor": "Other Configuration Options for Service Layer [page 174]",
+  "kind": "internal",
+  "target_page": 174,
+  "target_sec": "6.2",
+  "target_title": "6.2 Other Configuration Options for Service Layer"
+ },
+ {
+  "id": "l161-01",
+  "page": 161,
+  "anchor": "https://msdn.microsoft.com/",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fmsdn.microsoft.com%2Flibrary%2Fdd541486.aspx",
+  "kind": "external",
+  "url": "https://msdn.microsoft.com/library/dd541486.aspx"
+ },
+ {
+  "id": "l161-02",
+  "page": 161,
+  "anchor": "library/dd541486.aspx .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fmsdn.microsoft.com%2Flibrary%2Fdd541486.aspx",
+  "kind": "external",
+  "url": "https://msdn.microsoft.com/library/dd541486.aspx"
+ },
+ {
+  "id": "l167-01",
+  "page": 167,
+  "anchor": "Managing Service Layer Settings [page 167]",
+  "kind": "internal",
+  "target_page": 167,
+  "target_sec": "6.1",
+  "target_title": "6.1 Managing Service Layer Settings"
+ },
+ {
+  "id": "l167-02",
+  "page": 167,
+  "anchor": "Monitoring Service Layer Logs [page 175]",
+  "kind": "internal",
+  "target_page": 175,
+  "target_sec": "6.4",
+  "target_title": "6.4 Monitoring Service Layer Logs"
+ },
+ {
+  "id": "l169-01",
+  "page": 169,
+  "anchor": "Apache documentation .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fhttpd.apache.org%2Fdocs%2F2.4%2Fmod%2Fmod_lbmethod_bybusyness.html",
+  "kind": "external",
+  "url": "https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html"
+ },
+ {
+  "id": "l169-02",
+  "page": 169,
+  "anchor": "Apache documentation .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https%3A%2F%2Fhttpd.apache.org%2Fdocs%2F",
+  "kind": "external",
+  "url": "https://httpd.apache.org/docs/"
+ },
+ {
+  "id": "l173-01",
+  "page": 173,
+  "anchor": "3157498 .",
+  "raw_url": "http://help.sap.com/disclaimer?site=https://me.sap.com/notes/3157498",
+  "kind": "external",
+  "url": "https://me.sap.com/notes/3157498"
+ },
+ {
+  "id": "l174-01",
+  "page": 174,
+  "anchor": "User-De-",
+  "kind": "internal",
+  "target_page": 84,
+  "target_sec": "3.12",
+  "target_title": "3.12 User-Defined Schemas"
+ },
+ {
+  "id": "l174-02",
+  "page": 174,
+  "anchor": "fined Schemas [page 84].",
+  "kind": "internal",
+  "target_page": 84,
+  "target_sec": "3.12",
+  "target_title": "3.12 User-Defined Schemas"
+ },
+ {
+  "id": "l179-01",
+  "page": 179,
+  "anchor": "Quick Start [page 179]",
+  "kind": "internal",
+  "target_page": 179,
+  "target_sec": "7.1",
+  "target_title": "7.1 Quick Start"
+ },
+ {
+  "id": "l179-02",
+  "page": 179,
+  "anchor": "Event Subscription [page 181]",
+  "kind": "internal",
+  "target_page": 181,
+  "target_sec": "7.3",
+  "target_title": "7.3 Event Subscription"
+ },
+ {
+  "id": "l179-03",
+  "page": 179,
+  "anchor": "Event Notification [page 194]",
+  "kind": "internal",
+  "target_page": 194,
+  "target_sec": "7.4",
+  "target_title": "7.4 Event Notification"
+ },
+ {
+  "id": "l179-04",
+  "page": 179,
+  "anchor": "Webhook Messenger [page 202]",
+  "kind": "internal",
+  "target_page": 202,
+  "target_sec": "7.6",
+  "target_title": "7.6 Webhook Messenger"
+ },
+ {
+  "id": "l180-01",
+  "page": 180,
+  "anchor": "sample webhook service code",
+  "kind": "external",
+  "url": "https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US"
+ },
+ {
+  "id": "l181-01",
+  "page": 181,
+  "anchor": "EventSubscription Operations [page 182]",
+  "kind": "internal",
+  "target_page": 182,
+  "target_sec": "7.3.1",
+  "target_title": "7.3.1 EventSubscription Operations"
+ },
+ {
+  "id": "l181-02",
+  "page": 181,
+  "anchor": "EventSubscription Properties [page 186]",
+  "kind": "internal",
+  "target_page": 186,
+  "target_sec": "7.3.2",
+  "target_title": "7.3.2 EventSubscription Properties"
+ },
+ {
+  "id": "l181-03",
+  "page": 181,
+  "anchor": "EventSubscription Permission Control [page 192]",
+  "kind": "internal",
+  "target_page": 192,
+  "target_sec": "7.3.3",
+  "target_title": "7.3.3 EventSubscription Permission Control"
+ },
+ {
+  "id": "l182-01",
+  "page": 182,
+  "anchor": "EventSubscription",
+  "kind": "internal",
+  "target_page": 186,
+  "target_sec": "7.3.2",
+  "target_title": "7.3.2 EventSubscription Properties"
+ },
+ {
+  "id": "l182-02",
+  "page": 182,
+  "anchor": "Properties [page 186].",
+  "kind": "internal",
+  "target_page": 186,
+  "target_sec": "7.3.2",
+  "target_title": "7.3.2 EventSubscription Properties"
+ },
+ {
+  "id": "l184-01",
+  "page": 184,
+  "anchor": "Handshake Mechanism [page 184].",
+  "kind": "internal",
+  "target_page": 184,
+  "target_sec": "7.3.1.1",
+  "target_title": "7.3.1.1 Handshake Mechanism"
+ },
+ {
+  "id": "l192-01",
+  "page": 192,
+  "anchor": "Webhook Formula [page",
+  "kind": "internal",
+  "target_page": 203,
+  "target_sec": "7.7",
+  "target_title": "7.7 Webhook Formula"
+ },
+ {
+  "id": "l192-02",
+  "page": 192,
+  "anchor": "203]",
+  "kind": "internal",
+  "target_page": 203,
+  "target_sec": "7.7",
+  "target_title": "7.7 Webhook Formula"
+ },
+ {
+  "id": "l194-01",
+  "page": 194,
+  "anchor": "EventNotifications Query [page 194]",
+  "kind": "internal",
+  "target_page": 194,
+  "target_sec": "7.4.1",
+  "target_title": "7.4.1 EventNotifications Query"
+ },
+ {
+  "id": "l194-02",
+  "page": 194,
+  "anchor": "Notification Payload Structure [page 198]",
+  "kind": "internal",
+  "target_page": 198,
+  "target_sec": "7.4.2",
+  "target_title": "7.4.2 Notification Payload Structure"
+ },
+ {
+  "id": "l194-03",
+  "page": 194,
+  "anchor": "EventNotifications Properties [page 195]",
+  "kind": "internal",
+  "target_page": 195,
+  "target_sec": "7.4.1.1",
+  "target_title": "7.4.1.1 EventNotifications Properties"
+ },
+ {
+  "id": "l202-01",
+  "page": 202,
+  "anchor": "FAQ [page 222]",
+  "kind": "internal",
+  "target_page": 222,
+  "target_sec": "7.8",
+  "target_title": "7.8 FAQ"
+ },
+ {
+  "id": "l203-01",
+  "page": 203,
+  "anchor": "Literals [page 204]",
+  "kind": "internal",
+  "target_page": 204,
+  "target_sec": "7.7.1",
+  "target_title": "7.7.1 Literals"
+ },
+ {
+  "id": "l203-02",
+  "page": 203,
+  "anchor": "Variables [page 204]",
+  "kind": "internal",
+  "target_page": 204,
+  "target_sec": "7.7.2",
+  "target_title": "7.7.2 Variables"
+ },
+ {
+  "id": "l203-03",
+  "page": 203,
+  "anchor": "Relational Operators [page 204]",
+  "kind": "internal",
+  "target_page": 204,
+  "target_sec": "7.7.3",
+  "target_title": "7.7.3 Relational Operators"
+ },
+ {
+  "id": "l204-01",
+  "page": 204,
+  "anchor": "Logical Operators [page 205]",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.4",
+  "target_title": "7.7.4 Logical Operators"
+ },
+ {
+  "id": "l204-02",
+  "page": 204,
+  "anchor": "Parenthesis Operators [page 205]",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.5",
+  "target_title": "7.7.5 Parenthesis Operators"
+ },
+ {
+  "id": "l204-03",
+  "page": 204,
+  "anchor": "Arithmetic Operators [page 205]",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.6",
+  "target_title": "7.7.6 Arithmetic Operators"
+ },
+ {
+  "id": "l204-04",
+  "page": 204,
+  "anchor": "Overloaded Operators [page 205]",
+  "kind": "internal",
+  "target_page": 205,
+  "target_sec": "7.7.7",
+  "target_title": "7.7.7 Overloaded Operators"
+ },
+ {
+  "id": "l204-05",
+  "page": 204,
+  "anchor": "String Functions [page 207]",
+  "kind": "internal",
+  "target_page": 207,
+  "target_sec": "7.7.8",
+  "target_title": "7.7.8 String Functions"
+ },
+ {
+  "id": "l204-06",
+  "page": 204,
+  "anchor": "Date Functions [page 211]",
+  "kind": "internal",
+  "target_page": 211,
+  "target_sec": "7.7.9",
+  "target_title": "7.7.9 Date Functions"
+ },
+ {
+  "id": "l204-07",
+  "page": 204,
+  "anchor": "Time Functions [page 214]",
+  "kind": "internal",
+  "target_page": 214,
+  "target_sec": "7.7.10",
+  "target_title": "7.7.10 Time Functions"
+ },
+ {
+  "id": "l204-08",
+  "page": 204,
+  "anchor": "Math Functions [page 216]",
+  "kind": "internal",
+  "target_page": 216,
+  "target_sec": "7.7.11",
+  "target_title": "7.7.11 Math Functions"
+ },
+ {
+  "id": "l204-09",
+  "page": 204,
+  "anchor": "Logical Functions [page 219]",
+  "kind": "internal",
+  "target_page": 219,
+  "target_sec": "7.7.12",
+  "target_title": "7.7.12 Logical Functions"
+ },
+ {
+  "id": "l204-10",
+  "page": 204,
+  "anchor": "App-Level Variables [page 220]",
+  "kind": "internal",
+  "target_page": 220,
+  "target_sec": "7.7.13",
+  "target_title": "7.7.13 App-Level Variables"
+ },
+ {
+  "id": "l225-01",
+  "page": 225,
+  "anchor": "http://docs.oasis-",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fdocs.oasis-open.org%2Fodata%2Fodata%2Fv4.0%2Fodata-v4.0-part1-protocol.html",
+  "kind": "external",
+  "url": "http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html"
+ },
+ {
+  "id": "l225-02",
+  "page": 225,
+  "anchor": "open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html .",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fdocs.oasis-open.org%2Fodata%2Fodata%2Fv4.0%2Fodata-v4.0-part1-protocol.html",
+  "kind": "external",
+  "url": "http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html"
+ },
+ {
+  "id": "l225-03",
+  "page": 225,
+  "anchor": "Retrieving Individual Properties",
+  "kind": "internal",
+  "target_page": 79,
+  "target_sec": "3.10",
+  "target_title": "3.10 Retrieving Individual Properties"
+ },
+ {
+  "id": "l225-04",
+  "page": 225,
+  "anchor": "[page 79])",
+  "kind": "internal",
+  "target_page": 79,
+  "target_sec": "3.10",
+  "target_title": "3.10 Retrieving Individual Properties"
+ },
+ {
+  "id": "l227-01",
+  "page": 227,
+  "anchor": "http://www.odata.org/libraries/ .",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fwww.odata.org%2Flibraries%2F",
+  "kind": "external",
+  "url": "http://www.odata.org/libraries/"
+ },
+ {
+  "id": "l234-01",
+  "page": 234,
+  "anchor": "http://www.odata.org/documentation/odata-",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fwww.odata.org%2Fdocumentation%2Fodata-version-3-0%2Fbatch-processing%2F",
+  "kind": "external",
+  "url": "http://www.odata.org/documentation/odata-version-3-0/batch-processing/"
+ },
+ {
+  "id": "l234-02",
+  "page": 234,
+  "anchor": "version-3-0/batch-processing/",
+  "raw_url": "http://help.sap.com/disclaimer?site=http%3A%2F%2Fwww.odata.org%2Fdocumentation%2Fodata-version-3-0%2Fbatch-processing%2F",
+  "kind": "external",
+  "url": "http://www.odata.org/documentation/odata-version-3-0/batch-processing/"
+ },
+ {
+  "id": "l250-01",
+  "page": 250,
+  "anchor": "www.sap.com/contactsap",
+  "kind": "external",
+  "url": "https://www.sap.com/contactsap",
+  "note": "GoToR link in PDF"
+ },
+ {
+  "id": "l250-02",
+  "page": 250,
+  "anchor": "https://www.sap.com/about/legal/trademark.html",
+  "kind": "external",
+  "url": "https://www.sap.com/about/legal/trademark.html"
+ }
+]
