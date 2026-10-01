@@ -33,7 +33,7 @@ HTTP/1.1 403 Forbidden
 To grant the view permission to a normal user, perform the following:
 
 1. Log on to SAP Business One client with a superuser.
-2. Open the *Authorizations* window ( ![p074-01](../../../assets/p074-01.png)*System Initialization* ![p074-02](../../../assets/p074-02.png)*Authorizations* ![p074-03](../../../assets/p074-03.png)).
+2. Open the *Authorizations* window (*System Initialization* > *Authorizations*).
 3. Change *No Authorization* to *Full Authorization*.
 
 > **Note**

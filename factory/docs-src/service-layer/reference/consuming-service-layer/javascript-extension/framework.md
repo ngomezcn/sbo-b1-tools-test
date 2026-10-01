@@ -18,7 +18,7 @@ Service Layer uses Chrome V8 Engine (hereafter referred to as V8) as the JavaScr
 - Parsing performance is of significant importance for Service Layer, and V8 is a script engine known for its excellent performance.
 - Service Layer and V8 are both written in C++. This would make the integration more seamless and easier.
 
-The V8 JavaScript engine is an open source JavaScript engine developed by The Chromium Project for the Google Chrome Web browser. For more information about V8, see https://developers.google.com/v8 ![p116-01](../../../assets/p116-01.png).
+The V8 JavaScript engine is an open source JavaScript engine developed by The Chromium Project for the Google Chrome Web browser. For more information about V8, see https://developers.google.com/v8.
 
 ## JavaScript Extension Framework
 
