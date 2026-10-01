@@ -1,0 +1,6 @@
+{
+  "name": "docs-b1-database-10",
+  "version": "0.1.0",
+  "description": "Estructura de tablas de SAP B1 10.0 para consultas SQL.",
+  "author": { "name": "naim" }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "sap-b1-marketplace",
+  "owner": { "name": "naim" },
+  "plugins": [
+    { "name": "use-service-layer", "source": "./plugins/use-service-layer", "description": "Conector a SAP B1 Service Layer: perfiles, sesion, cache de metadatos y llamadas seguras (solo lectura por defecto)." },
+    { "name": "use-b1-sql", "source": "./plugins/use-b1-sql", "description": "Consultas SQL de solo lectura contra la base de datos de SAP B1 (HANA / SQL Server)." },
+    { "name": "use-api-gateway", "source": "./plugins/use-api-gateway", "description": "Conector a API Gateway (pendiente de definir)." },
+    { "name": "docs-service-layer-10", "source": "./plugins/docs-service-layer-10", "description": "Documentacion de Service Layer para SAP B1 10.0 (solo conocimiento)." },
+    { "name": "docs-b1-database-10", "source": "./plugins/docs-b1-database-10", "description": "Estructura de tablas de SAP B1 10.0 para consultas SQL (solo conocimiento)." },
+    { "name": "docs-api-gateway", "source": "./plugins/docs-api-gateway", "description": "Documentacion de API Gateway (solo conocimiento)." }
+  ]
+}
