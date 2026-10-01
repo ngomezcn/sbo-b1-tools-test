@@ -219,6 +219,8 @@ def main():
     # empty gray boxes (no text drawn) carry nothing to transcribe; renders confirm them empty
     parts = {k: v for k, v in parts.items() if squash("".join(p["text"] for p in v))}
     fenced = [b for t in texts.values() for b in fenced_blocks(t)]
+    # ASCII drawings that replace a figure (box-drawing characters) are hojas' own text, not extracted code
+    fenced = [b for b in fenced if not re.search(r'[─-╿]', b)]
     haystack = squash("\n".join(fenced))
     problems = []
     # a block split by a page break without a "continues" marker is extracted as separate parts;
