@@ -23,7 +23,7 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 | 7 | limitations | 8 | 225 | done |
 | 8 | high-availability-load-balancing | 9 | 226 | done |
 | 9 | faq | 10 | 227-228 | done |
-| 10 | appendix-di-api-comparison | 11, 12 | 229-248 | pending |
+| 10 | appendix-di-api-comparison | 11, 12 | 229-248 | approved |
 
 ## Plan: introduction-getting-started
 
@@ -409,6 +409,39 @@ Approved: 2026-10-01
 - PUT/PATCH and `X-HTTP-Method-Override` vs CRUD Operations (3.4) and ETag If-Match (5.2.3).
 - b1s services / load balancer node vs ch. 9 and Node Management (6.1).
 
+## Plan: appendix-di-api-comparison
+
+Approved: 2026-10-01
+
+### Hojas
+
+| hoja | title | sec | pages | unit |
+|---|---|---|---|---|
+| appendix-di-api-comparison/crud-apis.md | CRUD APIs: Service Layer versus DI API | 11, 11.1 | 229-232 | u1 |
+| appendix-di-api-comparison/company-service-apis.md | Company Service APIs | 11.2 | 232-233 | u1 |
+| appendix-di-api-comparison/transaction-apis.md | Transaction APIs | 11.3 | 233-234 | u1 |
+| appendix-di-api-comparison/query-apis.md | Query APIs | 11.4 | 234-236 | u1 |
+| appendix-di-api-comparison/udo-apis.md | UDO APIs | 11.5 | 236-240 | u2 |
+| appendix-di-api-comparison/udf-apis.md | UDF APIs | 11.6 | 240-244 | u2 |
+| appendix-di-api-comparison/metadata-naming-differences.md | Metadata Naming Differences | 12 | 245-248 | u3 |
+
+### Unidades de trabajo
+
+| unit | pages | sec | hojas | status | notes |
+|---|---|---|---|---|---|
+| u1 | 229-236 | 11, 11.1, 11.2, 11.3, 11.4 | crud-apis.md, company-service-apis.md, transaction-apis.md, query-apis.md | pending | p236 shared with u2: u1 takes only the end of 11.4, u2 takes 11.5 (and 11.5.1) from its heading. 8 pages, ~18 code blocks, 1 image on p234. |
+| u2 | 236-244 | 11.5, 11.6 | udo-apis.md, udf-apis.md | pending | p236 shared with u1. 9 pages, ~29 code blocks, densest. udo-apis.md anchor index: Creating UDOs (11.5.1), CRUD and Query Operations (11.5.2); udf-apis.md: CRUD Operations (11.6.1), Performing Operations on Entities with UDFs (11.6.2). |
+| u3 | 245-248 | 12 | metadata-naming-differences.md | pending | 4 pages, 3 long tables, no code; 12.1 table spans pp. 245-247 (continues markers on p246, p248). Anchor index: 12.1, 12.2, 12.3. Chapter 12 intro goes in this hoja; chapter 11 intro in crud-apis.md. |
+
+### Disambiguation candidates
+
+- CRUD APIs (11.1) vs CRUD Operations (3.4, 4.2).
+- Query APIs (11.4) vs Query Options (3.6), List with Paging (4.4), Paginate the Selected Orders (3.6.6).
+- UDO APIs (11.5) vs UDO hojas (3.15); UDF APIs (11.6) vs UDFs (3.13).
+- Transaction APIs (11.3) vs $batch change sets (3.9) and script Transaction API (3.19.5.5); limitations (8).
+- Metadata Naming Differences (12) vs Metadata Document (3.2), Business Object Metadata (4.1), ETag Metadata (5.4).
+- Appendix I vs FAQ DI API / DI Server question (10).
+
 ## Decisions
 
 - 2026-10-01 user: apartado list confirmed as in profile.md.
@@ -425,6 +458,7 @@ Approved: 2026-10-01
 - 2026-10-01 user (delegated: "si lo ves bien apruebalo"): webhooks plan approved with all 8 planner recommendations; supervisor verified section page ranges against outline.json and the p221/p222 and p193/p194 boundaries.
 
 - 2026-10-01 user (delegated: "usa la /grill-with-docs para decidir"): plans for limitations, high-availability-load-balancing and faq approved with all planner recommendations, decided by the supervisor via grill-with-docs (no new term or ADR needed): one hoja per apartado (8.1+8.2 together; FAQ as one hoja with `##` per question and anchor index), each in its own folder with index.md. All three run in one session.
+- 2026-10-01 user (delegated: "usa la /grill-with-docs para decidir"): appendix-di-api-comparison plan approved with all 4 planner recommendations (11.2/11.3/11.4 three hojas, chapter 12 one hoja with anchor index, chapter intros in first hoja of each chapter, u2 unsplit). Decided by the supervisor via grill-with-docs; no new term or ADR needed.
 
 ## Notes
 
