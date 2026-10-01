@@ -191,8 +191,8 @@ Approved: 2026-10-01
 
 | unit | pages | sec | hojas | status | notes |
 |---|---|---|---|---|---|
-| u1 | 140-145 | 4, 4.1, 4.2, 4.3, 4.4 | overview-and-business-object-metadata.md, crud-operations.md, list-operation.md, list-with-paging.md | transcribed | 6 pages, ~19 code blocks (XML metadata, HTTP). p145 shared with u2: u1 takes end of 4.4, u2 takes 4.5 from y~598. |
-| u2 | 145-153 | 4.5, 4.5.1, 4.5.2, 4.6, 4.7, 4.8, 4.9 | query-allowlist/index.md, table-allowlist.md, column-allowlist.md, sql-keywords.md, sql-functions.md, sql-normalization.md, query-with-parameter.md | pending | 9 pages. pp. 145-147 long bullet lists of table names. 4.6 and 4.7 one table each. p153 shared with u3: u2 takes end of 4.9, u3 takes 4.10 from y~540. |
+| u1 | 140-145 | 4, 4.1, 4.2, 4.3, 4.4 | overview-and-business-object-metadata.md, crud-operations.md, list-operation.md, list-with-paging.md | reviewed | 6 pages, ~19 code blocks (XML metadata, HTTP). p145 shared with u2: u1 takes end of 4.4, u2 takes 4.5 from y~598. |
+| u2 | 145-153 | 4.5, 4.5.1, 4.5.2, 4.6, 4.7, 4.8, 4.9 | query-allowlist/index.md, table-allowlist.md, column-allowlist.md, sql-keywords.md, sql-functions.md, sql-normalization.md, query-with-parameter.md | transcribed | 9 pages. pp. 145-147 long bullet lists of table names. 4.6 and 4.7 one table each. p153 shared with u3: u2 takes end of 4.9, u3 takes 4.10 from y~540. |
 | u3 | 153-160 | 4.10, 4.11, 4.12, 4.13 | query-errors.md, query-with-permission-control.md, security-considerations.md, sql-query-limitations.md, index.md | transcribed | 8 pages. 4.10 has 13 request/response code blocks. 4.11 has 5 images (4 on p158). c160-01 continues c159-02. u3 also writes sql-query/index.md (routing only). |
 
 ### Disambiguation candidates
@@ -261,3 +261,8 @@ Approved: 2026-10-01
 - p160: c160-02 is labelled "Sample Code" where sibling response blocks say "Output Code"; as printed.
 - p153: sample prints `length(...)as lenItemCode` without a space; as printed.
 - p158-159 (4.11): Figure lines for p158-04 and p159-01 are the transcriber's wording from the render, not PDF captions.
+- p147 (sql-query 4.5.2): heading printed "Column Allowist"; hoja titled "Column allowlist".
+- p148 (4.6): stray "1" in `where 1 ItemCode > 'i01'` and `'string' 1 as c2`; as printed. Extraction "or or" in the Parenthesis example is an extraction artifact (render shows one "or"); transcribed as one.
+- p151 (4.8): c151-03 `as COL1 ... as COL1` (second probably COL2); c151-04 unclosed quote in `from "ORDR -- normalized on SAP HANA`; as printed.
+- p152 (4.9): GET example uses `sql07` while the query was created as `sql01`; as printed.
+- u2 callouts (Note, Sample Code) contain fenced code inside blockquotes; check verify_section.py accepts it at integration.
