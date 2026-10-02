@@ -4,12 +4,14 @@
  *   node use.mjs traverse <EntitySet> [--max-rows N] [query options]
  *   node use.mjs count <EntitySet> [--filter ...]
  *   query options: --filter --select --orderby --expand (passed to the Service Layer as given)
+ *   node use.mjs clean <id|folder|path>   deletes that Volcado only
  *   every command takes [--entorno dev|uat|prod]
  */
 import { parseArgs } from 'node:util'
 import { SboError } from '../common/errors.ts'
 import type { Transport } from '../common/sl.ts'
 import type { UseOptions } from './context.ts'
+import { cleanDump } from './clean.ts'
 import { getByKey } from './get.ts'
 import { failure, type UseOutput } from './output.ts'
 import { count, readOnePage, traverse } from './read.ts'
@@ -25,6 +27,7 @@ const USAGE = {
   page: 'Usage: page <EntitySet> [--top N] [--skip N] [--filter ...] [--select ...] [--orderby ...] [--expand ...]',
   traverse: 'Usage: traverse <EntitySet> [--max-rows N] [--filter ...] [--select ...] [--orderby ...] [--expand ...]',
   count: 'Usage: count <EntitySet> [--filter ...]',
+  clean: 'Usage: clean <id | folder name | path of the Volcado>',
 }
 
 function toInt(name: string, value: string | undefined): number | undefined {
@@ -66,8 +69,10 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
         return await traverse({ ...base, ...query, entitySet: one(USAGE.traverse), maxRows: toInt('--max-rows', values['max-rows']) })
       case 'count':
         return await count({ ...base, entitySet: one(USAGE.count), filter: values.filter })
+      case 'clean':
+        return await cleanDump({ ...base, target: one(USAGE.clean) })
       default:
-        throw new SboError('UNKNOWN_COMMAND', `Unknown command "${command ?? ''}". Available: get, page, traverse, count.`)
+        throw new SboError('UNKNOWN_COMMAND', `Unknown command "${command ?? ''}". Available: get, page, traverse, count, clean.`)
     }
   } catch (e) {
     if ((e as { code?: string }).code?.startsWith('ERR_PARSE_ARGS')) return failure(new SboError('INVALID_ARGUMENTS', (e as Error).message))

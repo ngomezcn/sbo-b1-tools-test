@@ -1,6 +1,6 @@
 /** The Volcado: one folder per Uso execution under `.sbo-skills/service-layer/<entorno>/data/`. */
-import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { lstat, mkdir, readdir, rm, writeFile } from 'node:fs/promises'
+import { isAbsolute, join, relative, resolve } from 'node:path'
 import { SboError } from '../common/errors.ts'
 import { dumpDir, dumpRoot } from '../common/layout.ts'
 import type { Environment } from '../common/versions.ts'
@@ -82,4 +82,49 @@ export async function writeDump(input: DumpInput): Promise<{ dir: string; keys: 
     JSON.stringify({ date: input.now.toISOString(), query: input.query, entitySet: input.entitySet, count: keys.length, ...input.extra, keys }, null, 2),
   )
   return { dir, keys }
+}
+
+async function dumpFolders(root: string, environment: Environment): Promise<string[]> {
+  try {
+    return (await readdir(dumpRoot(root, environment), { withFileTypes: true })).filter((e) => e.isDirectory() && dumpDate(e.name)).map((e) => e.name)
+  } catch {
+    return []
+  }
+}
+
+/**
+ * Deletes the Volcado of one execution, and only that one. `target` is its id (`a1b2c3`), its folder name
+ * (`20261002-153846-a1b2c3`) or its path; whatever it is, it must resolve to a folder directly inside the
+ * environment's `data/`. Nothing outside `data/` is ever touched.
+ */
+export async function removeDump(root: string, environment: Environment, target: string): Promise<string> {
+  const base = resolve(dumpRoot(root, environment))
+  let name: string | undefined
+  if (/[\\/]/.test(target) || isAbsolute(target)) {
+    const rel = relative(base, resolve(root, target))
+    if (rel === '' || rel.startsWith('..') || isAbsolute(rel) || /[\\/]/.test(rel)) {
+      throw new SboError('DUMP_OUTSIDE_DATA', `"${target}" is not a Volcado folder of "${environment}". Only folders directly inside .sbo-skills/service-layer/${environment}/data/ can be removed.`)
+    }
+    name = rel
+  } else {
+    const matches = (await dumpFolders(root, environment)).filter((n) => n === target || n.endsWith(`-${target}`))
+    if (matches.length > 1) throw new SboError('DUMP_AMBIGUOUS', `"${target}" matches several Volcado folders (${matches.join(', ')}). Pass the full folder name.`)
+    name = matches[0]
+  }
+  const dir = join(base, name ?? '')
+  const stat = name && dumpDate(name) ? await lstat(dir).catch(() => null) : null
+  if (!stat?.isDirectory()) throw new SboError('DUMP_NOT_FOUND', `No Volcado "${target}" in "${environment}". It may already have been removed.`)
+  await rm(dir, { recursive: true, force: true })
+  return dir
+}
+
+/** Safety net: deletes the Volcados of the environment older than 24 h (by the date in the folder name). Returns what it removed. */
+export async function sweepOldDumps(root: string, environment: Environment, now: Date): Promise<string[]> {
+  const removed: string[] = []
+  for (const name of await dumpFolders(root, environment)) {
+    if (now.getTime() - dumpDate(name)!.getTime() <= DUMP_MAX_AGE_MS) continue
+    const dir = join(dumpRoot(root, environment), name)
+    await rm(dir, { recursive: true, force: true }).then(() => removed.push(dir), () => {})
+  }
+  return removed
 }

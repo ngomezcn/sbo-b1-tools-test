@@ -13,6 +13,8 @@ Run everything from this folder: `npm test` (loads the repo-root `.env`: `SL_URL
 
 - Slice 5 (page, count, traverse): executed against FP 2608, `v1` and `v2`, 2026-10-02. Data of the demo as it is (Orders 337, Items 57, BusinessPartners 25): enough for several pages and the cap, nothing created.
 
+- Slice 6 (Volcado cleanup, 24 h safety net, parallel executions): executed against FP 2608, `v2` (the logic does not depend on the OData version), 2026-10-02. Clock injected.
+
 ## Verified against the real Service Layer
 
 Login errors, exactly as returned (HTTP 401 in all cases):
@@ -64,6 +66,7 @@ Demo-server quirk (not our code), cause found 2026-10-02: the demo has a load ba
 - Re-check `.node4` once the developer re-enables it. To reproduce: log in about 50 times (`POST /b1s/v2/Login`), note `ROUTEID` from `Set-Cookie`, read `BusinessPartners('C50000')?$select=CardCode` with that session, then logout, and tally ok/500-407 per node. If `.node4` still fails every time, it is still broken; if every node is ok, the cause is fixed. Remove the retry in `getLive` only if the demo is stable for good.
 - Row cap and page size were verified on up to 337 rows. Not tried: thousands of rows, or a collection that changes while it is being traversed (rows added or deleted between pages can repeat or skip rows with `$skip`).
 - A bad `$filter` on a normal page (not `/$count`): behaviour not checked.
+- Volcado cleanup (slice 6): the 24 h rule is checked with an injected clock and fake old folders (no real waiting), and the parallel-executions test used 2 simultaneous traversals of the real SL on one existing session. Not tried: more than 2 in parallel; many parallel executions that all start without a session (parallel first logins failed on the demo, see above).
 - Row cap and paging were verified on up to 337 rows. Not tried: thousands of rows, or a collection that changes while it is traversed (rows added or deleted between pages can repeat or skip rows with `$skip`).
 - A bad `$filter` on a normal page (not `/$count`): behaviour not checked.
 - Composite keys (`Entity(A=1,B='x')`): not implemented. Pending.
