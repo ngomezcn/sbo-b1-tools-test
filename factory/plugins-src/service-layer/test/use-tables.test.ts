@@ -98,12 +98,14 @@ for (const version of ['v1', 'v2'] as const) {
 
 /**
  * `$metadata` is not the same on every node and a new table shows only on some (TESTING.md): the command is repeated with a new
- * session (so, maybe, another node) until the entity is listed. `tries` says how many it took.
+ * session (so, maybe, another node) until the entity is listed (and, if given, the `mustShow` pattern is in the ficha: a node may know the object but
+ * not yet its child table). `tries` says how many it took.
  */
-async function untilListed(root: string, entity: string, attempts = 15) {
+async function untilListed(root: string, entity: string, mustShow?: RegExp, attempts = 15) {
   for (let i = 1; ; i++) {
     const out = await live(root, () => main(['context', entity, '--refresh', '--show'], root))
-    if (out.error?.code !== 'ENTITY_NOT_FOUND' || i >= attempts) return { out, tries: i }
+    const complete = out.ok && (!mustShow || mustShow.test(out.resumen!.contenido as string))
+    if (complete || (out.error && out.error.code !== 'ENTITY_NOT_FOUND') || i >= attempts) return { out, tries: i }
     for (const env of ENVIRONMENTS) await rm(sessionPath(root, env), { force: true })
   }
 }
@@ -124,7 +126,7 @@ test('a user table registered as a user object is exposed under the object code;
   await ensureUserTable('SBOUDTL', 'bott_MasterDataLines', [{ Name: 'L1' }])
   await ensureUserObject('SBOUDT', 'boud_MasterData', ['SBOUDTL'])
   const root = await repo('v2')
-  const { out, tries } = await untilListed(root, 'SBOUDT')
+  const { out, tries } = await untilListed(root, 'SBOUDT', /^## SBOUDTLCollection:/m)
   t.diagnostic(`SBOUDT listed in $metadata after ${tries} attempt(s)`)
   assert.equal(out.ok, true, JSON.stringify(out))
   const md = out.resumen!.contenido as string
