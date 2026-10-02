@@ -14,7 +14,7 @@ Cada sistema es un unico plugin (`<sistema>`, por ejemplo `service-layer`) que s
 
 1. El `use` no contiene conocimiento de entidades ni de endpoints. Construye el contexto de objeto de cada entidad bajo demanda.
 2. El `docs` no contiene codigo ni conexion.
-3. El plugin se instala completo. El Setup pregunta la version de B1 (una por sistema, igual en todos sus entornos, guardada en `.sbo-skills/<sistema>/config.md`) y la IA la comprueba contra las marcas de la documentacion. `use` y `docs` dan error si falta el Setup. Cada ejecucion del Setup limpia lo anterior y empieza de cero.
+3. El plugin se instala completo. El Setup pregunta la version de B1 (una por sistema, igual en todos sus entornos, guardada en `.sbo-skills/<sistema>/config.md`) y la IA la compara con la ultima version documentada y, si es anterior, consulta `availability.md` (secciones enteras no disponibles, ADR 0011). `use` y `docs` dan error si falta el Setup. Cada ejecucion del Setup limpia lo anterior y empieza de cero.
 4. Las escrituras (POST, PATCH, DELETE) son en seco por defecto; la IA ejecuta con `--execute` tras la aprobacion del desarrollador. La Autoridad total la concede el desarrollador y dura una sesion.
 5. Credenciales y contexto de objeto viven en `.sbo-skills/<sistema>/<entorno>/` (entornos dev, uat, prod), dentro del repo y ignorados por git. La version de B1 y la Version de OData de cada sistema viven en `.sbo-skills/<sistema>/config.md`. Los sistemas no comprueban entre si sus versiones. No se valida el certificado TLS (ADR 0009).
 6. Los plugins se instalan con el marketplace de Claude Code o con `npx sbo-skills` (paquete npm propio, pendiente). Cada release nueva de B1 se incorpora actualizando la documentacion y la lista cerrada de versiones soportadas.
@@ -25,8 +25,8 @@ Cada sistema es un unico plugin (`<sistema>`, por ejemplo `service-layer`) que s
 - Herramientas del servidor MCP.
 - Sesion y relogin, errores, paginacion y `$batch`.
 - Skill de guia de `use-service-layer`.
-- Formato de las marcas de version en la documentacion (se define al crear la skill).
-- Generacion de las marcas de version: se hara al crear la skill, comparando el changelog y los PDF de cada version.
+- Indice de entidades del servidor con comando de busqueda (`find`) para que la IA descubra y confirme entidades sin leer la ficha de cada una; medido en el SL demo: ~457 colecciones, ~4.000 tokens si se leyera entero.
+- Revisar `availability.md` al regenerar la documentacion para una version nueva (ADR 0011).
 - Sesion de grilling sobre patrones de integracion SBO con sistemas externos (CRM, e-commerce, middleware): concurrencia con ETag, `$batch`, paginacion, webhooks y sincronizacion incremental. Parte de `reference/etag/etag-guide.md` y de las pruebas de ETag en SL 1000340 (2026-10-02).
 - Skill de construccion `build-docs-from-odata` (ADR 0007): fuentes spec OASIS OData V4.01 (Part 1 y 2) y la parte "Learn" de la documentacion de Microsoft (repo MicrosoftDocs/OData-docs, CC-BY-4.0), solo lo que interesa al consumidor de Service Layer, sin imagenes ni enlaces, con atribucion en el frontmatter. Incluye script de extraccion determinista, `PROGRESS.md` y prompt de arranque.
 - Decidir si OData necesita un plugin `docs-` propio si llega a reutilizarse fuera de Service Layer (revisar entonces el ADR 0004: un `docs-` exige Setup y version de B1).

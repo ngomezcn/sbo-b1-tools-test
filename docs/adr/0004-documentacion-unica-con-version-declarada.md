@@ -1,5 +1,5 @@
 ---
-status: partially superseded by ADR-0010
+status: partially superseded by ADR-0010 and ADR-0011
 ---
 
 # Una sola documentación por sistema; la versión de B1 se declara en el Setup

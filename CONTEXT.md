@@ -13,8 +13,12 @@ Parte del plugin de sistema que permite a la IA operar contra un sistema B1 real
 _Avoid_: Conector, connector
 
 **Documentación**:
-Parte del plugin de sistema que aporta el conocimiento del sistema, único y global para todas sus versiones de B1. Marca dónde una función no existe o cambia según la versión. Exige el Setup hecho, para conocer la versión de B1.
+Parte del plugin de sistema que aporta el conocimiento del sistema, único y global para todas sus versiones de B1. Describe la última versión y declara aparte, en la **Disponibilidad**, qué secciones enteras no existen en versiones anteriores. Exige el Setup hecho, para conocer la versión de B1.
 _Avoid_: Plugin de conocimiento, knowledge plugin, documentación por versión, pack de documentación
+
+**Disponibilidad**:
+Módulo de la **Documentación** (`availability.md`) que lista las secciones enteras que solo existen desde cierta **Versión de B1** (por ejemplo, webhooks). La IA lo consulta únicamente si la Versión de B1 declarada es anterior a la última documentada; nunca habla de qué entidades o campos existen, eso lo dice el **Contexto de objeto**. Solo se anota con evidencia positiva.
+_Avoid_: Soporte de versión (se confunde con las versiones testeadas)
 
 **Service Layer**:
 API REST de SAP Business One sobre la que se construye la primera pareja de plugins.
@@ -45,7 +49,7 @@ Parte del plugin de sistema que prepara `.sbo-skills/<sistema>/`: guarda las cre
 _Avoid_: Setup como comando del Uso
 
 **Versión de B1**:
-Versión de SAP B1 (por ejemplo FP 2202) que el desarrollador declara en el Setup de un sistema, elegida de la lista cerrada de versiones soportadas (FP 2208, FP 2305, SP 2308, SP 2311, SP 2402, FP 2405, SP 2408, SP 2411, FP 2502, SP 2505, FP 2508, SP 2511, FP 2602, SP 2605, FP 2608), y que se guarda en `.sbo-skills/<sistema>/config.md`. Vale para todos los entornos de ese sistema. Una versión fuera de la lista se acepta con un aviso: no se ha testeado, aunque no tiene por qué fallar. La IA la usa para comprobar que una función existe en esa versión. El sistema no la detecta ni la contrasta entre sistemas: es responsabilidad del desarrollador declararla bien.
+Versión de SAP B1 (por ejemplo FP 2202) que el desarrollador declara en el Setup de un sistema, elegida de la lista cerrada de versiones soportadas (FP 2208, FP 2305, SP 2308, SP 2311, SP 2402, FP 2405, SP 2408, SP 2411, FP 2502, SP 2505, FP 2508, SP 2511, FP 2602, SP 2605, FP 2608), y que se guarda en `.sbo-skills/<sistema>/config.md`. Vale para todos los entornos de ese sistema. Una versión fuera de la lista se acepta con un aviso: no se ha testeado, aunque no tiene por qué fallar. La IA la usa para comprobar con la **Disponibilidad** que una sección de la documentación existe en esa versión. El sistema no la detecta ni la contrasta entre sistemas: es responsabilidad del desarrollador declararla bien.
 _Avoid_: Versión del proyecto, versión del servidor
 
 **Versión de OData**:
