@@ -7,7 +7,7 @@ TypeScript source of the `service-layer` plugin (Setup, Uso and Documentation in
 - **Package manager:** npm, with `package-lock.json`. Node >= 20 at runtime; development uses Node >= 22.
 - **Bundler:** esbuild, one self-contained `.mjs` per CLI (`setup.mjs`, `use.mjs`), so the plugin needs no `node_modules`.
 - **Types:** `tsc --noEmit` only (`npm run typecheck`); esbuild does the emit.
-- **Tests:** `node:test`, run through `tsx`. No mocks of Service Layer: tests talk to the real one (see `TESTING.md`).
+- **Tests:** `node:test`, run through `tsx`. Tests talk to the real Service Layer (see `TESTING.md`); only `test/request-unit.test.ts` (multipart, headers, classification, binary and file bodies) uses an injected transport, plus the 502 case.
 - **HTTP / TLS:** `undici` (v6, Node >= 18.17) with an `Agent` that does not validate the certificate (ADR 0009). Bundled into the output.
 
 Everything runs from this folder: `npm test`, `npm run typecheck`, `npm run build` (writes `dist/`; `-- --out <dir>` to choose another).
@@ -28,6 +28,7 @@ test/
 - `page` and `traverse` write a Volcado (one file per record plus `_index.json`) and answer only the path, the row count and the keys (or the index path when there are more than 50). The records never enter the AI's context.
 - `count` writes **no** Volcado, by design: it has no records, it answers one number. The Volcado exists so that a big answer does not overflow the context of the LLM; a number cannot.
 - `get` writes a Volcado of one record.
+- `request` writes a Volcado for what it brings back (see Request below); a 204 writes none.
 
 ## Parallel executions
 
@@ -39,11 +40,14 @@ Several `use.mjs` processes can run at once on the same repo, also from nothing.
 
 Limits: one extra step for the developer; the password stays in plain text in `credentials.json`; the AI cannot see why a login failed (the developer sees it in the terminal); terminal behaviour of the hidden password is not covered by automatic tests (TESTING.md).
 
-## Writes
+## Request: any call, writes in seco first
 
-`post`, `patch` and `delete` (`src/use/write.ts`, ADR 0008) are dry runs: without `--execute` they print the exact request (`resumen.peticion`: method, full URL with the saved OData version, body) and send no write. With `--execute` they send it and answer the SL status; a POST dumps the created record to a Volcado like a read. Bodies come from `--body` or `--body-file` and are sent as written (the dry run prints what they parse to). No `If-Match`, no `Prefer`: exactly what was asked.
+`request <METHOD> <path>` (`src/use/request.ts`, ADR 0012) replaces the old `post`, `patch` and `delete`. The path is relative to the service root and is sent as written (only characters a URL cannot carry are percent-encoded, once); the saved OData version is added. Everything that is not a GET is a write (ADR 0008): without `--execute` it prints the exact request (`resumen.peticion`: method, full URL, headers, body, the sub-requests of a batch or the name, size and type of each file) and sends nothing; `--read` declares a POST a read (SQLQueries List) and it runs directly (refused for PATCH/PUT/DELETE, for uploads and for a batch with a non-GET sub-request). `prod` needs `--allow-prod` in the same call as `--execute` for a call that writes (`PROD_WRITE_NOT_ALLOWED` otherwise); a batch of only GETs needs none; the dry run on `prod` needs no mark. Like any operation on an entity, a request first applies the Contexto de objeto rule (per distinct entity set for a batch), so even a dry run may read (`$metadata`, `UserFieldsMD`).
 
-`prod` needs `--allow-prod` in the same call as `--execute` (error `PROD_WRITE_NOT_ALLOWED` otherwise); the dry run on `prod` needs no mark. Like any operation on an entity, a write first applies the Contexto de objeto rule, so even a dry run may read (`$metadata`, `UserFieldsMD`) when the ficha is missing or old.
+- **Headers** (`src/use/headers.ts`): `--header "Name: value"`, repeatable, no allowlist. `Cookie`, `Host` and `Content-Length` are the tool's: `HEADER_RESERVED`. Line breaks and repeated headers are errors. With `--file` and `$batch` Content-Type is the tool's (`HEADER_CONFLICT`). The dry run shows the headers that will go, with `boundary=<generated>` for multipart, and never the cookie. No `If-Match` or `Prefer` of our own.
+- **Body:** `--body` / `--body-file` (JSON, validated; UTF-16 files from PowerShell 5.1 are read), `--file` (multipart/form-data, field `files`), `--stream-file` (raw bytes, `Content-Type` by extension and `Slug` with the name). Files must be under 50 MB (the Service Layer's own limit), and the Setup's `credentials.json` and `session.json` are refused as body or file (`FILE_FORBIDDEN`).
+- **`$batch`** (`src/use/multipart.ts`): `--body-file` holds `{"requests": [ request | {"changeset": [requests]} ]}`; the tool validates it (no GET in a changeset, unique Content-IDs, `$id` only to an earlier request of the same changeset), numbers changeset requests that have no `contentId`, builds the multipart/mixed body and parses the multipart answer (nested changeset, CRLF or LF). Answers are named by Content-ID (`part-N`, `part-N.M`, `changeset-N` when the SL answers once for a failed changeset); the batch stops at the first failure, which `resumen.aviso` says.
+- **Answers** (`present` in `request.ts`): collection -> one file per record (+ `siguiente` for the nextLink, not followed); object -> one file; text or XML -> `response.<ext>`; binary -> `<Volcado>/<folder>/<name>` plus `_index.json` (name from Content-Disposition, `?filename=` or the path; made safe for any file system); batch -> one file per sub-response; 204 -> nothing. Answers over 100 MB are refused (`RESPONSE_TOO_LARGE`). `Login` and `Logout` cannot be requested (`PATH_RESERVED`).
 
 ## Where the tables of the user fields come from
 

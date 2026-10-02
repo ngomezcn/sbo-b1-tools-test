@@ -53,10 +53,10 @@ for (const version of ['v1', 'v2'] as const) {
 
   test(`${version}: count is a plain number, with and without $filter`, async () => {
     const root = await repo(version)
-    const all = await live(root, () => count({ root, entitySet: 'Orders' }))
+    const all = await live(root, () => count({ root, entitySet: 'Orders', filter: 'DocEntry le 337' }))
     assert.equal(all.ok, true, JSON.stringify(all))
     assert.equal(all.resumen!.total, 337)
-    const some = await live(root, () => count({ root, entitySet: 'Orders', filter: 'DocEntry gt 300' }))
+    const some = await live(root, () => count({ root, entitySet: 'Orders', filter: 'DocEntry gt 300 and DocEntry le 337' }))
     assert.equal(some.resumen!.total, 37)
     assert.equal((await live(root, () => count({ root, entitySet: 'BusinessPartners' }))).resumen!.total, 25)
     assert.equal((await live(root, () => count({ root, entitySet: 'Items' }))).resumen!.total, 57)
@@ -65,7 +65,7 @@ for (const version of ['v1', 'v2'] as const) {
   test(`${version}: traverse follows nextLink over several pages and asks for 100 rows per page`, async () => {
     const root = await repo(version)
     const seen: HttpRequest[] = []
-    const out = await live(root, () => traverse({ root, entitySet: 'Orders', select: 'DocEntry', orderby: 'DocEntry', transport: recording(seen) }))
+    const out = await live(root, () => traverse({ root, entitySet: 'Orders', select: 'DocEntry', filter: 'DocEntry le 337', orderby: 'DocEntry', transport: recording(seen) }))
     assert.equal(out.ok, true, JSON.stringify(out))
     assert.equal(out.resumen!.filas, 337)
     assert.equal(out.resumen!.paginas, 4)
@@ -107,7 +107,7 @@ for (const version of ['v1', 'v2'] as const) {
 
   test(`${version}: traverse with $filter and $orderby keeps both across pages`, async () => {
     const root = await repo(version)
-    const out = await live(root, () => traverse({ root, entitySet: 'Orders', select: 'DocEntry', filter: 'DocEntry gt 100', orderby: 'DocEntry desc' }))
+    const out = await live(root, () => traverse({ root, entitySet: 'Orders', select: 'DocEntry', filter: 'DocEntry gt 100 and DocEntry le 337', orderby: 'DocEntry desc' }))
     assert.equal(out.ok, true, JSON.stringify(out))
     assert.equal(out.resumen!.filas, 237)
     const keys = (await readIndex(out.resumen!.ruta)).keys as string[]
@@ -166,10 +166,10 @@ test('page refuses a $top beyond one answer and points to traverse', async () =>
 test('CLI: page, traverse and count with query options; bad numbers are rejected', async () => {
   const root = await repo('v2')
   const run = (args: string[]) => live(root, () => main(args, root))
-  const page = await run(['page', 'Orders', '--top', '3', '--select', 'DocEntry', '--orderby', 'DocEntry desc'])
+  const page = await run(['page', 'Orders', '--top', '3', '--select', 'DocEntry', '--filter', 'DocEntry le 337', '--orderby', 'DocEntry desc'])
   assert.deepEqual(page.resumen!.claves, ['337', '336', '335'])
   assert.equal((await run(['traverse', 'Orders', '--max-rows', '120', '--select', 'DocEntry'])).resumen!.filas, 120)
-  assert.equal((await run(['count', 'Orders', '--filter', 'DocEntry gt 300'])).resumen!.total, 37)
+  assert.equal((await run(['count', 'Orders', '--filter', 'DocEntry gt 300 and DocEntry le 337'])).resumen!.total, 37)
   assert.equal((await main(['page', 'Orders', '--top', 'abc'], root)).error!.code, 'INVALID_ARGUMENTS')
   assert.equal((await main(['page', 'Orders', '--top', '0'], root)).error!.code, 'INVALID_ARGUMENTS')
   assert.equal((await main(['traverse', 'Orders', '--max-rows', '0'], root)).error!.code, 'INVALID_ARGUMENTS')

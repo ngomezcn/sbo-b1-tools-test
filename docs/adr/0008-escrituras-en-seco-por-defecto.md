@@ -1,5 +1,5 @@
 ---
-status: accepted
+status: accepted; extended by ADR-0012 (se aplica a `request`: todo lo que no es GET)
 ---
 
 # Las escrituras son en seco por defecto

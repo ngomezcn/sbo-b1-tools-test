@@ -1,5 +1,5 @@
 ---
-status: accepted; reinforced by ADR-0008
+status: accepted; reinforced by ADR-0008; extended by ADR-0012 (toda operación que no es GET)
 ---
 
 # Las escrituras piden confirmación; la Autoridad total es solo por sesión

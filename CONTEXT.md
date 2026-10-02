@@ -61,11 +61,21 @@ Versión de la API de Service Layer a la que el **Uso** llama: `v1` (OData V3) o
 _Avoid_: Versión de API, versión de Service Layer
 
 **Volcado**:
-Carpeta local de una sola ejecución del **Uso** con los registros que esta trajo de un entorno, junto con la consulta y la fecha. Nunca se comparte entre ejecuciones y su contenido no entra en el contexto de la IA, solo su ruta y un resumen. Lo borra quien lo creó al terminar y, como red de seguridad, la herramienta lo borra pasadas 24 horas.
+Carpeta local de una sola ejecución del **Uso** con lo que esta trajo de un entorno (registros, subrespuestas de un **Lote**, un texto o un archivo binario descargado, como una imagen), junto con la consulta y la fecha. Nunca se comparte entre ejecuciones y su contenido no entra en el contexto de la IA, solo su ruta y un resumen. Lo borra quien lo creó al terminar y, como red de seguridad, la herramienta lo borra pasadas 24 horas.
 _Avoid_: Caché de datos, descarga
 
+**Petición**:
+Llamada libre del **Uso** al Service Layer (`request <método> <ruta>`), con cabeceras propias y cuerpo JSON, un **Lote** o archivos. Cubre todo lo que la **Documentación** describe; las lecturas curadas (`get`, `page`, `traverse`, `count`) son atajos. Todo lo que no es GET es una escritura, aunque no cambie datos, salvo que se declare **Lectura declarada** (ADR 0012).
+_Avoid_: Comando de escritura, llamada curada
+
+**Lectura declarada**:
+Marca `--read` con la que el desarrollador o la IA declaran que un POST solo lee (por ejemplo `SQLQueries('q')/List`): se ejecuta directamente y su respuesta va al **Volcado**. No vale para PATCH, PUT, DELETE ni subidas de archivos, ni para un **Lote** con alguna subpetición que no sea GET.
+
+**Lote**:
+Petición `$batch` descrita en un JSON del desarrollador (subpeticiones, `changeset` atómicos y `contentId`) a partir del cual la herramienta construye el cuerpo multipart y lee la respuesta. Cada subrespuesta va a un archivo del **Volcado** nombrado con su Content-ID.
+
 **Confirmación de escritura**:
-Permiso que la IA pide al desarrollador antes de cada operación que modifica datos (POST, PATCH, DELETE).
+Permiso que la IA pide al desarrollador antes de cada operación que modifica datos (toda **Petición** que no es GET).
 
 **Autoridad total**:
 Estado, limitado a una sesión, en el que el desarrollador dispensa a la IA de pedir confirmación de escritura. Solo lo concede el desarrollador; la IA nunca lo propone.
@@ -126,8 +136,9 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 - Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, formada por un **Contexto de objeto** por entidad, cada uno con su fecha de obtención.
 - Una **Sección externa** se divide en **Bloques**; cada **Bloque** se construye en una sesión a partir de **Fragmentos** de sus fuentes, agrupados en **Unidades de trabajo** que producen **Hojas**.
 - En `prod`, el **Uso** solo escribe con una marca explícita añadida a esa llamada, y la **Autoridad total** no la sustituye.
-- Las escrituras (POST, PATCH, DELETE) del **Uso** son en seco por defecto: sin `--execute` solo muestran la petición exacta (ADR 0008).
-- El **Uso** envía exactamente lo que el desarrollador pide: no añade cabeceras de control de concurrencia (ETag, `If-Match`) por su cuenta.
+- Las escrituras del **Uso** (toda **Petición** que no es GET) son en seco por defecto: sin `--execute` solo muestran la petición exacta, con sus cabeceras (ADR 0008, ADR 0012).
+- El **Uso** envía exactamente lo que el desarrollador pide: no añade cabeceras de control de concurrencia (ETag, `If-Match`) por su cuenta. Acepta cualquier cabecera salvo `Cookie`, `Host` y `Content-Length`, que son suyas (`HEADER_RESERVED`).
+- Un archivo descargado del Service Layer se guarda en el **Volcado** y el **Uso** devuelve su ruta; un archivo que se sube no puede ser un fichero de credenciales o de sesión del Setup.
 - Cada **Entorno** tiene un único **Índice de entidades**, porque las tablas y objetos de usuario difieren entre entornos. Cualquier comando del **Uso** lo renueva si tiene más de una semana; la IA nunca lo fuerza.
 - Un fallo al generar o renovar el **Índice de entidades** no impide la operación pedida: el **Uso** sigue adelante y avisa. Si el Service Layer dice que una entidad no existe, el **Uso** vuelve a descargar los metadatos y renueva el índice aunque sea reciente, y solo entonces lo da por inexistente.
 - Un **Contexto de objeto** lo genera la herramienta del **Uso** antes de operar sobre su entidad, si falta o tiene más de una semana, o cuando el desarrollador lo pide expresamente; la IA no lo regenera por su cuenta.

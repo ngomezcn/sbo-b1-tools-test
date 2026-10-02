@@ -24,7 +24,7 @@ export function keyFileName(plain: string): string {
 }
 
 /** Fields that identify a record, in order of preference. Without one of them (e.g. a `$select` that drops it) rows are numbered. */
-const KEY_FIELDS = ['DocEntry', 'CardCode', 'ItemCode', 'Code', 'AbsEntry', 'InternalCode', 'ID', 'Id', 'Number']
+const KEY_FIELDS = ['DocEntry', 'CardCode', 'ItemCode', 'Code', 'AbsEntry', 'AbsoluteEntry', 'InternalCode', 'ID', 'Id', 'Number']
 
 export function recordKey(record: Record<string, unknown>, index: number): string {
   for (const field of KEY_FIELDS) {
@@ -32,6 +32,59 @@ export function recordKey(record: Record<string, unknown>, index: number): strin
     if (typeof value === 'string' || typeof value === 'number') return String(value)
   }
   return `row-${String(index + 1).padStart(6, '0')}`
+}
+
+/** The name of a single object answered by a `request`: its key field if it has one, else `response`. */
+export function objectKey(record: Record<string, unknown>): string {
+  const key = recordKey(record, 0)
+  return key.startsWith('row-') ? 'response' : key
+}
+
+/** A file name safe to create on any system: no path, no characters Windows refuses, no reserved device names, never empty or `_index.json`. */
+export function safeFileName(name: string, fallback = 'download.bin'): string {
+  let safe = (name.split(/[\\/]/).pop() ?? '').replace(/[\u0000-\u001f<>:"|?*]/g, '_').replace(/^\.+/, '').replace(/[. ]+$/, '').slice(0, 120)
+  if (safe === '') safe = fallback
+  if (/^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$/i.test(safe) || safe.toLowerCase() === '_index.json') safe = '_' + safe
+  return safe
+}
+
+export interface FileInput {
+  name: string
+  bytes: Uint8Array
+  contentType?: string
+}
+
+export interface FilesDumpInput {
+  root: string
+  environment: Environment
+  now: Date
+  newId: () => string
+  /** Folder inside the Volcado, like the entity set of a read. */
+  entitySet: string
+  query: { method: string; path: string }
+  files: FileInput[]
+  extra?: Record<string, unknown>
+}
+
+/** A Volcado of files (a downloaded image, a text or XML answer): `<Volcado>/<folder>/<file>` plus `_index.json` with name, size and type. */
+export async function writeFilesDump(input: FilesDumpInput): Promise<{ dir: string; paths: string[]; names: string[] }> {
+  const dir = await createDumpDir(input.root, input.environment, input.now, input.newId)
+  const folder = join(dir, input.entitySet)
+  await mkdir(folder, { recursive: true })
+  const taken = new Set<string>()
+  const names = input.files.map((f) => {
+    const base = safeFileName(f.name)
+    let name = base
+    for (let n = 2; taken.has(name.toLowerCase()); n++) name = base.replace(/(\.[^.]*)?$/, (ext) => `~${n}${ext}`)
+    taken.add(name.toLowerCase())
+    return name
+  })
+  await Promise.all(input.files.map((f, i) => writeFile(join(folder, names[i]), f.bytes)))
+  await writeFile(
+    join(dir, '_index.json'),
+    JSON.stringify({ date: input.now.toISOString(), query: input.query, entitySet: input.entitySet, count: names.length, ...input.extra, files: input.files.map((f, i) => ({ name: names[i], bytes: f.bytes.byteLength, contentType: f.contentType ?? null })) }, null, 2),
+  )
+  return { dir, paths: names.map((n) => join(folder, n)), names }
 }
 
 /** Creates the folder of this execution; a name that already exists (same second, same id) is never reused. */

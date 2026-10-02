@@ -6,10 +6,8 @@
  *   query options: --filter --select --orderby --expand (passed to the Service Layer as given)
  *   node use.mjs context <EntitySet> [--refresh] [--show] [--tables OCRD,CRD1 | default]
  *   node use.mjs clean <id|folder|path>   deletes that Volcado only
- *   node use.mjs post <EntitySet> --body '<json>' | --body-file <path>
- *   node use.mjs patch <EntitySet> <key> --body '<json>' | --body-file <path>
- *   node use.mjs delete <EntitySet> <key>
- *   writes only print the request unless --execute; on prod --execute also needs --allow-prod
+ *   node use.mjs request <METHOD> <path> [--header "Name: value"]... [--body '<json>' | --body-file <path> | --file <path>... | --stream-file <path>] [--read]
+ *   everything but a GET only prints the request unless --execute (--read declares a POST a read); on prod --execute also needs --allow-prod
  *   every command takes [--entorno dev|uat|prod]; read commands also [--refresh-context]
  */
 import { parseArgs } from 'node:util'
@@ -21,7 +19,7 @@ import { getByKey } from './get.ts'
 import { failure, type UseOutput } from './output.ts'
 import { contextCommand } from './object-context.ts'
 import { count, readOnePage, traverse } from './read.ts'
-import { write } from './write.ts'
+import { runRequest } from './request.ts'
 
 export interface Deps {
   transport?: Transport
@@ -36,9 +34,7 @@ const USAGE = {
   count: 'Usage: count <EntitySet> [--filter ...]',
   context: 'Usage: context <EntitySet> [--refresh] [--show] [--tables TABLE,TABLE | default]',
   clean: 'Usage: clean <id | folder name | path of the Volcado>',
-  post: "Usage: post <EntitySet> --body '<json>' | --body-file <path> [--execute]",
-  patch: "Usage: patch <EntitySet> <key> --body '<json>' | --body-file <path> [--execute]",
-  delete: 'Usage: delete <EntitySet> <key> [--execute]',
+  request: `Usage: request <GET|POST|PATCH|PUT|DELETE> <path> [--header "Name: value"]... [--body '<json>' | --body-file <path> | --file <path>... | --stream-file <path>] [--read] [--execute] [--allow-prod]. The path is relative to the service root (Orders(5)/Cancel, SQLQueries('q')/List, $batch).`,
 }
 
 function toInt(name: string, value: string | undefined): number | undefined {
@@ -78,6 +74,10 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
         'body-file': { type: 'string' },
         execute: { type: 'boolean' },
         'allow-prod': { type: 'boolean' },
+        header: { type: 'string', multiple: true },
+        file: { type: 'string', multiple: true },
+        'stream-file': { type: 'string' },
+        read: { type: 'boolean' },
       },
     })
     const [command, ...rest] = positionals
@@ -101,24 +101,23 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
         return await contextCommand({ ...base, entitySet: one(USAGE.context), refresh: values.refresh, show: values.show, tables: parseTables(values.tables) })
       case 'clean':
         return await cleanDump({ ...base, target: one(USAGE.clean) })
-      case 'post':
-      case 'patch':
-      case 'delete': {
-        const wanted = command === 'post' ? 1 : 2
-        if (rest.length !== wanted) throw new SboError('INVALID_ARGUMENTS', USAGE[command])
-        return await write({
+      case 'request':
+        if (rest.length !== 2) throw new SboError('INVALID_ARGUMENTS', USAGE.request)
+        return await runRequest({
           ...base,
-          method: command.toUpperCase() as 'POST' | 'PATCH' | 'DELETE',
-          entitySet: rest[0],
-          key: rest[1],
+          method: rest[0],
+          path: rest[1],
+          headers: values.header,
           body: values.body,
           bodyFile: values['body-file'],
+          files: values.file,
+          streamFile: values['stream-file'],
+          read: values.read,
           execute: values.execute,
           allowProd: values['allow-prod'],
         })
-      }
       default:
-        throw new SboError('UNKNOWN_COMMAND', `Unknown command "${command ?? ''}". Available: get, page, traverse, count, context, clean, post, patch, delete.`)
+        throw new SboError('UNKNOWN_COMMAND', `Unknown command "${command ?? ''}". Available: get, page, traverse, count, context, clean, request.`)
     }
   } catch (e) {
     if ((e as { code?: string }).code?.startsWith('ERR_PARSE_ARGS')) return failure(new SboError('INVALID_ARGUMENTS', (e as Error).message))

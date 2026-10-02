@@ -26,8 +26,8 @@ Lo que ya existe y no es tuyo: `factory/docs-src/` (la documentación, se constr
 - **Lectura:** una página (por defecto, con `$top`), recorrer (sigue `nextLink` hasta un tope de filas configurable; pide `odata.maxpagesize=100`, nunca 0), contar, por clave.
 - **Volcado:** una carpeta por ejecución, `.sbo-skills/service-layer/<entorno>/data/<fecha>-<id>/<EntitySet>/<clave>.json` más `_index.json`. Los registros nunca entran en el contexto de la IA: el comando devuelve solo ruta, nº de filas y claves. No se comparte entre ejecuciones. Comando de limpieza; red de seguridad: se borra a las 24 h.
 - **Contexto de objeto:** `.sbo-skills/service-layer/<entorno>/context/<Entidad>.md`, Markdown compacto: campos estándar y de usuario (`U_*`), tipo, si puede ir vacío, valores válidos; cabecera con fecha de obtención y Versión de OData. Combina `$metadata` con `UserFieldsMD` (`$metadata` solo da `Nullable`, que no siempre equivale a obligatorio). La herramienta lo regenera antes de cualquier operación sobre esa entidad si falta o tiene más de una semana, o si el desarrollador lo pide. La IA no lo regenera por su cuenta.
-- **Escrituras:** POST, PATCH y DELETE son **en seco por defecto**; sin `--execute` solo imprimen la petición exacta (ADR 0008). `prod` solo se escribe con una marca explícita en esa llamada. No se añaden ETag ni `If-Match` por su cuenta.
-- **Fuera de alcance:** `$batch`, acciones (cerrar, cancelar), adjuntos, `SQLQueries`, vistas SQL, Semantic Layer, UDO.
+- **Escrituras:** toda petición que no es GET (`request`, ADR 0012; al diseñar la sesión eran `post`, `patch` y `delete`) es **en seco por defecto**; sin `--execute` solo imprime la petición exacta (ADR 0008). `prod` solo se escribe con una marca explícita en esa llamada. No se añaden ETag ni `If-Match` por su cuenta.
+- **Fuera de alcance:** (histórico: la sesión de diseño dejaba fuera `$batch`, acciones, adjuntos, `SQLQueries`, vistas SQL y UDO; el ADR 0012 lo revoca: `request` cubre todo lo que la Documentación describe, con los adjuntos solo probados en unitario.)
 
 ## Cómo se prueba
 

@@ -24,6 +24,8 @@ Run everything from this folder: `npm test` (loads the repo-root `.env`: `SL_URL
 
 - Slice 10 (reorganisation into one plugin, end to end): 2026-10-02, FP 2608. Not a test file: done by hand with the real `claude` CLI and the real SL (below).
 
+- Slice 11 (generic `request`, ADR 0012; replaces `post`/`patch`/`delete`): 2026-10-02, FP 2608, `v1` and `v2`. `test/use-request.test.ts` (live; the old write tests adapted to `request`, plus headers, `$batch`, read POST) and `test/request-unit.test.ts` (no server: headers, paths, multipart builder and parser, read/write classification, dry run, binary download, attachment upload; it uses an injected transport, like the 502 case of slice 5). Full run: 149 tests, 149 pass. The count/traverse tests of `use-read.test.ts` now filter `DocEntry le 337`: an order cannot be deleted, so every run of the write tests leaves orders in the demo and the unfiltered counts drifted (343 seen).
+
 ## Verified against the real Service Layer
 
 Login errors, exactly as returned (HTTP 401 in all cases):
@@ -115,7 +117,7 @@ Session:
 
 Demo-server quirk (not our code), cause found 2026-10-02: the demo has a load balancer with several nodes (`ROUTEID` `.node1` … `.node10`; `.node6` and `.node9` never appeared). One node, `.node4`, answered every data read (`BusinessPartners`, `Items`, `UserTablesMD`) with HTTP 500, `code: 407` (v1 number, v2 string), `message: "Table definition not found for '@ZZVF_T'."`; its login worked. The session sticks to the node through the `ROUTEID` cookie, so a session that landed on `.node4` failed on every request, and one that landed elsewhere was fine (about 1 of 5 logins). 50 logins: `.node4` 6 of 6 broken, the other seven nodes 0 broken. The table `@ZZVF_T` does not exist in the demo company (`UserTablesMD('ZZVF_T')` gives 404, no `ZZ*` user tables or fields). After the developer stopped `.node4`, 50 logins and reads all succeeded. The plugin returns the error literally and does not relogin on it (a relogin would land on another node, but 407 alone cannot tell a broken node from a missing user table). Tests that need a successful read (`getLive` in `test/sl-env.ts`) retry with a new session.
 
-Writes (slice 8, FP 2608, `BusinessPartners`, `v1` and `v2`, 2026-10-02):
+Writes (slice 8, then the commands `post`/`patch`/`delete`, now `request`; FP 2608, `BusinessPartners`, `v1` and `v2`, 2026-10-02):
 
 - POST: **201**, body is the created record (about 9.8 KB for a business partner, same size in both versions) with `odata.metadata` and `odata.etag` (v1) or `@odata.context` and `@odata.etag` (v2); also a `Location` header (`.../BusinessPartners('<key>')`) and an `ETag` header. Without `Prefer: return-no-content` the record always comes back; the plugin does not send that header. The record goes to a Volcado, not to the output.
 - PATCH: **204**, empty body, no `ETag` header; also 204 for an empty `{}` body. DELETE: **204**, empty body.
@@ -128,6 +130,14 @@ Writes (slice 8, FP 2608, `BusinessPartners`, `v1` and `v2`, 2026-10-02):
 - No difference between `v1` and `v2` in status codes or in what is written; they differ only in the shape of the error (above) and in the annotations of the POST answer.
 - The dry run sends no POST, PATCH or DELETE (the test counts every request of the real transport; `Login` and `Logout` are POSTs of the session and are filtered out) and afterwards the record is unchanged, the count of `BusinessPartners` is the same and the new key does not exist. A dry run may still read: if the Contexto de objeto of the entity is missing or old, the tool generates it first (`$metadata`, `UserFieldsMD`), as for any operation on that entity.
 - `prod`: `--execute` without `--allow-prod` sends nothing (`PROD_WRITE_NOT_ALLOWED`); the dry run on `prod` works without it. The test uses the demo company as `prod` (the name of the environment is only a folder).
+
+`request` (slice 11, FP 2608, `v1` and `v2` unless noted, 2026-10-02):
+
+- **Headers:** `B1S-ReplaceCollectionsOnPatch: true` on `PATCH BusinessPartners('<key>')` with `ContactEmployees` replaced the collection (`A`,`B` became `C`; without the header the SL appended or kept others, not asserted). `Prefer: odata.maxpagesize=2` gave 2 rows and a `siguiente` nextLink. `Cookie` is refused by the tool before anything is sent. `EventSubscriptions` (webhooks) could not be created in this demo (HTTP 400, `-21100`, "Webhook manipulation error."), so the documented use of the header on `EventSubscriptions` was not run; the header itself was verified on `BusinessPartners`.
+- **`$batch` (v2 by hand, v1 and v2 in the test):** GET + changeset (POST with `Content-ID` 1, PATCH `$1` with `Content-ID` 2) + GET: the SL answered HTTP 200 with a multipart/mixed answer; sub-answers 200, 201, 204, 200. Standalone GET answers carry no Content-ID (the tool names them `part-N` or by the request's `contentId`); changeset answers repeat it. A changeset whose second request is a duplicate key: the outer status is 200, one answer (400, `-10`) for the changeset, the first POST rolled back (a read of its key is 404), the following sub-request not executed. The sub-request line is `METHOD /b1s/<v>/<path>` without `HTTP/1.1`, as in the docs; the SL accepted it.
+- **Read POST:** `POST SQLQueries('<code>')/List` with `--read` ran directly and returned the rows (3); `GET .../List` returned the same. Without `--read` it is a dry run. `SQLQueries` created and deleted by the test.
+- **Actions:** `POST Orders(<key>)/Cancel` with no body: 204. `POST CompanyService_GetPathAdmin --read`: 200 with an object, dumped to one file.
+- **Attachments and item images: NOT verified end to end.** The demo's folders are not usable: `POST Attachments2` (multipart `--file`, and `--stream-file` with `Slug`) answered HTTP 400 `-5002` "The attachments folder is not defined, or it has been changed or removed."; `ItemImages`, `Pictures` answered 404 "The folder specified in 'PicturesFolderPath' could not be found". `CompanyService_GetPathAdmin` shows `AttachmentsFolderPath` and `PicturesFolderPath` as UNC paths on another host; `CompanyService_UpdatePathAdmin` to a local path was refused (`10001237 - Enter valid folder path`) and nothing was changed. So the multipart/form-data and Slug bodies, binary download, file naming and the 50 MB limit are covered by unit tests only; the one live fact is that the SL reached its folder logic after parsing the request. To close this, point those folders at a share the SL can write and run `Attachments2` upload, `Attachments2(<n>)/$value` and `ItemImages` PATCH/GET/DELETE.
 
 Setup, complete (slice 9):
 
@@ -155,6 +165,10 @@ Checks done after the first closing of session 3 (2026-10-02, FP 2608):
 - The two `use-tables` tests that failed in the full run passed after dropping and recreating the user tables `@SBOCTXT` and `@SBOUDT` in the demo (the entity took 11 attempts to be listed by a node).
 
 ## Not verified against the real Service Layer (pending)
+
+- Attachment and item image upload and download, `Slug` streaming (above).
+- A `$batch` whose answer contains a binary sub-response (the parser decodes the answer as UTF-8 text).
+- `B1S-ReplaceCollectionsOnPatch` on `EventSubscriptions` (webhooks are not available in the demo).
 
 - The hidden password on macOS and Linux terminals: only Windows (ConPTY) was run (below). Same readline code, not run there.
 - The model's behaviour with `use` and `setup` was observed in 3 runs only (below), not evaluated at scale.

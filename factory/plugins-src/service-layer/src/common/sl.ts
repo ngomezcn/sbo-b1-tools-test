@@ -8,14 +8,24 @@ export interface HttpRequest {
   method: string
   url: string
   headers: Record<string, string>
-  body?: string
+  /** Text (JSON, multipart) or raw bytes (a file being uploaded). */
+  body?: string | Uint8Array
 }
 
 export interface HttpResponse {
   status: number
   headers: Headers
+  /** The body decoded as UTF-8. */
   text: string
+  /** The body as received. Absent in an injected answer that only has `text`. */
+  bytes?: Uint8Array
 }
+
+/** The most a single answer may weigh; a bigger one is cut off and reported (a download goes to disk, but not without a limit). */
+export const MAX_RESPONSE_BYTES = 100 * 1024 * 1024
+
+/** The bytes of an answer, whichever way it was built. */
+export const bodyBytes = (response: HttpResponse): Uint8Array => response.bytes ?? Buffer.from(response.text, 'utf8')
 
 /** Injectable so tests can observe the real traffic; the default talks to the network. */
 export type Transport = (request: HttpRequest) => Promise<HttpResponse>
@@ -29,8 +39,31 @@ export const defaultTransport: Transport = async (request) => {
     body: request.body,
     dispatcher: insecureAgent,
   })
-  return { status: response.status, headers: response.headers as unknown as Headers, text: await response.text() }
+  const declared = Number(response.headers.get('content-length'))
+  if (declared > MAX_RESPONSE_BYTES) throw tooLarge(declared)
+  const chunks: Uint8Array[] = []
+  let total = 0
+  if (response.body) {
+    for await (const chunk of response.body as unknown as AsyncIterable<Uint8Array>) {
+      total += chunk.byteLength
+      if (total > MAX_RESPONSE_BYTES) throw tooLarge(total)
+      chunks.push(chunk)
+    }
+  }
+  const bytes = Buffer.concat(chunks)
+  return {
+    status: response.status,
+    headers: response.headers as unknown as Headers,
+    bytes,
+    // Decoded on demand: a downloaded file is never turned into a string.
+    get text() {
+      return bytes.toString('utf8')
+    },
+  }
 }
+
+const tooLarge = (size: number) =>
+  new SboError('RESPONSE_TOO_LARGE', `The Service Layer answer is larger than ${MAX_RESPONSE_BYTES / 1024 / 1024} MB (${size} bytes so far) and was not read. Ask for less (a filter, $select, a page) or download it another way.`)
 
 /** Error returned by the Service Layer, kept literal: status, code and message as received. */
 export class SlError extends Error {
@@ -67,6 +100,7 @@ export async function send(transport: Transport, request: HttpRequest): Promise<
   try {
     return await transport(request)
   } catch (e) {
+    if (e instanceof SboError) throw e
     const cause = (e as { cause?: { code?: string; message?: string } }).cause
     const reason = cause?.code ?? cause?.message ?? (e as Error).message
     throw new SboError('SL_UNREACHABLE', `Could not reach ${request.url} (${reason}). Check the URL and that the Service Layer is running.`)
@@ -130,7 +164,7 @@ export async function request(
   path: string,
   cookie: string,
   headers: Record<string, string> = {},
-  body?: string,
+  body?: string | Uint8Array,
 ): Promise<HttpResponse> {
   const response = await send(transport, { method, url: `${baseUrl(credentials.url, version)}/${path}`, headers: { ...headers, Cookie: cookie }, body })
   if (response.status < 200 || response.status >= 300) throw parseSlError(response.status, response.text)

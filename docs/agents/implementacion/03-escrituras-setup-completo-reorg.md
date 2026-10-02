@@ -8,6 +8,8 @@ Eres el **orquestador** de la sesión 3. Lee primero `docs/agents/implementacion
 
 ## Slice 8 — Escrituras en seco
 
+> Histórico: `post`, `patch` y `delete` se sustituyeron por el comando genérico `request` (ADR 0012); el modo en seco y `--allow-prod` se conservan.
+
 - POST, PATCH y DELETE (ADR 0008): sin `--execute` solo imprimen la petición exacta (método, URL completa con la Versión de OData guardada, cuerpo) y no tocan el servidor; con `--execute` la envían. Salida JSON fija y error de SL literal.
 - `prod` solo se escribe con una marca explícita en esa llamada, distinta de `--execute` (elige el nombre y documéntalo). Sin la marca, el error propio dice cómo continuar.
 - Envía exactamente lo que se le pide: sin ETag ni `If-Match` propios. Antes de escribir sobre una entidad, aplica la regla del contexto de objeto (se regenera si falta o es antiguo).
