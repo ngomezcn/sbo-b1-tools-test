@@ -1,9 +1,9 @@
 # FAQ and common issues
 
-## [Common issues - CORS troubleshooting](common-issues.md)
-Use when: a browser call to Service Layer from another origin fails with a CORS error, or CORS behavior must be tested. Generic CORS guide (not from the Service Layer guide): adapt it to the case.
-Terms: `Access-Control-Allow-Origin`, `Access-Control-Allow-Headers`, `Access-Control-Allow-Credentials`, `OPTIONS`, preflight, `Origin`, `curl`, DevTools
-Sections: [curl tests](common-issues.md#using-curl) · [DevTools](common-issues.md#using-browser-devtools) · [Common CORS errors](common-issues.md#common-cors-errors) · [Expected headers](common-issues.md#expected-response-headers) · [Checklist](common-issues.md#troubleshooting-checklist)
+## [Common issues](common-issues.md)
+Use when: a browser call to Service Layer from another origin fails with a CORS error, or CORS behavior must be tested; or some sessions fail intermittently (HTTP 500, code 407 `Table definition not found`) while the login works and other sessions read fine. The CORS part is a generic guide (not from the Service Layer guide): adapt it to the case. The broken-node part is a verified Service Layer case.
+Terms: `Access-Control-Allow-Origin`, `Access-Control-Allow-Headers`, `Access-Control-Allow-Credentials`, `OPTIONS`, preflight, `Origin`, `curl`, DevTools, `ROUTEID`, load balancer, node, `407`, `Table definition not found`
+Sections: [curl tests](common-issues.md#using-curl) · [DevTools](common-issues.md#using-browser-devtools) · [Common CORS errors](common-issues.md#common-cors-errors) · [Expected headers](common-issues.md#expected-response-headers) · [Checklist](common-issues.md#troubleshooting-checklist) · [Broken node behind a load balancer](common-issues.md#intermittent-errors-a-broken-node-behind-a-load-balancer)
 Not here: enabling CORS in `b1s.conf` (`CorsEnable`, `CorsAllowedOrigins`, `CorsAllowedHeaders`) → [cors](../consuming-service-layer/cors.md)
 
 ## [Frequently asked questions](faq.md)

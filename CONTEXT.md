@@ -19,6 +19,13 @@ _Avoid_: Plugin de conocimiento, knowledge plugin, documentación por versión, 
 **Service Layer**:
 API REST de SAP Business One sobre la que se construye la primera pareja de plugins.
 
+**Nodo**:
+Instancia de Service Layer detrás de un balanceador. El login asigna un nodo a la sesión y la cookie **ROUTEID** la mantiene en él toda su vida. Si un nodo está roto, fallan todas las sesiones que caen en él y ninguna de los demás (verificado solo en el demo SBODemoES, FP 2608). Se arregla en el servidor, no desde el plugin.
+_Avoid_: Servidor (ambiguo con el Service Layer completo)
+
+**ROUTEID**:
+Cookie que el balanceador entrega en el login junto con `B1SESSION` y que fija el nodo de la sesión. El **Uso** la guarda y la reenvía; su valor ayuda a identificar el nodo afectado.
+
 **Caché de metadatos**:
 Conjunto de **Contextos de objeto** de un entorno, que el **Uso** mantiene en `.sbo-skills/<sistema>/<entorno>/context/`.
 _Avoid_: Índice, catálogo
