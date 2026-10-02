@@ -73,7 +73,7 @@ export async function runSetup(options: SetupOptions & { transport?: Transport }
       const session = await login(credentials, versionOData, transport)
       good[name] = credentials
       try {
-        await logout(credentials, versionOData, session.sessionId, transport)
+        await logout(credentials, versionOData, session.cookie, transport)
       } catch (e) {
         warnings.push(`Test session of "${name}" could not be discarded (${(e as Error).message}); it expires on its own.`)
       }

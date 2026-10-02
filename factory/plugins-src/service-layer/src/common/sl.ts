@@ -73,6 +73,8 @@ export async function send(transport: Transport, request: HttpRequest): Promise<
 
 export interface LoginResult {
   sessionId: string
+  /** `Cookie` header value to send afterwards: B1SESSION plus ROUTEID when the SL sets one. */
+  cookie: string
   /** `Version` field of the login response (SL build number). */
   version: string
 }
@@ -98,19 +100,35 @@ export async function login(
   if (!body.SessionId) {
     throw new SboError('SL_BAD_RESPONSE', `${baseUrl(credentials.url, version)}/Login answered without a session. Check that the URL is a Service Layer.`)
   }
-  return { sessionId: body.SessionId, version: body.Version ?? '' }
+  const routeId = response.headers.getSetCookie?.().map((c) => /^ROUTEID=([^;]*)/.exec(c)?.[1]).find(Boolean)
+  const cookie = `B1SESSION=${body.SessionId}` + (routeId ? `; ROUTEID=${routeId}` : '')
+  return { sessionId: body.SessionId, cookie, version: body.Version ?? '' }
 }
 
 export async function logout(
   credentials: Credentials,
   version: ODataVersion,
-  sessionId: string,
+  cookie: string,
   transport: Transport = defaultTransport,
 ): Promise<void> {
   const response = await send(transport, {
     method: 'POST',
     url: `${baseUrl(credentials.url, version)}/Logout`,
-    headers: { Cookie: `B1SESSION=${sessionId}` },
+    headers: { Cookie: cookie },
   })
   if (response.status < 200 || response.status >= 300) throw parseSlError(response.status, response.text)
+}
+
+/** GET/… against the SL with a session cookie. Any non-2xx answer is thrown as the literal SlError. */
+export async function request(
+  transport: Transport,
+  credentials: Credentials,
+  version: ODataVersion,
+  method: string,
+  path: string,
+  cookie: string,
+): Promise<HttpResponse> {
+  const response = await send(transport, { method, url: `${baseUrl(credentials.url, version)}/${path}`, headers: { Cookie: cookie } })
+  if (response.status < 200 || response.status >= 300) throw parseSlError(response.status, response.text)
+  return response
 }
