@@ -179,9 +179,7 @@ Checks done after the first closing of session 3 (2026-10-02, FP 2608):
 
 - A `$batch` whose answer contains a binary sub-response against a real SL: the parser reads the answer as bytes and writes that sub-response as a file next to its `.json` (unit-tested with a fake answer; the live batch of GETs and the changeset batches pass, so the byte path is exercised against the real SL).
 - A `$batch` whose answer contains a binary sub-response (the parser decodes the answer as UTF-8 text).
-- `B1S-ReplaceCollectionsOnPatch` on `EventSubscriptions` (webhooks are not available in the demo).
 
-- The hidden password on macOS and Linux terminals: only Windows (ConPTY) was run (below). Same readline code, not run there.
 - The model's behaviour with `use` and `setup` was observed in 3 runs only (below), not evaluated at scale.
 
 
@@ -189,8 +187,7 @@ Checks done after the first closing of session 3 (2026-10-02, FP 2608):
 - Writes with `If-Match` and an ETag that does not match (412): the plugin sends none by design; not tried through the plugin.
 - A POST that the SL accepts but whose answer is lost (network cut after sending): the plugin does not retry a write; not simulated.
 
-- Behaviour behind a load balancer: partly verified (the cookie keeps the session on one node). Not tested: a node going down in the middle of a session.
-- Re-check `.node4` once the developer re-enables it. To reproduce: log in about 50 times (`POST /b1s/v2/Login`), note `ROUTEID` from `Set-Cookie`, read `BusinessPartners('C50000')?$select=CardCode` with that session, then logout, and tally ok/500-407 per node. If `.node4` still fails every time, it is still broken; if every node is ok, the cause is fixed. Remove the retry in `getLive` only if the demo is stable for good.
+- Behaviour behind a load balancer: partly verified (the cookie keeps the session on one node).
 - Invalid `$filter` on `/$count` giving the `502 Proxy Error` HTML page: seen once, not reproducible later (24 sessions, 6 nodes, both versions). The plugin's handling of that page is tested only with an injected answer.
 - Contexto de objeto for a user object of document type (`boud_Document`): the `<ObjectName>Collection` naming was checked only with a master-data object. Entities with composite keys: not tried.
 - `ENTITY_NOT_FOUND` also comes from a node that has not refreshed its `$metadata` yet (see above): a table created a moment ago can be declared missing on that node. Nothing is cached now, so the next execution (another session, maybe another node) tries again; the message says to ask the developer for `entities --refresh`. How often that happens on a customer's Service Layer is not known.

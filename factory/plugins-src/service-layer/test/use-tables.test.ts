@@ -136,3 +136,21 @@ test('a user table registered as a user object is exposed under the object code;
   const wrong = await live(root, () => main(['context', 'U_SBOUDT'], root))
   assert.equal(wrong.error!.code, 'ENTITY_NOT_FOUND')
 })
+
+test('a user object of document type (header bott_Document, lines bott_DocumentLines): entity is the object code, key DocEntry, lines in <ObjectName>Collection', async (t) => {
+  await ensureUserTable('SBODOC', 'bott_Document', [{ Name: 'H1', Mandatory: 'tYES' }])
+  await ensureUserTable('SBODOCL', 'bott_DocumentLines', [{ Name: 'L1' }])
+  await ensureUserObject('SBODOC', 'boud_Document', ['SBODOCL'])
+  const root = await repo('v2')
+  const { out, tries } = await untilListed(root, 'SBODOC', /^## SBODOCLCollection:/m)
+  t.diagnostic(`SBODOC listed in $metadata after ${tries} attempt(s)`)
+  assert.equal(out.ok, true, JSON.stringify(out))
+  const md = out.resumen!.contenido as string
+  assert.match(md, /^# SBODOC\b/m)
+  assert.match(section(md, 'User fields (@SBODOC)'), /^U_H1: alpha\(20\) !/m)
+  assert.match(section(md, 'SBODOCLCollection:'), /^U_L1: alpha/m)
+  // Standard columns of a document table are part of the entity, not user fields.
+  assert.ok(!section(md, 'User fields (@SBODOC)').includes('U_L1:'))
+  const wrong = await live(root, () => main(['context', 'U_SBODOC'], root))
+  assert.equal(wrong.error!.code, 'ENTITY_NOT_FOUND')
+})
