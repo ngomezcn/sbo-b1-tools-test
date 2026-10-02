@@ -95,3 +95,18 @@ test('keys: quoting, escaping and URL encoding', async () => {
   assert.deepEqual(parseKey("'O''Brien'"), { literal: "'O''Brien'", plain: "O'Brien" })
   assert.equal(parseKey('A#B/C d').literal, "'A%23B%2FC%20d'")
 })
+
+test('composite keys go as written, with the values encoded', async () => {
+  assert.equal(parseKey("TableName='OCRD',FieldID=0").literal, "TableName='OCRD',FieldID=0")
+  assert.equal(parseKey("A='x y',B='O''B'").literal, "A='x%20y',B='O''B'")
+  // A single string that merely contains "=" is still one string key.
+  assert.equal(parseKey("A=B").literal, "'A%3DB'")
+  for (const version of ['v1', 'v2'] as const) {
+    const root = await repo(version)
+    const seen: HttpRequest[] = []
+    const out = await getLive({ root, entitySet: 'UserFieldsMD', key: "TableName='OCRD',FieldID=0", transport: recording(seen) })
+    assert.equal(out.ok, true, JSON.stringify(out))
+    assert.ok(seen.some((r) => r.url.endsWith("/UserFieldsMD(TableName='OCRD',FieldID=0)")))
+    assert.equal(out.resumen!.filas, 1)
+  }
+})

@@ -39,10 +39,11 @@ for (const skill of ['setup', 'use']) {
   await writeFile(join(target, 'skills', skill, 'SKILL.md'), normalise(await readFile(join(here, 'skills', skill, 'SKILL.md'), 'utf8')))
 }
 
-// Documentation: SKILL.md (router) and reference/. PROGRESS.md and REVIEW.md are the factory's ledgers and do not ship.
+// Documentation: SKILL.md (router), availability.md (version gate) and reference/. PROGRESS.md and REVIEW.md are the factory's ledgers and do not ship.
 const docsDir = join(target, 'skills', 'docs')
 await mkdir(docsDir, { recursive: true })
 await cp(join(docsSrc, 'reference'), join(docsDir, 'reference'), { recursive: true })
+await writeFile(join(docsDir, 'availability.md'), normalise(await readFile(join(docsSrc, 'availability.md'), 'utf8')))
 await writeFile(join(docsDir, 'SKILL.md'), docsSkill(normalise(await readFile(join(docsSrc, 'SKILL.md'), 'utf8'))))
 
 const count = async (dir) => (await readdir(dir, { recursive: true, withFileTypes: true })).filter((d) => d.isFile()).length
@@ -60,7 +61,7 @@ function docsSkill(text) {
   const before = `## Before answering
 
 1. Read \`.sbo-skills/service-layer/config.md\`. If it does not exist, **stop**: tell the developer to run the **setup** skill first, and do not answer from this documentation without it.
-2. Take \`versionB1\` (for example \`FP 2608\`) from its front matter. Hojas mark where a function does not exist or changes by B1 version: check that what you are about to recommend exists in that version, and say so if it does not.
+2. Take \`versionB1\` (for example \`FP 2608\`) from its front matter. Apply the "Version gate" section below: it says when to open \`availability.md\`, which lists the whole sections that do not exist in older versions.
 3. \`versionOData\` (\`v1\` is OData V3, \`v2\` is OData V4) is the version the **use** skill calls; keep examples in line with it.
 `
   return text.replace(name, 'name: docs').replace('Use when writing or debugging code', 'Needs the Setup done (reads .sbo-skills/service-layer/config.md for the B1 version). Use when writing or debugging code').replace(heading, `${heading}\n${before}`)

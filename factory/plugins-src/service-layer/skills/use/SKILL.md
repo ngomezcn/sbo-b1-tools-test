@@ -17,7 +17,7 @@ Run every command with `node "${CLAUDE_PLUGIN_ROOT}/dist/use.mjs" <command> ...`
 
 | Command | Does |
 |---|---|
-| `get <EntitySet> <key>` | One record. A string key made only of digits must be quoted: `'123'`. |
+| `get <EntitySet> <key>` | One record. A string key made only of digits must be quoted: `'123'`. A composite key is written as OData does: `"TableName='OCRD',FieldID=0"`. |
 | `page <EntitySet> [--top N] [--skip N]` | One page (20 rows by default). |
 | `traverse <EntitySet> [--max-rows N]` | Follows `nextLink` up to the cap (1000 by default); `truncado` says if it was cut. |
 | `count <EntitySet>` | Only the number of rows. |
@@ -54,7 +54,7 @@ Rules:
 - `--body` takes JSON in one string; on Windows or with quotes and accents, write the JSON to a UTF-8 file and use `--body-file`.
 - Out of scope for this tool: `$batch`, actions (close, cancel), attachments, SQL queries and views, user-defined objects (UDO).
 
-If the Service Layer answers an unknown field (`Property 'X' of 'Y' is invalid`) or a missing field, report its error literally. Check the field against the ficha, and tell the developer the date of the ficha (`Fetched` in its header) so they can decide whether it is out of date. Do **not** regenerate it yourself; if the developer wants it, they ask for `--refresh`.
+If the Service Layer answers an unknown field (`Property 'X' of 'Y' is invalid`) or a missing field, report its error literally. Read the first lines of the ficha and tell the developer its date (the `Fetched` line) so they can decide whether it is out of date. Do **not** regenerate it yourself; if the developer wants it, they ask for `--refresh`.
 
 ## Documentation
 

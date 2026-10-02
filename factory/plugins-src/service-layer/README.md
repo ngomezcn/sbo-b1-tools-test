@@ -66,7 +66,7 @@ plugins/service-layer/
   README.md                    by hand, in sbo-skills
   skills/setup/SKILL.md        from skills/setup/ here
   skills/use/SKILL.md          from skills/use/ here
-  skills/docs/                 SKILL.md router + reference/ from factory/docs-src/service-layer (PROGRESS.md and REVIEW.md do not ship)
+  skills/docs/                 SKILL.md router + availability.md + reference/ from factory/docs-src/service-layer (PROGRESS.md and REVIEW.md do not ship)
   dist/setup.mjs, dist/use.mjs compiled from src/ (esbuild)
 ```
 

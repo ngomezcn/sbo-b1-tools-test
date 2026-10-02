@@ -7,6 +7,10 @@ description: SAP Business One Service Layer reference (guide v1.29): login and s
 
 Pick the row matching the question, open that index, then the single hoja it points to.
 
+## Version gate
+
+This reference describes FP 2608. Read the developer's B1 version in `.sbo-skills/service-layer/config.md` (if the file or the version is missing, stop and tell the developer to run the Setup). Compare the four-digit `YYMM` number, ignoring `FP`/`SP`. If it is 2608 or higher, skip this gate and do not open `availability.md`. If it is lower, including below the minimum FP 2208, open [availability.md](availability.md) once, before answering anything about webhooks or any other section it lists, even if the router row does not mention a version. It covers whole sections only, never entities or fields: for those, read the object context sheet `context/<Entity>.md` of the Uso tool.
+
 ## By intent
 
 | Developer intent | Example questions | Go to |

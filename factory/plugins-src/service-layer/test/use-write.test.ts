@@ -173,3 +173,35 @@ test('the ficha rule applies to a write: it is generated when missing, and a sta
   const later = await live(root, () => main(['patch', 'BusinessPartners', 'C50000', '--body', '{"CardName":"x"}'], root, { now: () => new Date(Date.now() + 8 * 24 * 3_600_000) }))
   assert.equal(later.resumen!.contextoRegenerado, true)
 })
+
+for (const version of ['v1', 'v2'] as const) {
+  test(`${version}: a document with lines: POST, PATCH of one line inside the collection and DELETE (a draft); DELETE of an order is refused by the SL`, async () => {
+    const { readFile } = await import('node:fs/promises')
+    const root = await repo(version)
+    const lines = async (key: string) => {
+      const read = await run(root, ['get', 'Drafts', key])
+      assert.equal(read.ok, true, JSON.stringify(read))
+      const record = JSON.parse(await readFile(join(read.resumen!.ruta as string, 'Drafts', `${key}.json`), 'utf8'))
+      return record.DocumentLines.map((l: { LineNum: number; Quantity: number }) => [l.LineNum, l.Quantity])
+    }
+    const body = { DocObjectCode: 'oOrders', CardCode: 'C50000', DocDueDate: '2026-12-31', DocumentLines: [{ ItemCode: 'A00001', Quantity: 2 }, { ItemCode: 'A00001', Quantity: 3 }] }
+    const created = await run(root, ['post', 'Drafts', '--body', JSON.stringify(body), '--execute'])
+    assert.equal(created.status, 201, JSON.stringify(created))
+    const key = (created.resumen!.claves as string[])[0]
+    assert.deepEqual(await lines(key), [[0, 2], [1, 3]])
+
+    const patched = await run(root, ['patch', 'Drafts', key, '--body', '{"DocumentLines":[{"LineNum":1,"Quantity":7}]}', '--execute'])
+    assert.equal(patched.status, 204, JSON.stringify(patched))
+    assert.deepEqual(await lines(key), [[0, 2], [1, 7]], 'only line 1 changed, line 0 is kept')
+
+    assert.equal((await run(root, ['delete', 'Drafts', key, '--execute'])).status, 204)
+
+    const order = await run(root, ['post', 'Orders', '--body', JSON.stringify({ ...body, DocObjectCode: undefined }), '--execute'])
+    assert.equal(order.status, 201, JSON.stringify(order))
+    const refused = await run(root, ['delete', 'Orders', (order.resumen!.claves as string[])[0], '--execute'])
+    assert.equal(refused.ok, false)
+    assert.equal(refused.status, 400)
+    assert.equal(refused.error!.code, version === 'v1' ? -5006 : '-5006')
+    console.log(`  [${version}] DELETE Orders -> ${refused.status} ${JSON.stringify(refused.error)}`)
+  })
+}

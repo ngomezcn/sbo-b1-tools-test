@@ -14,9 +14,17 @@ export interface GetOptions extends UseOptions {
 
 /**
  * The key as the caller meant it. Digits are a number (`5`); anything else is a string, quoted or not
- * (`C1` and `'C1'` are the same; `'O''Brien'` is `O'Brien`). A string key made only of digits must be passed quoted: `'123'`.
+ * (`C1` and `'C1'` are the same; a composite key `A='x',B=1` goes as written; `'O''Brien'` is `O'Brien`). A string key made only of digits must be passed quoted: `'123'`.
  */
+/** `Name=value,Name=value` with values quoted (`'x'`) or numeric. A single string key that contains `=` must be quoted. */
+const COMPOSITE_KEY = /^[A-Za-z_]\w*=('(?:[^']|'')*'|-?\d+)(,[A-Za-z_]\w*=('(?:[^']|'')*'|-?\d+))+$/
+
 export function parseKey(key: string): { literal: string; plain: string } {
+  // Composite key, written as OData writes it: `TableName='OCRD',FieldID=0`. Sent as given (values percent-encoded), never quoted as a whole.
+  if (COMPOSITE_KEY.test(key)) {
+    const literal = key.replace(/'((?:[^']|'')*)'/g, (_, inner: string) => `'${encodeURIComponent(inner)}'`)
+    return { literal, plain: key.replace(/[='",]+/g, '-').replace(/^-|-$/g, '') }
+  }
   if (/^-?\d+$/.test(key)) return { literal: key, plain: key }
   const plain = /^'.*'$/s.test(key) ? key.slice(1, -1).replace(/''/g, "'") : key
   return { literal: `'${encodeURIComponent(plain.replace(/'/g, "''"))}'`, plain }

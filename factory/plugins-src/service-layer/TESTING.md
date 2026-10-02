@@ -146,16 +146,22 @@ Plugin installed end to end (slice 10, `v2`, `claude` 2.1.286, isolated with `CL
 
 Full run of the end of session 3 (`npm test`, 120 tests, FP 2608, 2026-10-02): 118 pass. The 2 that failed are in `test/use-tables.test.ts` (user table `@SBOCTXT` and user object `SBOUDT`): `ENTITY_NOT_FOUND`, because the node that served the session does not list the entity in `$metadata` (the node visibility of new user tables described above). They passed in an earlier run of the same session and failed again alone on a re-run; the code they exercise was not touched by slices 8 to 10. The demo needs those tables listed by the node the tests land on; recreating them (dropping `@SBOCTXT` and `@SBOUDT`) is the known workaround and was not done here.
 
+Checks done after the first closing of session 3 (2026-10-02, FP 2608):
+
+- Real terminal (Windows ConPTY, via `pywinpty`, `node setup.mjs` from the plugin): the password is not shown on the screen, a typo corrected with backspace in the user prompt redraws the prompt correctly, the login passes and `config.md` is written.
+- Claude Code (`claude -p --plugin-dir`, 2.1.286) with the real skills: `${CLAUDE_PLUGIN_ROOT}` **is** replaced in the skill text (the model ran `node "C:/.../service-layer/dist/use.mjs"`). Asked to create a business partner it read the ficha, ran the dry run, showed method, URL and body and asked for approval without executing. Told in the prompt to execute directly after the dry run (developer's own words), it executed, got `-1000 Property 'NoSuchField' of 'BusinessPartner' is invalid` and reported it literally, without regenerating the ficha (it did not read the ficha date; the skill was tightened to ask for it). Asked to configure the Service Layer with the password in the prompt, it refused to use it, told the developer to run `setup.mjs` in their own terminal and said it would check with `--status`.
+- Documents (`v1` and `v2`): POST of a draft order (`Drafts`, `DocObjectCode: oOrders`) with two lines is 201; PATCH of one line with `{"DocumentLines":[{"LineNum":1,"Quantity":7}]}` is 204 and changes only that line (line 0 kept); DELETE of the draft is 204. `POST Orders` is 201 but `DELETE Orders` is refused: HTTP 400, `-5006`, `The requested action is not supported for this object.` (an order is cancelled with an action, out of scope).
+- Composite keys: `get UserFieldsMD "TableName='OCRD',FieldID=0"` works in `v1` and `v2` (the key goes as written, values encoded). A single string that only contains `=` is still one quoted string key.
+- The two `use-tables` tests that failed in the full run passed after dropping and recreating the user tables `@SBOCTXT` and `@SBOUDT` in the demo (the entity took 11 attempts to be listed by a node).
+
 ## Not verified against the real Service Layer (pending)
 
-- That Claude Code replaces `${CLAUDE_PLUGIN_ROOT}` inside the SKILL.md text when it loads a skill (the skills rely on it to name the script path): checked by running the scripts through that path by hand, not by a model session.
-- That the model follows the dry-run flow of the `use` skill and the terminal flow of the `setup` skill: no evaluation was run on the skills.
+- The hidden password on macOS and Linux terminals: only Windows (ConPTY) was run (below). Same readline code, not run there.
+- The model's behaviour with `use` and `setup` was observed in 3 runs only (below), not evaluated at scale.
 
-- The hidden password on a real interactive terminal (Windows console, macOS, Linux): tests use streams without a TTY, where readline never echoes. The muting logic is tested, the terminal behaviour (raw mode, backspace, paste) is not. To check by hand: run `node dist/setup.mjs` in a terminal and look that the password does not show.
-- A wizard run under `claude` itself (the skill telling the developer to open a terminal): checked only in the end-to-end test of slice 10.
+
 
 - Writes with `If-Match` and an ETag that does not match (412): the plugin sends none by design; not tried through the plugin.
-- Writes of documents (`Orders` with `DocumentLines`), PATCH of a line inside a collection, and entities with composite keys: not tried. Only `BusinessPartners` was written.
 - A POST that the SL accepts but whose answer is lost (network cut after sending): the plugin does not retry a write; not simulated.
 
 - Behaviour behind a load balancer: partly verified (the cookie keeps the session on one node). Not tested: a node going down in the middle of a session.
@@ -163,5 +169,4 @@ Full run of the end of session 3 (`npm test`, 120 tests, FP 2608, 2026-10-02): 1
 - Invalid `$filter` on `/$count` giving the `502 Proxy Error` HTML page: seen once, not reproducible later (24 sessions, 6 nodes, both versions). The plugin's handling of that page is tested only with an injected answer.
 - Contexto de objeto for a user object of document type (`boud_Document`): the `<ObjectName>Collection` naming was checked only with a master-data object. Entities with composite keys: not tried.
 - A negative answer ("`$metadata` does not list this entity", cached a week) is also given by a node that merely has not refreshed its `$metadata` yet (see above), so a freshly created user table can be reported missing for a week on some nodes. Mitigation: `context <Entity> --refresh` (the developer). Not done: dropping the cached negative when an operation on that entity succeeds.
-- Composite keys (`Entity(A=1,B='x')`): not implemented. Pending.
 - String keys made only of digits must be passed quoted (`'123'`); unquoted digits are sent as numbers. Not verified against an entity set with such keys.
