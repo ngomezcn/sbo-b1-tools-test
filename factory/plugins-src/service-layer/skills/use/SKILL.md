@@ -1,6 +1,6 @@
 ---
 name: use
-description: Operate against a real SAP Business One Service Layer from this repo - read entities (by key, a page, a full traversal, a count), read the object context of an entity (fields, user fields, valid values), and make any other call the Service Layer allows (create, update, delete, actions, $batch, SQL queries, custom headers, file upload and download) with the generic request command and its dry-run-first write flow. Use when the task needs live data from, or a change in, a configured B1 environment (dev, uat, prod). Needs the Setup done first.
+description: Operate against a real SAP Business One Service Layer from this repo - read entities (by key, a page, a full traversal, a count), read the object context of an entity (fields, user fields, valid values), find which entities an environment exposes, and make any other call the Service Layer allows (create, update, delete, actions, $batch, SQL queries, custom headers, file upload and download) with the generic request command and its dry-run-first write flow. Use when the task needs live data from, or a change in, a configured B1 environment (dev, uat, prod). Needs the Setup done first.
 ---
 
 # Service Layer: use
@@ -22,6 +22,7 @@ Run every command with `node "${CLAUDE_PLUGIN_ROOT}/dist/use.mjs" <command> ...`
 | `traverse <EntitySet> [--max-rows N]` | Follows `nextLink` up to the cap (1000 by default); `truncado` says if it was cut. |
 | `count <EntitySet>` | Only the number of rows. |
 | `context <EntitySet> [--show]` | The object context of the entity (see below). |
+| `entities` | Where the entity index is (see below). Not needed to read it: the files are always at `.sbo-skills/service-layer/<environment>/`. |
 | `clean <id or path>` | Deletes that Volcado. |
 
 `page`, `traverse` and `get` accept `--filter`, `--select`, `--orderby`, `--expand`, passed to the Service Layer as written. Records never come back in the answer: they are written to a Volcado (`ruta`), with `_index.json` and one file per record. Read the files you need from that folder, and run `clean` when done.
@@ -29,6 +30,19 @@ Run every command with `node "${CLAUDE_PLUGIN_ROOT}/dist/use.mjs" <command> ...`
 ## Object context
 
 Before you build a body or a `$select` for an entity, read its ficha: the answer of any command on that entity gives its path as `contexto`. It lists standard and user fields (`U_*`), their type, whether they can be empty and the valid values. The tool regenerates it by itself when it is missing or more than a week old, and the developer can ask for a new one with `context <EntitySet> --refresh` (or `--refresh-context` on any command). You never regenerate it on your own.
+
+## Entity index
+
+Two Markdown files per environment, in `.sbo-skills/service-layer/<environment>/`, that say which entities exist there. They hold names only, no fields (the ficha has those):
+
+- `entities-standard.md`: the standard SAP entity sets (`BusinessPartners`, `Orders`, ...), sorted, in one comma-separated line. Read it to find the right name of a standard entity.
+- `entities-user.md`: the user-defined ones, one line each, marked `user table` (entity set `U_<TABLE>`, with its description) or `user object` (entity set is the object code). Read it to find a custom table or object of this company.
+
+**Try on your own first.** You usually know the entity (`BusinessPartners`, `Items`, `Orders`): use it. Read an index file only when you are not sure which entity to use, or after `ENTITY_NOT_FOUND`. Read only the file that fits (standard or user), not both by default.
+
+`ENTITY_NOT_FOUND` means the Service Layer said the entity does not exist and the tool checked `$metadata` again just now: the name is wrong, or the entity is not exposed. Read the index (the error names both files), pick the right name and retry. Do not guess names, and do not repeat the same name.
+
+The tool makes the index in the Setup and renews it by itself, on any command, when it is more than a week old. If it could not (`resumen.indiceError`) the operation still ran: mention it to the developer. You never ask for a new index on your own; the developer can run `entities --refresh` (for example for a table created a moment ago that a Service Layer node does not list yet).
 
 ## Any call: `request`
 

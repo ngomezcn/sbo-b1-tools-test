@@ -32,7 +32,7 @@ test/
 
 ## Parallel executions
 
-Several `use.mjs` processes can run at once on the same repo, also from nothing. The login runs under a lock (`session.lock`, a folder) because the demo Service Layer fails parallel logins; whoever waits then uses the session that the first one opened. Each ficha is generated under its own lock (`context/<Entity>.md.lock`). Every file that is shared (`session.json`, the ficha) is written aside and renamed; each Volcado has its own folder.
+Several `use.mjs` processes can run at once on the same repo, also from nothing. The login runs under a lock (`session.lock`, a folder) because the demo Service Layer fails parallel logins; whoever waits then uses the session that the first one opened. Everything that downloads `$metadata` (each ficha, the Índice de entidades) takes the same lock (`metadata.lock`, a folder): whoever waits finds the file ready. An execution downloads `$metadata` once, however many of them need it. Every file that is shared (`session.json`, the ficha, the index) is written aside and renamed; each Volcado has its own folder.
 
 ## Setup: why the developer runs it in their own terminal
 
@@ -58,7 +58,15 @@ The ficha takes the user fields only from `UserFieldsMD`, and needs the table of
 3. `UserObjectsMD('<entity set>')`: a user table registered as a user object is exposed under the object's code, and the Service Layer says its table and its child tables.
 4. Otherwise "not resolved", and the developer can pass `context <Entity> --tables T1,T2`. Those tables are stored in the ficha (header line and `[--tables]` mark) and reused every time the ficha is regenerated; `--tables default` goes back to 1 to 3.
 
-An entity that `$metadata` does not list is remembered for a week (`context/<Entity>.missing`) so that no operation downloads 2 MB again; only the developer's `--refresh` looks again.
+An entity that `$metadata` does not list gets no ficha and nothing is remembered about it: the operation goes ahead and the Service Layer answers for itself (see the index below).
+
+## Entity index (Índice de entidades)
+
+Two Markdown files per environment, next to `context/`: `entities-standard.md` (entity set names of SAP, sorted, one line; no types, no SQL tables) and `entities-user.md` (user tables from `UserTablesMD` with their description, user objects from `UserObjectsMD`, one line each; names only if either cannot be read). It is made from the `$metadata` of the saved OData version, entity sets only (no actions or functions), by `src/use/entity-index.ts`; it takes about 2400 tokens of names.
+
+- **The Setup** makes the index of every configured environment after the login, with a login of its own that it closes (no session is left), and asks nothing. If it fails, a warning; the Setup does not fail.
+- **The Uso** renews it from `openUse`, on any command, when it is missing, older than a week or made with another OData version, with no relation to the fichas (it shares the lock and the `$metadata` download with them: one download per execution). A failure never blocks the command: the answer carries `indiceError`. `entities [--refresh]` is the developer's way to ask for a new one; the AI never forces it.
+- **`ENTITY_NOT_FOUND`**: the SL answers HTTP 400 with `Unrecognized resource path.` / `Invalid entityset 'X'.` (code 200) or `Service Not Found` (code -1002) for an entity set it does not know. `main` (`command.ts`) then looks at `$metadata` again, renews the index even if recent, and only if the entity really is not listed answers `ENTITY_NOT_FOUND`, with a message that sends to the two files. If `$metadata` does list it the SL's error stays as it was. There is no limit to those downloads. This replaces the old one-week `<Entity>.missing` file.
 
 ## Plugin in `sbo-skills`: generated, never edited there
 
