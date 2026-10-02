@@ -33,6 +33,12 @@ test/
 
 Several `use.mjs` processes can run at once on the same repo, also from nothing. The login runs under a lock (`session.lock`, a folder) because the demo Service Layer fails parallel logins; whoever waits then uses the session that the first one opened. Each ficha is generated under its own lock (`context/<Entity>.md.lock`). Every file that is shared (`session.json`, the ficha) is written aside and renamed; each Volcado has its own folder.
 
+## Setup: why the developer runs it in their own terminal
+
+`setup.mjs` with no arguments is a wizard (`src/setup/wizard.ts`). The AI's tools have no interactive terminal, and anything it runs or asks passes through its context, so the credentials would travel by chat. Decision: the skill tells the developer to run the script in a terminal of their own, where they type everything (the password without echo); the AI only runs `setup.mjs --status` afterwards (no credentials in the answer). Run without a TTY it stops with `NEEDS_TERMINAL`. The flag form (`--b1`, `--dev-url`, `SBO_SL_PASSWORD_DEV`...) stays for scripts and tests, and the skill forbids the AI to use it. Be clear about what this guarantees: the wizard path keeps the credentials out of the AI context (the script refuses to run without a TTY); the flag form does not, and only the skill's instruction keeps the AI from using it.
+
+Limits: one extra step for the developer; the password stays in plain text in `credentials.json`; the AI cannot see why a login failed (the developer sees it in the terminal); terminal behaviour of the hidden password is not covered by automatic tests (TESTING.md).
+
 ## Writes
 
 `post`, `patch` and `delete` (`src/use/write.ts`, ADR 0008) are dry runs: without `--execute` they print the exact request (`resumen.peticion`: method, full URL with the saved OData version, body) and send no write. With `--execute` they send it and answer the SL status; a POST dumps the created record to a Volcado like a read. Bodies come from `--body` or `--body-file` and are sent as written (the dry run prints what they parse to). No `If-Match`, no `Prefer`: exactly what was asked.
@@ -50,14 +56,20 @@ The ficha takes the user fields only from `UserFieldsMD`, and needs the table of
 
 An entity that `$metadata` does not list is remembered for a week (`context/<Entity>.missing`) so that no operation downloads 2 MB again; only the developer's `--refresh` looks again.
 
-## Plugin in `sbo-skills` after the build
+## Plugin in `sbo-skills`: generated, never edited there
+
+`npm run publish-plugin -- ../../../sbo-skills/plugins/service-layer` (`publish.mjs`) writes the generated parts of the single plugin and replaces them on every run (same input, same output):
 
 ```
 plugins/service-layer/
-  .claude-plugin/plugin.json
-  skills/<skill>/SKILL.md      skills call the scripts below
-  dist/setup.mjs
-  dist/use.mjs
+  .claude-plugin/plugin.json   by hand, in sbo-skills
+  README.md                    by hand, in sbo-skills
+  skills/setup/SKILL.md        from skills/setup/ here
+  skills/use/SKILL.md          from skills/use/ here
+  skills/docs/                 SKILL.md router + reference/ from factory/docs-src/service-layer (PROGRESS.md and REVIEW.md do not ship)
+  dist/setup.mjs, dist/use.mjs compiled from src/ (esbuild)
 ```
 
-The skills reorganisation into this single plugin is done separately; until then the build only writes to `dist/` here.
+The docs router gets two changes at publish time: its name is `docs`, and a "Before answering" section that makes it read `.sbo-skills/service-layer/config.md` (stop and ask for the Setup if it is missing) and take `versionB1` from it. Skills call the scripts as `node "${CLAUDE_PLUGIN_ROOT}/dist/use.mjs"`.
+
+`npm run build` still writes only `dist/` (to check the bundle); the product is written with `publish-plugin`. Then commit in `sbo-skills` and update the submodule pointer here.

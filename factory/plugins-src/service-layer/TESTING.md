@@ -20,6 +20,8 @@ Run everything from this folder: `npm test` (loads the repo-root `.env`: `SL_URL
 - Pending items of session 2 (map of tables, user tables and objects, `--tables`, unknown entities, thousands of rows, a collection that changes, 8 parallel executions, invalid `$filter`, POST without a mandatory user field): executed against FP 2608, `v1` and `v2`, 2026-10-02. Test files `use-tables`, `use-bulk`, `use-parallel`, `use-errors`, and new cases in `use-context`. Data they leave in the demo (disposable): user fields `U_SBOMAP*` on standard tables, user tables `@SBOCTXT`, `@SBOUDT` (user object `SBOUDT`), `@SBOUDTL`; `@SBOBULK` (2500 rows) was dropped at the end of the session (the next `use-bulk` run recreates and refills it).
 - Slice 8 (writes: POST, PATCH, DELETE in seco and with `--execute`): executed against FP 2608, `v1` and `v2`, 2026-10-02 (`test/use-write.test.ts`). Business partners created by the tests are deleted by them.
 
+- Slice 9 (complete Setup, the wizard): executed against FP 2608, `v1` and `v2`, 2026-10-02 (`test/setup-wizard.test.ts`, plus the earlier Setup tests). The questions are driven by a scripted developer (answers fed to the same code the terminal uses); the logins are real.
+
 ## Verified against the real Service Layer
 
 Login errors, exactly as returned (HTTP 401 in all cases):
@@ -125,7 +127,19 @@ Writes (slice 8, FP 2608, `BusinessPartners`, `v1` and `v2`, 2026-10-02):
 - The dry run sends no POST, PATCH or DELETE (the test counts every request of the real transport; `Login` and `Logout` are POSTs of the session and are filtered out) and afterwards the record is unchanged, the count of `BusinessPartners` is the same and the new key does not exist. A dry run may still read: if the Contexto de objeto of the entity is missing or old, the tool generates it first (`$metadata`, `UserFieldsMD`), as for any operation on that entity.
 - `prod`: `--execute` without `--allow-prod` sends nothing (`PROD_WRITE_NOT_ALLOWED`); the dry run on `prod` works without it. The test uses the demo company as `prod` (the name of the environment is only a folder).
 
+Setup, complete (slice 9):
+
+- The wizard asks: B1 version (closed list; an unlisted one is accepted with the warning, a malformed one is asked again), OData version with preselection (`v2` from FP 2405, `v1` before; the developer may choose the other), then `Configure dev/uat/prod? [y/N]` (at least one) and URL, company, user and password for each. Each environment's login is tested as soon as it is entered; if it fails the literal SL error is shown (`-304 Fail to NONE-SSO login from SLD.` for a wrong password) and the developer retries or skips it. The Setup proper then runs from scratch and tests every login again, so nothing is left configured without a successful login.
+- If a setup exists, the wizard asks before erasing it (data and contexts included). A "no" changes nothing.
+- `.sbo-skills/` that cannot be added to `.gitignore` (tested with a folder named `.gitignore`) gives a warning that names the folder and says it holds passwords; the Setup still completes.
+- `--status` prints `versionB1`, `versionOData` and the configured environments, never credentials; `SETUP_MISSING` if there is none.
+- The password is read with no echo (`createAsk`: output muted while the secret is typed). With no TTY (how an AI tool runs commands) the wizard refuses with `NEEDS_TERMINAL` and says to run it in the developer's own terminal; checked with a real child process.
+- A login right after another one on the demo failed once in a full run (`setup-login`, "a failing environment is not left configured", 1 of about 6 runs; the same test passed on the next runs). Probably the demo's parallel-login failure (SAML) or a bad node; not investigated.
+
 ## Not verified against the real Service Layer (pending)
+
+- The hidden password on a real interactive terminal (Windows console, macOS, Linux): tests use streams without a TTY, where readline never echoes. The muting logic is tested, the terminal behaviour (raw mode, backspace, paste) is not. To check by hand: run `node dist/setup.mjs` in a terminal and look that the password does not show.
+- A wizard run under `claude` itself (the skill telling the developer to open a terminal): checked only in the end-to-end test of slice 10.
 
 - Writes with `If-Match` and an ETag that does not match (412): the plugin sends none by design; not tried through the plugin.
 - Writes of documents (`Orders` with `DocumentLines`), PATCH of a line inside a collection, and entities with composite keys: not tried. Only `BusinessPartners` was written.

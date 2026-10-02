@@ -3,7 +3,7 @@ import {
   assertCredentials, clearLocalState, ensureGitignore, writeConfig, writeCredentials, type Credentials,
 } from '../common/layout.ts'
 import { defaultTransport, login, logout, SlError, type Transport } from '../common/sl.ts'
-import { checkB1Version, checkODataVersion, isEnvironment, type Environment } from '../common/versions.ts'
+import { checkB1Version, checkODataVersion, isEnvironment, type Environment, type ODataVersion } from '../common/versions.ts'
 
 export interface SetupOptions {
   root: string
@@ -48,8 +48,36 @@ export async function writeSetup(options: SetupOptions): Promise<SetupResult> {
   await clearLocalState(options.root)
   await writeConfig(options.root, { versionB1: version, versionOData })
   for (const name of names as Environment[]) await writeCredentials(options.root, name, options.environments[name]!)
-  await ensureGitignore(options.root)
+  try {
+    await ensureGitignore(options.root)
+  } catch (e) {
+    warnings.push(
+      `Could not add .sbo-skills/ to .gitignore (${(e as Error).message}). Add the line ".sbo-skills/" yourself before committing: the folder holds passwords in plain text.`,
+    )
+  }
   return { environments: names as Environment[], warnings }
+}
+
+/** Logs in with the credentials and discards the test session. A failure is returned, not thrown. */
+export async function testLogin(
+  environment: Environment,
+  credentials: Credentials,
+  versionOData: ODataVersion,
+  transport: Transport = defaultTransport,
+): Promise<{ failure?: SetupFailure; warning?: string }> {
+  try {
+    const session = await login(credentials, versionOData, transport)
+    try {
+      await logout(credentials, versionOData, session.cookie, transport)
+    } catch (e) {
+      return { warning: `Test session of "${environment}" could not be discarded (${(e as Error).message}); it expires on its own.` }
+    }
+    return {}
+  } catch (e) {
+    if (e instanceof SlError) return { failure: { environment, status: e.status, code: e.code, message: e.message } }
+    if (e instanceof SboError) return { failure: { environment, status: null, code: e.code, message: e.message } }
+    throw e
+  }
 }
 
 /**
@@ -69,22 +97,15 @@ export async function runSetup(options: SetupOptions & { transport?: Transport }
   const failed: SetupFailure[] = []
   for (const name of names as Environment[]) {
     const credentials = options.environments[name]!
-    try {
-      const session = await login(credentials, versionOData, transport)
-      good[name] = credentials
-      try {
-        await logout(credentials, versionOData, session.cookie, transport)
-      } catch (e) {
-        warnings.push(`Test session of "${name}" could not be discarded (${(e as Error).message}); it expires on its own.`)
-      }
-    } catch (e) {
-      if (e instanceof SlError) failed.push({ environment: name, status: e.status, code: e.code, message: e.message })
-      else if (e instanceof SboError) failed.push({ environment: name, status: null, code: e.code, message: e.message })
-      else throw e
-    }
+    const tested = await testLogin(name, credentials, versionOData, transport)
+    if (tested.failure) failed.push(tested.failure)
+    else good[name] = credentials
+    if (tested.warning) warnings.push(tested.warning)
   }
 
   if (Object.keys(good).length === 0) return { ok: false, environments: [], warnings, failed }
   const written = await writeSetup({ ...options, environments: good })
+  // writeSetup repeats the version warning; what is new is what it found while writing (.gitignore).
+  for (const w of written.warnings) if (!warnings.includes(w)) warnings.push(w)
   return { ok: failed.length === 0, environments: written.environments, warnings, failed }
 }

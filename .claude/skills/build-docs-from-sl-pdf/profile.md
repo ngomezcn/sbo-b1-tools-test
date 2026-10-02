@@ -9,7 +9,7 @@ Everything specific to this PDF lives here. The rest of the skill (flow, role fi
 | `PDF` | `sources/service-layer/service-layer-docs-1.29.pdf` |
 | `WORK` | `factory/.work/service-layer` (extraction output, git-ignored) |
 | `DOCS` | `factory/docs-src/service-layer` (the docs being built, committed) |
-| Publish target | `sbo-skills/plugins/docs-service-layer/skills/docs-service-layer/` (manual step, user-confirmed) |
+| Publish target | `sbo-skills/plugins/service-layer/skills/docs/`, written by `npm run publish-plugin` in `factory/plugins-src/service-layer` (manual step, user-confirmed) |
 
 ## Facts
 
