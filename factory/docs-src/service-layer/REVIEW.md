@@ -19,7 +19,7 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l016-01 | link | 16 | consuming-service-layer/login-logout-session.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | removed | URL removed from the hoja (user decision) |
 | l063-01 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://me.sap.com/notes/2008991 | removed | link removed: the note no longer exists |
 | l063-02 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/ | pending | |
-| l066-01 | link | 66 | consuming-service-layer/semantic-layer-views/basic-authentication.md | https://www.httpwatch.com/httpgallery/authentication/ | pending | |
+| l066-01 | link | 66 | consuming-service-layer/semantic-layer-views/basic-authentication.md | https://www.httpwatch.com/httpgallery/authentication/ | removed | link removed: basic HTTP, not needed |
 | l101-01 | link | 101 | consuming-service-layer/attachments/setup-folder.md | https://technet.microsoft.com/en-us/library/cc939973.aspx | pending | |
 | l101-02 | link | 101 | consuming-service-layer/attachments/setup-folder.md | https://www.samba.org/cifs/ | pending | |
 | l103-01 | link | 103 | consuming-service-layer/attachments/setup-folder.md | https://support.microsoft.com/en-us/windows/create-and-use-strong-passwords-c5cebb49-8c53-4f5e-2bc4-fe357ca048eb | pending | |

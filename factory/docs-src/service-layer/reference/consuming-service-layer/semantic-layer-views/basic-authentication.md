@@ -6,7 +6,7 @@ summary: How to access Semantic Layer views through browser basic authentication
 
 # Semantic Layer Basic Authentication
 
-Semantic Layer allows you to access views through basic authentication in browsers. For more information, see https://www.httpwatch.com/httpgallery/authentication/.
+Semantic Layer allows you to access views through basic authentication in browsers.
 
 However, basic authentication only allows you to input user name and password. There is not a third input box for company database.
 
