@@ -10,7 +10,7 @@ summary: How to expose customer-designed SAP HANA views through the Semantic Lay
 
 Besides the system built-in views, the customer designed views are also able to be exposed as OData service.
 
-To achieve this, first use the latest **SAP HANA Model Package Tool** to generate a compressed model package after exporting the designed SAP HANA models from SAP HANA Studio. As for how to download and use this tool, see SAP Note 2008991 (https://me.sap.com/notes/2008991) or this blog (https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/).
+To achieve this, first use the latest **SAP HANA Model Package Tool** to generate a compressed model package after exporting the designed SAP HANA models from SAP HANA Studio. As for how to download and use this tool, see this blog (https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/).
 
 Compared to the old versions, in the *SAP HANA Model Packaging Wizard for SAP Business One*, a column named as *Enable for Service Layer* is added with checkbox type.
 

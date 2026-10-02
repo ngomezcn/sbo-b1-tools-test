@@ -14,7 +14,7 @@ summary: What the JavaScript SDK offers, and the HttpModule.js request and respo
 
 Similar to the DIAPI, the JavaScript SDK is intended to provide a group of APIs for programmers to easily operate on business services and business Objects. The APIs consist of entity CRUD, entity query, transactions, exceptions and http request/response.
 
-JavaScript, as a weak-typed programming language, has many built-in favorable dynamic features. However, for the sake of programming experience and coding efficiency, the JavaScript SDK is designed like a staticlanguage library, so as to make the most use of the auto-complete and IntelliSense functionalities provided by the modern IDE. The recommended one is the Visual Studio 2013/2015 with a `Node.js` plug-in (https://www.visualstudio.com/en-us/features/node-js-vs.aspx).
+JavaScript, as a weak-typed programming language, has many built-in favorable dynamic features. However, for the sake of programming experience and coding efficiency, the JavaScript SDK is designed like a staticlanguage library, so as to make the most use of the auto-complete and IntelliSense functionalities provided by the modern IDE. The recommended one is the Visual Studio 2013/2015 with a `Node.js` plug-in.
 
 Of course, you can also choose to program dynamically and enjoy the flexible features built-in with JavaScript.
 

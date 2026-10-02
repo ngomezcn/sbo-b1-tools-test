@@ -16,11 +16,7 @@ In the *Network access* dialog of the shared folder, add the `NETWORK SERVICE` a
 
 ## Service Layer Running on SAP HANA on Linux
 
-For the Service Layer running on SAP HANA on Linux, directly accessing this shared folder is not allowed. In order to make the attachment folder accessible for Service Layer as well, the Common Internet File System (CIFS) is required. For more information about CIFS, you can visit:
-
-https://technet.microsoft.com/en-us/library/cc939973.aspx
-
-https://www.samba.org/cifs/
+For the Service Layer running on SAP HANA on Linux, directly accessing this shared folder is not allowed. In order to make the attachment folder accessible for Service Layer as well, the Common Internet File System (CIFS) is required.
 
 Take the following steps to set up:
 
@@ -61,7 +57,7 @@ Take the following steps to set up:
    >   '//windows_server/SharedFolder/Attachment' /mnt/attachment
    >   ```
    >
-   > - We recommend that you adhere to the password policy best practices provided by Microsoft Support in the linked documentation Create and use strong passwords (https://support.microsoft.com/en-us/windows/create-and-use-strong-passwords-c5cebb49-8c53-4f5e-2bc4-fe357ca048eb).
+   > - We recommend that you adhere to the password policy best practices provided by Microsoft Support.
 
 4. Change the ownership of the attachment directory to `b1service0` by running the following commands:
 
