@@ -31,8 +31,12 @@ _Avoid_: Servidor (ambiguo con el Service Layer completo)
 Cookie que el balanceador entrega en el login junto con `B1SESSION` y que fija el nodo de la sesión. El **Uso** la guarda y la reenvía; su valor ayuda a identificar el nodo afectado.
 
 **Caché de metadatos**:
-Conjunto de **Contextos de objeto** de un entorno, que el **Uso** mantiene en `.sbo-skills/<sistema>/<entorno>/context/`.
-_Avoid_: Índice, catálogo
+Conjunto de **Contextos de objeto** de un entorno más su **Índice de entidades**, que el **Uso** mantiene en `.sbo-skills/<sistema>/<entorno>/`.
+_Avoid_: Catálogo
+
+**Índice de entidades**:
+Lista en Markdown de las entidades que un entorno expone, en dos partes para no gastar contexto de más: las estándar de SAP (solo el nombre) y las definidas por el usuario, tablas y objetos de usuario, con su descripción. Se obtiene con el `$metadata` de la **Versión de OData** elegida en el Setup y solo trae entidades, no acciones ni funciones. No describe campos, de eso se ocupa el **Contexto de objeto**: solo orienta a la IA para no adivinar qué entidades existen. La IA intenta primero por su cuenta y lo lee solo si no tiene claro a qué entidad ir. Lo genera el **Setup** y el **Uso** lo renueva pasada una semana, o cuando el desarrollador lo pide.
+_Avoid_: Mapa, catálogo, caché de entidades
 
 **Contexto de objeto**:
 Ficha en Markdown (`context/<Entidad>.md`) con lo que un entorno expone de una entidad: campos estándar y de usuario, tipo, si pueden ir vacíos y valores válidos. Lleva la fecha de obtención y la Versión de OData con la que se obtuvo. La IA la lee antes de operar sobre la entidad; no hay un Contexto de objeto compartido entre entornos porque los campos de usuario difieren.
@@ -45,7 +49,7 @@ Instancia B1 concreta a la que un desarrollador se conecta mediante un sistema, 
 _Avoid_: Perfil, empresa, tenant
 
 **Setup**:
-Parte del plugin de sistema que prepara `.sbo-skills/<sistema>/`: guarda las credenciales de cada entorno, pregunta y guarda la versión de B1 y la Versión de OData, y prueba siempre el login (obligatorio; la sesión de prueba se descarta). Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
+Parte del plugin de sistema que prepara `.sbo-skills/<sistema>/`: guarda las credenciales de cada entorno, pregunta y guarda la versión de B1 y la Versión de OData, y prueba siempre el login (obligatorio; la sesión de prueba se descarta). Al terminar genera el **Índice de entidades** de cada entorno configurado, sin preguntar nada; si no puede, avisa y no falla. Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
 _Avoid_: Setup como comando del Uso
 
 **Versión de B1**:
@@ -124,4 +128,6 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 - En `prod`, el **Uso** solo escribe con una marca explícita añadida a esa llamada, y la **Autoridad total** no la sustituye.
 - Las escrituras (POST, PATCH, DELETE) del **Uso** son en seco por defecto: sin `--execute` solo muestran la petición exacta (ADR 0008).
 - El **Uso** envía exactamente lo que el desarrollador pide: no añade cabeceras de control de concurrencia (ETag, `If-Match`) por su cuenta.
+- Cada **Entorno** tiene un único **Índice de entidades**, porque las tablas y objetos de usuario difieren entre entornos. Cualquier comando del **Uso** lo renueva si tiene más de una semana; la IA nunca lo fuerza.
+- Un fallo al generar o renovar el **Índice de entidades** no impide la operación pedida: el **Uso** sigue adelante y avisa. Si el Service Layer dice que una entidad no existe, el **Uso** vuelve a descargar los metadatos y renueva el índice aunque sea reciente, y solo entonces lo da por inexistente.
 - Un **Contexto de objeto** lo genera la herramienta del **Uso** antes de operar sobre su entidad, si falta o tiene más de una semana, o cuando el desarrollador lo pide expresamente; la IA no lo regenera por su cuenta.
