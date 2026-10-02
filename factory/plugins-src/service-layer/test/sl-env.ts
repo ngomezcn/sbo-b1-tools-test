@@ -28,11 +28,13 @@ const isBrokenSession = (out: UseOutput) => out.status === 500 && Number(out.err
  */
 export const retried = { count: 0 }
 
-export async function getLive(options: GetOptions): Promise<UseOutput> {
+export async function live(root: string, run: () => Promise<UseOutput>): Promise<UseOutput> {
   for (let attempt = 0; ; attempt++) {
-    const out = await getByKey(options)
+    const out = await run()
     if (!isBrokenSession(out) || attempt >= 5) return out
     retried.count++
-    for (const env of ENVIRONMENTS) await rm(sessionPath(options.root, env), { force: true })
+    for (const env of ENVIRONMENTS) await rm(sessionPath(root, env), { force: true })
   }
 }
+
+export const getLive = (options: GetOptions) => live(options.root, () => getByKey(options))
