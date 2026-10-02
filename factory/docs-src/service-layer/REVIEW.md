@@ -17,7 +17,7 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | p193-01 | image | 193 | webhooks/event-subscription/subscription-permission-control.md | 788x631 | removed | converted to text in the hoja (ASCII/description); PNG deleted from assets/ (user decision) |
 | l012-01 | link | 12 | introduction-getting-started/system-requirements.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | removed | URL removed from the hoja (user decision) |
 | l016-01 | link | 16 | consuming-service-layer/login-logout-session.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | removed | URL removed from the hoja (user decision) |
-| l063-01 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://me.sap.com/notes/2008991 | pending | |
+| l063-01 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://me.sap.com/notes/2008991 | removed | link removed: the note no longer exists |
 | l063-02 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/ | pending | |
 | l066-01 | link | 66 | consuming-service-layer/semantic-layer-views/basic-authentication.md | https://www.httpwatch.com/httpgallery/authentication/ | pending | |
 | l101-01 | link | 101 | consuming-service-layer/attachments/setup-folder.md | https://technet.microsoft.com/en-us/library/cc939973.aspx | pending | |
