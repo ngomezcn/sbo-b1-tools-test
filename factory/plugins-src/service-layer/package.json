@@ -6,7 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --import tsx --test --test-concurrency=1 \"test/**/*.test.ts\"",
+    "test": "node --env-file-if-exists=../../../.env --import tsx --test --test-concurrency=1 \"test/**/*.test.ts\"",
     "typecheck": "tsc --noEmit",
     "build": "node build.mjs"
   },
