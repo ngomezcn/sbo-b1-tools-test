@@ -1,21 +1,15 @@
-import { randomBytes } from 'node:crypto'
-import { mkdir, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
 import { SboError } from '../common/errors.ts'
-import { dumpDir, readConfig, readCredentials } from '../common/layout.ts'
-import { defaultTransport, request, type Transport } from '../common/sl.ts'
-import { resolveEnvironment } from './environment.ts'
+import { request } from '../common/sl.ts'
+import { openUse, type UseOptions } from './context.ts'
+import { writeDump } from './dump.ts'
 import { failure, success, type UseOutput } from './output.ts'
+import { contextForOperation } from './object-context.ts'
+import { assertEntitySet, parseJson } from './rows.ts'
 import { withSession } from './session.ts'
 
-export interface GetOptions {
-  root: string
+export interface GetOptions extends UseOptions {
   entitySet: string
   key: string
-  environment?: string
-  transport?: Transport
-  now?: () => Date
-  newId?: () => string
 }
 
 /**
@@ -28,42 +22,27 @@ export function parseKey(key: string): { literal: string; plain: string } {
   return { literal: `'${encodeURIComponent(plain.replace(/'/g, "''"))}'`, plain }
 }
 
-/** File name of a record in the Volcado: the key, made safe for a path. */
-export const keyFileName = (plain: string) => encodeURIComponent(plain) + '.json'
-
 export async function getByKey(options: GetOptions): Promise<UseOutput> {
   try {
-    if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(options.entitySet)) {
-      throw new SboError('INVALID_ENTITY_SET', `"${options.entitySet}" is not an entity set name, for example BusinessPartners.`)
-    }
-    const config = await readConfig(options.root)
-    const environment = await resolveEnvironment(options.root, options.environment)
-    const credentials = await readCredentials(options.root, environment)
-    const transport = options.transport ?? defaultTransport
-
+    assertEntitySet(options.entitySet)
+    const ctx = await openUse(options)
     const parsed = parseKey(options.key)
+    const context = await contextForOperation(ctx, options.entitySet, options.refreshContext)
     const path = `${options.entitySet}(${parsed.literal})`
-    const response = await withSession(
-      { root: options.root, environment, credentials, version: config.versionOData, transport, now: options.now ?? (() => new Date()) },
-      (cookie) => request(transport, credentials, config.versionOData, 'GET', path, cookie),
-    )
-    let record: Record<string, unknown>
-    try {
-      record = JSON.parse(response.text)
-    } catch {
-      throw new SboError('SL_BAD_RESPONSE', `The Service Layer answered ${response.status} with a body that is not JSON. Check the URL and the Service Layer.`)
-    }
-
-    const date = (options.now ?? (() => new Date()))()
-    const dir = dumpDir(options.root, environment, date, (options.newId ?? (() => randomBytes(3).toString('hex')))())
-    const key = parsed.plain
-    await mkdir(join(dir, options.entitySet), { recursive: true })
-    await writeFile(join(dir, options.entitySet, keyFileName(key)), JSON.stringify(record, null, 2))
-    await writeFile(
-      join(dir, '_index.json'),
-      JSON.stringify({ date: date.toISOString(), query: { method: 'GET', path }, entitySet: options.entitySet, count: 1, keys: [key] }, null, 2),
-    )
-    return success(response.status, { entorno: environment, entitySet: options.entitySet, filas: 1, ruta: dir, claves: [key] })
+    const response = await withSession(ctx.session, (cookie) => request(ctx.transport, ctx.credentials, ctx.config.versionOData, 'GET', path, cookie))
+    const record = parseJson(response)
+    if (Array.isArray(record)) throw new SboError('SL_BAD_RESPONSE', `The Service Layer answered a list for ${path}. Check the key.`)
+    const { dir, keys } = await writeDump({
+      root: ctx.root,
+      environment: ctx.environment,
+      now: ctx.now(),
+      newId: ctx.newId,
+      entitySet: options.entitySet,
+      query: { method: 'GET', path },
+      records: [record],
+      keys: [parsed.plain],
+    })
+    return success(response.status, { entorno: ctx.environment, entitySet: options.entitySet, filas: 1, ruta: dir, claves: keys, ...context })
   } catch (e) {
     return failure(e)
   }

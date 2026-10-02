@@ -55,7 +55,9 @@ export function parseSlError(status: number, text: string): SlError {
   } catch {
     /* not JSON */
   }
-  return new SlError(status, undefined, text.trim().slice(0, 300) || `HTTP ${status}`)
+  // Not JSON: usually an HTML page from the proxy in front of the SL (e.g. "502 Proxy Error"); keep its title, not the markup.
+  const title = /<title>\s*([^<]*?)\s*<\/title>/i.exec(text)?.[1]
+  return new SlError(status, undefined, title ? `HTTP ${status}: ${title}` : text.trim().slice(0, 300) || `HTTP ${status}`)
 }
 
 export const baseUrl = (url: string, version: ODataVersion) => `${url.replace(/\/+$/, '')}/b1s/${version}`
@@ -127,8 +129,9 @@ export async function request(
   method: string,
   path: string,
   cookie: string,
+  headers: Record<string, string> = {},
 ): Promise<HttpResponse> {
-  const response = await send(transport, { method, url: `${baseUrl(credentials.url, version)}/${path}`, headers: { Cookie: cookie } })
+  const response = await send(transport, { method, url: `${baseUrl(credentials.url, version)}/${path}`, headers: { ...headers, Cookie: cookie } })
   if (response.status < 200 || response.status >= 300) throw parseSlError(response.status, response.text)
   return response
 }
