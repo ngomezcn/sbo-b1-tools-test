@@ -93,15 +93,15 @@ Collected from the build:
 - bloque 6 `protocol-versioning.md`: SL accepts OData v3 via `OData-MaxVersion: 3.0` or `MaxDataServiceVersion: 3.0` (Semantic Layer views).
 - bloque 7 `status-codes.md`: SL batch returns `202 Accept` in OData V3 and `200 OK` in V4; OData defines 202 for asynchronous acceptance.
 - bloque 7: SL docs inconsistent among themselves on error `code`/`message` shape (etag-usage vs query-errors).
-- bloque 4 `modify-relationships.md`: `In Service Layer: no equivalent hoja` (`associations.md` has no `$ref` / `odata.bind` content).
-- bloque 4 `update-entity.md`: upsert folded from OASIS 11.4.4; SL has no upsert coverage (unverified on live SL).
+- [RESOLVED 2026-10-02, live SL test: `SL differs` written] bloque 4 `modify-relationships.md`: `In Service Layer: no equivalent hoja` (`associations.md` has no `$ref` / `odata.bind` content).
+- [RESOLVED 2026-10-02, live SL test: no upsert, 404 -2028] bloque 4 `update-entity.md`: upsert folded from OASIS 11.4.4; SL has no upsert coverage (unverified on live SL).
 - bloque 8: whether SL `$metadata` returns JSON is not covered.
 - bloque 8 `navigation-properties.md`: SL `associations.md` still shows legacy Association/AssociationSet Role syntax vs CSDL 4.01 `NavigationProperty` attributes.
 
 ### Doubtful mappings (for human review)
 - `invoking-functions.md` → `actions.md` (closest SL hoja; documents POST actions, not GET functions).
-- `related-entities-and-references.md` → `associations.md` (covers navigation GET/`$expand`, not `/$ref` or `$entity?$id=`).
-- `modify-relationships.md` → `no equivalent hoja`.
+- [RESOLVED: kept, `$ref` gap documented as `SL differs`] `related-entities-and-references.md` → `associations.md` (covers navigation GET/`$expand`, not `/$ref` or `$entity?$id=`).
+- [RESOLVED: kept, `SL differs` documented] `modify-relationships.md` → `no equivalent hoja`.
 
 ### Decisions (2026-10-02, rule: SL docs prevail; checked against `service-layer/reference/`)
 
@@ -117,14 +117,14 @@ Collected from the build:
 | SQL Query error shape | Keep as narrowed `SL differs` | query-errors.md has numeric code and object message; etag-usage.md has string code and string message (SL docs inconsistent; both cited) |
 | `odata.maxpagesize=0`, `OData-MaxVersion`/`MaxDataServiceVersion`, batch 202/200, 204 without `OData-EntityId` | Keep as observations, no `SL differs` | SL states them without contradicting the OData text; they are routing hints already in the hojas' In Service Layer lines |
 | Upsert (update-entity.md), `$ref`/`odata.bind` (modify-relationships.md, create-entity.md, related-entities-and-references.md) | Decided by evidence (live SL 10.0 version 1000340, v1 and v2, 2026-10-02): `SL differs` added to the four hojas | Upsert: `PATCH`/`PUT` to a missing key returns 404 `-2028`, nothing created (also with `If-None-Match: *`). `Prop@odata.bind` in `POST`/`PATCH`: 201/204 but silently ignored, even for a nonexistent target. `GET Entity/Nav/$ref`: 400 code 201; `PUT .../$ref`: 404 `-2028`, no change; `POST .../$ref`: 400 `-1008`; `$links`: 400 code 201; `DELETE Entity(key)/Nav/$ref`: 204 and it deletes the entity itself (any `Nav`, even nonexistent). Same behaviour in v1 and v2 (only error JSON shape differs) |
-| SL `$metadata` JSON | Keep, undecided by evidence | SL docs neither confirm nor deny; needs a live SL test |
+| SL `$metadata` JSON | OPEN: keep, undecided by evidence | SL docs neither confirm nor deny; needs a live SL test |
 | Mapping invoking-functions.md -> actions.md | Keep | Closest SL hoja; difference already declared |
 | Mapping related-entities-and-references.md -> associations.md | Keep | Covers navigation GET/`$expand`; `$ref` gap noted above |
 | Mapping modify-relationships.md -> no equivalent hoja | Keep | No SL content on `$ref`/`odata.bind` |
 | Precedence rule itself | Recorded as addendum to ADR 0007 | No new glossary term needed (uses Hecho verificado, Sección externa) |
 
-Verifiers after the change: `verify_odata_block.py --all` all PASS. `python -m unittest` on `test_verify_odata_block.py`: 10 of 24 fail with the staging tree untouched by those scripts (fixtures: missing `sections/*` in a temp work dir, ledger plan); not caused by this change, not investigated further.
+Verifiers after the change: `verify_odata_block.py --all` all PASS. `python -m unittest` on `test_verify_odata_block.py`: [RESOLVED] now 24/24 pass (fixtures pass `--ledger`; the script was right).
 
 ## 7. Publishing into `sbo-skills/`
 
-Done 2026-10-02 (user-delegated). `npm run publish-plugin -- ../../../sbo-skills/plugins/service-layer` from `factory/plugins-src/service-layer` rewrote `dist/` and `skills/` of `sbo-skills/plugins/service-layer/`: `skills/docs/reference/odata/` (46 files, English) and the router `SKILL.md`. Result in the submodule working tree: only `etag-and-concurrency.md` differs for odata (the rest was already identical to HEAD) ; six `webhooks/` hojas also show as modified in `git status` but `git diff` shows no content change (line endings or stat only). Nothing committed or pushed in any repo.
+Done 2026-10-02 (user-delegated). `npm run publish-plugin -- ../../../sbo-skills/plugins/service-layer` from `factory/plugins-src/service-layer` rewrote `dist/` and `skills/` of `sbo-skills/plugins/service-layer/`: `skills/docs/reference/odata/` (46 files, English) and the router `SKILL.md`. Result in the submodule working tree: only `etag-and-concurrency.md` differs for odata (the rest was already identical to HEAD) ; six `webhooks/` hojas also show as modified in `git status` but `git diff` shows no content change (line endings or stat only). [RESOLVED] Committed afterwards: sbo-skills 7739424, main repo 69f0dd7. Not pushed.
