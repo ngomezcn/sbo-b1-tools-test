@@ -2,3 +2,6 @@ node_modules/
 __pycache__/
 .venv/
 .env
+
+# extraction output, regenerable with extract_pdf.py
+factory/.work/

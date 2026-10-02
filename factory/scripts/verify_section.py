@@ -221,6 +221,13 @@ def main():
     fenced = [b for t in texts.values() for b in fenced_blocks(t)]
     # ASCII drawings that replace a figure (box-drawing characters) are hojas' own text, not extracted code
     fenced = [b for b in fenced if not re.search(r'[─-╿]', b)]
+    # inline code the PDF prints without a gray box, which a hoja may promote to a fenced block for
+    # readability: no extracted part inside it, but its text is verbatim in the page text of the apartado
+    page_files = [work / "pages" / f"p{n:03d}.md" for n in sorted(pages)]
+    page_text = squash("".join(f.read_text(encoding="utf-8") for f in page_files if f.exists()))
+    part_texts = [squash("".join(p["text"] for p in ps)) for ps in parts.values()]
+    fenced = [b for b in fenced
+              if any(t in squash(b) for t in part_texts) or squash(b) not in page_text]
     haystack = squash("\n".join(fenced))
     problems = []
     # a block split by a page break without a "continues" marker is extracted as separate parts;
