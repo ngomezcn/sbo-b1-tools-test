@@ -37,6 +37,10 @@ Ejecución del plugin de configuración de un sistema.
 Versión de SAP B1 (por ejemplo FP 2202) que el desarrollador declara en el Setup de un sistema, elegida de la lista de versiones soportadas, y que se guarda en `.sbo-b1/<sistema>/config.md`. Vale para todos los entornos de ese sistema. La IA la usa para comprobar que una función existe en esa versión. El sistema no la detecta ni la contrasta entre sistemas: es responsabilidad del desarrollador declararla bien.
 _Avoid_: Versión del proyecto, versión del servidor
 
+**Versión de OData**:
+Versión de la API de Service Layer a la que el plugin de uso llama: `v1` (OData V3) o `v2` (OData V4), la que aparece en la URL (`/b1s/v2`). El Setup la pregunta al desarrollador, recomienda `v2` y la guarda en `.sbo-b1/<sistema>/config.md`; vale para todos los entornos de ese sistema. El plugin de uso usa siempre la guardada y no la cambia por su cuenta. La decisión final es del desarrollador, aunque elija una que su Versión de B1 no soporte.
+_Avoid_: Versión de API, versión de Service Layer
+
 **Confirmación de escritura**:
 Permiso que la IA pide al desarrollador antes de cada operación que modifica datos (POST, PATCH, DELETE).
 
@@ -96,6 +100,7 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 - Si falta el Setup del sistema (`.sbo-b1/<sistema>/` o su `config.md`), tanto el **Plugin de uso** como el **Plugin de documentación** fallan con error que indica ejecutar el Setup.
 - El **Setup** de un **Sistema** pregunta al desarrollador la **Versión de B1** y la guarda; el sistema no detecta la versión del servidor por su cuenta.
 - Cada **Sistema** guarda su propia **Versión de B1**; los sistemas no las comparan entre sí.
+- El **Setup** de Service Layer pregunta también la **Versión de OData**, independiente de la **Versión de B1**: informa de desde qué Versión de B1 SAP recomienda `v2`, pero no impide elegir `v1` ni una combinación que falle.
 - Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, con la fecha en que se obtuvo.
 - Una **Sección externa** se divide en **Bloques**; cada **Bloque** se construye en una sesión a partir de **Fragmentos** de sus fuentes, agrupados en **Unidades de trabajo** que producen **Hojas**.
 - La **Caché de metadatos** la genera el **Setup**; la IA solo puede pedir permiso al desarrollador para regenerarla.
