@@ -43,8 +43,9 @@ export async function getByKey(options: GetOptions): Promise<UseOutput> {
 
     const parsed = parseKey(options.key)
     const path = `${options.entitySet}(${parsed.literal})`
-    const response = await withSession(credentials, config.versionOData, transport, (cookie) =>
-      request(transport, credentials, config.versionOData, 'GET', path, cookie),
+    const response = await withSession(
+      { root: options.root, environment, credentials, version: config.versionOData, transport, now: options.now ?? (() => new Date()) },
+      (cookie) => request(transport, credentials, config.versionOData, 'GET', path, cookie),
     )
     let record: Record<string, unknown>
     try {

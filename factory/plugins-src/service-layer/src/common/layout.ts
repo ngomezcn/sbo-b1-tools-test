@@ -26,6 +26,7 @@ export const systemDir = (root: string) => join(root, LOCAL_DIR, SYSTEM)
 export const configPath = (root: string) => join(systemDir(root), 'config.md')
 export const envDir = (root: string, env: Environment) => join(systemDir(root), env)
 export const credentialsPath = (root: string, env: Environment) => join(envDir(root, env), 'credentials.json')
+export const sessionPath = (root: string, env: Environment) => join(envDir(root, env), 'session.json')
 export const dumpRoot = (root: string, env: Environment) => join(envDir(root, env), 'data')
 
 /** One folder per Uso execution: `<date>-<id>`, date as YYYYMMDD-HHmmss (UTC). */
