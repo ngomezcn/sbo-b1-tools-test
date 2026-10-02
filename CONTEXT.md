@@ -44,6 +44,10 @@ _Avoid_: Versión del proyecto, versión del servidor
 Versión de la API de Service Layer a la que el plugin de uso llama: `v1` (OData V3) o `v2` (OData V4), la que aparece en la URL (`/b1s/v2`). El Setup la pregunta al desarrollador, recomienda `v2` y la guarda en `.sbo-b1/<sistema>/config.md`; vale para todos los entornos de ese sistema. El plugin de uso usa siempre la guardada y no la cambia por su cuenta. La decisión final es del desarrollador, aunque elija una que su Versión de B1 no soporte.
 _Avoid_: Versión de API, versión de Service Layer
 
+**Volcado**:
+Carpeta local de una sola ejecución del plugin de uso con los registros que esta trajo de un entorno, junto con la consulta y la fecha. Nunca se comparte entre ejecuciones y su contenido no entra en el contexto de la IA, solo su ruta y un resumen. Lo borra quien lo creó al terminar y, como red de seguridad, la herramienta lo borra pasadas 24 horas.
+_Avoid_: Caché de datos, descarga
+
 **Confirmación de escritura**:
 Permiso que la IA pide al desarrollador antes de cada operación que modifica datos (POST, PATCH, DELETE).
 
@@ -106,4 +110,6 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 - El **Setup** de Service Layer pregunta también la **Versión de OData**, independiente de la **Versión de B1**: informa de desde qué Versión de B1 SAP recomienda `v2`, pero no impide elegir `v1` ni una combinación que falle.
 - Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, formada por un **Contexto de objeto** por entidad, cada uno con su fecha de obtención.
 - Una **Sección externa** se divide en **Bloques**; cada **Bloque** se construye en una sesión a partir de **Fragmentos** de sus fuentes, agrupados en **Unidades de trabajo** que producen **Hojas**.
+- En `prod`, el plugin de uso solo escribe con una marca explícita añadida a esa llamada, y la **Autoridad total** no la sustituye.
+- El plugin de uso envía exactamente lo que el desarrollador pide: no añade cabeceras de control de concurrencia (ETag, `If-Match`) por su cuenta.
 - Un **Contexto de objeto** lo genera la herramienta del **Plugin de uso** antes de operar sobre su entidad, si falta o tiene más de una semana, o cuando el desarrollador lo pide expresamente; la IA no lo regenera por su cuenta.
