@@ -177,7 +177,7 @@ Checks done after the first closing of session 3 (2026-10-02, FP 2608):
 
 ## Not verified against the real Service Layer (pending)
 
-- Attachment and item image upload and download, `Slug` streaming (above).
+- A `$batch` whose answer contains a binary sub-response against a real SL: the parser reads the answer as bytes and writes that sub-response as a file next to its `.json` (unit-tested with a fake answer; the live batch of GETs and the changeset batches pass, so the byte path is exercised against the real SL).
 - A `$batch` whose answer contains a binary sub-response (the parser decodes the answer as UTF-8 text).
 - `B1S-ReplaceCollectionsOnPatch` on `EventSubscriptions` (webhooks are not available in the demo).
 

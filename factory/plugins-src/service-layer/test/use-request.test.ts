@@ -314,6 +314,19 @@ for (const version of ['v1', 'v2'] as const) {
       await run(root, ['request', 'DELETE', `SQLQueries('${sqlCode}')`, '--execute'])
     }
   })
+
+  test(`${version}: a $batch of GETs gives the same records as the plain GETs (the answer is read as bytes, nothing is corrupted)`, async () => {
+    const root = await repo(version)
+    const file = join(root, 'reads.json')
+    await writeFile(file, JSON.stringify({ requests: [{ method: 'GET', path: 'BusinessPartners?$select=CardCode,CardName&$top=20&$orderby=CardCode', contentId: 'bp' }] }))
+    const batch = await run(root, ['request', 'POST', '$batch', '--body-file', file, '--read'])
+    assert.equal(batch.ok, true, JSON.stringify(batch))
+    const direct = await run(root, ['request', 'GET', 'BusinessPartners?$select=CardCode,CardName&$top=20&$orderby=CardCode'])
+    const sub = JSON.parse(await readFile(join(batch.resumen!.ruta as string, 'batch', 'bp.json'), 'utf8')).body.value
+    assert.ok(sub.length > 0)
+    assert.equal(JSON.stringify(sub).includes('�'), false)
+    assert.equal(sub.length, direct.resumen!.filas)
+  })
 }
 
 test('attachments: the Service Layer answers literally when its attachment folder is not usable (the demo has none)', async () => {

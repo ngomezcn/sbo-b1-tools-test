@@ -170,7 +170,10 @@ export interface SubResponse {
   status: number
   statusText: string
   headers: Record<string, string>
+  /** The body as text (UTF-8). */
   body: string
+  /** The body bytes, exactly as sent: only when the answer was read as bytes (see `parseBatchResponse`). */
+  bytes?: Buffer
 }
 
 export type ParsedItem = { kind: 'response'; response: SubResponse } | { kind: 'changeset'; responses: SubResponse[] }
@@ -207,7 +210,7 @@ function parseHeaders(head: string): Record<string, string> {
   return headers
 }
 
-function parseResponsePart(partHeaders: Record<string, string>, content: string): SubResponse {
+function parseResponsePart(partHeaders: Record<string, string>, content: string, binary: boolean): SubResponse {
   // The HTTP message may follow the part headers directly or after a blank line; skip leading blank lines.
   const message = content.replace(/^(?:\r?\n)+/, '')
   const { head, rest } = splitHead(message)
@@ -215,11 +218,16 @@ function parseResponsePart(partHeaders: Record<string, string>, content: string)
   const m = /^HTTP\/\d(?:\.\d)?\s+(\d{3})\s*(.*)$/.exec(statusLine ?? '')
   if (!m) throw new SboError('SL_BAD_RESPONSE', `A part of the batch answer is not an HTTP response: "${(statusLine ?? '').slice(0, 80)}".`)
   const headers = parseHeaders(headerLines.join('\n'))
-  return { contentId: partHeaders['content-id'] ?? headers['content-id'], status: Number(m[1]), statusText: m[2].trim(), headers, body: rest }
+  const bytes = binary ? Buffer.from(rest, 'latin1') : undefined
+  return { contentId: partHeaders['content-id'] ?? headers['content-id'], status: Number(m[1]), statusText: m[2].trim(), headers, body: bytes ? bytes.toString('utf8') : rest, bytes }
 }
 
-/** The multipart/mixed answer of a `$batch`: top-level responses in order, and the responses of each changeset. */
-export function parseBatchResponse(text: string, contentType: string | null | undefined): ParsedItem[] {
+/**
+ * The multipart/mixed answer of a `$batch`: top-level responses in order, and the responses of each changeset.
+ * With `binary`, `text` is the answer read as latin1 (one char per byte, nothing lost): each body keeps its exact `bytes`
+ * and `body` is those bytes as UTF-8, so a sub-response that is a file is not corrupted.
+ */
+export function parseBatchResponse(text: string, contentType: string | null | undefined, binary = false): ParsedItem[] {
   const boundary = boundaryOf(contentType)
   if (!/multipart\/mixed/i.test(contentType ?? '') || !boundary) {
     throw new SboError('SL_BAD_RESPONSE', `The batch answer is not multipart/mixed (Content-Type: ${contentType ?? 'none'}).`)
@@ -233,11 +241,11 @@ export function parseBatchResponse(text: string, contentType: string | null | un
       if (!innerBoundary) throw new SboError('SL_BAD_RESPONSE', 'A changeset of the batch answer has no boundary.')
       const responses = splitParts(rest, innerBoundary).map((p) => {
         const h = splitHead(p)
-        return parseResponsePart(parseHeaders(h.head), h.rest)
+        return parseResponsePart(parseHeaders(h.head), h.rest, binary)
       })
       return { kind: 'changeset', responses }
     }
-    return { kind: 'response', response: parseResponsePart(headers, rest) }
+    return { kind: 'response', response: parseResponsePart(headers, rest, binary) }
   })
 }
 

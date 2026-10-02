@@ -3,7 +3,7 @@
  * everything that is not a GET is a write, so it is a dry run until `--execute`, and `prod` also needs `--allow-prod`.
  * A POST that only reads (SQLQueries List, ...) is declared with `--read` and then runs directly.
  */
-import { readFile, realpath, stat } from 'node:fs/promises'
+import { readFile, realpath, stat, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { SboError } from '../common/errors.ts'
 import { credentialsPath, sessionPath } from '../common/layout.ts'
@@ -307,10 +307,29 @@ async function present(ctx: UseContext, response: HttpResponse, path: string, qu
 }
 
 async function presentBatch(response: HttpResponse, common: Omit<DumpInput, 'records'>, batch: Batch): Promise<Record<string, unknown>> {
-  const parsed = parseBatchResponse(response.text, response.headers.get('content-type'))
+  // Read as latin1 (one char per byte) so a sub-response that is a file keeps its bytes; the text of the others is decoded back as UTF-8.
+  const parsed = parseBatchResponse(Buffer.from(bodyBytes(response)).toString('latin1'), response.headers.get('content-type'), true)
   const flat = nameResponses(parsed, batch.items)
-  const records = flat.map((f) => ({ status: f.response.status, statusText: f.response.statusText, headers: f.response.headers, body: tryParse(f.response.body) }))
-  const { dir, keys } = await writeDump({ ...common, records, keys: flat.map((f) => f.id), extra: { statuses: flat.map((f) => f.response.status) } })
+  // Unique ids (the Volcado names files by them, case-insensitively), so a file can be named after its sub-response.
+  const taken = new Set<string>()
+  const ids = flat.map((f) => {
+    let id = f.id
+    for (let n = 2; taken.has(id.toLowerCase()); n++) id = `${f.id}~${n}`
+    taken.add(id.toLowerCase())
+    return id
+  })
+  const files: { name: string; bytes: Buffer }[] = []
+  const records = flat.map((f, i) => {
+    const r = f.response
+    const type = r.headers['content-type']
+    const isFile = r.status < 400 && r.bytes !== undefined && r.bytes.length > 0 && !isJson(type ?? null) && !isTextual(type ?? null)
+    if (!isFile) return { status: r.status, statusText: r.statusText, headers: r.headers, body: tryParse(r.body) }
+    const name = safeFileName(`${ids[i]}.${extensionFor(type)}`)
+    files.push({ name, bytes: r.bytes! })
+    return { status: r.status, statusText: r.statusText, headers: r.headers, body: { binario: true, archivo: name, bytes: r.bytes!.length, contentType: type ?? null } }
+  })
+  const { dir, keys } = await writeDump({ ...common, records, keys: ids, extra: { statuses: flat.map((f) => f.response.status) } })
+  await Promise.all(files.map((f) => writeFile(join(dir, common.entitySet, f.name), f.bytes)))
   const failed = flat.filter((f) => f.response.status >= 400).length
   const sent = batchRequests(batch).length
   return {

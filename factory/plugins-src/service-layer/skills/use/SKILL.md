@@ -78,7 +78,7 @@ Rules:
 | `coleccion` (a `value` list) | one file per record, `_index.json` | `filas`, `claves` or `indice`, `siguiente` (the nextLink, not followed: use `page` or `traverse` to read many) |
 | `objeto` | one file (`archivo`) | `claves` |
 | `texto`, `binario` | one file (`archivo`, `nombre`, `bytes`) | `contentType` |
-| `lote` | one file per sub-response, named with its Content-ID | `subrespuestas` (`id`, `estado`, the literal `error`), `errores`, `aviso` |
+| `lote` | one file per sub-response, named with its Content-ID (a binary sub-response is also saved as a file; its `.json` has `body.archivo`) | `subrespuestas` (`id`, `estado`, the literal `error`), `errores`, `aviso` |
 | `vacio` (204) | none | `status` |
 
 `cabecerasRespuesta` carries ETag, Location, OData-EntityId and Preference-Applied when the Service Layer sends them. Run `clean` when you are done with the Volcado.

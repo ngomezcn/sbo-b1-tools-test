@@ -6,7 +6,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { createServer } from 'node:http'
-import { mkdtemp, readFile, writeFile, mkdir } from 'node:fs/promises'
+import { mkdtemp, readFile, readdir, writeFile, mkdir } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { writeSetup } from '../src/setup/setup.ts'
@@ -506,4 +506,28 @@ test('attachment upload: --stream-file sends the raw bytes with Content-Type and
   assert.equal(f.seen.length, 1, 'only the one execute above reached the transport')
   await mkdir(join(root, 'dir'))
   assert.equal((await run(['--file', 'dir'])).error!.code, 'FILE_NOT_FOUND')
+})
+
+test('batch answer: a binary sub-response keeps its bytes in a file, a JSON one keeps its accents', async () => {
+  const root = await repo()
+  const dir = await mkdtemp(join(tmpdir(), 'b-'))
+  const file = join(dir, 'b.json')
+  await writeFile(file, JSON.stringify({ requests: [{ method: 'GET', path: "ItemImages('A1')/$value", contentId: 'img' }, { method: 'GET', path: "Items('A1')", contentId: 'item' }] }))
+  const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0xff, 0xfe, 0xc3, 0x28, 0x2d, 0x2d])
+  const part = (id: string, type: string, body: Buffer) =>
+    Buffer.concat([Buffer.from(`--r\r\nContent-Type: application/http\r\nContent-ID: ${id}\r\n\r\nHTTP/1.1 200 OK\r\nContent-Type: ${type}\r\n\r\n`), body, Buffer.from('\r\n')])
+  const reply = Buffer.concat([part('img', 'image/png', png), part('item', 'application/json', Buffer.from('{"ItemName":"Niño ñandú €"}')), Buffer.from('--r--\r\n')])
+  const f = fake(() => answer(200, reply, { 'content-type': 'multipart/mixed;boundary=r' }))
+  const out = await main(['request', 'POST', '$batch', '--body-file', file, '--read'], root, { transport: f.transport })
+  assert.equal(out.ok, true, JSON.stringify(out))
+  assert.equal(out.resumen!.tipo, 'lote')
+  const sub = (await readdir(out.resumen!.ruta as string)).find((n) => !n.startsWith('_'))!
+  const folder = join(out.resumen!.ruta as string, sub)
+  const names = await readdir(folder)
+  const saved = names.find((n) => n.startsWith('img.') && !n.endsWith('.json'))
+  assert.ok(saved, names.join(','))
+  assert.ok((await readFile(join(folder, saved!))).equals(png), 'the bytes are intact')
+  const img = JSON.parse(await readFile(join(folder, 'img.json'), 'utf8'))
+  assert.equal(img.body.archivo, saved)
+  assert.equal(JSON.parse(await readFile(join(folder, 'item.json'), 'utf8')).body.ItemName, 'Niño ñandú €')
 })
