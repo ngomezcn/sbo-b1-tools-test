@@ -1,7 +1,7 @@
-import { rm } from 'node:fs/promises'
+import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { baseUrl, defaultTransport, login, logout, request, type HttpRequest, type Transport } from '../src/common/sl.ts'
 import { ENVIRONMENTS } from '../src/common/versions.ts'
-import { sessionPath, type Credentials } from '../src/common/layout.ts'
+import { envDir, sessionPath, type Credentials } from '../src/common/layout.ts'
 import { getByKey, type GetOptions } from '../src/use/get.ts'
 import type { UseOutput } from '../src/use/output.ts'
 
@@ -89,6 +89,8 @@ export async function ensureUserFields(specs: UserFieldSpec[]): Promise<void> {
 export const getLive = (options: GetOptions) => live(options.root, () => getByKey(options))
 
 export interface Admin {
+  /** `Cookie` header of this session (B1SESSION and ROUTEID): the same node answers every request with it. */
+  cookie: string
   call(method: string, path: string, body?: unknown): Promise<{ status: number; json: any; text: string }>
   close(): Promise<void>
 }
@@ -118,14 +120,18 @@ export async function admin(): Promise<Admin> {
     }
     const close = () => logout(credentials, 'v2', cookie).catch(() => {})
     const probe = await call('GET', "BusinessPartners('C50000')?$select=CardCode")
-    if (probe.status === 200) return { call, close }
+    if (probe.status === 200) return { cookie, call, close }
     await close()
     if (attempt >= 8) throw new Error(`no usable session: ${probe.status}`)
   }
 }
 
-/** Creates a user-defined table (and its fields) in the demo company if it is not there. `kind`: `bott_NoObject`, `bott_MasterData`... */
-export async function ensureUserTable(name: string, kind: string, fields: { Name: string; Size?: number; Mandatory?: 'tYES' | 'tNO'; Description?: string }[]): Promise<void> {
+/**
+ * Creates a user-defined table (and its fields) in the demo company if it is not there. `kind`: `bott_NoObject`, `bott_MasterData`...
+ * With `keepOpen` the session used stays open and is returned: it is on the node that served the creation, the only one that lists
+ * the new table for a while.
+ */
+export async function ensureUserTable(name: string, kind: string, fields: { Name: string; Size?: number; Mandatory?: 'tYES' | 'tNO'; Description?: string }[], keepOpen = false): Promise<Admin> {
   const a = await admin()
   try {
     if ((await a.call('GET', `UserTablesMD('${name}')`)).status !== 200) {
@@ -138,8 +144,9 @@ export async function ensureUserTable(name: string, kind: string, fields: { Name
       const made = await a.call('POST', 'UserFieldsMD', { Type: 'db_Alpha', Size: 20, Description: f.Name, ...f, TableName: `@${name}` })
       if (made.status !== 201) throw new Error(`Could not create @${name}.${f.Name}: ${made.text.slice(0, 200)}`)
     }
+    return a
   } finally {
-    await a.close()
+    if (!keepOpen) await a.close()
   }
 }
 
@@ -163,6 +170,36 @@ export async function ensureUserObject(code: string, kind: string, children: str
       const patched = await a.call('PATCH', `UserObjectsMD('${code}')`, { UserObjectMD_ChildTables: children.map((TableName, i) => ({ TableName, ObjectName: TableName, SonNumber: i + 1 })) })
       if (patched.status !== 204) throw new Error(`Could not add child tables to ${code}: ${patched.text.slice(0, 200)}`)
     }
+  } finally {
+    await a.close()
+  }
+}
+
+/**
+ * An admin session on a node whose Service Layer lists `entitySet` (a table created a moment ago is listed only on the node
+ * that served its creation, for a while; see TESTING.md). Sessions are tried until one lists it.
+ */
+export async function adminSeeing(entitySet: string, attempts = 30): Promise<Admin> {
+  for (let i = 0; ; i++) {
+    const a = await admin()
+    if ((await a.call('GET', `${entitySet}?$top=1&$select=Code`)).status === 200) return a
+    await a.close()
+    if (i >= attempts) throw new Error(`No node lists ${entitySet} after ${attempts} sessions`)
+  }
+}
+
+/** Puts `cookie` where the Uso keeps its session, so the next execution talks to the same node as the one that created the data. */
+export async function seedSession(root: string, cookie: string): Promise<void> {
+  await mkdir(envDir(root, 'dev'), { recursive: true })
+  await writeFile(sessionPath(root, 'dev'), JSON.stringify({ cookie, lastUsedAt: new Date().toISOString() }))
+}
+
+/** Removes a user-defined table (and its rows and fields). */
+export async function dropUserTable(name: string): Promise<void> {
+  const a = await admin()
+  try {
+    const gone = await a.call('DELETE', `UserTablesMD('${name}')`)
+    if (gone.status !== 204 && gone.status !== 404) throw new Error(`Could not drop ${name}: ${gone.status} ${gone.text.slice(0, 200)}`)
   } finally {
     await a.close()
   }
