@@ -3,12 +3,13 @@ import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import { SboError } from '../common/errors.ts'
 import { contextPath } from '../common/layout.ts'
-import { request } from '../common/sl.ts'
+import { withLock } from '../common/lock.ts'
+import { request, SlError } from '../common/sl.ts'
 import { openUse, type UseContext, type UseOptions } from './context.ts'
 import { failure, success, type UseOutput } from './output.ts'
-import { assertEntitySet, collectRows, queryString, withQuery } from './rows.ts'
+import { assertEntitySet, collectRows, parseJson, queryString, withQuery } from './rows.ts'
 import { withSession } from './session.ts'
-import { readHeader, renderContext, tablesFor, type TableMap, type UserField } from './metadata.ts'
+import { CONTEXT_HEADER, entityTypeOf, readChosenTables, readHeader, renderContext, tablesFor, type TableMap, type UserField } from './metadata.ts'
 
 /** A ficha older than this is regenerated before the next operation on its entity. */
 export const CONTEXT_MAX_AGE_MS = 7 * 24 * 3_600_000
@@ -17,7 +18,10 @@ const MAX_USER_FIELDS = 5000
 export interface EnsureOptions {
   /** The developer asked for a new one (command or flag). The AI never sets this by itself. */
   force?: boolean
-  /** Tables to read user fields from, instead of the plugin's own map. */
+  /**
+   * Tables to read user fields from, chosen by the developer with `--tables`, instead of the plugin's own resolution.
+   * They are kept in the ficha and reused when it is regenerated. An empty list goes back to the plugin's resolution.
+   */
   tables?: string[]
 }
 
@@ -39,11 +43,47 @@ async function isFresh(ctx: UseContext, file: string): Promise<boolean> {
   return age >= 0 && age <= CONTEXT_MAX_AGE_MS
 }
 
+/**
+ * An entity set that `$metadata` did not list is remembered for the same week as a ficha (`<Entity>.missing`, next to the
+ * ficha folder's files), so that every operation on a mistyped or not yet visible entity does not download 2 MB again.
+ * Only the developer's `--refresh` (or `--tables`) looks again; the AI never does.
+ */
+const missingPath = (ctx: UseContext, entitySet: string) => contextPath(ctx.root, ctx.environment, entitySet).replace(/\.md$/, '.missing')
+
+async function isKnownMissing(ctx: UseContext, entitySet: string): Promise<boolean> {
+  const text = await readFile(missingPath(ctx, entitySet), 'utf8').catch(() => null)
+  const header = text === null ? null : readHeader(text)
+  if (!header || header.odataVersion !== ctx.config.versionOData) return false
+  const age = ctx.now().getTime() - header.fetchedAt.getTime()
+  return age >= 0 && age <= CONTEXT_MAX_AGE_MS
+}
+
 async function fetchUserFields(ctx: UseContext, cookie: string, tables: TableMap): Promise<{ rows: UserField[]; truncated: boolean }> {
   const names = [...tables.main, ...Object.values(tables.collections)]
   const filter = names.map((t) => `TableName eq '${t.replace(/'/g, "''")}'`).join(' or ')
   const { rows, truncated } = await collectRows(ctx, cookie, withQuery('UserFieldsMD', queryString({ filter })), MAX_USER_FIELDS)
   return { rows: rows as unknown as UserField[], truncated }
+}
+
+/**
+ * The tables of an entity's user fields. First the plugin's own map (user tables without an object included), then the
+ * Service Layer itself: an entity set that is not in the map may be a user object, and `UserObjectsMD('<code>')` says its
+ * table and its child tables (the collection of a child table is `<ObjectName>Collection`, checked live). Null when it is neither.
+ */
+async function resolveTables(ctx: UseContext, cookie: string, entitySet: string): Promise<TableMap | null> {
+  const own = tablesFor(entitySet)
+  if (own) return own
+  let object: { TableName?: string; UserObjectMD_ChildTables?: { TableName: string; ObjectName: string }[] }
+  try {
+    const path = `UserObjectsMD('${entitySet}')?$select=Code,TableName,UserObjectMD_ChildTables`
+    object = parseJson(await request(ctx.transport, ctx.credentials, ctx.config.versionOData, 'GET', path, cookie))
+  } catch (e) {
+    if (e instanceof SlError && e.status === 404) return null
+    throw e
+  }
+  if (!object.TableName) return null
+  const collections = Object.fromEntries((object.UserObjectMD_ChildTables ?? []).map((c) => [`${c.ObjectName}Collection`, `@${c.TableName}`]))
+  return { main: [`@${object.TableName}`], collections }
 }
 
 /**
@@ -53,11 +93,29 @@ async function fetchUserFields(ctx: UseContext, cookie: string, tables: TableMap
  */
 export async function ensureContext(ctx: UseContext, entitySet: string, options: EnsureOptions = {}): Promise<ContextResult | null> {
   const file = contextPath(ctx.root, ctx.environment, entitySet)
-  if (!options.force && !options.tables && (await isFresh(ctx, file))) return { path: file, regenerated: false }
+  const mayReuse = !options.force && options.tables === undefined
+  const reuse = async (): Promise<ContextResult | null | undefined> => {
+    if (!mayReuse) return undefined
+    if (await isFresh(ctx, file)) return { path: file, regenerated: false }
+    if (await isKnownMissing(ctx, entitySet)) return null
+    return undefined
+  }
+  const early = await reuse()
+  if (early !== undefined) return early
+  // Parallel executions: one downloads `$metadata`, the others wait and then find the ficha ready.
+  return withLock(`${file}.lock`, async () => {
+    const again = await reuse()
+    return again !== undefined ? again : generate(ctx, entitySet, file, options)
+  })
+}
 
-  const tables: TableMap | null = options.tables ? { main: options.tables, collections: {} } : tablesFor(entitySet)
+async function generate(ctx: UseContext, entitySet: string, file: string, options: EnsureOptions): Promise<ContextResult | null> {
+  // `--tables` is kept in the ficha: an automatic regeneration reuses what the developer chose.
+  const chosen = options.tables === undefined ? await savedTables(file) : options.tables.length > 0 ? options.tables : null
   const markdown = await withSession(ctx.session, async (cookie) => {
     const xml = (await request(ctx.transport, ctx.credentials, ctx.config.versionOData, 'GET', '$metadata', cookie)).text
+    if (entityTypeOf(xml, entitySet) === null) return null
+    const tables: TableMap | null = chosen ? { main: chosen, collections: {} } : await resolveTables(ctx, cookie, entitySet)
     const fetched = tables ? await fetchUserFields(ctx, cookie, tables) : null
     return renderContext({
       entitySet,
@@ -68,20 +126,36 @@ export async function ensureContext(ctx: UseContext, entitySet: string, options:
       userFields: fetched?.rows ?? null,
       userFieldsTruncated: fetched?.truncated ?? false,
       tables,
+      chosenTables: chosen ?? undefined,
     })
   })
-  if (markdown === null) return null
-
   await mkdir(dirname(file), { recursive: true })
-  // Written aside and renamed, so a parallel execution never reads half a ficha.
+  if (markdown === null) {
+    await writeAside(ctx, missingPath(ctx, entitySet), `# ${entitySet}\n\n${missingText(ctx)}`)
+    return null
+  }
+  await writeAside(ctx, file, markdown)
+  await rm(missingPath(ctx, entitySet), { force: true })
+  return { path: file, regenerated: true }
+}
+
+const missingText = (ctx: UseContext) =>
+  `- ${CONTEXT_HEADER.fetched}: ${ctx.now().toISOString()}\n- ${CONTEXT_HEADER.odata}: ${ctx.config.versionOData}\n- $metadata did not list this entity set.\n`
+
+/** Written aside and renamed, so a parallel execution never reads half a file. */
+async function writeAside(ctx: UseContext, file: string, text: string): Promise<void> {
   const temp = `${file}.${ctx.newId()}.tmp`
   try {
-    await writeFile(temp, markdown)
+    await writeFile(temp, text)
     await rename(temp, file)
   } finally {
     await rm(temp, { force: true })
   }
-  return { path: file, regenerated: true }
+}
+
+async function savedTables(file: string): Promise<string[] | null> {
+  const text = await readFile(file, 'utf8').catch(() => null)
+  return text === null ? null : readChosenTables(text)
 }
 
 /**
@@ -108,6 +182,7 @@ export interface ContextCommandOptions extends UseOptions {
   refresh?: boolean
   /** Return the text of the ficha in the output. */
   show?: boolean
+  /** `--tables`; an empty list (`--tables default`) goes back to the plugin's own resolution. */
   tables?: string[]
 }
 
@@ -117,7 +192,7 @@ export async function contextCommand(options: ContextCommandOptions): Promise<Us
     assertEntitySet(options.entitySet)
     const ctx = await openUse(options)
     const result = await ensureContext(ctx, options.entitySet, { force: options.refresh, tables: options.tables })
-    if (!result) throw new SboError('ENTITY_NOT_FOUND', `${options.entitySet} is not an entity set of this Service Layer ($metadata does not list it). Check the name.`)
+    if (!result) throw new SboError('ENTITY_NOT_FOUND', `${options.entitySet} is not an entity set of this Service Layer ($metadata does not list it). Check the name. If it was just created, run "context ${options.entitySet} --refresh": this answer is remembered for a week unless you refresh.`)
     const text = await readFile(result.path, 'utf8')
     const header = readHeader(text)
     return success(200, {

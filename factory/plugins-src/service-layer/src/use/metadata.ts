@@ -108,7 +108,9 @@ function describeUserField(f: UserField): string {
 /**
  * Tables of user fields per entity set. `$metadata` does not say which table an entity set is stored in and
  * `UserFieldsMD.TableName` is the database table (`OCRD`), never the entity (TESTING.md), so it is listed here.
- * Marketing documents: header table plus their lines table (`ORDR` / `RDR1`).
+ * Marketing documents: header table plus their lines table (`ORDR` / `RDR1`). Every entry was checked against
+ * the real Service Layer: the tables exist in `UserFieldsMD`, and the entity set and its collection are in `$metadata`.
+ * Entity sets that are not here are resolved in the Service Layer itself (see `resolveTables` in object-context.ts).
  */
 const DOCUMENTS: Record<string, [string, string]> = {
   Orders: ['ORDR', 'RDR1'],
@@ -127,9 +129,14 @@ const DOCUMENTS: Record<string, [string, string]> = {
   PurchaseCreditNotes: ['ORPC', 'RPC1'],
   PurchaseDownPayments: ['ODPO', 'DPO1'],
   Drafts: ['ODRF', 'DRF1'],
-  StockTransfers: ['OWTR', 'WTR1'],
   InventoryGenEntries: ['OIGN', 'IGN1'],
   InventoryGenExits: ['OIGE', 'IGE1'],
+}
+
+/** Stock transfers do not use `DocumentLines`: their lines collection is `StockTransferLines`. */
+const TRANSFERS: Record<string, [string, string]> = {
+  StockTransfers: ['OWTR', 'WTR1'],
+  InventoryTransferRequests: ['OWTQ', 'WTQ1'],
 }
 
 export interface TableMap {
@@ -139,16 +146,26 @@ export interface TableMap {
   collections: Record<string, string>
 }
 
-/** Tables of the user fields of an entity set, or null when this plugin does not know them. */
+const STATIC_TABLES: Record<string, TableMap> = {
+  ...Object.fromEntries(Object.entries(DOCUMENTS).map(([name, [head, lines]]) => [name, { main: [head], collections: { DocumentLines: lines } }])),
+  ...Object.fromEntries(Object.entries(TRANSFERS).map(([name, [head, lines]]) => [name, { main: [head], collections: { StockTransferLines: lines } }])),
+  BusinessPartners: { main: ['OCRD'], collections: { BPAddresses: 'CRD1', ContactEmployees: 'OCPR' } },
+  Items: { main: ['OITM'], collections: {} },
+  Warehouses: { main: ['OWHS'], collections: {} },
+  JournalEntries: { main: ['OJDT'], collections: { JournalEntryLines: 'JDT1' } },
+  ProductionOrders: { main: ['OWOR'], collections: { ProductionOrderLines: 'WOR1' } },
+}
+
+export const knownEntitySets = () => Object.keys(STATIC_TABLES)
+
+/**
+ * Tables of the user fields of an entity set from this plugin's own map, or null when it has none.
+ * A user-defined table without a user object is exposed as entity set `U_<NAME>` and its fields live in `@<NAME>`
+ * (checked live). One with a user object is exposed under the object's code instead: that one comes from `UserObjectsMD`.
+ */
 export function tablesFor(entitySet: string): TableMap | null {
-  const doc = DOCUMENTS[entitySet]
-  if (doc) return { main: [doc[0]], collections: { DocumentLines: doc[1] } }
-  if (entitySet === 'BusinessPartners') return { main: ['OCRD'], collections: { BPAddresses: 'CRD1', ContactEmployees: 'OCPR' } }
-  if (entitySet === 'Items') return { main: ['OITM'], collections: {} }
-  if (entitySet === 'Warehouses') return { main: ['OWHS'], collections: {} }
-  if (entitySet === 'JournalEntries') return { main: ['OJDT'], collections: { JournalEntryLines: 'JDT1' } }
-  if (entitySet === 'ProductionOrders') return { main: ['OWOR'], collections: { ProductionOrderLines: 'WOR1' } }
-  // A user-defined table is exposed as entity set `U_<NAME>` and its fields live in `@<NAME>`.
+  const known = STATIC_TABLES[entitySet]
+  if (known) return { main: [...known.main], collections: { ...known.collections } }
   const udt = /^U_(\w+)$/.exec(entitySet)
   if (udt) return { main: [`@${udt[1]}`], collections: {} }
   return null
@@ -165,9 +182,12 @@ export interface ContextInput {
   /** The `UserFieldsMD` read stopped at its cap: the list of user fields is incomplete. */
   userFieldsTruncated?: boolean
   tables: TableMap | null
+  /** Tables the developer chose with `--tables`: marked in the ficha and kept when it is regenerated. */
+  chosenTables?: string[]
 }
 
 export const CONTEXT_HEADER = { fetched: 'Fetched', odata: 'OData version' }
+const CHOSEN_TABLES = 'Tables set with --tables'
 
 function standard(fields: Field[]): Field[] {
   return fields.filter((f) => !f.name.startsWith('U_'))
@@ -215,6 +235,7 @@ function collapseRuns(names: string[]): string[] {
   out.push(`- ${CONTEXT_HEADER.fetched}: ${input.fetchedAt.toISOString()}`)
   out.push(`- ${CONTEXT_HEADER.odata}: ${input.odataVersion} (B1 ${input.versionB1})`)
   out.push(`- Entity type: ${info.entityType} · Key: ${info.keys.join(', ') || '-'}`)
+  if (input.chosenTables) out.push(`- ${CHOSEN_TABLES}: ${input.chosenTables.join(', ')} (chosen by the developer; kept when this ficha is regenerated, "context ${input.entitySet} --tables default" undoes it)`)
   out.push('- Legend: fields are grouped by type; `!` after a name = Nullable=false in $metadata (not always the same as mandatory when writing), any other field may be left empty. A type followed by (a | b) is an enumeration and those are its valid values. `[]` = collection. $metadata gives no size for standard fields.')
 
   const own = standard(info.fields)
@@ -227,7 +248,7 @@ function collapseRuns(names: string[]): string[] {
     out.push('', '## User fields', `Not resolved: this plugin does not know which table stores ${input.entitySet}. Ask the developer to run \`context ${input.entitySet} --tables <TABLE,...>\`.`)
   } else {
     const main = (input.userFields ?? []).filter((u) => input.tables!.main.includes(u.TableName)).sort((a, b) => a.Name.localeCompare(b.Name))
-    out.push('', `## User fields (${input.tables.main.join(', ')})`, ...(main.length > 0 ? userBlock(main) : ['None.']))
+    out.push('', `## User fields (${input.tables.main.join(', ')})${input.chosenTables ? ' [--tables]' : ''}`, ...(main.length > 0 ? userBlock(main) : ['None.']))
     if (input.userFieldsTruncated) out.push('WARNING: the list of user fields was cut off (too many); some may be missing.')
   }
 
@@ -254,4 +275,10 @@ export function readHeader(markdown: string): { fetchedAt: Date; odataVersion: s
   const odata = new RegExp(`^- ${CONTEXT_HEADER.odata}: (v[12])`, 'm').exec(markdown)?.[1]
   const date = fetched ? new Date(fetched) : null
   return date && !Number.isNaN(date.getTime()) && odata ? { fetchedAt: date, odataVersion: odata } : null
+}
+
+/** The tables chosen with `--tables` that an existing ficha records, or null when it has none. */
+export function readChosenTables(markdown: string): string[] | null {
+  const line = new RegExp(`^- ${CHOSEN_TABLES}: (.+?)(?: \\(chosen by|\\r?$)`, 'm').exec(markdown)?.[1]
+  return line ? line.split(', ') : null
 }

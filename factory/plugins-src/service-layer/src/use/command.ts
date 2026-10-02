@@ -4,7 +4,7 @@
  *   node use.mjs traverse <EntitySet> [--max-rows N] [query options]
  *   node use.mjs count <EntitySet> [--filter ...]
  *   query options: --filter --select --orderby --expand (passed to the Service Layer as given)
- *   node use.mjs context <EntitySet> [--refresh] [--show] [--tables OCRD,CRD1]
+ *   node use.mjs context <EntitySet> [--refresh] [--show] [--tables OCRD,CRD1 | default]
  *   node use.mjs clean <id|folder|path>   deletes that Volcado only
  *   every command takes [--entorno dev|uat|prod]; read commands also [--refresh-context]
  */
@@ -29,7 +29,7 @@ const USAGE = {
   page: 'Usage: page <EntitySet> [--top N] [--skip N] [--filter ...] [--select ...] [--orderby ...] [--expand ...]',
   traverse: 'Usage: traverse <EntitySet> [--max-rows N] [--filter ...] [--select ...] [--orderby ...] [--expand ...]',
   count: 'Usage: count <EntitySet> [--filter ...]',
-  context: 'Usage: context <EntitySet> [--refresh] [--show] [--tables TABLE,TABLE]',
+  context: 'Usage: context <EntitySet> [--refresh] [--show] [--tables TABLE,TABLE | default]',
   clean: 'Usage: clean <id | folder name | path of the Volcado>',
 }
 
@@ -37,6 +37,15 @@ function toInt(name: string, value: string | undefined): number | undefined {
   if (value === undefined) return undefined
   if (!/^\d+$/.test(value)) throw new SboError('INVALID_ARGUMENTS', `${name} must be a whole number, got "${value}".`)
   return Number(value)
+}
+
+/** `--tables OCRD,CRD1` -> the list; `--tables default` -> an empty list (go back to the plugin's own resolution). */
+function parseTables(value: string | undefined): string[] | undefined {
+  if (value === undefined) return undefined
+  if (value.trim().toLowerCase() === 'default') return []
+  const tables = value.split(',').map((t) => t.trim()).filter(Boolean)
+  if (tables.length === 0) throw new SboError('INVALID_ARGUMENTS', USAGE.context)
+  return tables
 }
 
 export async function main(argv: string[], root: string, deps: Deps = {}): Promise<UseOutput> {
@@ -77,7 +86,7 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
       case 'count':
         return await count({ ...base, entitySet: one(USAGE.count), filter: values.filter })
       case 'context':
-        return await contextCommand({ ...base, entitySet: one(USAGE.context), refresh: values.refresh, show: values.show, tables: values.tables?.split(',').map((t) => t.trim()).filter(Boolean) })
+        return await contextCommand({ ...base, entitySet: one(USAGE.context), refresh: values.refresh, show: values.show, tables: parseTables(values.tables) })
       case 'clean':
         return await cleanDump({ ...base, target: one(USAGE.clean) })
       default:
