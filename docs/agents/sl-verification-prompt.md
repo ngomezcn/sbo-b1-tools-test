@@ -1,6 +1,6 @@
 # Prompt: verificar la documentación de Service Layer contra un SL real
 
-Pega todo lo que hay debajo de la línea en una sesión cloud nueva (entorno con el dominio del túnel permitido y los secretos `SL_URL`, `SL_COMPANY`, `SL_USER`, `SL_PASSWORD`).
+Pega todo lo que hay debajo de la línea en una sesión de Claude Code **local**, abierta en la raíz del repo, en el mismo ordenador donde corre el Service Layer. Antes de lanzarla, exporta en esa terminal `SL_URL` (por ejemplo `https://localhost:50000`), `SL_COMPANY`, `SL_USER` y `SL_PASSWORD`.
 
 ---
 
@@ -10,8 +10,8 @@ Eres el **orquestador** de una campaña de verificación de la documentación `d
 
 - Lee primero: `AGENTS.md`, `CONTEXT.md`, `docs/adr/0007-odata-como-seccion-externa-y-hechos-verificados-en-linea.md`, `factory/docs-src/odata-staging/PENDING-REVIEW.md` (sobre todo el **ítem 6**) y `factory/docs-src/service-layer/PROGRESS.md`.
 - El Service Layer al que apuntas es una **base demo de SAP (`SBODemoES`) totalmente desechable**. El desarrollador te autoriza **explícitamente y sin restricciones, solo para esta tarea**, a crear, modificar, borrar, cancelar y cerrar cualquier dato, incluidos los datos preexistentes, si lo necesitas para confirmar algo. Esto prevalece sobre el ADR 0002 (confirmación de escritura), que aplica al plugin de uso y no a esta campaña. Si una prueba necesita un dato propio, créalo con prefijo `ZZTEST_`; modifica los datos de la demo solo cuando no haya otra forma de probarlo.
-- Acceso: `SL_URL` (URL base del túnel, sin `/b1s/...`), `SL_COMPANY`, `SL_USER`, `SL_PASSWORD`. **Nunca** imprimas, commitees ni escribas en informes la contraseña, `B1SESSION` ni cookies (redáctalos como `***`).
-- Si el primer `POST {SL_URL}/b1s/v1/Login` falla con 403 del proxy, para y dile al usuario que el dominio no está permitido en *Network access* del entorno. Si falla por otro motivo (túnel caído, URL nueva), para y avisa. No reintentes en bucle.
+- Acceso: `SL_URL` (URL base local, sin `/b1s/...`; por defecto `https://localhost:50000`), `SL_COMPANY`, `SL_USER`, `SL_PASSWORD`. **Nunca** imprimas, commitees ni escribas en informes la contraseña, `B1SESSION` ni cookies (redáctalos como `***`).
+- Si el primer `POST {SL_URL}/b1s/v1/Login` falla (conexión rechazada, puerto distinto, credenciales), para y avisa al usuario. No reintentes en bucle. El certificado de un SL local suele ser autofirmado: en `localhost` puedes usar `curl -k` o `verify=False`.
 - Anota en cuanto hagas login la **versión de Service Layer y de B1** (campo `Version` de la respuesta de Login, o `/b1s/v1/CompanyService_GetCompanyInfo`) y la fecha: son el "versión de SL + fecha" de cada hecho verificado.
 
 ## 1. Fase 1: agente organizador
@@ -31,7 +31,7 @@ El organizador **no ejecuta pruebas**, solo planifica. Cuando termine, revisa el
 
 - Lanza **un subagente por bloque, secuencialmente**: no empieces el siguiente hasta que el anterior termine (el usuario lo pidió así por seguridad; una sola sesión de SL a la vez). Cada subagente hace su propio login y cierra sesión (`POST /Logout`) al acabar.
 - Cada subagente recibe en el prompt: su bloque del plan, la autorización de la sección 0, las reglas de esta sección y la de evidencia. No le pases credenciales en el prompt: que lea las variables de entorno.
-- Herramienta: `curl -sS -i` (sin `-k`, respeta el proxy del entorno) o `python3` con `requests`. Guarda todo borrador en el scratchpad, no en el repo.
+- Herramienta: `curl -sS -i` (con `-k` por el certificado autofirmado) o `python3` con `requests`. Guarda todo borrador en el scratchpad, no en el repo.
 - **Tenacidad**: para cada `Txx`, si el primer intento no es concluyente (error de sintaxis, datos faltantes, ruta equivocada), prueba **hasta 5 variantes** razonables (v1 y v2, cabeceras distintas, otro objeto) antes de declararlo "no verificable". Si un resultado contradice la doc, repítelo una vez más para descartar una anomalía puntual y prueba un segundo objeto o entidad distinto.
 - Si algo bloquea el resto del bloque (sesión caída, límite de licencias, datos corruptos), arréglalo (reloguea, recrea datos) o informa del bloqueo; no sigas con pruebas basadas en un estado inválido.
 - Si un subagente descubre algo importante fuera de su bloque, lo añade al plan como `Txx` nuevo (para el orquestador), no lo pone en la doc.
