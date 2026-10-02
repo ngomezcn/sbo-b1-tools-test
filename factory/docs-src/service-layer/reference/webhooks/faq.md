@@ -16,6 +16,12 @@ Retry occurs when the webhook returns the following HTTP status codes:
 
 Retries also occur when other network exceptions are encountered, such as client connection timeouts, connection refused, or DNS resolution failures.
 
+<!-- supplement -->
+
+Other 4xx responses (bad request, authentication failure, not found) are not retried: the notification is marked failed at once. 3xx redirects are not followed.
+
+<!-- /supplement -->
+
 ### What is the retry policy for webhook notifications?
 
 The Webhook Messenger retries sending the notification up to five times using an exponential backoff strategy. The initial retry interval is two seconds and doubles with each subsequent retry (i.e., 2s, 4s, 8s, 16s, 32s). If all retries fail, the notification is marked as failed, and no further attempts are made.
@@ -27,6 +33,12 @@ At the single company level, the Webhook Messenger attempts to send notification
 ### Are duplicate notifications sent for the same event?
 
 The Webhook Messenger ensures that each event triggers a single notification. However, retries due to transient failures may result in duplicate notifications. The receiving system should be idempotent and use unique identifiers, such as event IDs in the payload, to handle duplicates gracefully.
+
+<!-- supplement -->
+
+A slow endpoint causes duplicates too: if it takes longer than `WebhookRequestTimeout` to answer, the Webhook Messenger sees a timeout and retries even though the endpoint processed the event. Answer with HTTP 200 as soon as the request is received and process the events afterwards.
+
+<!-- /supplement -->
 
 ### What are typical errors when validating a Webhook URL?
 

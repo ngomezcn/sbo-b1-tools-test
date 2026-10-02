@@ -25,6 +25,12 @@ POST SBOBobService_SetSystemPermission
 }
 ```
 
+<!-- supplement -->
+
+`Permission` takes 1 for Full Authorization, 2 for Read-Only and 3 for No Authorization.
+
+<!-- /supplement -->
+
 > **Note**
 >
 > - Superusers have full permission to perform any operations on EventSubscription.

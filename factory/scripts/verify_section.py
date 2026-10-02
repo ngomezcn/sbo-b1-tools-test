@@ -16,10 +16,15 @@ Hoja kinds, declared by the start of `source:` in the frontmatter:
                                      completes PDF content with tests against a real Service Layer: like external,
                                      plus every "**Verified (SL <version>, <date>):**" block must carry that version and date
 
+A pdf hoja may also carry supplements: text from outside the PDF, between `<!-- supplement -->` and
+`<!-- /supplement -->` on their own lines. They are cut out before the code, table, image and link checks, so they
+may hold code and tables; they must be paired and carry no images.
+
 Checks, each against outline.json / elements.json / links.json from the extraction:
     frontmatter   every hoja has title, source and summary; a pdf hoja's source looks like "pdf pp. A-B, sec X, Y"
     verified      every verified hoja has Verified blocks, all stamped with the version and date of its source
     nonpdf        external and verified hojas carry no images; verified hojas carry no URLs either
+    supplement    every supplement marker in a pdf hoja is paired; supplements carry no images
     coverage      every page of the apartado is inside some hoja's source range
     sections      every outline section starting in the apartado is listed (or an ancestor is) in some hoja's source
     code          fenced block count equals extracted code blocks; every extracted block's text is present verbatim
@@ -48,6 +53,9 @@ MD_LINK = re.compile(r"\]\(([^)\s#]+)(?:#[^)]*)?\)")
 VERIFIED_SOURCE = re.compile(r"^verified:.*Service Layer\s+(\d+)\s+on\s+(\d{4}-\d{2}-\d{2})")
 VERIFIED_MARK = re.compile(r"\*\*Verified \(SL (\d+), (\d{4}-\d{2}-\d{2})\):\*\*")
 URL = re.compile(r"https?://")
+SUPPLEMENT_OPEN = re.compile(r"<!--\s*supplement\s*-->")
+SUPPLEMENT_CLOSE = re.compile(r"<!--\s*/supplement\s*-->")
+SUPPLEMENT = re.compile(r"<!--\s*supplement\s*-->.*?<!--\s*/supplement\s*-->[ \t]*\n?", re.S)
 
 
 def parse_ranges(text):
@@ -205,6 +213,10 @@ def main():
     all_texts = texts
     kinds = {h: source_kind(t) for h, t in all_texts.items()}
     texts = {h: t for h, t in all_texts.items() if kinds[h] == "pdf"}
+    # supplements inside a pdf hoja (content from outside the PDF) are cut out before the fidelity checks
+    unbalanced = [h for h, t in texts.items() if len(SUPPLEMENT_OPEN.findall(t)) != len(SUPPLEMENT_CLOSE.findall(t))]
+    supplements = {h: SUPPLEMENT.findall(t) for h, t in texts.items()}
+    texts = {h: SUPPLEMENT.sub("", t) for h, t in texts.items()}
     rel = {h: h.relative_to(docs / "reference").as_posix() for h in hojas}
 
     # frontmatter -------------------------------------------------------
@@ -252,6 +264,12 @@ def main():
         if kinds[h] == "verified" and URL.search(body(t)):
             problems.append(f"{rel[h]}: verified hojas carry no URLs")
     rep.check("nonpdf", problems)
+
+    problems = [f"{rel[h]}: <!-- supplement --> and <!-- /supplement --> are not paired" for h in unbalanced]
+    for h, blocks in supplements.items():
+        if any(IMG_REF.search(b) for b in blocks):
+            problems.append(f"{rel[h]}: supplements carry no images")
+    rep.check("supplement", problems)
 
     # coverage ------------------------------------------------------------
     covered = set().union(*src_pages.values()) if src_pages else set()

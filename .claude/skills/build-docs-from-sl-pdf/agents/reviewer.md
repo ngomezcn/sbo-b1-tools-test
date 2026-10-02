@@ -17,6 +17,8 @@ Hojas:
 2. The hojas.
 3. For every page A..B: `WORK/pages/pNNN.md` and `WORK/render/pNNN.png`.
 
+Text between `<!-- supplement -->` and `<!-- /supplement -->` is not from the PDF by design (leaf-format.md, "Supplements in a pdf hoja"). Skip it in every class below, except that a supplement contradicting a PDF page is a discrepancy.
+
 ## Compare
 
 Go page by page, the PDF side in front of you and the hoja beside it. Look for each class of discrepancy:

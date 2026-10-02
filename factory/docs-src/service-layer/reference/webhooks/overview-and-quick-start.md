@@ -87,3 +87,19 @@ To get started with webhooks in the Service Layer, follow these steps:
    Trigger the subscribed events in SAP Business One by creating a sales order, for example, through the Service Layer, DI API, SAP Business One desktop client, or Web Client.
 6. Receive notifications.
    Verify that your webhook service can receive and process the notifications correctly.
+
+<!-- supplement -->
+
+## Before you start
+
+- Webhooks need SAP Business One 10.0 FP 2602 or later; `BizObjProps` and `FilterExpr` need FP 2608 or later.
+- The `WebhookURL` must be HTTPS and reachable from the SAP Business One server. For development, a temporary URL from `https://webhook.site/` or an HTTPS tunnel to a local port (for example ngrok) works.
+- To check whether webhooks are enabled, call `CompanyService_GetAdminInfo` and look for `"EnableWebhook": "tYES"`.
+- `AuthenticationType` defaults to "HMAC"; the minimal subscription above sets "None" explicitly for that reason.
+- Notifications are raised however the record changed: SAP Business One client, Web Client, DI API or Service Layer.
+
+## Webhooks or polling
+
+Polling (repeated `$filter` queries on `UpdateDate`) still fits when you need historical data, on-demand reports, events that are not in the event catalog, or data that a notification payload cannot carry. For reacting to changes in business objects, webhooks avoid the load, the delay and the watermark bookkeeping of polling.
+
+<!-- /supplement -->

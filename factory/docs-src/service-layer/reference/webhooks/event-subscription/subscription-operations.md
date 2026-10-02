@@ -73,6 +73,17 @@ To retrieve event subscriptions with filtering, use OData query options. For exa
 GET EventSubscriptions?$filter=AuthenticationType eq 'HMAC'
 ```
 
+<!-- supplement -->
+
+Other OData query options work the same way, for example to list only the active subscriptions or to return selected fields:
+
+```http
+GET EventSubscriptions?$filter=State eq 'Active'
+GET EventSubscriptions?$select=WebhookID,WebhookURL,State,WorkMode
+```
+
+<!-- /supplement -->
+
 ## Update Event Subscription
 
 To update an existing event subscription, send a PATCH request to the `EventSubscriptions('{WebhookID}')` endpoint with the updated details. For example, to add a new event (such as `Invoices.Updated`) to the existing subscription:
@@ -108,6 +119,12 @@ B1S-ReplaceCollectionsOnPatch: true
 }
 ```
 
+<!-- supplement -->
+
+A PATCH is partial: only the properties you send change, and an `EventCollection` you send is appended to the existing one unless `B1S-ReplaceCollectionsOnPatch: true` is set. `WebhookID` and `WebhookURL` cannot be changed after the subscription is created; to move a subscription to another URL, delete it and create a new one.
+
+<!-- /supplement -->
+
 ## Delete Event Subscription
 
 To delete an event subscription, send a DELETE request to the `EventSubscriptions('{WebhookID}')` endpoint.
@@ -115,6 +132,12 @@ To delete an event subscription, send a DELETE request to the `EventSubscription
 ```http
 DELETE EventSubscriptions('MyWebhook')
 ```
+
+<!-- supplement -->
+
+Only a subscription in the "Inactive" state can be deleted; pause an active one first. Success returns status code 204. Notifications already dispatched stay in `EventNotifications`.
+
+<!-- /supplement -->
 
 ## Resume Event Subscription
 
@@ -135,6 +158,12 @@ POST EventSubscriptions('MyWebhook')/Pause
 ```
 
 Upon success, the Service Layer returns status code 204. The webhook subscription is paused and does not receive event notifications until it is resumed.
+
+<!-- supplement -->
+
+A paused subscription is in the "Inactive" state. Events that occur while it is paused are still recorded in `EventNotifications` but are not delivered, and `Resume` does not send them afterwards. To receive them, use `Replay`.
+
+<!-- /supplement -->
 
 ## Handshake Event Subscription
 

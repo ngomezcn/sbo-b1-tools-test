@@ -28,6 +28,10 @@ Two other kinds exist, declared by the start of `source` and checked by `verify_
 - `source: external <origin>`: a hoja of a sección externa (CONTEXT.md), e.g. OData.
 - `source: verified: <origin> ... Service Layer <version> on <YYYY-MM-DD>`: a hoja that completes PDF content with tests against a real Service Layer. Each tested fact is a blockquote `> **Verified (SL <version>, <date>):** …` next to the rule it qualifies, carrying exactly the version and date of `source`; the body has no URLs. Claims stay within what was tested (entity, request type, header form).
 
+### Supplements in a pdf hoja
+
+A pdf hoja may carry text from outside the PDF (e.g. SAP Community articles), added by the user's decision after the build. It sits between `<!-- supplement -->` and `<!-- /supplement -->`, each on its own line, placed in the section it complements. The text is written like the hoja itself, with no label and no attribution, so a reader cannot tell it from the rest. `verify_section.py` cuts supplements out before its fidelity checks, so they may hold code and tables; they carry no images. A supplement never contradicts the PDF: where the outside source disagrees, the PDF wins and the supplement is omitted. Reviewers skip supplements.
+
 ## Body
 
 - **Faithful.** Every sentence, value, code block, table row and figure of the covered sections appears, in the PDF's order unless a reorder clearly reads better. Content is never invented, summarised away or corrected. A sentence that looks wrong in the PDF stays as printed.

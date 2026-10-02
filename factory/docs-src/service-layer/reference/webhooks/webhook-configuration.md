@@ -121,3 +121,15 @@ GET CompanyService_GetAdminInfo
 >
 > - Use the OData V4 protocol for all Service Layer API calls related to webhooks. The relative path should be `/b1s/v2/`.
 > - If the `CompanyService_UpdateAdminInfo` API returns an error such as "10001237 – Enter valid folder path", check that the relevant directories (for example, **ExcelFolderPath** and **XMLFileFolderPath**) exist on the server. For more information, see the [FAQ](faq.md) [page 222] section.
+
+<!-- supplement -->
+
+## Tuning
+
+- `MaxNumberOfWebHooks`: creating a subscription beyond the limit returns an error.
+- `MessageTTL`: raise it if an outage of the endpoint can last longer than 24 hours, so messages are not discarded before it recovers. Keep it below `MessageRetentionTime`.
+- `WebhookRequestTimeout`: prefer an endpoint that answers immediately and processes afterwards over a longer timeout. Do not set it below 5 seconds.
+- `MessageBatchLimit`: lower it when the endpoint or an API gateway in front of it limits the request body size; 1 sends one event per request.
+- Any number of these settings can be sent in a single `CompanyService_UpdateAdminInfo` call.
+
+<!-- /supplement -->

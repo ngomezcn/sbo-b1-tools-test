@@ -73,3 +73,19 @@ If no authentication is required, the handshake request will simply include the 
 GET https://partner-webhook-service:3000/MyWebhook
 X-B1-Webhook-Token: <token>
 ```
+
+<!-- supplement -->
+
+## Handshake failures
+
+A handshake fails when:
+
+- the endpoint is not reachable from the SAP Business One server (firewall, wrong URL, service not running);
+- the endpoint does not answer GET requests;
+- the response body has no `Challenge` field, or its value is not the token sent;
+- the endpoint does not answer within the request timeout (`WebhookRequestTimeout`, default 10 seconds);
+- the SSL certificate is invalid, expired, or self-signed and not imported.
+
+When the handshake fails at creation, the Service Layer returns an error with the message "Webhook handshake error." and does not create the subscription. Calling the `Handshake` API checks an endpoint without waiting for an event.
+
+<!-- /supplement -->

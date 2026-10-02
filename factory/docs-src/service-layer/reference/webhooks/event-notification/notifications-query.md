@@ -222,3 +222,26 @@ The `EventNotifications` entity includes these major properties:
     This provides more context and details about the event for each subscribed webhook.
 
     Available as of SAP Business One 10.0 FP 2608.
+
+<!-- supplement -->
+
+## Status values
+
+| Status | Meaning |
+|---|---|
+| New | Recorded; the Webhook Messenger has not tried to deliver it yet. |
+| Delivered | Delivered to every subscribed webhook. |
+| PartiallyDelivered | Delivered to some subscribed webhooks and failed for others. |
+| Failed | All delivery attempts failed; no subscribed webhook received it. |
+| Archived | Recorded while all subscribed webhooks were inactive, so no delivery was attempted. |
+
+`EventID` is the same value as the `id` field of the notification the endpoint receives, so it correlates what the Webhook Messenger sent with what the endpoint got.
+
+Examples:
+
+```http
+GET EventNotifications?$filter=Status eq 'Failed'&$orderby=CreateDate desc,CreateTime desc&$top=20
+GET EventNotifications?$filter=BusinessObject eq 'Orders' and FieldValues eq '91'
+```
+
+<!-- /supplement -->

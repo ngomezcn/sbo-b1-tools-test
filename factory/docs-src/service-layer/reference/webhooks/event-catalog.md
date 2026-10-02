@@ -43,3 +43,18 @@ $metadata#SAPB1.EventCatagory",
     ]
 }
 ```
+
+<!-- supplement -->
+
+The `BusinessObject` names are the Service Layer entity names: `Orders` is the `Orders` entity, `Invoices` the A/R invoices. Not every object supports every transaction type; `BusinessPartners` has no `Cancelled`, for example, so read `TransactionTypes` in the catalog before subscribing.
+
+| Transaction type | Meaning |
+|---|---|
+| Created | A new record was added. |
+| Updated | An existing record was modified. |
+| Deleted | A record was deleted. |
+| Closed | A document was closed. |
+| Cancelled | A document was cancelled. |
+| Reopened | A closed document was reopened. |
+
+<!-- /supplement -->

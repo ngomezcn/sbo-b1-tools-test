@@ -350,3 +350,13 @@ summary: The properties of an EventSubscription (WebhookID, WebhookURL, authenti
           }
       ]
       ```
+
+<!-- supplement -->
+
+## Notes
+
+- `WebhookID` and `WebhookURL` cannot be changed after the subscription is created.
+- `AuthenticationType` defaults to "HMAC", so a subscription created without it needs `AuthenticationCred`. For a subscription with no authentication, send `"AuthenticationType": "None"` explicitly.
+- A subscription is "Inactive" when it was paused with the `Pause` API or when the system deactivated it after repeated delivery failures. Fix the cause, then call `Resume`.
+
+<!-- /supplement -->

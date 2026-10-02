@@ -22,6 +22,12 @@ When a subscribed event occurs, the Webhook Messenger sends a notification to th
 
 The payload content matches the properties of the `EventNotifications` entity. Depending on the configuration, notifications can be sent as single events or grouped in batches. By default, the messenger sends notifications in batches to optimize performance. You can control the number of events in a batch by adjusting the `MessageBatchLimit` configuration setting.
 
+<!-- supplement -->
+
+The payload is always a JSON array, even when it carries a single event, so the endpoint must iterate over it. `id` is the `EventID` of the notification and is the key to deduplicate on. `source` identifies the system and the company database, which matters when one endpoint serves several companies. `subject` is the key of the affected record (`DocEntry` for Orders, `CardCode` for BusinessPartners).
+
+<!-- /supplement -->
+
 ## Single Notification Payload
 
 A single notification uses the following payload structure:
