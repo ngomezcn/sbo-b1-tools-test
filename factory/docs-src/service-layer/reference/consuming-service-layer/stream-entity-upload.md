@@ -32,7 +32,7 @@ The following section will give some samples that demonstrate how to use the Slu
 
 ## OData Client Sample
 
-The code snippet below uses the oData client library (https://docs.microsoft.com/en-us/odata/client/getting-started) to upload an attachment to the Service Layer. For more details on how to use the oData client library to work with the Service Layer, please see .
+The code snippet below uses the .NET OData client library (generated `slContext` proxy) to upload an attachment to the Service Layer.
 
 > **Sample Code**
 >

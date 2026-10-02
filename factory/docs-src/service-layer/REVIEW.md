@@ -24,7 +24,7 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l101-02 | link | 101 | consuming-service-layer/attachments/setup-folder.md | https://www.samba.org/cifs/ | removed | link removed at user request |
 | l103-01 | link | 103 | consuming-service-layer/attachments/setup-folder.md | https://support.microsoft.com/en-us/windows/create-and-use-strong-passwords-c5cebb49-8c53-4f5e-2bc4-fe357ca048eb | removed | link removed at user request |
 | l110-01 | link | 110 | consuming-service-layer/stream-entity-upload.md | https://datatracker.ietf.org/doc/html/rfc5023#page-30 | removed | link removed at user request |
-| l110-02 | link | 110 | consuming-service-layer/stream-entity-upload.md | https://docs.microsoft.com/en-us/odata/client/getting-started | pending | |
+| l110-02 | link | 110 | consuming-service-layer/stream-entity-upload.md | https://docs.microsoft.com/en-us/odata/client/getting-started | removed | URL removed (generic client-library intro, no Service Layer content); the dangling "please see ." sentence was dropped. The sample is self-contained |
 | l116-01 | link | 116 | consuming-service-layer/javascript-extension/framework.md | https://developers.google.com/v8 | removed | link removed at user request |
 | l119-01 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | removed | link removed at user request |
 | l119-02 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | removed | link removed at user request |
