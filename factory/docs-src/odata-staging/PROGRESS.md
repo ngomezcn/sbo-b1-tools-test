@@ -4,9 +4,9 @@ Pins: .claude/skills/build-docs-from-odata/pins.json · Skill: /build-docs-from-
 
 ## RESUME HERE
 
-**Done last session:** full odata staging build finished: 8 bloques `done`, bloque `batch-and-async` `dropped`, 37 hojas, bloque indexes and root `reference/odata/index.md` (attribution) written; `verify_odata_block.py --all` green; `PENDING-REVIEW.md` completed for the user.
-**Next:** user reviews `PENDING-REVIEW.md` items; after approval, move staging into `service-layer/reference/odata/` (item 1) and publish to `sbo-skills/` only when asked (item 7).
-**Waiting on the user:** all items in `PENDING-REVIEW.md`.
+**Done last session:** PENDING-REVIEW items 1–5 executed (2026-10-02): staging moved into `service-layer/reference/odata/`; SKILL.md, ETag cross-refs, `service-layer/PROGRESS.md` external-section row; item 5 decision recorded (`verify_odata_block.py` stays separate).
+**Next:** user or supervisor on PENDING-REVIEW item 6 (SL conflicts and doubtful mappings); item 7 (publish to `sbo-skills/`) only when the user asks.
+**Waiting on the user:** PENDING-REVIEW items 6–7; `service-layer/REVIEW.md` link rows (see `service-layer/PROGRESS.md` RESUME HERE).
 **Open decisions:** none.
 **Suggested skills:** none
 

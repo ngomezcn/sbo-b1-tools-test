@@ -1,6 +1,6 @@
 ---
 name: docs-service-layer
-description: SAP Business One Service Layer reference (guide v1.29): login and sessions, OData CRUD, query options, batch, UDF/UDT/UDO, attachments, semantic layer and SQL views, SQL Query, ETag, server configuration, webhooks, limitations, DI API comparison. Use when writing or debugging code that calls Service Layer, or when asked how a Service Layer feature behaves.
+description: SAP Business One Service Layer reference (guide v1.29): login and sessions, OData CRUD, query options, batch, UDF/UDT/UDO, attachments, semantic layer and SQL views, SQL Query, ETag, server configuration, webhooks, limitations, DI API comparison, OData protocol reference (headers, ETag, query options, metadata, status codes) under reference/odata/. Use when writing or debugging code that calls Service Layer, or when asked how a Service Layer feature behaves.
 ---
 
 # SAP Business One Service Layer
@@ -29,6 +29,7 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Look up general FAQs and common issues: DI API vs Service Layer, PUT vs PATCH, X-HTTP-Method-Override, service autostart, HANA client path; troubleshoot CORS errors in the browser | "what if my client does not support PATCH", "does b1s start with the system", "HANA client not in default location", "No Access-Control-Allow-Origin header is present", "preflight OPTIONS fails" | [faq](reference/faq/index.md) |
 | Port DI API code to Service Layer, or map DI API names to Service Layer names | "how do I call StartTransaction in Service Layer", "DI API Recordset equivalent", "what is the Service Layer name of this DI API collection", "UDO created with DI API, now with Service Layer" | [appendix-di-api-comparison](reference/appendix-di-api-comparison/index.md) |
 | Filter webhook events with a formula (operators, string, date, time, math and logical functions, app variables) | "how do I filter webhook events", "FilterExpr syntax", "IFNULL in a webhook formula" | [webhook-formula](reference/webhooks/webhook-formula/index.md) |
+| Look up generic OData protocol rules (ETag, Prefer, status codes, `$metadata` CSDL shape, context URL, nextLink) that Service Layer builds on | "what does 412 mean in OData", "what is @odata.nextLink", "how do I read EntityType in $metadata", "Prefer return=minimal" | [odata](reference/odata/index.md) |
 
 ## Confusable terms
 
@@ -77,3 +78,7 @@ Pick the row matching the question, open that index, then the single hoja it poi
 | Transaction APIs (DI API comparison) | DI API transactions vs `$batch` (sec 11.3); see also `$batch` change sets (sec 3.9.4), the script Transaction API (sec 3.19.5.5) and limitations (ch. 8) | [transaction-apis](reference/appendix-di-api-comparison/transaction-apis.md) |
 | UDO / UDF APIs (DI API comparison) | DI API vs Service Layer examples for UDOs and UDFs (sec 11.5, 11.6); the Service Layer reference is sec 3.13 and 3.15 | [udo-apis](reference/appendix-di-api-comparison/udo-apis.md) |
 | Metadata naming differences | DI API vs Service Layer names of collections, objects and properties (ch. 12); not the metadata document (sec 3.2), `SQLQuery` metadata (sec 4.1) or ETag metadata (sec 5.4) | [metadata-naming-differences](reference/appendix-di-api-comparison/metadata-naming-differences.md) |
+| OData ETag (protocol) | Generic `ETag` / `If-Match` / `If-None-Match` rules from OData 4.01; SL-specific hashing, placement and quirks stay in the etag apartado | [etag-and-concurrency](reference/odata/headers-and-versioning/etag-and-concurrency.md), [etag](reference/etag/index.md) |
+| OData query options (protocol) | Generic `$filter`/`$select`/`$expand`/`$count` semantics; SL-supported operators and examples stay under consuming-service-layer query-options | [query-options](reference/odata/query-options/index.md), [query-options](reference/consuming-service-layer/query-options/index.md) |
+| OData `$metadata` / CSDL | How to read Edm types, EntityType, Annotation in the metadata document; SL Metadata Document scenarios stay in consuming-service-layer | [metadata-and-annotations](reference/odata/metadata-and-annotations/index.md), [metadata-document](reference/consuming-service-layer/metadata-document.md) |
+| OData `$batch` / async | Generic batch/async preferences are not documented in `reference/odata/` (bloque dropped); SL multipart `$batch` stays in batch-operations | [batch-operations](reference/consuming-service-layer/batch-operations.md) |

@@ -1,6 +1,10 @@
 # Pending review: changes outside the odata staging folder
 
-Items for the user. Nothing here has been done; each item says what, why and the proposed text. Append further items; do not renumber.
+Items for changes outside the odata staging folder. Append further items; do not renumber. Historical proposals below stay for audit; status of each item is in the Status block.
+
+## Status (2026-10-02)
+
+Items 1–5 decided and executed by supervisor (grill-with-docs, user-delegated). Item 5: keep `verify_odata_block.py` separate from `verify_section.py`. Items 6–7 still open (6 = SL conflicts review; 7 = publish to sbo-skills, only on request). Note: empty leftover dirs `odata-staging/reference/odata/` may remain if the OS denied removal after the move; they hold no files.
 
 ## 1. Move the staging folder into Service Layer
 

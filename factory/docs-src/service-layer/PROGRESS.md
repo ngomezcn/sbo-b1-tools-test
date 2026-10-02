@@ -4,11 +4,17 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** apartado `appendix-di-api-comparison` (#10) planned (decisions delegated to the supervisor via grill-with-docs), transcribed (3 units), reviewed (u2, u3 clean; u1 had 2 items: missing p234-01 asset copied at integration, bold sub-headings in company-service-apis.md made `###`) and integrated: index.md, intent row and 5 confusable-term rows in SKILL.md, p234-01 copied, 3 rows settled in REVIEW.md. `verify_section.py` exits 0 for all 10 apartados.
-**Next:** the build is complete (all apartados `done`). Publishing to `sbo-skills/plugins/docs-service-layer/` is a separate manual step, only when the user asks and confirms.
-**Waiting on the user:** the 26 link rows in REVIEW.md are `pending` again (user will review them; earlier `keep` rows were a delegated supervisor decision). All 11 image rows are `removed`.
+**Done last session:** external section `reference/odata/` integrated into this tree (2026-10-02): SKILL.md description, By intent and Confusable terms rows; ETag cross-refs (ADR 0007); ledger row below.
+**Next:** the PDF apartados build is complete (all apartados `done`). Publishing to `sbo-skills/plugins/docs-service-layer/` is a separate manual step, only when the user asks and confirms.
+**Waiting on the user:** the 26 link rows in REVIEW.md are `pending` again (user will review them; earlier `keep` rows were a delegated supervisor decision). All 11 image rows are `removed`. PENDING-REVIEW items 6–7 remain open (SL conflicts review; publish to sbo-skills only on request).
 **Open decisions:** none.
 **Suggested skills:** none
+
+## External sections
+
+| section | skill | pins | status |
+|---|---|---|---|
+| reference/odata/ | /build-docs-from-odata | .claude/skills/build-docs-from-odata/pins.json (retrieved 2026-10-02; OASIS v4.01-os; MS commit 3ca8f5b) | integrated into this tree (2026-10-02). Bloque `batch-and-async` dropped. Build ledger: `factory/docs-src/odata-staging/PROGRESS.md`. |
 
 ## Apartados
 

@@ -6,6 +6,8 @@ summary: When to use ETag and If-Match to avoid lost updates in integrations, ho
 
 # ETag guide: when to use it and how it behaves
 
+OData generic ETag: reference/odata/headers-and-versioning/etag-and-concurrency.md
+
 - [When to use ETag](#when-to-use-etag)
 - [How the ETag is built and when it changes](#how-the-etag-is-built-and-when-it-changes)
 - [Where the ETag appears](#where-the-etag-appears)

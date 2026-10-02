@@ -2,14 +2,15 @@
 """Checks for one bloque of the sección externa reference/odata/ (build-docs-from-odata skill).
 
 Usage:
-    python factory/scripts/verify_odata_block.py <bloque> [--docs DIR] [--work DIR] [--sl DIR] [--pins PATH]
+    python factory/scripts/verify_odata_block.py <bloque> [--docs DIR] [--ledger DIR] [--work DIR] [--sl DIR] [--pins PATH]
     python factory/scripts/verify_odata_block.py --all [...]
 
-    --docs   staging docs: reference/odata/<bloque>/, PROGRESS.md (default factory/docs-src/odata-staging)
-    --work   output of extract_odata.py: outline.json, sections/<id>.md (default factory/.work/odata)
-    --sl     Service Layer docs, read-only, target of "In Service Layer:" lines (default factory/docs-src/service-layer)
-    --pins   pins.json (default .claude/skills/build-docs-from-odata/pins.json)
-    --all    every bloque folder under DOCS/reference/odata, plus the root index with its attribution block
+    --docs    Service Layer docs tree: reference/odata/<bloque>/ (default factory/docs-src/service-layer)
+    --ledger  odata build ledger: PROGRESS.md, progress-parts/ (default factory/docs-src/odata-staging)
+    --work    output of extract_odata.py: outline.json, sections/<id>.md (default factory/.work/odata)
+    --sl      Service Layer docs, read-only, target of "In Service Layer:" lines (default factory/docs-src/service-layer)
+    --pins    pins.json (default .claude/skills/build-docs-from-odata/pins.json)
+    --all     every bloque folder under DOCS/reference/odata, plus the root index with its attribution block
 
 Checks:
     frontmatter       title, source, summary; source = "external OData: <origin>@<version> <loc>[, <loc>] [+ ...]; retrieved <date>"
@@ -23,7 +24,7 @@ Checks:
     routing           bloque index.md exists, every hoja is linked from an index, the root index mentions the bloque
     size (warning)    hoja over 600 lines without an anchor index
 
-Ledger: DOCS/PROGRESS.md, or DOCS/progress-parts/*<bloque>.md when it is absent. Plan format:
+Ledger: LEDGER/PROGRESS.md, or LEDGER/progress-parts/*<bloque>.md when it is absent. Plan format:
     ## Plan: <bloque>  ->  ### Fragment decisions  ->  table | fragment | decision | where / reason |
 Exits 0 when every check passes, 1 otherwise.
 """
@@ -160,11 +161,11 @@ def parse_source(source):
     return (segs, m.group("date")), None
 
 
-def ledger_text(docs, bloque):
-    progress = docs / "PROGRESS.md"
+def ledger_text(ledger, bloque):
+    progress = ledger / "PROGRESS.md"
     if progress.exists():
         return progress.read_text(encoding="utf-8")
-    parts = sorted((docs / "progress-parts").glob(f"*{bloque}.md")) if (docs / "progress-parts").is_dir() else []
+    parts = sorted((ledger / "progress-parts").glob(f"*{bloque}.md")) if (ledger / "progress-parts").is_dir() else []
     return "\n".join(p.read_text(encoding="utf-8") for p in parts)
 
 
@@ -220,7 +221,7 @@ class Tree:
 
 
 # ---------------------------------------------------------------- checks
-def verify_bloque(bloque, docs, work, sl, pins_path, rep, root_index_required=False):
+def verify_bloque(bloque, docs, ledger, work, sl, pins_path, rep, root_index_required=False):
     root = docs / "reference" / "odata" / bloque
     warns = []
     hojas = sorted(p for p in root.rglob("*.md") if p.name != "index.md") if root.exists() else []
@@ -289,11 +290,11 @@ def verify_bloque(bloque, docs, work, sl, pins_path, rep, root_index_required=Fa
 
     # coverage ----------------------------------------------------------
     problems = []
-    ledger = plans(ledger_text(docs, bloque))
-    if bloque not in ledger:
-        problems.append(f"no '## Plan: {bloque}' in DOCS/PROGRESS.md (or progress-parts/*{bloque}.md)")
+    plan_by_bloque = plans(ledger_text(ledger, bloque))
+    if bloque not in plan_by_bloque:
+        problems.append(f"no '## Plan: {bloque}' in ledger PROGRESS.md (or progress-parts/*{bloque}.md)")
     else:
-        mine = ledger[bloque]
+        mine = plan_by_bloque[bloque]
         all_cited = [i for ids in cited.values() for i in ids]
         for frag, dec in mine.items():
             if dec in ("include", "merge") and not any(tree.covers(c, frag) or c == frag for c in all_cited):
@@ -307,7 +308,7 @@ def verify_bloque(bloque, docs, work, sl, pins_path, rep, root_index_required=Fa
                                for f, v in mine.items()):
                             continue
                         problems.append(f"{rel[h]}: cites {c}, decided exclude ({frag})")
-                other = [b for b, d in ledger.items() if b != bloque
+                other = [b for b, d in plan_by_bloque.items() if b != bloque
                          and any(v in ("include", "merge") and tree.covers(f, c) for f, v in d.items())]
                 in_mine = any(v in ("include", "merge") and (tree.covers(f, c) or tree.covers(c, f)) for f, v in mine.items())
                 if other and not in_mine:
@@ -420,7 +421,8 @@ def verify_root(docs, rep):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("bloque", nargs="?")
-    ap.add_argument("--docs", default="factory/docs-src/odata-staging")
+    ap.add_argument("--docs", default="factory/docs-src/service-layer")
+    ap.add_argument("--ledger", default="factory/docs-src/odata-staging")
     ap.add_argument("--work", default="factory/.work/odata")
     ap.add_argument("--sl", default="factory/docs-src/service-layer")
     ap.add_argument("--pins", default=DEFAULT_PINS)
@@ -428,7 +430,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if not a.bloque and not a.all:
         ap.error("give a bloque or --all")
-    docs, work, sl = Path(a.docs), Path(a.work), Path(a.sl)
+    docs, ledger, work, sl = Path(a.docs), Path(a.ledger), Path(a.work), Path(a.sl)
     rep, warns = Report(), []
     if a.all:
         base = docs / "reference" / "odata"
@@ -436,11 +438,11 @@ def main(argv=None):
         if not bloques:
             rep.check("bloques", [f"no bloque folders under {base}"])
         for b in bloques:
-            warns += verify_bloque(b, docs, work, sl, a.pins, rep, root_index_required=True)
+            warns += verify_bloque(b, docs, ledger, work, sl, a.pins, rep, root_index_required=True)
         verify_root(docs, rep)
         print(f"odata: {len(bloques)} bloques")
     else:
-        warns = verify_bloque(a.bloque, docs, work, sl, a.pins, rep)
+        warns = verify_bloque(a.bloque, docs, ledger, work, sl, a.pins, rep)
         print(f"bloque {a.bloque}")
     for w in warns:
         print(f"WARN  size: {w}")

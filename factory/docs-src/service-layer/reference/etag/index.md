@@ -1,5 +1,7 @@
 # ETag
 
+OData generic ETag (protocol headers and 412/428/304): [reference/odata/headers-and-versioning/etag-and-concurrency.md](../odata/headers-and-versioning/etag-and-concurrency.md)
+
 ## [ETag guide: when to use it and how it behaves](etag-guide.md)
 Use when: building an integration or sync where an external system (CRM, e-commerce, middleware) writes to entities that SAP users also edit, avoiding lost updates, deciding whether to use `If-Match`, handling a 412 and retrying, knowing how the ETag is built and where it is returned, `$select`/`$batch` pitfalls with ETag.
 Terms: `ETag`, `@odata.etag`, `DataVersion`, `If-Match`, `If-None-Match`, `412`, `-2039`, lost update, read-modify-write, `$batch`, `$select`

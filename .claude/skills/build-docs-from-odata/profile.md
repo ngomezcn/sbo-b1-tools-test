@@ -8,9 +8,9 @@ Everything specific to these sources lives here. The rest of the skill (flow, ro
 |---|---|
 | `PINS` | `.claude/skills/build-docs-from-odata/pins.json` (sources, versions, `retrieved` date; the only place with source URLs and the commit) |
 | `WORK` | `factory/.work/odata` (extraction output, git-ignored, rebuilt each run except `_cache/`) |
-| `DOCS` | `factory/docs-src/odata-staging` (staging: hojas in `DOCS/reference/odata/<bloque>/`, ledger `DOCS/PROGRESS.md`, `DOCS/PENDING-REVIEW.md`) |
-| `SL` | `factory/docs-src/service-layer` (read-only: target of "In Service Layer:" lines, source of sl-hits) |
-| Final home | `SL/reference/odata/` (moving `DOCS/reference/odata/` there is a pending item for the user; until then `DOCS` is the staging folder) |
+| `DOCS` | `factory/docs-src/service-layer` (live hojas at `DOCS/reference/odata/<bloque>/`; the odata build ledger is not under `DOCS`) |
+| `LEDGER` | `factory/docs-src/odata-staging` (`PROGRESS.md`, `PENDING-REVIEW.md`, `progress-parts/`) |
+| `SL` | `factory/docs-src/service-layer` (same tree as `DOCS`; target of "In Service Layer:" lines for PDF apartados, source of sl-hits) |
 
 Scripts: `factory/scripts/extract_odata.py` and `factory/scripts/verify_odata_block.py`. Flags are in their `--help`; defaults match this table.
 

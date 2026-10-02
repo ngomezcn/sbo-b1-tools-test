@@ -1,6 +1,6 @@
 # Ledger formats: `PROGRESS.md` and `PENDING-REVIEW.md`
 
-Both live in `DOCS/`, in English. Every path in this skill is relative to the repo root unless it starts with `DOCS/`, `WORK/`, `SL/` or `PINS` (defined in `profile.md`). `verify_odata_block.py` parses the Plan tables of `PROGRESS.md`: keep the table headers exactly as shown.
+Both live in `LEDGER/` (`factory/docs-src/odata-staging`), in English. Every path in this skill is relative to the repo root unless it starts with `DOCS/`, `LEDGER/`, `WORK/`, `SL/` or `PINS` (defined in `profile.md`). `verify_odata_block.py` parses the Plan tables of `PROGRESS.md`: keep the table headers exactly as shown.
 
 ## `PROGRESS.md`
 
@@ -85,13 +85,13 @@ Everything else stays in the sections above, without repetition. **Decisions** i
 
 - Normal mode: the user approves each plan; `Approved: <date> (<user>)`.
 - Autonomous run (the user delegated approvals): the supervisor approves, writing `Approved: 2026-10-02 (supervisor, delegated by the user)`, and records the delegation in Decisions.
-- Parallel build (several bloque supervisors at once): block supervisors never touch `PROGRESS.md`. Each writes its ledger section (its `## Plan: <bloque>` block plus its Decisions and Notes lines) to `DOCS/progress-parts/<n>-<bloque>.md`. A final assembler merges the parts into `PROGRESS.md` in bloque order and then deletes `progress-parts/`. While parts exist, `verify_odata_block.py` reads the plan from `progress-parts/*<bloque>.md`.
+- Parallel build (several bloque supervisors at once): block supervisors never touch `PROGRESS.md`. Each writes its ledger section (its `## Plan: <bloque>` block plus its Decisions and Notes lines) to `LEDGER/progress-parts/<n>-<bloque>.md`. A final assembler merges the parts into `PROGRESS.md` in bloque order and then deletes `progress-parts/`. While parts exist, `verify_odata_block.py` reads the plan from `progress-parts/*<bloque>.md`.
 
 ## `PENDING-REVIEW.md`
 
 Items for the user; everything that would touch `SL` or `sbo-skills/` goes here instead of being done. Numbered, each with what, why and the exact proposed text or change:
 
-1. Move `DOCS/reference/odata/` to `SL/reference/odata/` and set `DOCS` accordingly in `profile.md`.
+1. ~~Move `DOCS/reference/odata/` to `SL/reference/odata/`~~ **Done (2026-10-02, supervisor-delegated):** hojas live at `DOCS/reference/odata/`; ledger stays in `LEDGER/`. Items 2–5 remain in the user's `PENDING-REVIEW.md` for follow-up.
 2. Root `SL/SKILL.md`: draft rows (By intent, Confusable terms) and the `description` update.
 3. `SL/reference/etag/index.md` and `etag-guide.md`: draft cross reference to the OData ETag hoja.
 4. Draft ledger entry for `SL/PROGRESS.md`: odata as an external section built by `build-docs-from-odata`.
