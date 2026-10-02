@@ -15,4 +15,4 @@ SAP Business One Service Layer can be deployed in one of two different modes:
 
 For hardware requirements, such as memory capacity or number of CPU cores, refer to *SAP HANA hardware specifications and Hardware Requirements Guide for SAP Business One*.
 
-For more information, refer to the Platform Support Matrix in conjunction with the SAP Productivity Availability Matrix and the Administrator's Guides for SAP Business One (versions for both Microsoft SQL and SAP HANA) on SAP Help Portal (https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE).
+For more information, refer to the Platform Support Matrix in conjunction with the SAP Productivity Availability Matrix and the Administrator's Guides for SAP Business One (versions for both Microsoft SQL and SAP HANA) on SAP Help Portal.

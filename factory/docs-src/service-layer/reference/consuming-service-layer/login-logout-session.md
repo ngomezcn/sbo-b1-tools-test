@@ -23,7 +23,7 @@ POST https://<Server Name/IP>:<Port>/b1s/v1/Login
 
 > **Note**
 >
-> As of SAP Business One 10.0 FP2305, you can log in to the Service Layer with a Windows domain user account after activating the Active Directory Domain Services and binding its users to company users. For more information, please refer to the *SL Connection References* part in the guide *Identity and Authentication Management in SAP Business One* on the SAP Help Portal (https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE).
+> As of SAP Business One 10.0 FP2305, you can log in to the Service Layer with a Windows domain user account after activating the Active Directory Domain Services and binding its users to company users. For more information, please refer to the *SL Connection References* part in the guide *Identity and Authentication Management in SAP Business One* on the SAP Help Portal.
 
 If the login is successful, you get the following response:
 

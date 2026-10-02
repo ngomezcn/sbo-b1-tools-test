@@ -15,8 +15,8 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | p158-04 | image | 158 | sql-query/query-with-permission-control.md | 624x431 | removed | converted to text in the hoja (ASCII/description); PNG deleted from assets/ (user decision) |
 | p159-01 | image | 159 | sql-query/query-with-permission-control.md | 1333x706 | removed | converted to text in the hoja (ASCII/description); PNG deleted from assets/ (user decision) |
 | p193-01 | image | 193 | webhooks/event-subscription/subscription-permission-control.md | 788x631 | removed | converted to text in the hoja (ASCII/description); PNG deleted from assets/ (user decision) |
-| l012-01 | link | 12 | introduction-getting-started/system-requirements.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | pending | |
-| l016-01 | link | 16 | consuming-service-layer/login-logout-session.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | pending | |
+| l012-01 | link | 12 | introduction-getting-started/system-requirements.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | removed | URL removed from the hoja (user decision) |
+| l016-01 | link | 16 | consuming-service-layer/login-logout-session.md | https://help.sap.com/viewer/p/SAP_BUSINESS_ONE_PRODUCT_LINE | removed | URL removed from the hoja (user decision) |
 | l063-01 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://me.sap.com/notes/2008991 | pending | |
 | l063-02 | link | 63 | consuming-service-layer/semantic-layer-views/customized-views.md | https://blogs.sap.com/2014/07/24/how-to-export-and-deploy-hana-model-for-sap-business-one/ | pending | |
 | l066-01 | link | 66 | consuming-service-layer/semantic-layer-views/basic-authentication.md | https://www.httpwatch.com/httpgallery/authentication/ | pending | |
