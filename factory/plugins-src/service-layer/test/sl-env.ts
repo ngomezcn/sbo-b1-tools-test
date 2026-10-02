@@ -87,3 +87,83 @@ export async function ensureUserFields(specs: UserFieldSpec[]): Promise<void> {
 }
 
 export const getLive = (options: GetOptions) => live(options.root, () => getByKey(options))
+
+export interface Admin {
+  call(method: string, path: string, body?: unknown): Promise<{ status: number; json: any; text: string }>
+  close(): Promise<void>
+}
+
+/**
+ * A v2 session of its own for setting up (and removing) data in the disposable demo company. A session that lands on a broken
+ * node (407 on any read, see TESTING.md) is replaced.
+ */
+export async function admin(): Promise<Admin> {
+  const credentials = realCredentials()
+  for (let attempt = 0; ; attempt++) {
+    const { cookie } = await login(credentials, 'v2')
+    const call: Admin['call'] = async (method, path, body) => {
+      const r = await defaultTransport({
+        method,
+        url: `${baseUrl(credentials.url, 'v2')}/${path}`,
+        headers: { Cookie: cookie, ...(body === undefined ? {} : { 'Content-Type': 'application/json' }) },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      })
+      let json: any
+      try {
+        json = JSON.parse(r.text)
+      } catch {
+        /* no body, or not JSON */
+      }
+      return { status: r.status, json, text: r.text }
+    }
+    const close = () => logout(credentials, 'v2', cookie).catch(() => {})
+    const probe = await call('GET', "BusinessPartners('C50000')?$select=CardCode")
+    if (probe.status === 200) return { call, close }
+    await close()
+    if (attempt >= 8) throw new Error(`no usable session: ${probe.status}`)
+  }
+}
+
+/** Creates a user-defined table (and its fields) in the demo company if it is not there. `kind`: `bott_NoObject`, `bott_MasterData`... */
+export async function ensureUserTable(name: string, kind: string, fields: { Name: string; Size?: number; Mandatory?: 'tYES' | 'tNO'; Description?: string }[]): Promise<void> {
+  const a = await admin()
+  try {
+    if ((await a.call('GET', `UserTablesMD('${name}')`)).status !== 200) {
+      const made = await a.call('POST', 'UserTablesMD', { TableName: name, TableDescription: `${name} test table`, TableType: kind })
+      if (made.status !== 201) throw new Error(`Could not create table ${name}: ${made.text.slice(0, 200)}`)
+    }
+    for (const f of fields) {
+      const found = await a.call('GET', `UserFieldsMD?$filter=${encodeURIComponent(`Name eq '${f.Name}' and TableName eq '@${name}'`)}&$select=Name`)
+      if (found.json.value.length > 0) continue
+      const made = await a.call('POST', 'UserFieldsMD', { Type: 'db_Alpha', Size: 20, Description: f.Name, ...f, TableName: `@${name}` })
+      if (made.status !== 201) throw new Error(`Could not create @${name}.${f.Name}: ${made.text.slice(0, 200)}`)
+    }
+  } finally {
+    await a.close()
+  }
+}
+
+/** Registers a user object over a user table, with child tables, if it is not registered yet. */
+export async function ensureUserObject(code: string, kind: string, children: string[] = []): Promise<void> {
+  const a = await admin()
+  try {
+    if ((await a.call('GET', `UserObjectsMD('${code}')?$select=Code`)).status === 200) return
+    const made = await a.call('POST', 'UserObjectsMD', {
+      Code: code,
+      Name: code,
+      TableName: code,
+      ObjectType: kind,
+      CanCreateDefaultForm: 'tNO',
+      CanFind: 'tYES',
+      CanLog: 'tNO',
+    })
+    if (made.status !== 201) throw new Error(`Could not register user object ${code}: ${made.text.slice(0, 200)}`)
+    if (children.length > 0) {
+      // Child tables go in a second step: that is how it was checked live.
+      const patched = await a.call('PATCH', `UserObjectsMD('${code}')`, { UserObjectMD_ChildTables: children.map((TableName, i) => ({ TableName, ObjectName: TableName, SonNumber: i + 1 })) })
+      if (patched.status !== 204) throw new Error(`Could not add child tables to ${code}: ${patched.text.slice(0, 200)}`)
+    }
+  } finally {
+    await a.close()
+  }
+}
