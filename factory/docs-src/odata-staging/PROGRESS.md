@@ -4,9 +4,9 @@ Pins: .claude/skills/build-docs-from-odata/pins.json · Skill: /build-docs-from-
 
 ## RESUME HERE
 
-**Done last session:** PENDING-REVIEW items 1–5 executed (2026-10-02): staging moved into `service-layer/reference/odata/`; SKILL.md, ETag cross-refs, `service-layer/PROGRESS.md` external-section row; item 5 decision recorded (`verify_odata_block.py` stays separate).
-**Next:** user or supervisor on PENDING-REVIEW item 6 (SL conflicts and doubtful mappings); item 7 (publish to `sbo-skills/`) only when the user asks.
-**Waiting on the user:** PENDING-REVIEW items 6–7; `service-layer/REVIEW.md` link rows (see `service-layer/PROGRESS.md` RESUME HERE).
+**Done last session:** PENDING-REVIEW items 6–7 decided and executed (2026-10-02, supervisor-delegated, rule: SL docs prevail over OData): all SL conflicts checked against `service-layer/reference/`; one `SL differs` line widened (etag-and-concurrency); no hoja discarded; reference/odata/ and SKILL.md published to `sbo-skills/plugins/service-layer/skills/docs/` via `npm run publish-plugin` (working tree, not committed). Earlier: items 1–5 executed.
+**Next:** nothing pending. Optional: live-SL tests of upsert (PUT/PATCH to a missing key) and `$ref` / `@odata.bind` (see PENDING-REVIEW item 6, undecided by evidence). The `sbo-skills` working tree needs the user's commit.
+**Waiting on the user:** commit of the `sbo-skills` working tree (publish left uncommitted by instruction); optionally authorise live-SL tests for the two open points above.
 **Open decisions:** none.
 **Suggested skills:** none
 

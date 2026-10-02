@@ -13,3 +13,7 @@ Las fuentes de la sección externa `odata/` se amplían a OData JSON Format 4.01
 ## Excepción 2026-10-02: complementos en hojas del PDF
 
 Se descartó añadir notas a las hojas transcritas del PDF para no romper la comparación del reviewer. El desarrollador revoca esa parte para el contenido público complementario (primero, los dos artículos de SAP Community sobre webhooks): se puede añadir a una hoja del PDF como **complemento**, entre `<!-- supplement -->` y `<!-- /supplement -->`, sin etiqueta ni atribución visibles para que el LLM lo lea como parte de la hoja. `verify_section.py` lo recorta antes de sus comprobaciones y el reviewer lo salta. Si el complemento contradice al PDF, se omite: manda el PDF. Un complemento no es un hecho verificado; esos siguen yendo con su sello de versión y fecha. El detalle está en `leaf-format.md`.
+
+## Regla de precedencia 2026-10-02
+
+Si una hoja de `odata/` contradice a la documentación de Service Layer (las hojas del PDF y sus hechos verificados), manda la de Service Layer. El contenido de `odata/` solo se queda si complementa sin contradecir; cuando el protocolo y Service Layer difieren, la hoja de `odata/` lo declara en su línea `In Service Layer:` con `SL differs:`, citando solo lo que Service Layer afirma o lo que un hecho verificado comprobó. Lo que Service Layer no cubre (por ejemplo upsert o `$ref`) se queda como regla genérica de OData, sin asegurar que Service Layer la cumpla, hasta que una prueba en vivo lo decida.

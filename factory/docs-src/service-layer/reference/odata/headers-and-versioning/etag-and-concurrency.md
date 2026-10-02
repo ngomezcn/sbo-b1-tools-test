@@ -5,7 +5,7 @@ summary: What the OData protocol says about the ETag response header and the If-
 ---
 # ETag and concurrency
 
-In Service Layer: reference/etag/etag-guide.md; reference/etag/etag-usage.md ; SL differs: ETags are weak validators `W/"..."`, a `GET` with `If-None-Match` returns 200 with the full body instead of 304, and `If-Match` on an inner `$batch` request is ignored
+In Service Layer: reference/etag/etag-guide.md; reference/etag/etag-usage.md ; SL differs: ETags are weak validators `W/"..."`, a `GET` with `If-None-Match` returns 200 with the full body instead of 304, `If-Match` on an inner `$batch` request is ignored, only `If-Match` values starting with `W/` are validated (a strong, unquoted or malformed value is ignored and the write goes through, so the 412 rules below do not hold for them), an ETag from another entity with the same `DataVersion` is accepted, and `If-None-Match` on a `PATCH` is ignored instead of giving 412 (see reference/etag/etag-guide.md)
 
 ## ETag response header
 

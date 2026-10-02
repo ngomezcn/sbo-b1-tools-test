@@ -4,7 +4,7 @@ Items for changes outside the odata staging folder. Append further items; do not
 
 ## Status (2026-10-02)
 
-Items 1–5 decided and executed by supervisor (grill-with-docs, user-delegated). Item 5: keep `verify_odata_block.py` separate from `verify_section.py`. Items 6–7 still open (6 = SL conflicts review; 7 = publish to sbo-skills, only on request). Note: empty leftover dirs `odata-staging/reference/odata/` may remain if the OS denied removal after the move; they hold no files.
+Items 1–5 decided and executed by supervisor (grill-with-docs, user-delegated). Item 5: keep `verify_odata_block.py` separate from `verify_section.py`. Items 6–7 decided and executed 2026-10-02 (user-delegated; rule: SL docs prevail over OData); decisions recorded under each item. Note: empty leftover dirs `odata-staging/reference/odata/` may remain if the OS denied removal after the move; they hold no files.
 
 ## 1. Move the staging folder into Service Layer
 
@@ -103,6 +103,27 @@ Collected from the build:
 - `related-entities-and-references.md` → `associations.md` (covers navigation GET/`$expand`, not `/$ref` or `$entity?$id=`).
 - `modify-relationships.md` → `no equivalent hoja`.
 
+### Decisions (2026-10-02, rule: SL docs prevail; checked against `service-layer/reference/`)
+
+| Conflict / mapping | Decision | Reason |
+|---|---|---|
+| ETag weak validators, GET `If-None-Match` 200, inner-batch `If-Match` ignored | Keep as `SL differs` | Matches etag-guide.md (verified SL 1000340) and etag-usage.md |
+| Strong, unquoted or malformed `If-Match` ignored; wrong-entity ETag accepted; `PATCH` + `If-None-Match` ignored (OData says 412) | Adjust: `SL differs` of etag-and-concurrency.md widened | The hoja stated 412 as MUST with no caveat; etag-guide.md verified the opposite |
+| `Prefer: return-no-content` vs `return=minimal` | Keep (flagged in prefer-header.md and modification-semantics.md) | crud-operations.md documents only `return-no-content`; the OData text complements and is flagged |
+| Complex-type properties, `odata.null` 200, `$value` null 404 | Keep as `SL differs` | individual-properties.md / limitations |
+| `odata.nextLink` + `$skip`, `$inlinecount` (v3) | Keep as `SL differs` | pagination.md, options-reference.md, aggregation.md |
+| Functions GET vs Actions POST | Keep as `SL differs` | actions.md (FunctionImport in V3) |
+| `odata.metadata=full` unsupported | Keep as `SL differs` | limitations.md |
+| SQL Query error shape | Keep as narrowed `SL differs` | query-errors.md has numeric code and object message; etag-usage.md has string code and string message (SL docs inconsistent; both cited) |
+| `odata.maxpagesize=0`, `OData-MaxVersion`/`MaxDataServiceVersion`, batch 202/200, 204 without `OData-EntityId` | Keep as observations, no `SL differs` | SL states them without contradicting the OData text; they are routing hints already in the hojas' In Service Layer lines |
+| Upsert (update-entity.md), `$ref`/`odata.bind` (modify-relationships.md), SL `$metadata` JSON | Keep, undecided by evidence | SL docs neither confirm nor deny; needs a live SL test. Hojas keep generic OData wording and `no equivalent hoja` |
+| Mapping invoking-functions.md -> actions.md | Keep | Closest SL hoja; difference already declared |
+| Mapping related-entities-and-references.md -> associations.md | Keep | Covers navigation GET/`$expand`; `$ref` gap noted above |
+| Mapping modify-relationships.md -> no equivalent hoja | Keep | No SL content on `$ref`/`odata.bind` |
+| Precedence rule itself | Recorded as addendum to ADR 0007 | No new glossary term needed (uses Hecho verificado, Sección externa) |
+
+Verifiers after the change: `verify_odata_block.py --all` all PASS. `python -m unittest` on `test_verify_odata_block.py`: 10 of 24 fail with the staging tree untouched by those scripts (fixtures: missing `sections/*` in a temp work dir, ledger plan); not caused by this change, not investigated further.
+
 ## 7. Publishing into `sbo-skills/`
 
-Not done. Publishing the new section to the installable product is a separate manual step, only when the user asks.
+Done 2026-10-02 (user-delegated). `npm run publish-plugin -- ../../../sbo-skills/plugins/service-layer` from `factory/plugins-src/service-layer` rewrote `dist/` and `skills/` of `sbo-skills/plugins/service-layer/`: `skills/docs/reference/odata/` (46 files, English) and the router `SKILL.md`. Result in the submodule working tree: only `etag-and-concurrency.md` differs for odata (the rest was already identical to HEAD) ; six `webhooks/` hojas also show as modified in `git status` but `git diff` shows no content change (line endings or stat only). Nothing committed or pushed in any repo.

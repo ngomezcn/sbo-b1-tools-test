@@ -4,9 +4,9 @@ PDF: sources/service-layer/service-layer-docs-1.29.pdf · Skill: /build-docs-fro
 
 ## RESUME HERE
 
-**Done last session:** external section `reference/odata/` integrated into this tree (2026-10-02): SKILL.md description, By intent and Confusable terms rows; ETag cross-refs (ADR 0007); ledger row below.
-**Next:** the PDF apartados build is complete (all apartados `done`). Publishing to `sbo-skills/plugins/docs-service-layer/` is a separate manual step, only when the user asks and confirms.
-**Waiting on the user:** nothing in REVIEW.md. All rows are decided (no `pending`): 11 images `removed`; links `removed`, `keep` (l063-02, l173-01, l180-01) or `described` (l161-01/02). PENDING-REVIEW items 6–7 remain open (SL conflicts review; publish to sbo-skills only on request).
+**Done last session:** external section `reference/odata/` integrated into this tree (2026-10-02): SKILL.md description, By intent and Confusable terms rows; ETag cross-refs (ADR 0007); ledger row below. PENDING-REVIEW items 6–7 executed (2026-10-02): conflicts reviewed, ETag `SL differs` widened, docs republished to `sbo-skills/plugins/service-layer/skills/docs/` (uncommitted).
+**Next:** the PDF apartados build is complete (all apartados `done`). Nothing pending; the published plugin docs are in the `sbo-skills` working tree awaiting the user's commit.
+**Waiting on the user:** commit of the `sbo-skills` working tree. REVIEW.md has no `pending` rows.
 **Open decisions:** none.
 **Suggested skills:** none
 

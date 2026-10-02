@@ -4,15 +4,15 @@
  */
 import { before, test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, rm } from 'node:fs/promises'
+import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { writeSetup } from '../src/setup/setup.ts'
-import { sessionPath } from '../src/common/layout.ts'
+import { sessionPath, userIndexPath } from '../src/common/layout.ts'
 import { knownEntitySets } from '../src/use/metadata.ts'
 import { main } from '../src/use/command.ts'
 import { ENVIRONMENTS } from '../src/common/versions.ts'
-import { ensureUserFields, ensureUserObject, ensureUserTable, live, realCredentials } from './sl-env.ts'
+import { admin, dropUserTable, ensureUserFields, ensureUserObject, ensureUserTable, live, realCredentials } from './sl-env.ts'
 
 async function repo(versionOData: 'v1' | 'v2') {
   const root = await mkdtemp(join(tmpdir(), 'sbo-'))
@@ -138,19 +138,40 @@ test('a user table registered as a user object is exposed under the object code;
 })
 
 test('a user object of document type (header bott_Document, lines bott_DocumentLines): entity is the object code, key DocEntry, lines in <ObjectName>Collection', async (t) => {
+  // Removed afterwards (object first, then its tables); a leftover of an interrupted run is removed before.
+  const remove = async () => {
+    const a = await admin()
+    try {
+      await a.call('DELETE', "UserObjectsMD('SBODOC')")
+    } finally {
+      await a.close()
+    }
+    await dropUserTable('SBODOCL')
+    await dropUserTable('SBODOC')
+  }
+  await remove()
+  t.after(remove)
   await ensureUserTable('SBODOC', 'bott_Document', [{ Name: 'H1', Mandatory: 'tYES' }])
   await ensureUserTable('SBODOCL', 'bott_DocumentLines', [{ Name: 'L1' }])
   await ensureUserObject('SBODOC', 'boud_Document', ['SBODOCL'])
-  const root = await repo('v2')
-  const { out, tries } = await untilListed(root, 'SBODOC', /^## SBODOCLCollection:/m)
-  t.diagnostic(`SBODOC listed in $metadata after ${tries} attempt(s)`)
-  assert.equal(out.ok, true, JSON.stringify(out))
-  const md = out.resumen!.contenido as string
-  assert.match(md, /^# SBODOC\b/m)
-  assert.match(section(md, 'User fields (@SBODOC)'), /^U_H1: alpha\(20\) !/m)
-  assert.match(section(md, 'SBODOCLCollection:'), /^U_L1: alpha/m)
-  // Standard columns of a document table are part of the entity, not user fields.
-  assert.ok(!section(md, 'User fields (@SBODOC)').includes('U_L1:'))
-  const wrong = await live(root, () => main(['context', 'U_SBODOC'], root))
-  assert.equal(wrong.error!.code, 'ENTITY_NOT_FOUND')
+  for (const version of ['v1', 'v2'] as const) {
+    const root = await repo(version)
+    const { out, tries } = await untilListed(root, 'SBODOC', /^## SBODOCLCollection:/m)
+    t.diagnostic(`${version}: SBODOC listed in $metadata after ${tries} attempt(s)`)
+    assert.equal(out.ok, true, JSON.stringify(out))
+    const md = out.resumen!.contenido as string
+    assert.match(section(md, 'User fields (@SBODOC)'), /^U_H1: alpha\(20\) !/m)
+    assert.match(section(md, 'SBODOCLCollection:'), /^U_L1: alpha/m)
+    // The field of the lines table is not shown under the header, and the key of the object is DocEntry.
+    assert.ok(!section(md, 'User fields (@SBODOC)').includes('U_L1:'))
+    assert.match(md, /DocEntry/)
+    const wrong = await live(root, () => main(['context', 'U_SBODOC'], root))
+    assert.equal(wrong.error!.code, 'ENTITY_NOT_FOUND')
+    // The Índice de entidades (from UserTablesMD and UserObjectsMD): the object code, not the tables.
+    const index = await live(root, () => main(['entities'], root))
+    assert.equal(index.ok, true, JSON.stringify(index))
+    const user = await readFile(userIndexPath(root, 'dev'), 'utf8')
+    assert.match(user, /^- SBODOC — user object — /m)
+    assert.ok(!/^- U_SBODOC/m.test(user) && !/^- (U_)?SBODOCL/m.test(user), 'neither the header table nor the lines table is an entity of its own')
+  }
 })
