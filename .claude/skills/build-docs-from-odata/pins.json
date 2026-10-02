@@ -1,0 +1,40 @@
+{
+  "retrieved": "2026-10-02",
+  "ms": {
+    "repo": "https://github.com/MicrosoftDocs/OData-docs.git",
+    "commit": "3ca8f5b9f602aaa561f5bbc2df67fc6f0911c7e6",
+    "short": "3ca8f5b",
+    "license": "CC-BY-4.0",
+    "folder": "Odata-docs",
+    "files": [
+      "overview.md",
+      "concepts/*.md"
+    ],
+    "skip": [
+      "concepts/derived-types-adv.md"
+    ]
+  },
+  "oasis": {
+    "version": "v4.01-os",
+    "edition": "OASIS Standard",
+    "date": "23 April 2020",
+    "docs": {
+      "oasis-p1": {
+        "title": "OData Version 4.01. Part 1: Protocol",
+        "url": "https://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html"
+      },
+      "oasis-p2": {
+        "title": "OData Version 4.01. Part 2: URL Conventions",
+        "url": "https://docs.oasis-open.org/odata/odata/v4.01/os/part2-url-conventions/odata-v4.01-os-part2-url-conventions.html"
+      },
+      "oasis-json": {
+        "title": "OData JSON Format Version 4.01",
+        "url": "https://docs.oasis-open.org/odata/odata-json-format/v4.01/os/odata-json-format-v4.01-os.html"
+      },
+      "oasis-csdl": {
+        "title": "OData Common Schema Definition Language (CSDL) XML Representation Version 4.01",
+        "url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/odata-csdl-xml-v4.01-os.html"
+      }
+    }
+  }
+}

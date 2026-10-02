@@ -64,8 +64,16 @@ Parte de primer nivel del PDF fuente con carpeta propia en `reference/` y su `in
 _Avoid_: Capítulo, sección (ambiguos con los del PDF)
 
 **Sección externa**:
-Carpeta de `reference/` con su `index.md` cuyo contenido no sale del PDF fuente sino de una fuente pública declarada (por ejemplo, la documentación de OData). Lleva atribución y versión de la fuente en cada hoja.
+Carpeta de `reference/` con su `index.md` cuyo contenido no sale del PDF fuente sino de fuentes públicas declaradas (por ejemplo, la spec OASIS y la documentación de Microsoft sobre OData). La atribución va en su `index.md` y la versión de la fuente en cada hoja. Se divide en bloques.
 _Avoid_: Apartado (reservado a lo que sale del PDF)
+
+**Bloque**:
+Parte de primer nivel de una sección externa, con carpeta e `index.md` propios dentro de ella (por ejemplo `odata/headers-and-versioning/`). Unidad de una sesión de construcción.
+_Avoid_: Apartado (reservado a lo que sale del PDF)
+
+**Fragmento**:
+Trozo de una fuente externa con id estable (`oasis-p1-8.3.2`, `ms-get-data`) que un transcriptor convierte en una o varias hojas.
+_Avoid_: Sección (ambiguo con sección externa y con las de la spec)
 
 **Hecho verificado**:
 Afirmación de una hoja comprobada contra un Service Layer real, marcada en línea junto a la regla que matiza, con la versión de SL y la fecha de la prueba. No sustituye a lo que dice la fuente: lo completa o lo contradice a la vista del lector.
@@ -76,7 +84,7 @@ Fichero de documentación con un tema concreto, con el que el agente consumidor 
 _Avoid_: Página (se confunde con las del PDF)
 
 **Unidad de trabajo**:
-Tramo contiguo de páginas del PDF que un transcriptor convierte en una o varias hojas sin partir un tema por la mitad.
+Tramo contiguo de páginas del PDF, o conjunto de fragmentos de una fuente externa, que un transcriptor convierte en una o varias hojas sin partir un tema por la mitad.
 
 **Cola de revisión**:
 Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conservar, describir o quitar.
@@ -89,4 +97,5 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 - El **Setup** de un **Sistema** pregunta al desarrollador la **Versión de B1** y la guarda; el sistema no detecta la versión del servidor por su cuenta.
 - Cada **Sistema** guarda su propia **Versión de B1**; los sistemas no las comparan entre sí.
 - Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, con la fecha en que se obtuvo.
+- Una **Sección externa** se divide en **Bloques**; cada **Bloque** se construye en una sesión a partir de **Fragmentos** de sus fuentes, agrupados en **Unidades de trabajo** que producen **Hojas**.
 - La **Caché de metadatos** la genera el **Setup**; la IA solo puede pedir permiso al desarrollador para regenerarla.
