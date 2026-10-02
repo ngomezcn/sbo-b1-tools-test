@@ -4,48 +4,49 @@ Paquete de plugins y skills para que desarrolladores de SAP Business One trabaje
 
 ## Language
 
-**Plugin de uso (`use-`)**:
-Plugin que permite a la IA operar contra un sistema B1 real: hacer las llamadas, iniciar sesión, gestionar credenciales y explorar metadatos.
+**Plugin de sistema**:
+Único plugin instalable de un Sistema (por ejemplo, el de Service Layer). Se instala completo: lleva el **Setup**, el **Uso** y la **Documentación** de ese sistema y no se puede instalar por partes.
+_Avoid_: Pack, suite
+
+**Uso**:
+Parte del plugin de sistema que permite a la IA operar contra un sistema B1 real: hacer las llamadas, iniciar sesión, gestionar credenciales y explorar metadatos. Antes se llamaba plugin de uso (`use-`).
 _Avoid_: Conector, connector
 
-**Plugin de documentación (`docs-`)**:
-Plugin que aporta el conocimiento de un sistema, único y global para todas sus versiones de B1. Marca dónde una función no existe o cambia según la versión. Necesita el Setup del sistema hecho (para conocer la versión de B1), pero no necesita ningún plugin de uso.
+**Documentación**:
+Parte del plugin de sistema que aporta el conocimiento del sistema, único y global para todas sus versiones de B1. Marca dónde una función no existe o cambia según la versión. Exige el Setup hecho, para conocer la versión de B1.
 _Avoid_: Plugin de conocimiento, knowledge plugin, documentación por versión, pack de documentación
 
 **Service Layer**:
 API REST de SAP Business One sobre la que se construye la primera pareja de plugins.
 
 **Caché de metadatos**:
-Conjunto de **Contextos de objeto** de un entorno, que el plugin de uso mantiene en `.sbo-b1/<sistema>/<entorno>/context/`.
+Conjunto de **Contextos de objeto** de un entorno, que el **Uso** mantiene en `.sbo-skills/<sistema>/<entorno>/context/`.
 _Avoid_: Índice, catálogo
 
 **Contexto de objeto**:
 Ficha en Markdown (`context/<Entidad>.md`) con lo que un entorno expone de una entidad: campos estándar y de usuario, tipo, si pueden ir vacíos y valores válidos. Lleva la fecha de obtención y la Versión de OData con la que se obtuvo. La IA la lee antes de operar sobre la entidad; no hay un Contexto de objeto compartido entre entornos porque los campos de usuario difieren.
 
 **Sistema**:
-Tecnología de B1 contra la que se opera: Service Layer, SQL, DI API, etc. Cada sistema tiene su propio plugin de configuración, de uso y de documentación, y su propia carpeta `.sbo-b1/<sistema>/`.
+Tecnología de B1 contra la que se opera: Service Layer, SQL, DI API, etc. Cada sistema tiene su propio **Plugin de sistema** y su propia carpeta `.sbo-skills/<sistema>/`.
 
 **Entorno**:
-Instancia B1 concreta a la que un desarrollador se conecta mediante un sistema, con sus credenciales y su propia **Caché de metadatos**. Solo hay tres: dev, uat y prod, y pertenecen a un único cliente por proyecto. Vive en una carpeta local del repositorio desde donde se ejecuta la skill (`.sbo-b1/<sistema>/<entorno>/`), ignorada por git.
+Instancia B1 concreta a la que un desarrollador se conecta mediante un sistema, con sus credenciales y su propia **Caché de metadatos**. Solo hay tres: dev, uat y prod, y pertenecen a un único cliente por proyecto. Vive en una carpeta local del repositorio desde donde se ejecuta la skill (`.sbo-skills/<sistema>/<entorno>/`), ignorada por git.
 _Avoid_: Perfil, empresa, tenant
 
-**Plugin de configuración (`setup-`)**:
-Plugin, propio de cada sistema, que prepara `.sbo-b1/<sistema>/`: guarda las credenciales de cada entorno, prueba el login y pregunta y guarda la versión de B1 y la Versión de OData. Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
-_Avoid_: Setup como comando de un plugin de uso
-
 **Setup**:
-Ejecución del plugin de configuración de un sistema.
+Parte del plugin de sistema que prepara `.sbo-skills/<sistema>/`: guarda las credenciales de cada entorno, pregunta y guarda la versión de B1 y la Versión de OData, y prueba siempre el login (obligatorio; la sesión de prueba se descarta). Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
+_Avoid_: Setup como comando del Uso
 
 **Versión de B1**:
-Versión de SAP B1 (por ejemplo FP 2202) que el desarrollador declara en el Setup de un sistema, elegida de la lista de versiones soportadas, y que se guarda en `.sbo-b1/<sistema>/config.md`. Vale para todos los entornos de ese sistema. La IA la usa para comprobar que una función existe en esa versión. El sistema no la detecta ni la contrasta entre sistemas: es responsabilidad del desarrollador declararla bien.
+Versión de SAP B1 (por ejemplo FP 2202) que el desarrollador declara en el Setup de un sistema, elegida de la lista cerrada de versiones soportadas (FP 2208, FP 2305, SP 2308, SP 2311, SP 2402, FP 2405, SP 2408, SP 2411, FP 2502, SP 2505, FP 2508, SP 2511, FP 2602, SP 2605, FP 2608), y que se guarda en `.sbo-skills/<sistema>/config.md`. Vale para todos los entornos de ese sistema. Una versión fuera de la lista se acepta con un aviso: no se ha testeado, aunque no tiene por qué fallar. La IA la usa para comprobar que una función existe en esa versión. El sistema no la detecta ni la contrasta entre sistemas: es responsabilidad del desarrollador declararla bien.
 _Avoid_: Versión del proyecto, versión del servidor
 
 **Versión de OData**:
-Versión de la API de Service Layer a la que el plugin de uso llama: `v1` (OData V3) o `v2` (OData V4), la que aparece en la URL (`/b1s/v2`). El Setup la pregunta al desarrollador, recomienda `v2` y la guarda en `.sbo-b1/<sistema>/config.md`; vale para todos los entornos de ese sistema. El plugin de uso usa siempre la guardada y no la cambia por su cuenta. La decisión final es del desarrollador, aunque elija una que su Versión de B1 no soporte.
+Versión de la API de Service Layer a la que el **Uso** llama: `v1` (OData V3) o `v2` (OData V4), la que aparece en la URL (`/b1s/v2`); el nombre de OData se deduce de ella, no hay dos valores. El Setup la pregunta al desarrollador, la preselecciona según la Versión de B1 (`v2` desde FP 2405, cuando SAP deprecó OData V3) y la guarda en `.sbo-skills/<sistema>/config.md`; vale para todos los entornos de ese sistema. El **Uso** usa siempre la guardada y no la cambia por su cuenta. La decisión final es del desarrollador, aunque elija una que su Versión de B1 no soporte.
 _Avoid_: Versión de API, versión de Service Layer
 
 **Volcado**:
-Carpeta local de una sola ejecución del plugin de uso con los registros que esta trajo de un entorno, junto con la consulta y la fecha. Nunca se comparte entre ejecuciones y su contenido no entra en el contexto de la IA, solo su ruta y un resumen. Lo borra quien lo creó al terminar y, como red de seguridad, la herramienta lo borra pasadas 24 horas.
+Carpeta local de una sola ejecución del **Uso** con los registros que esta trajo de un entorno, junto con la consulta y la fecha. Nunca se comparte entre ejecuciones y su contenido no entra en el contexto de la IA, solo su ruta y un resumen. Lo borra quien lo creó al terminar y, como red de seguridad, la herramienta lo borra pasadas 24 horas.
 _Avoid_: Caché de datos, descarga
 
 **Confirmación de escritura**:
@@ -102,14 +103,14 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 
 ## Relationships
 
-- Un **Plugin de uso** necesita su **Plugin de configuración** y su **Plugin de documentación** para operar; el **Plugin de documentación** necesita el **Plugin de configuración** pero no el **Plugin de uso**, así que se puede consultar sin él (por ejemplo, un agente de código que programa contra Service Layer).
-- Instalar un **Plugin de uso** instala siempre su **Plugin de configuración** y su **Plugin de documentación**. No hay elección de versiones de documentación.
-- Si falta el Setup del sistema (`.sbo-b1/<sistema>/` o su `config.md`), tanto el **Plugin de uso** como el **Plugin de documentación** fallan con error que indica ejecutar el Setup.
+- Un **Plugin de sistema** se instala completo: **Setup**, **Uso** y **Documentación** van siempre juntos. La IA puede consultar la **Documentación** sin operar, pero no existe el plugin sin el **Uso**.
+- Si falta el Setup del sistema (`.sbo-skills/<sistema>/` o su `config.md`), tanto el **Uso** como la **Documentación** fallan con error que indica ejecutar el Setup.
 - El **Setup** de un **Sistema** pregunta al desarrollador la **Versión de B1** y la guarda; el sistema no detecta la versión del servidor por su cuenta.
 - Cada **Sistema** guarda su propia **Versión de B1**; los sistemas no las comparan entre sí.
-- El **Setup** de Service Layer pregunta también la **Versión de OData**, independiente de la **Versión de B1**: informa de desde qué Versión de B1 SAP recomienda `v2`, pero no impide elegir `v1` ni una combinación que falle.
+- El **Setup** de Service Layer pregunta también la **Versión de OData**, independiente de la **Versión de B1**: preselecciona `v2` desde FP 2405, pero no impide elegir `v1` ni una combinación que falle.
 - Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, formada por un **Contexto de objeto** por entidad, cada uno con su fecha de obtención.
 - Una **Sección externa** se divide en **Bloques**; cada **Bloque** se construye en una sesión a partir de **Fragmentos** de sus fuentes, agrupados en **Unidades de trabajo** que producen **Hojas**.
-- En `prod`, el plugin de uso solo escribe con una marca explícita añadida a esa llamada, y la **Autoridad total** no la sustituye.
-- El plugin de uso envía exactamente lo que el desarrollador pide: no añade cabeceras de control de concurrencia (ETag, `If-Match`) por su cuenta.
-- Un **Contexto de objeto** lo genera la herramienta del **Plugin de uso** antes de operar sobre su entidad, si falta o tiene más de una semana, o cuando el desarrollador lo pide expresamente; la IA no lo regenera por su cuenta.
+- En `prod`, el **Uso** solo escribe con una marca explícita añadida a esa llamada, y la **Autoridad total** no la sustituye.
+- Las escrituras (POST, PATCH, DELETE) del **Uso** son en seco por defecto: sin `--execute` solo muestran la petición exacta (ADR 0008).
+- El **Uso** envía exactamente lo que el desarrollador pide: no añade cabeceras de control de concurrencia (ETag, `If-Match`) por su cuenta.
+- Un **Contexto de objeto** lo genera la herramienta del **Uso** antes de operar sobre su entidad, si falta o tiene más de una semana, o cuando el desarrollador lo pide expresamente; la IA no lo regenera por su cuenta.
