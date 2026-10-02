@@ -11,7 +11,7 @@ export interface UseOutput {
   error?: { code: string | number | undefined; message: string }
 }
 
-export const success = (status: number, resumen: Record<string, unknown>): UseOutput => ({ ok: true, status, resumen })
+export const success = (status: number | null, resumen: Record<string, unknown>): UseOutput => ({ ok: true, status, resumen })
 
 export function failure(e: unknown): UseOutput {
   if (e instanceof SlError) return { ok: false, status: e.status, resumen: null, error: { code: e.code, message: e.message } }

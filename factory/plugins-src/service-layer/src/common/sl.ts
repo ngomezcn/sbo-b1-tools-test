@@ -121,7 +121,7 @@ export async function logout(
   if (response.status < 200 || response.status >= 300) throw parseSlError(response.status, response.text)
 }
 
-/** GET/… against the SL with a session cookie. Any non-2xx answer is thrown as the literal SlError. */
+/** A request against the SL with a session cookie. Any non-2xx answer is thrown as the literal SlError. */
 export async function request(
   transport: Transport,
   credentials: Credentials,
@@ -130,8 +130,9 @@ export async function request(
   path: string,
   cookie: string,
   headers: Record<string, string> = {},
+  body?: string,
 ): Promise<HttpResponse> {
-  const response = await send(transport, { method, url: `${baseUrl(credentials.url, version)}/${path}`, headers: { ...headers, Cookie: cookie } })
+  const response = await send(transport, { method, url: `${baseUrl(credentials.url, version)}/${path}`, headers: { ...headers, Cookie: cookie }, body })
   if (response.status < 200 || response.status >= 300) throw parseSlError(response.status, response.text)
   return response
 }

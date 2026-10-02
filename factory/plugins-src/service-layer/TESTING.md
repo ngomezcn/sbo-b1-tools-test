@@ -18,6 +18,7 @@ Run everything from this folder: `npm test` (loads the repo-root `.env`: `SL_URL
 - Slice 7 (Contexto de objeto): executed against FP 2608, `v1` and `v2`, 2026-10-02. Own user fields created in the demo company by the tests themselves (`ensureUserFields` in `test/sl-env.ts`): `U_SBOCTX` (mandatory, with valid values, on `OCRD`), `U_SBOCTXN` (`ORDR`), `U_SBOCTXL` (lines, `RDR1`). The week rule uses an injected clock.
 
 - Pending items of session 2 (map of tables, user tables and objects, `--tables`, unknown entities, thousands of rows, a collection that changes, 8 parallel executions, invalid `$filter`, POST without a mandatory user field): executed against FP 2608, `v1` and `v2`, 2026-10-02. Test files `use-tables`, `use-bulk`, `use-parallel`, `use-errors`, and new cases in `use-context`. Data they leave in the demo (disposable): user fields `U_SBOMAP*` on standard tables, user tables `@SBOCTXT`, `@SBOUDT` (user object `SBOUDT`), `@SBOUDTL`; `@SBOBULK` (2500 rows) was dropped at the end of the session (the next `use-bulk` run recreates and refills it).
+- Slice 8 (writes: POST, PATCH, DELETE in seco and with `--execute`): executed against FP 2608, `v1` and `v2`, 2026-10-02 (`test/use-write.test.ts`). Business partners created by the tests are deleted by them.
 
 ## Verified against the real Service Layer
 
@@ -110,7 +111,25 @@ Session:
 
 Demo-server quirk (not our code), cause found 2026-10-02: the demo has a load balancer with several nodes (`ROUTEID` `.node1` … `.node10`; `.node6` and `.node9` never appeared). One node, `.node4`, answered every data read (`BusinessPartners`, `Items`, `UserTablesMD`) with HTTP 500, `code: 407` (v1 number, v2 string), `message: "Table definition not found for '@ZZVF_T'."`; its login worked. The session sticks to the node through the `ROUTEID` cookie, so a session that landed on `.node4` failed on every request, and one that landed elsewhere was fine (about 1 of 5 logins). 50 logins: `.node4` 6 of 6 broken, the other seven nodes 0 broken. The table `@ZZVF_T` does not exist in the demo company (`UserTablesMD('ZZVF_T')` gives 404, no `ZZ*` user tables or fields). After the developer stopped `.node4`, 50 logins and reads all succeeded. The plugin returns the error literally and does not relogin on it (a relogin would land on another node, but 407 alone cannot tell a broken node from a missing user table). Tests that need a successful read (`getLive` in `test/sl-env.ts`) retry with a new session.
 
+Writes (slice 8, FP 2608, `BusinessPartners`, `v1` and `v2`, 2026-10-02):
+
+- POST: **201**, body is the created record (about 9.8 KB for a business partner, same size in both versions) with `odata.metadata` and `odata.etag` (v1) or `@odata.context` and `@odata.etag` (v2); also a `Location` header (`.../BusinessPartners('<key>')`) and an `ETag` header. Without `Prefer: return-no-content` the record always comes back; the plugin does not send that header. The record goes to a Volcado, not to the output.
+- PATCH: **204**, empty body, no `ETag` header; also 204 for an empty `{}` body. DELETE: **204**, empty body.
+- Neither PATCH nor DELETE needed `If-Match` on `BusinessPartners`: both worked without it (the plugin never sends one).
+- Errors, literal (`v1` code is a number and `message` is `{lang, value}`; `v2` code is a string, `message` a string, plus `details: [{code: "", message: ""}]`):
+  - unknown field in POST: HTTP 400, `-1000`, `Property 'NoSuchField' of 'BusinessPartner' is invalid`;
+  - POST without `CardCode`: HTTP 400, `-5002`, `Code undefined  [OCRD.CardCode]`;
+  - POST with an existing `CardCode`: HTTP 400, `-10`, `1320000140 - Business partner code '<code>' already assigned...`;
+  - PATCH or DELETE on a key that does not exist (also DELETE twice): HTTP 404, `-2028`, `Entity with value('<key>') does not exist` (a read of a missing key says `No matching records found (ODBC -2028)`, a different text).
+- No difference between `v1` and `v2` in status codes or in what is written; they differ only in the shape of the error (above) and in the annotations of the POST answer.
+- The dry run sends no POST, PATCH or DELETE (the test counts every request of the real transport; `Login` and `Logout` are POSTs of the session and are filtered out) and afterwards the record is unchanged, the count of `BusinessPartners` is the same and the new key does not exist. A dry run may still read: if the Contexto de objeto of the entity is missing or old, the tool generates it first (`$metadata`, `UserFieldsMD`), as for any operation on that entity.
+- `prod`: `--execute` without `--allow-prod` sends nothing (`PROD_WRITE_NOT_ALLOWED`); the dry run on `prod` works without it. The test uses the demo company as `prod` (the name of the environment is only a folder).
+
 ## Not verified against the real Service Layer (pending)
+
+- Writes with `If-Match` and an ETag that does not match (412): the plugin sends none by design; not tried through the plugin.
+- Writes of documents (`Orders` with `DocumentLines`), PATCH of a line inside a collection, and entities with composite keys: not tried. Only `BusinessPartners` was written.
+- A POST that the SL accepts but whose answer is lost (network cut after sending): the plugin does not retry a write; not simulated.
 
 - Behaviour behind a load balancer: partly verified (the cookie keeps the session on one node). Not tested: a node going down in the middle of a session.
 - Re-check `.node4` once the developer re-enables it. To reproduce: log in about 50 times (`POST /b1s/v2/Login`), note `ROUTEID` from `Set-Cookie`, read `BusinessPartners('C50000')?$select=CardCode` with that session, then logout, and tally ok/500-407 per node. If `.node4` still fails every time, it is still broken; if every node is ok, the cause is fixed. Remove the retry in `getLive` only if the demo is stable for good.
@@ -119,4 +138,3 @@ Demo-server quirk (not our code), cause found 2026-10-02: the demo has a load ba
 - A negative answer ("`$metadata` does not list this entity", cached a week) is also given by a node that merely has not refreshed its `$metadata` yet (see above), so a freshly created user table can be reported missing for a week on some nodes. Mitigation: `context <Entity> --refresh` (the developer). Not done: dropping the cached negative when an operation on that entity succeeds.
 - Composite keys (`Entity(A=1,B='x')`): not implemented. Pending.
 - String keys made only of digits must be passed quoted (`'123'`); unquoted digits are sent as numbers. Not verified against an entity set with such keys.
-- Writes (slice 8): what the SL does without a mandatory user field is recorded above; everything else about POST, PATCH and DELETE is for that slice.

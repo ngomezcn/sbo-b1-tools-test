@@ -33,6 +33,12 @@ test/
 
 Several `use.mjs` processes can run at once on the same repo, also from nothing. The login runs under a lock (`session.lock`, a folder) because the demo Service Layer fails parallel logins; whoever waits then uses the session that the first one opened. Each ficha is generated under its own lock (`context/<Entity>.md.lock`). Every file that is shared (`session.json`, the ficha) is written aside and renamed; each Volcado has its own folder.
 
+## Writes
+
+`post`, `patch` and `delete` (`src/use/write.ts`, ADR 0008) are dry runs: without `--execute` they print the exact request (`resumen.peticion`: method, full URL with the saved OData version, body) and send no write. With `--execute` they send it and answer the SL status; a POST dumps the created record to a Volcado like a read. Bodies come from `--body` or `--body-file` and are sent as written (the dry run prints what they parse to). No `If-Match`, no `Prefer`: exactly what was asked.
+
+`prod` needs `--allow-prod` in the same call as `--execute` (error `PROD_WRITE_NOT_ALLOWED` otherwise); the dry run on `prod` needs no mark. Like any operation on an entity, a write first applies the Contexto de objeto rule, so even a dry run may read (`$metadata`, `UserFieldsMD`) when the ficha is missing or old.
+
 ## Where the tables of the user fields come from
 
 The ficha takes the user fields only from `UserFieldsMD`, and needs the table of the entity: `$metadata` does not give it. In this order:
