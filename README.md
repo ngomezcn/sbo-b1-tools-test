@@ -25,7 +25,6 @@ Cada sistema es un unico plugin (`<sistema>`, por ejemplo `service-layer`) que s
 - Herramientas del servidor MCP.
 - Sesion y relogin, errores, paginacion y `$batch`.
 - Skill de guia de `use-service-layer`.
-- Indice de entidades del servidor con comando de busqueda (`find`) para que la IA descubra y confirme entidades sin leer la ficha de cada una; medido en el SL demo: ~457 colecciones, ~4.000 tokens si se leyera entero.
 - Revisar `availability.md` al regenerar la documentacion para una version nueva (ADR 0011).
 - Sesion de grilling sobre patrones de integracion SBO con sistemas externos (CRM, e-commerce, middleware): concurrencia con ETag, `$batch`, paginacion, webhooks y sincronizacion incremental. Parte de `reference/etag/etag-guide.md` y de las pruebas de ETag en SL 1000340 (2026-10-02).
 - Skill de construccion `build-docs-from-odata` (ADR 0007): fuentes spec OASIS OData V4.01 (Part 1 y 2) y la parte "Learn" de la documentacion de Microsoft (repo MicrosoftDocs/OData-docs, CC-BY-4.0), solo lo que interesa al consumidor de Service Layer, sin imagenes ni enlaces, con atribucion en el frontmatter. Incluye script de extraccion determinista, `PROGRESS.md` y prompt de arranque.
