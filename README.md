@@ -26,7 +26,8 @@ Cada sistema es un unico plugin (`<sistema>`, por ejemplo `service-layer`) que s
 
 ## Estructura
 
-- `factory/`: `plugins-src/` (fuente TS de setup y use, con su codigo comun), `scripts/`, `docs-src/`.
-- `sources/`: PDFs fuente de SAP y `manifest.json`. Este repo no debe ser publico.
+- `factory/`: `plugins-src/` (fuente TS de setup y use, con su codigo comun), `scripts/` (Python de extraccion y verificacion), `docs-src/` (fuente de la documentacion; incluye el seguimiento de las skills `build-*`).
+- `docs/`: `adr/`, `agents/` (config de skills) y `prompts/` (prompts puntuales reutilizables).
+- `sources/`: PDF fuente de SAP (`service-layer/`). Este repo no debe ser publico.
 - `.claude/skills/build-*`: skills de construccion propias.
 - `sbo-skills/`: producto instalable (submodulo), un unico plugin `service-layer`. Su `dist/` y sus skills se generan con `npm run publish-plugin` en `factory/plugins-src/service-layer`; no se editan a mano.
