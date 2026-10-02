@@ -28,15 +28,45 @@ Examples:
 
 ```text
 http://host/service/Products?$filter=Name eq 'Milk'
+```
+
+```text
 http://host/service/Products?$filter=Name ne 'Milk'
+```
+
+```text
 http://host/service/Products?$filter=Name gt 'Milk'
+```
+
+```text
 http://host/service/Products?$filter=Name ge 'Milk'
+```
+
+```text
 http://host/service/Products?$filter=Name lt 'Milk'
+```
+
+```text
 http://host/service/Products?$filter=Name le 'Milk'
+```
+
+```text
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
+```
+
+```text
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
+```
+
+```text
 http://host/service/Products?$filter=not endswith(Name,'ilk')
+```
+
+```text
 http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
+```
+
+```text
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
 
@@ -48,6 +78,9 @@ In order: Name equal to 'Milk'; not equal; greater than; greater than or equal; 
 
 ```text
 http://host/service/Products?$expand=Category
+```
+
+```text
 http://host/service/Customers?$expand=Addresses/Country
 ```
 
@@ -105,6 +138,9 @@ GET http://host/service/Categories?$orderby=Products/$count
 
 ```text
 http://host/service/Products?$top=10
+```
+
+```text
 http://host/service/Products?$skip=10
 ```
 

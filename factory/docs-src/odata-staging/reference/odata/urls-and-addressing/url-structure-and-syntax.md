@@ -38,6 +38,9 @@ Examples:
 
 ```text
 http://host/service/Products
+```
+
+```text
 http://host/service/ProductsByCategoryId(catId=2)
 ```
 

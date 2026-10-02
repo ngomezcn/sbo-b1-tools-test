@@ -188,8 +188,13 @@ def plans(text):
                 continue
             words = re.split(r"[\s:(,→-]+", cells[1].lower().strip("*`"))
             dec = next((w for w in words if w in DECISIONS), None)
-            if dec:
-                decisions[cells[0]] = dec
+            if not dec:
+                continue
+            # First token is the fragment id; trailing notes like "(covers 2.1...)" are ignored.
+            fid = re.split(r"[\s(]", cells[0], 1)[0].strip()
+            if not fid or " " in fid or fid.lower() in ("fragment",):
+                continue
+            decisions[fid] = dec
         result[name] = decisions
     return result
 
@@ -297,6 +302,10 @@ def verify_bloque(bloque, docs, work, sl, pins_path, rep, root_index_required=Fa
             for c in ids:
                 for frag, dec in mine.items():
                     if dec == "exclude" and tree.covers(frag, c):
+                        # Parent may be exclude while children are decided individually.
+                        if any(v in ("include", "merge") and (f == c or tree.covers(f, c))
+                               for f, v in mine.items()):
+                            continue
                         problems.append(f"{rel[h]}: cites {c}, decided exclude ({frag})")
                 other = [b for b, d in ledger.items() if b != bloque
                          and any(v in ("include", "merge") and tree.covers(f, c) for f, v in d.items())]
