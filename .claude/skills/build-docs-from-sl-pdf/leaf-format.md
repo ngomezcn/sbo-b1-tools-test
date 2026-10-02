@@ -21,6 +21,13 @@ Body…
 - `summary`: one or two lines saying what the hoja answers.
 - No version-availability field; a later satellite adds those marks.
 
+### Hojas not from the PDF
+
+Two other kinds exist, declared by the start of `source` and checked by `verify_section.py` (frontmatter, routing and no images; they are outside the PDF fidelity checks). They are not transcribed or reviewed against PDF pages.
+
+- `source: external <origin>`: a hoja of a sección externa (CONTEXT.md), e.g. OData.
+- `source: verified: <origin> ... Service Layer <version> on <YYYY-MM-DD>`: a hoja that completes PDF content with tests against a real Service Layer. Each tested fact is a blockquote `> **Verified (SL <version>, <date>):** …` next to the rule it qualifies, carrying exactly the version and date of `source`; the body has no URLs. Claims stay within what was tested (entity, request type, header form).
+
 ## Body
 
 - **Faithful.** Every sentence, value, code block, table row and figure of the covered sections appears, in the PDF's order unless a reorder clearly reads better. Content is never invented, summarised away or corrected. A sentence that looks wrong in the PDF stays as printed.

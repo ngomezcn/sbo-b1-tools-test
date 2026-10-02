@@ -30,8 +30,8 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l119-02 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | removed | link removed at user request |
 | l136-01 | link | 136 | consuming-service-layer/cors.md | http://enable-cors.org/ | removed | link removed at user request (CORS covered in common issues) |
 | l136-02 | link | 136 | consuming-service-layer/cors.md | http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials | removed | link removed at user request (CORS covered in common issues) |
-| l161-01 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | pending | |
-| l161-02 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | pending | |
+| l161-01 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | described | content (what an ETag is, opaque token, concurrency) absorbed into etag/etag-guide.md; the URL is not repeated in the new hoja |
+| l161-02 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | described | duplicate of l161-01 |
 | l169-01 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html | pending | |
 | l169-02 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/ | pending | |
 | l173-01 | link | 173 | configuring/service-layer-controller-settings.md | https://me.sap.com/notes/3157498 | pending | |

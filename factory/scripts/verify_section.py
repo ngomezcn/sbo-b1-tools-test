@@ -9,8 +9,17 @@ Usage:
     --work   output of extract_pdf.py (default factory/.work/service-layer)
     --pages  page range(s) of the apartado; default: its row in PROGRESS.md "## Apartados"
 
+Hoja kinds, declared by the start of `source:` in the frontmatter:
+    pdf pp. A-B, sec X, Y            transcribed from the PDF: every check below applies
+    external <origin>                not from the PDF (a sección externa): only frontmatter, nonpdf and routing apply
+    verified: <origin> ... Service Layer <version> on <YYYY-MM-DD>
+                                     completes PDF content with tests against a real Service Layer: like external,
+                                     plus every "**Verified (SL <version>, <date>):**" block must carry that version and date
+
 Checks, each against outline.json / elements.json / links.json from the extraction:
-    frontmatter   every hoja has title, source ("pdf pp. A-B, sec X, Y") and summary
+    frontmatter   every hoja has title, source and summary; a pdf hoja's source looks like "pdf pp. A-B, sec X, Y"
+    verified      every verified hoja has Verified blocks, all stamped with the version and date of its source
+    nonpdf        external and verified hojas carry no images; verified hojas carry no URLs either
     coverage      every page of the apartado is inside some hoja's source range
     sections      every outline section starting in the apartado is listed (or an ancestor is) in some hoja's source
     code          fenced block count equals extracted code blocks; every extracted block's text is present verbatim
@@ -18,7 +27,7 @@ Checks, each against outline.json / elements.json / links.json from the extracti
     images        every image id is referenced once per placement (zero if REVIEW.md says removed), and the file exists
     links         every external URL appears in a hoja (unless removed) and every image and link has a REVIEW.md row
     todo-links    no TODO(link: X) remains whose target section X is already covered by a hoja
-    routing       reference/<apartado>/index.md exists, every hoja is linked from an index, SKILL.md links the apartado
+    routing       reference/<apartado>/index.md exists, every hoja (any kind) is linked from an index, SKILL.md links the apartado
 
 Exits 0 when every check passes, 1 otherwise. Hojas are all .md files under reference/<apartado>/ except index.md.
 """
@@ -36,6 +45,9 @@ TODO_LINK = re.compile(r"TODO\(link:\s*(?:sec\s+)?([^)]+?)\s*\)")
 SOURCE_PAGES = re.compile(r"pdf\s+pp?\.\s*(\d+)(?:\s*-\s*(\d+))?")
 SOURCE_SECS = re.compile(r"secs?\.?\s+(.+)$")
 MD_LINK = re.compile(r"\]\(([^)\s#]+)(?:#[^)]*)?\)")
+VERIFIED_SOURCE = re.compile(r"^verified:.*Service Layer\s+(\d+)\s+on\s+(\d{4}-\d{2}-\d{2})")
+VERIFIED_MARK = re.compile(r"\*\*Verified \(SL (\d+), (\d{4}-\d{2}-\d{2})\):\*\*")
+URL = re.compile(r"https?://")
 
 
 def parse_ranges(text):
@@ -60,6 +72,17 @@ def read_frontmatter(text):
             k, _, v = line.partition(":")
             meta[k.strip()] = v.strip().strip('"').strip("'")
     return meta
+
+
+def source_kind(text):
+    """'external' or 'verified' by the start of `source:`; anything else is held to the pdf format."""
+    src = (read_frontmatter(text) or {}).get("source", "")
+    return "external" if src.startswith("external") else "verified" if src.startswith("verified") else "pdf"
+
+
+def body(text):
+    end = text.find("\n---", 3) if text.startswith("---") else -1
+    return text[end + 4:] if end >= 0 else text
 
 
 def first_table(text):
@@ -177,14 +200,16 @@ def main():
         rep.check("hojas", [f"no hojas under {root}"])
         sys.exit(rep.print())
     texts = {h: h.read_text(encoding="utf-8") for h in hojas}
-    # hojas not transcribed from the PDF declare `source: external ...` and are outside these checks
-    texts = {h: t for h, t in texts.items() if not (read_frontmatter(t) or {}).get("source", "").startswith("external")}
-    hojas = list(texts)
-    rel ={h: h.relative_to(docs / "reference").as_posix() for h in hojas}
+    # hojas not transcribed from the PDF declare their kind in `source:` ("external ..." or "verified ...");
+    # they stay out of the PDF fidelity checks but keep frontmatter, nonpdf and routing
+    all_texts = texts
+    kinds = {h: source_kind(t) for h, t in all_texts.items()}
+    texts = {h: t for h, t in all_texts.items() if kinds[h] == "pdf"}
+    rel = {h: h.relative_to(docs / "reference").as_posix() for h in hojas}
 
     # frontmatter -------------------------------------------------------
-    problems, src_pages, src_secs = [], {}, {}
-    for h, t in texts.items():
+    problems, src_pages, src_secs, stamps = [], {}, {}, {}
+    for h, t in all_texts.items():
         meta = read_frontmatter(t)
         if meta is None:
             problems.append(f"{rel[h]}: no frontmatter")
@@ -192,14 +217,41 @@ def main():
         missing = [k for k in ("title", "source", "summary") if not meta.get(k)]
         if missing:
             problems.append(f"{rel[h]}: missing {', '.join(missing)}")
-        m = SOURCE_PAGES.search(meta.get("source", ""))
-        s = SOURCE_SECS.search(meta.get("source", ""))
-        if not m or not s:
-            problems.append(f"{rel[h]}: source must look like 'pdf pp. 67-73, sec 3.8' (got {meta.get('source')!r})")
-            continue
-        src_pages[h] = set(range(int(m.group(1)), int(m.group(2) or m.group(1)) + 1))
-        src_secs[h] = [x.strip() for x in s.group(1).split(",") if x.strip()]
+        if kinds[h] == "verified":
+            v = VERIFIED_SOURCE.search(meta.get("source", ""))
+            if not v:
+                problems.append(f"{rel[h]}: source must look like 'verified: <origin> ... Service Layer 1000340 on 2026-10-02' (got {meta.get('source')!r})")
+            else:
+                stamps[h] = v.groups()
+        elif kinds[h] == "pdf":
+            m = SOURCE_PAGES.search(meta.get("source", ""))
+            s = SOURCE_SECS.search(meta.get("source", ""))
+            if not m or not s:
+                problems.append(f"{rel[h]}: source must look like 'pdf pp. 67-73, sec 3.8' (got {meta.get('source')!r})")
+                continue
+            src_pages[h] = set(range(int(m.group(1)), int(m.group(2) or m.group(1)) + 1))
+            src_secs[h] = [x.strip() for x in s.group(1).split(",") if x.strip()]
     rep.check("frontmatter", problems)
+
+    # verified / nonpdf -----------------------------------------------------
+    problems = []
+    for h, stamp in stamps.items():
+        marks = VERIFIED_MARK.findall(body(all_texts[h]))
+        if not marks:
+            problems.append(f"{rel[h]}: verified hoja has no '**Verified (SL <version>, <date>):**' block")
+        problems += [f"{rel[h]}: Verified block stamped SL {v}, {d}; source says {stamp[0]} on {stamp[1]}"
+                     for v, d in marks if (v, d) != stamp]
+    rep.check("verified", problems)
+
+    problems = []
+    for h, t in all_texts.items():
+        if kinds[h] == "pdf":
+            continue
+        if IMG_REF.search(body(t)):
+            problems.append(f"{rel[h]}: {kinds[h]} hojas carry no images")
+        if kinds[h] == "verified" and URL.search(body(t)):
+            problems.append(f"{rel[h]}: verified hojas carry no URLs")
+    rep.check("nonpdf", problems)
 
     # coverage ------------------------------------------------------------
     covered = set().union(*src_pages.values()) if src_pages else set()
@@ -306,9 +358,10 @@ def main():
     # TODO(link:) ---------------------------------------------------------
     everywhere = []
     for h in (docs / "reference").rglob("*.md"):
-        meta = read_frontmatter(h.read_text(encoding="utf-8")) or {}
+        t = h.read_text(encoding="utf-8")
+        meta = read_frontmatter(t) or {}
         s = SOURCE_SECS.search(meta.get("source", ""))
-        if s:
+        if s and source_kind(t) == "pdf":
             everywhere += [x.strip() for x in s.group(1).split(",") if x.strip()]
     problems = []
     for h, t in texts.items():

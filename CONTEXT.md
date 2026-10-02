@@ -63,6 +63,14 @@ _Avoid_: Plugin (no se distribuye)
 Parte de primer nivel del PDF fuente con carpeta propia en `reference/` y su `index.md`.
 _Avoid_: Capítulo, sección (ambiguos con los del PDF)
 
+**Sección externa**:
+Carpeta de `reference/` con su `index.md` cuyo contenido no sale del PDF fuente sino de una fuente pública declarada (por ejemplo, la documentación de OData). Lleva atribución y versión de la fuente en cada hoja.
+_Avoid_: Apartado (reservado a lo que sale del PDF)
+
+**Hecho verificado**:
+Afirmación de una hoja comprobada contra un Service Layer real, marcada en línea junto a la regla que matiza, con la versión de SL y la fecha de la prueba. No sustituye a lo que dice la fuente: lo completa o lo contradice a la vista del lector.
+_Avoid_: Nota, observación
+
 **Hoja**:
 Fichero de documentación con un tema concreto, con el que el agente consumidor responde una consulta.
 _Avoid_: Página (se confunde con las del PDF)

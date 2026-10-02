@@ -25,6 +25,10 @@ Fabrica del producto instalable `sbo-skills` (submodulo en `sbo-skills/`), plugi
 - Skill de guia de `use-service-layer`.
 - Formato de las marcas de version en la documentacion (se define al crear la skill).
 - Generacion de las marcas de version: se hara al crear la skill, comparando el changelog y los PDF de cada version.
+- Sesion de grilling sobre patrones de integracion SBO con sistemas externos (CRM, e-commerce, middleware): concurrencia con ETag, `$batch`, paginacion, webhooks y sincronizacion incremental. Parte de `reference/etag/etag-guide.md` y de las pruebas de ETag en SL 1000340 (2026-10-02).
+- Skill de construccion `build-docs-from-odata` (ADR 0007): fuentes spec OASIS OData V4.01 (Part 1 y 2) y la parte "Learn" de la documentacion de Microsoft (repo MicrosoftDocs/OData-docs, CC-BY-4.0), solo lo que interesa al consumidor de Service Layer, sin imagenes ni enlaces, con atribucion en el frontmatter. Incluye script de extraccion determinista, `PROGRESS.md` y prompt de arranque.
+- Decidir si OData necesita un plugin `docs-` propio si llega a reutilizarse fuera de Service Layer (revisar entonces el ADR 0004: un `docs-` exige Setup y version de B1).
+- Pruebas de ETag no hechas: UDFs, `$expand` en colecciones (cabecera), `If-Match` en acciones con valores mal formados, DELETE sin `If-Match`, sincronizacion incremental por ETag. La entidad de prueba `ZZETAGBP2` sigue en `SBODemoES` (tiene documentos, no se pudo borrar).
 
 ## Estructura
 
