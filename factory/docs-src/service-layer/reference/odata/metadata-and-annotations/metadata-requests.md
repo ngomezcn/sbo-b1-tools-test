@@ -5,7 +5,7 @@ summary: How to request the service document and the metadata document of an ODa
 ---
 # Service document and metadata document requests
 
-In Service Layer: reference/consuming-service-layer/metadata-document.md
+In Service Layer: reference/consuming-service-layer/metadata-document.md ; SL differs: `$metadata` is always returned as XML (verified on a live SL 10.0, v1 and v2) and a JSON representation cannot be requested: `Accept: application/json`, `$format=json` and `$format=application/json` are ignored and the response is `200` with `Content-Type: application/xml`, so parse the CSDL XML
 
 An OData service is a self-describing service that exposes metadata defining the entity sets, singletons, relationships, entity types, and operations.
 

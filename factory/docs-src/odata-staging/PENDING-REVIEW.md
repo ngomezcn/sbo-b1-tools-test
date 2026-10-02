@@ -95,7 +95,7 @@ Collected from the build:
 - bloque 7: SL docs inconsistent among themselves on error `code`/`message` shape (etag-usage vs query-errors).
 - [RESOLVED 2026-10-02, live SL test: `SL differs` written] bloque 4 `modify-relationships.md`: `In Service Layer: no equivalent hoja` (`associations.md` has no `$ref` / `odata.bind` content).
 - [RESOLVED 2026-10-02, live SL test: no upsert, 404 -2028] bloque 4 `update-entity.md`: upsert folded from OASIS 11.4.4; SL has no upsert coverage (unverified on live SL).
-- bloque 8: whether SL `$metadata` returns JSON is not covered.
+- [RESOLVED 2026-10-02, live SL test: always XML, `SL differs` written] bloque 8: whether SL `$metadata` returns JSON is not covered.
 - bloque 8 `navigation-properties.md`: SL `associations.md` still shows legacy Association/AssociationSet Role syntax vs CSDL 4.01 `NavigationProperty` attributes.
 
 ### Doubtful mappings (for human review)
@@ -117,7 +117,7 @@ Collected from the build:
 | SQL Query error shape | Keep as narrowed `SL differs` | query-errors.md has numeric code and object message; etag-usage.md has string code and string message (SL docs inconsistent; both cited) |
 | `odata.maxpagesize=0`, `OData-MaxVersion`/`MaxDataServiceVersion`, batch 202/200, 204 without `OData-EntityId` | Keep as observations, no `SL differs` | SL states them without contradicting the OData text; they are routing hints already in the hojas' In Service Layer lines |
 | Upsert (update-entity.md), `$ref`/`odata.bind` (modify-relationships.md, create-entity.md, related-entities-and-references.md) | Decided by evidence (live SL 10.0 version 1000340, v1 and v2, 2026-10-02): `SL differs` added to the four hojas | Upsert: `PATCH`/`PUT` to a missing key returns 404 `-2028`, nothing created (also with `If-None-Match: *`). `Prop@odata.bind` in `POST`/`PATCH`: 201/204 but silently ignored, even for a nonexistent target. `GET Entity/Nav/$ref`: 400 code 201; `PUT .../$ref`: 404 `-2028`, no change; `POST .../$ref`: 400 `-1008`; `$links`: 400 code 201; `DELETE Entity(key)/Nav/$ref`: 204 and it deletes the entity itself (any `Nav`, even nonexistent). Same behaviour in v1 and v2 (only error JSON shape differs) |
-| SL `$metadata` JSON | OPEN: keep, undecided by evidence | SL docs neither confirm nor deny; needs a live SL test |
+| SL `$metadata` JSON | RESOLVED by evidence (live SL 10.0 version 1000340, v1 and v2, 2026-10-02): `SL differs` added to metadata-requests.md | `Accept: application/json`, `$format=json` and `$format=application/json` are all ignored; always `200` with `Content-Type: application/xml` (v1: `Edmx Version="1.0"`, v2: `4.0`) |
 | Mapping invoking-functions.md -> actions.md | Keep | Closest SL hoja; difference already declared |
 | Mapping related-entities-and-references.md -> associations.md | Keep | Covers navigation GET/`$expand`; `$ref` gap noted above |
 | Mapping modify-relationships.md -> no equivalent hoja | Keep | No SL content on `$ref`/`odata.bind` |
