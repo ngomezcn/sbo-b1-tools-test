@@ -30,6 +30,12 @@ Use when: checking that the Webhook Messenger service is reachable, or importing
 Terms: Webhook Messenger, health check, certificate import tool, SSL certificate
 Not here: load balancing and sticky sessions → [high-availability-load-balancing](../high-availability-load-balancing/index.md)
 
+## [Webhook endpoint sample (Node.js)](webhook-endpoint-sample.md)
+Use when: implementing or testing the endpoint that receives webhook notifications (Node.js and Express code), answering the handshake, validating Basic, HMAC or OAuth authentication, or fetching event details from Service Layer with a technical user.
+Terms: `webhook-service-sample-nodejs`, `/webhook/hmac`, `X-B1-Webhook-Token`, `X-B1-Webhook-Signature`, `Challenge`, `createHmac`, `GetOpenIDConnectProvider`, `X-B1-COMPANYID`, `.env`
+Sections: [Run the sample](webhook-endpoint-sample.md#run-the-sample) · [Endpoints](webhook-endpoint-sample.md#endpoints) · [Receiving notifications](webhook-endpoint-sample.md#receiving-notifications) · [Handshake](webhook-endpoint-sample.md#handshake) · [Authentication](webhook-endpoint-sample.md#authentication) · [Calling Service Layer for more details](webhook-endpoint-sample.md#calling-service-layer-for-more-details)
+Not here: the handshake and authentication contract sent by SAP Business One → [handshake-mechanism](event-subscription/handshake-mechanism.md); payload fields → [event-notification/](event-notification/index.md)
+
 ## [Webhook formula/](webhook-formula/index.md)
 Use when: writing a boolean formula to filter events, or looking up a formula operator, function or app variable.
 Terms: `FilterExpr`, webhook formula, `UPPER`, `LEN`, `DATE`, `IFNULL`, `ROUND`, `app.CurrentUser`

@@ -1,0 +1,65 @@
+<mvc:View controllerName="notification.ui.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout= "sap.ui.layout" displayBlock="true">
+    <App id="app">
+        <pages>
+            <Page title="" showNavButton="true" titleAlignment="Center">
+                <customHeader>
+                    <f:ShellBar title="Partner's Webhook Service" secondTitle="Demo Application" homeIcon="./resources/SAPBusinessOne.jpg" showCopilot="true" showSearch="true" showNotifications="true" notificationsNumber="{notifications>/notificationsCount}">
+                        <f:menu>
+                            <Menu>
+                            </Menu>
+                        </f:menu>
+                        <f:profile>
+                            <Avatar initials="WH"/>
+                        </f:profile>
+                    </f:ShellBar>
+                </customHeader>
+                <headerContent>
+                </headerContent>
+                <content>
+                    <List id="notificationList" headerText="Event Notifications" items="{
+                            path: 'notifications>/notifications',
+                            sorter: {
+                                path: 'time',
+                                descending: true
+                            }
+                        }">
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title text="Notifications" level="H2"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://refresh" tooltip="Refresh" press=".onRefresh"/>
+                            </Toolbar>
+                        </headerToolbar>
+                        <CustomListItem type="Active" press=".onNotificationPress">
+                            <VBox class="sapUiSmallMargin">
+                                <HBox justifyContent="SpaceBetween">
+                                    <Title text="#{notifications>notificationNo}" level="H4"/>
+                                    <ObjectStatus text="{notifications>type}"
+                                        icon="{
+                                            path: 'notifications>operation',
+                                            formatter: '.formatIcon'
+                                        }" 
+                                        inverted="true" 
+                                        state="{
+                                            path: 'notifications>operation',
+                                            formatter: '.formatOperation'
+                                        }" />
+                                    <Text text="{
+                                        path: 'notifications>time',
+                                        formatter: '.formatDate'
+                                    }"/>
+                                    <Button icon="sap-icon://navigation-right-arrow" type="Transparent" class="sapUiTinyMarginBegin" aria-label="Go to details"/>
+                                </HBox>
+                                <Text text="{notifications>id}" class="sapUiSmallMarginTop"/>
+                            </VBox>
+                        </CustomListItem>
+                    </List>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

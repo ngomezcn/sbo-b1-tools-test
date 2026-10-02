@@ -60,7 +60,7 @@ To get started with webhooks in the Service Layer, follow these steps:
    ```
 
 2. Set up webhook endpoint.
-   Set up an endpoint in your application to receive and process webhook notifications sent by the SAP Business One system. For testing, you can use the sample webhook service code (https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US) or services like `https://webhook.site/` to create a temporary webhook endpoint.
+   Set up an endpoint in your application to receive and process webhook notifications sent by the SAP Business One system. For testing, you can use the sample webhook service code (https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US; described in [webhook-endpoint-sample](webhook-endpoint-sample.md)) or services like `https://webhook.site/` to create a temporary webhook endpoint.
 3. Create event subscription.
    Define a webhook by specifying the events (for example, Sale Order Creation) you want to subscribe to and the URL where notifications should be sent. To create a webhook, send a POST request to the `EventSubscriptions` endpoint with the necessary details. Here is an example of the minimum JSON payload required to create a simple webhook:
 

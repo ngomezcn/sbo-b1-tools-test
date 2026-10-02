@@ -124,7 +124,7 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
 - **Option**: `Busy`
   - **Description and Default Values**: Indicates whether the member is busy processing the request. If the member is busy, then it shows 1 else 0.
 - **Option**: `Load`
-  - **Description and Default Values**: Shows how many requests each worker is currently assigned based on the algorithm mentioned in Apache documentation (https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html).
+  - **Description and Default Values**: Shows how many requests each worker is currently assigned, based on the Apache `bybusyness` load balancing algorithm (Pending Request Counting, provided by `mod_lbmethod_bybusyness` for `mod_proxy_balancer`). It is enabled via `lbmethod=bybusyness`. The scheduler keeps track of how many requests each worker is currently assigned, and a new request is automatically assigned to the worker with the lowest number of active requests. This is useful for workers that queue incoming requests independently of Apache: it keeps queue length even and gives each request to the worker most likely to service it fastest, reducing latency. When several workers are equally least busy, the statistics and weightings used by the Request Counting method (`byrequests`) break the tie, so over time the distribution of work resembles that of `byrequests`.
 - **Option**: `From`
   - **Description and Default Values**: Data outflow (size) – Usually this is the response size.
 - **Option**: `To`
@@ -132,7 +132,7 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
 
 > **Note**
 >
-> All above definitions are based on the Apache documentation (https://httpd.apache.org/docs/).
+> All above definitions are based on the Apache HTTP Server documentation (`mod_proxy_balancer` and its load balancing modules).
 
 ## Service Layer Configuration
 
@@ -335,4 +335,4 @@ On the *Service Layer Settings* tab of the SAP Business One Service Layer Contro
 >
 > All configuration options take effect after you restart Service Layer.
 
-For Service Layer log file configuration, please refer to SAP Knowledge Base Article 3157498 (https://me.sap.com/notes/3157498).
+For Service Layer log file configuration, please refer to SAP Knowledge Base Article 3157498 (https://me.sap.com/notes/3157498). Its content is summarized in [log-file-configuration](log-file-configuration.md).

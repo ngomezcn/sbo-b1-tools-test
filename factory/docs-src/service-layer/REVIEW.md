@@ -32,12 +32,12 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l136-02 | link | 136 | consuming-service-layer/cors.md | http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials | removed | link removed at user request (CORS covered in common issues) |
 | l161-01 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | described | content (what an ETag is, opaque token, concurrency) absorbed into etag/etag-guide.md; the URL is not repeated in the new hoja |
 | l161-02 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | described | duplicate of l161-01 |
-| l169-01 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html | pending | |
-| l169-02 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/ | pending | |
-| l173-01 | link | 173 | configuring/service-layer-controller-settings.md | https://me.sap.com/notes/3157498 | pending | |
-| l180-01 | link | 180 | webhooks/overview-and-quick-start.md | https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US | pending | |
-| l225-01 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | pending | |
-| l225-02 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | pending | |
-| l227-01 | link | 227 | faq/faq.md | http://www.odata.org/libraries/ | pending | |
-| l234-01 | link | 234 | appendix-di-api-comparison/transaction-apis.md | http://www.odata.org/documentation/odata-version-3-0/batch-processing/ | pending | |
-| l234-02 | link | 234 | appendix-di-api-comparison/transaction-apis.md | http://www.odata.org/documentation/odata-version-3-0/batch-processing/ | pending | |
+| l169-01 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_bybusyness.html | removed | link removed at user request; the bybusyness algorithm summary is inlined in the `Load` option of service-layer-controller-settings.md |
+| l169-02 | link | 169 | configuring/service-layer-controller-settings.md | https://httpd.apache.org/docs/ | removed | link removed; generic Apache docs index with no content of its own. The attribution note is kept without the URL |
+| l173-01 | link | 173 | configuring/service-layer-controller-settings.md | https://me.sap.com/notes/3157498 | keep | link kept at user request; KBA content added as a new external hoja configuring/log-file-configuration.md |
+| l180-01 | link | 180 | webhooks/overview-and-quick-start.md | https://help.sap.com/doc/c20c38825f674af8a1f72c9f596969a5/10.0/en-US | keep | link kept at user request; zip contents (server.js, helpers.js, ReadMe.md) added as external hoja webhooks/webhook-endpoint-sample.md. UI, certs and lockfile omitted |
+| l225-01 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | removed | URL removed; replaced by an internal link to odata/query-options/query-options-overview.md (user decision) |
+| l225-02 | link | 225 | limitations/limitations.md | http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html | removed | URL removed; replaced by an internal link to odata/query-options/query-options-overview.md (user decision) |
+| l227-01 | link | 227 | faq/faq.md | http://www.odata.org/libraries/ | removed | URL removed; the client-library list sentence was dropped (no equivalent in the OData skill) (user decision) |
+| l234-01 | link | 234 | appendix-di-api-comparison/transaction-apis.md | http://www.odata.org/documentation/odata-version-3-0/batch-processing/ | removed | URL removed; replaced by an internal link to consuming-service-layer/batch-operations.md (user decision) |
+| l234-02 | link | 234 | appendix-di-api-comparison/transaction-apis.md | http://www.odata.org/documentation/odata-version-3-0/batch-processing/ | removed | URL removed; replaced by an internal link to consuming-service-layer/batch-operations.md (user decision) |
