@@ -4,7 +4,8 @@ import { mkdtemp, readFile, readdir } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { writeSetup } from '../src/setup/setup.ts'
-import { count, queryString, readOnePage, traverse } from '../src/use/read.ts'
+import { count, readOnePage, traverse } from '../src/use/read.ts'
+import { queryString } from '../src/use/rows.ts'
 import { main } from '../src/use/command.ts'
 import type { HttpRequest } from '../src/common/sl.ts'
 import { live, realCredentials, recording } from './sl-env.ts'
@@ -76,7 +77,7 @@ for (const version of ['v1', 'v2'] as const) {
     assert.equal(index.count, 337)
     assert.equal(index.keys.length, 337)
     assert.equal((await readdir(join(out.resumen!.ruta as string, 'Orders'))).length, 337)
-    const gets = seen.filter((r) => r.method === 'GET')
+    const gets = seen.filter((r) => r.method === 'GET' && /\/Orders\?/.test(r.url))
     assert.equal(gets.length, 4)
     assert.ok(gets.every((r) => r.headers.Prefer === 'odata.maxpagesize=100'))
     assert.ok(gets.slice(1).every((r, i) => r.url.endsWith(`$skip=${(i + 1) * 100}`)), gets.map((r) => r.url).join('\n'))

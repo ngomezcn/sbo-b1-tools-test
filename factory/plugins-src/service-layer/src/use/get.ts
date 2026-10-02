@@ -3,7 +3,8 @@ import { request } from '../common/sl.ts'
 import { openUse, type UseOptions } from './context.ts'
 import { writeDump } from './dump.ts'
 import { failure, success, type UseOutput } from './output.ts'
-import { assertEntitySet, parseJson } from './read.ts'
+import { contextForOperation } from './object-context.ts'
+import { assertEntitySet, parseJson } from './rows.ts'
 import { withSession } from './session.ts'
 
 export interface GetOptions extends UseOptions {
@@ -26,6 +27,7 @@ export async function getByKey(options: GetOptions): Promise<UseOutput> {
     assertEntitySet(options.entitySet)
     const ctx = await openUse(options)
     const parsed = parseKey(options.key)
+    const context = await contextForOperation(ctx, options.entitySet, options.refreshContext)
     const path = `${options.entitySet}(${parsed.literal})`
     const response = await withSession(ctx.session, (cookie) => request(ctx.transport, ctx.credentials, ctx.config.versionOData, 'GET', path, cookie))
     const record = parseJson(response)
@@ -40,7 +42,7 @@ export async function getByKey(options: GetOptions): Promise<UseOutput> {
       records: [record],
       keys: [parsed.plain],
     })
-    return success(response.status, { entorno: ctx.environment, entitySet: options.entitySet, filas: 1, ruta: dir, claves: keys })
+    return success(response.status, { entorno: ctx.environment, entitySet: options.entitySet, filas: 1, ruta: dir, claves: keys, ...context })
   } catch (e) {
     return failure(e)
   }

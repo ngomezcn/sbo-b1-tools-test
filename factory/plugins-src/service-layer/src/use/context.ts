@@ -13,6 +13,8 @@ export interface UseOptions {
   transport?: Transport
   now?: () => Date
   newId?: () => string
+  /** The developer asked for a new Contexto de objeto of the entity before this operation. */
+  refreshContext?: boolean
 }
 
 export interface UseContext {
