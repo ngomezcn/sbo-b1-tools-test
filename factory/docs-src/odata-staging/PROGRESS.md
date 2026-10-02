@@ -5,9 +5,10 @@ Pins: .claude/skills/build-docs-from-odata/pins.json · Skill: /build-docs-from-
 ## RESUME HERE
 
 **Done last session:** PENDING-REVIEW items 6–7 decided and executed (2026-10-02, supervisor-delegated, rule: SL docs prevail over OData): all SL conflicts checked against `service-layer/reference/`; one `SL differs` line widened (etag-and-concurrency); no hoja discarded; reference/odata/ and SKILL.md published to `sbo-skills/plugins/service-layer/skills/docs/` via `npm run publish-plugin` (working tree, not committed). Earlier: items 1–5 executed.
-**Next:** nothing pending. Optional: live-SL tests of upsert (PUT/PATCH to a missing key) and `$ref` / `@odata.bind` (see PENDING-REVIEW item 6, undecided by evidence). The `sbo-skills` working tree needs the user's commit.
-**Waiting on the user:** commit of the `sbo-skills` working tree (publish left uncommitted by instruction); optionally authorise live-SL tests for the two open points above.
+**Next:** nothing pending. Only open point: whether SL `$metadata` can return JSON (not tested). Live tests of upsert and `$ref` / `@odata.bind` are done (2026-10-02, SL 10.0 version 1000340, v1 and v2; test Items `ZZ*` created and deleted): upsert not supported (404 -2028), `@odata.bind` silently ignored, `/$ref` and `$links` unsupported, `DELETE Entity/Nav/$ref` deletes the entity. PENDING-REVIEW item 6 resolved by evidence; `SL differs` added to update-entity, modify-relationships, create-entity and related-entities-and-references; republished to `sbo-skills` and committed.
+**Waiting on the user:** nothing.
 **Open decisions:** none.
+**Update (2026-10-02):** `test_verify_odata_block.py` fixed (24/24 pass; fixtures now pass `--ledger`, the script was right); `verify_odata_block.py --all` 57 PASS. Six stat-only `webhooks/` entries in `sbo-skills` cleared with `git add` (content identical; CRLF worktree vs LF index, no pipeline bug). Only real pending change in `sbo-skills`: `etag-and-concurrency.md`. `.gitattributes` deliberately not added (optional; would create more uncommitted changes in both repos).
 **Suggested skills:** none
 
 ## Bloques
@@ -682,8 +683,8 @@ None (no hojas). Seed noted: OData `$batch` generic rules vs SL `reference/consu
 - bloque 6 protocol-versioning.md: SL accepts OData v3 by `OData-MaxVersion: 3.0` or `MaxDataServiceVersion: 3.0` (deployment-and-scope.md, Semantic Layer views); not a stated contradiction.
 - bloque 7 status-codes.md: SL batch-operations.md says a valid batch returns `202 Accept` in OData V3 and `200 OK` in V4; OData defines 202 only for asynchronous acceptance. Observation only.
 - bloque 7 error-response.md: SL docs are inconsistent among themselves: etag-usage.md shows string `code` ("-2039") and string `message`; query-errors.md shows numeric `code` and object `message` {lang, value}. The `SL differs` clause was narrowed to SQL Query errors.
-- bloque 4 modify-relationships.md: SL associations.md has no `$ref`/`odata.bind`/`$links` content; In Service Layer set to `no equivalent hoja`.
-- bloque 4 update-entity.md folds upsert (OASIS 11.4.4); SL has no upsert coverage (unverified on live SL).
+- bloque 4 modify-relationships.md: SL associations.md has no `$ref`/`odata.bind`/`$links` content. Verified on live SL (2026-10-02): `/$ref` and `$links` unsupported, `DELETE Entity/Nav/$ref` deletes the entity; written as `SL differs` (also in create-entity.md and related-entities-and-references.md).
+- bloque 4 update-entity.md folds upsert (OASIS 11.4.4). Verified on live SL (2026-10-02): PATCH/PUT to a missing key returns 404 `-2028`, no upsert; written as `SL differs`. `Prop@odata.bind` is accepted and ignored.
 - bloque 8 plan: SL `$metadata` may or may not return JSON: not covered.
 
 ## Source defects (transcribed as printed)

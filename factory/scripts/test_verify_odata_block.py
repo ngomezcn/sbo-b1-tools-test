@@ -83,6 +83,8 @@ class Base(unittest.TestCase):
         self.tmp = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, self.tmp, True)
         self.docs, self.work, self.sl = self.tmp / "docs", self.tmp / "work", self.tmp / "sl"
+        self.ledger = self.tmp / "ledger"
+        self.ledger.mkdir()
         self.pins = self.tmp / "pins.json"
         self.pins.write_text(json.dumps(PINS), encoding="utf-8")
         (self.work / "sections").mkdir(parents=True)
@@ -95,7 +97,7 @@ class Base(unittest.TestCase):
         self.base = self.docs / "reference" / "odata"
         self.bdir = self.base / "headers"
         self.bdir.mkdir(parents=True)
-        (self.docs / "PROGRESS.md").write_text(LEDGER, encoding="utf-8")
+        (self.ledger / "PROGRESS.md").write_text(LEDGER, encoding="utf-8")
         self.hoja = self.bdir / "etag.md"
         self.hoja.write_text(GOOD_HOJA, encoding="utf-8")
         (self.bdir / "index.md").write_text("# Headers\n\n- [ETag](etag.md)\n", encoding="utf-8")
@@ -103,7 +105,7 @@ class Base(unittest.TestCase):
 
     def run_verify(self, *extra):
         out = io.StringIO()
-        args = ["headers", "--docs", str(self.docs), "--work", str(self.work), "--sl", str(self.sl),
+        args = ["headers", "--docs", str(self.docs), "--ledger", str(self.ledger), "--work", str(self.work), "--sl", str(self.sl),
                 "--pins", str(self.pins), *extra]
         with redirect_stdout(out):
             code = v.main(args)
@@ -129,8 +131,8 @@ class Verify(Base):
         self.assertEqual(code, 0, out)
 
     def test_ledger_from_progress_parts(self):
-        (self.docs / "PROGRESS.md").unlink()
-        parts = self.docs / "progress-parts"
+        (self.ledger / "PROGRESS.md").unlink()
+        parts = self.ledger / "progress-parts"
         parts.mkdir()
         (parts / "6-headers.md").write_text(LEDGER, encoding="utf-8")
         self.assertEqual(self.run_verify()[0], 0)

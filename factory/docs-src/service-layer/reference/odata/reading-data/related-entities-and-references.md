@@ -5,7 +5,7 @@ summary: How to GET related entities via a navigation property, request entity r
 ---
 # Related entities, references and entity-ids
 
-In Service Layer: reference/consuming-service-layer/associations.md
+In Service Layer: reference/consuming-service-layer/associations.md ; SL differs: `GET` with `/$ref` appended is not supported (verified on a live SL 10.0, v1 and v2): it returns `400` with code `201` (`Invalid query option: $ref is an invalid property.`), to get the related key read the entity or `$expand` the navigation property
 
 ## Requesting Related Entities
 

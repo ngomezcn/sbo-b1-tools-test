@@ -5,7 +5,7 @@ summary: How to add, remove, change or replace references between existing entit
 ---
 # Modifying Relationships between Entities
 
-In Service Layer: no equivalent hoja
+In Service Layer: no equivalent hoja ; SL differs: reference resources (`/$ref`) are not supported (verified on a live SL 10.0, v1 and v2): `PUT` on `Entity(key)/Nav/$ref` returns `404` (code `-2028`) and changes nothing, `POST` returns `400` (code `-1008`, `Command Not Found`), `GET` returns `400` (code `201`, `Invalid query option: $ref is an invalid property.`), and `$links` returns the same `400`. Warning: `DELETE Entity(key)/Nav/$ref` returns `204` but deletes the entity `Entity(key)` itself, whatever `Nav` is (even a name that does not exist). To change a relationship, write the foreign-key property of the dependent entity with `PATCH`
 
 Relationships between entities are represented by navigation properties as described in Data Model. URL conventions for navigation properties are described in [OData-URL].
 

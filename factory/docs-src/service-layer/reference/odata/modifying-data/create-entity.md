@@ -5,7 +5,7 @@ summary: How to create an entity with POST, link it to existing entities or crea
 ---
 # Create an entity
 
-In Service Layer: reference/consuming-service-layer/crud-operations.md; reference/consuming-service-layer/associations.md
+In Service Layer: reference/consuming-service-layer/crud-operations.md; reference/consuming-service-layer/associations.md ; SL differs: `Prop@odata.bind` is not applied (verified on a live SL 10.0, v1 and v2): a `POST` with `"BusinessPartner@odata.bind"` or `"ItemGroups@odata.bind"` returns `201` and the link is not set (the foreign-key property keeps its default or null), and an unknown or nonexistent target gives no error, set the foreign-key property (for example `Mainsupplier`, `ItemsGroupCode`) in the body instead
 
 ## Request rules
 

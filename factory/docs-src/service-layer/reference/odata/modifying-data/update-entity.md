@@ -5,7 +5,7 @@ summary: How to update an entity with PATCH or PUT, how deep updates and upserts
 ---
 # Update an entity (PATCH, PUT, upsert)
 
-In Service Layer: reference/consuming-service-layer/crud-operations.md; reference/faq/faq.md; reference/etag/etag-guide.md
+In Service Layer: reference/consuming-service-layer/crud-operations.md; reference/faq/faq.md; reference/etag/etag-guide.md ; SL differs: upsert is not supported (verified on a live SL 10.0, v1 and v2): `PATCH` or `PUT` to a key that does not exist returns `404` with error code `-2028` (`Entity with value('KEY') does not exist`) and creates nothing, with or without `If-None-Match: *`, so create with `POST`, `Prop@odata.bind` in a `PATCH` body is accepted with `204` but silently ignored (set the foreign-key property instead)
 
 - [Update request](#update-request)
 - [Deep update](#deep-update)
