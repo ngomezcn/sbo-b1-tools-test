@@ -32,7 +32,7 @@ Read by key (`BusinessPartners('C50000')`, exists in the demo, `ADA Tecnologías
 
 - Missing key: HTTP 404, `code: -2028` (v1, number) / `"-2028"` (v2, string), `message: "No matching records found (ODBC -2028)"`.
 - Responses carry an etag (`odata.etag` in v1, `@odata.etag` in v2); the plugin does not use it.
-- `Set-Cookie` on login: `B1SESSION` and also `ROUTEID` (even on this single-node demo). Both are sent back.
+- `Set-Cookie` on login: `B1SESSION` and also `ROUTEID` (the demo is behind a load balancer: `ROUTEID` is `.node1` … `.node10`). Both are sent back.
 
 Session:
 
@@ -41,10 +41,11 @@ Session:
 - Real session duration (v2, 2026-10-02): the timeout is by inactivity. A session left idle answered 401 at 31 min; another used every 10 min was still valid at 50 min (so each use extends it).
 - The 30-minute rule is measured from the last use (`lastUsedAt`); the 401 recovery covers the case where the SL's real rule differs.
 
-Demo-server quirk (not our code): a fresh session sometimes cannot read anything: HTTP 500, `code: 407` (v1 number, v2 string), `message: "Table definition not found for '@ZZVF_T'."`, on every request of that session; another session reads the same record fine. Seen in about 1 of 5 logins, on several entity sets. The plugin returns it literally and does not relogin on it. Tests that need a successful read (`getLive` in `test/sl-env.ts`) retry with a new session.
+Demo-server quirk (not our code), cause found 2026-10-02: the demo has a load balancer with several nodes (`ROUTEID` `.node1` … `.node10`; `.node6` and `.node9` never appeared). One node, `.node4`, answered every data read (`BusinessPartners`, `Items`, `UserTablesMD`) with HTTP 500, `code: 407` (v1 number, v2 string), `message: "Table definition not found for '@ZZVF_T'."`; its login worked. The session sticks to the node through the `ROUTEID` cookie, so a session that landed on `.node4` failed on every request, and one that landed elsewhere was fine (about 1 of 5 logins). 50 logins: `.node4` 6 of 6 broken, the other seven nodes 0 broken. The table `@ZZVF_T` does not exist in the demo company (`UserTablesMD('ZZVF_T')` gives 404, no `ZZ*` user tables or fields). After the developer stopped `.node4`, 50 logins and reads all succeeded. The plugin returns the error literally and does not relogin on it (a relogin would land on another node, but 407 alone cannot tell a broken node from a missing user table). Tests that need a successful read (`getLive` in `test/sl-env.ts`) retry with a new session.
 
 ## Not verified against the real Service Layer (pending)
 
-- Behaviour behind a real load balancer (several nodes with different `ROUTEID`): not tested.
+- Behaviour behind a load balancer: partly verified (the cookie keeps the session on one node). Not tested: a node going down in the middle of a session.
+- Re-check `.node4` once the developer re-enables it. To reproduce: log in about 50 times (`POST /b1s/v2/Login`), note `ROUTEID` from `Set-Cookie`, read `BusinessPartners('C50000')?$select=CardCode` with that session, then logout, and tally ok/500-407 per node. If `.node4` still fails every time, it is still broken; if every node is ok, the cause is fixed. Remove the retry in `getLive` only if the demo is stable for good.
 - Composite keys (`Entity(A=1,B='x')`): not implemented. Pending.
 - String keys made only of digits must be passed quoted (`'123'`); unquoted digits are sent as numbers. Not verified against an entity set with such keys.
