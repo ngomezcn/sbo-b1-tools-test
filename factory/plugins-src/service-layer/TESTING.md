@@ -22,6 +22,8 @@ Run everything from this folder: `npm test` (loads the repo-root `.env`: `SL_URL
 
 - Slice 9 (complete Setup, the wizard): executed against FP 2608, `v1` and `v2`, 2026-10-02 (`test/setup-wizard.test.ts`, plus the earlier Setup tests). The questions are driven by a scripted developer (answers fed to the same code the terminal uses); the logins are real.
 
+- Slice 10 (reorganisation into one plugin, end to end): 2026-10-02, FP 2608. Not a test file: done by hand with the real `claude` CLI and the real SL (below).
+
 ## Verified against the real Service Layer
 
 Login errors, exactly as returned (HTTP 401 in all cases):
@@ -136,7 +138,18 @@ Setup, complete (slice 9):
 - The password is read with no echo (`createAsk`: output muted while the secret is typed). With no TTY (how an AI tool runs commands) the wizard refuses with `NEEDS_TERMINAL` and says to run it in the developer's own terminal; checked with a real child process.
 - A login right after another one on the demo failed once in a full run (`setup-login`, "a failing environment is not left configured", 1 of about 6 runs; the same test passed on the next runs). Probably the demo's parallel-login failure (SAML) or a bad node; not investigated.
 
+Plugin installed end to end (slice 10, `v2`, `claude` 2.1.286, isolated with `CLAUDE_CONFIG_DIR`, empty git repo in a temp folder):
+
+- `claude plugin validate` passes for the marketplace and the plugin. `claude plugin marketplace add <sbo-skills folder>` and `claude plugin install service-layer@sbo-skills` install one plugin (`service-layer` 0.1.0) with `dist/`, `skills/setup`, `skills/use`, `skills/docs` and the README.
+- From the installed copy: `setup.mjs` (flag form, password in the environment variable) configured `dev` against the real SL and wrote `.gitignore`; `--status` listed `dev`; `setup.mjs` with no TTY answered `NEEDS_TERMINAL`; `use.mjs count` and `get` read `BusinessPartners` (ficha generated on the first call); `post` in seco printed the request and sent nothing; `post --execute` created a business partner (201) and `delete --execute` removed it (204).
+- Reproducible output: `publish-plugin` run twice into two empty folders gives identical trees (`diff -r`), and run again over the committed plugin leaves `git status` of `sbo-skills` clean.
+
+Full run of the end of session 3 (`npm test`, 120 tests, FP 2608, 2026-10-02): 118 pass. The 2 that failed are in `test/use-tables.test.ts` (user table `@SBOCTXT` and user object `SBOUDT`): `ENTITY_NOT_FOUND`, because the node that served the session does not list the entity in `$metadata` (the node visibility of new user tables described above). They passed in an earlier run of the same session and failed again alone on a re-run; the code they exercise was not touched by slices 8 to 10. The demo needs those tables listed by the node the tests land on; recreating them (dropping `@SBOCTXT` and `@SBOUDT`) is the known workaround and was not done here.
+
 ## Not verified against the real Service Layer (pending)
+
+- That Claude Code replaces `${CLAUDE_PLUGIN_ROOT}` inside the SKILL.md text when it loads a skill (the skills rely on it to name the script path): checked by running the scripts through that path by hand, not by a model session.
+- That the model follows the dry-run flow of the `use` skill and the terminal flow of the `setup` skill: no evaluation was run on the skills.
 
 - The hidden password on a real interactive terminal (Windows console, macOS, Linux): tests use streams without a TTY, where readline never echoes. The muting logic is tested, the terminal behaviour (raw mode, backspace, paste) is not. To check by hand: run `node dist/setup.mjs` in a terminal and look that the password does not show.
 - A wizard run under `claude` itself (the skill telling the developer to open a terminal): checked only in the end-to-end test of slice 10.
