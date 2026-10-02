@@ -1,18 +1,18 @@
 /** The Contexto de objeto of an entity: `.sbo-skills/service-layer/<entorno>/context/<Entidad>.md`. */
-import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
-import { dirname } from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { SboError } from '../common/errors.ts'
 import { contextPath } from '../common/layout.ts'
-import { withLock } from '../common/lock.ts'
 import { request, SlError } from '../common/sl.ts'
 import { openUse, type UseContext, type UseOptions } from './context.ts'
+import { ensureEntityIndex, missingEntityMessage } from './entity-index.ts'
 import { failure, success, type UseOutput } from './output.ts'
 import { assertEntitySet, collectRows, parseJson, queryString, withQuery } from './rows.ts'
 import { withSession } from './session.ts'
-import { CONTEXT_HEADER, entityTypeOf, readChosenTables, readHeader, renderContext, tablesFor, type TableMap, type UserField } from './metadata.ts'
+import { CACHE_MAX_AGE_MS, getMetadata, withMetadataLock, writeAside } from './metadata-source.ts'
+import { entityTypeOf, readChosenTables, readHeader, renderContext, tablesFor, type TableMap, type UserField } from './metadata.ts'
 
 /** A ficha older than this is regenerated before the next operation on its entity. */
-export const CONTEXT_MAX_AGE_MS = 7 * 24 * 3_600_000
+export const CONTEXT_MAX_AGE_MS = CACHE_MAX_AGE_MS
 const MAX_USER_FIELDS = 5000
 
 export interface EnsureOptions {
@@ -38,21 +38,6 @@ async function isFresh(ctx: UseContext, file: string): Promise<boolean> {
     return false
   }
   const header = readHeader(text)
-  if (!header || header.odataVersion !== ctx.config.versionOData) return false
-  const age = ctx.now().getTime() - header.fetchedAt.getTime()
-  return age >= 0 && age <= CONTEXT_MAX_AGE_MS
-}
-
-/**
- * An entity set that `$metadata` did not list is remembered for the same week as a ficha (`<Entity>.missing`, next to the
- * ficha folder's files), so that every operation on a mistyped or not yet visible entity does not download 2 MB again.
- * Only the developer's `--refresh` (or `--tables`) looks again; the AI never does.
- */
-const missingPath = (ctx: UseContext, entitySet: string) => contextPath(ctx.root, ctx.environment, entitySet).replace(/\.md$/, '.missing')
-
-async function isKnownMissing(ctx: UseContext, entitySet: string): Promise<boolean> {
-  const text = await readFile(missingPath(ctx, entitySet), 'utf8').catch(() => null)
-  const header = text === null ? null : readHeader(text)
   if (!header || header.odataVersion !== ctx.config.versionOData) return false
   const age = ctx.now().getTime() - header.fetchedAt.getTime()
   return age >= 0 && age <= CONTEXT_MAX_AGE_MS
@@ -96,14 +81,12 @@ export async function ensureContext(ctx: UseContext, entitySet: string, options:
   const mayReuse = !options.force && options.tables === undefined
   const reuse = async (): Promise<ContextResult | null | undefined> => {
     if (!mayReuse) return undefined
-    if (await isFresh(ctx, file)) return { path: file, regenerated: false }
-    if (await isKnownMissing(ctx, entitySet)) return null
-    return undefined
+    return (await isFresh(ctx, file)) ? { path: file, regenerated: false } : undefined
   }
   const early = await reuse()
   if (early !== undefined) return early
-  // Parallel executions: one downloads `$metadata`, the others wait and then find the ficha ready.
-  return withLock(`${file}.lock`, async () => {
+  // Parallel executions: one downloads `$metadata`, the others wait and then find the ficha ready. The lock is the index's too.
+  return withMetadataLock(ctx, async () => {
     const again = await reuse()
     return again !== undefined ? again : generate(ctx, entitySet, file, options)
   })
@@ -113,7 +96,7 @@ async function generate(ctx: UseContext, entitySet: string, file: string, option
   // `--tables` is kept in the ficha: an automatic regeneration reuses what the developer chose.
   const chosen = options.tables === undefined ? await savedTables(file) : options.tables.length > 0 ? options.tables : null
   const markdown = await withSession(ctx.session, async (cookie) => {
-    const xml = (await request(ctx.transport, ctx.credentials, ctx.config.versionOData, 'GET', '$metadata', cookie)).text
+    const xml = await getMetadata(ctx, cookie)
     if (entityTypeOf(xml, entitySet) === null) return null
     const tables: TableMap | null = chosen ? { main: chosen, collections: {} } : await resolveTables(ctx, cookie, entitySet)
     const fetched = tables ? await fetchUserFields(ctx, cookie, tables) : null
@@ -129,28 +112,10 @@ async function generate(ctx: UseContext, entitySet: string, file: string, option
       chosenTables: chosen ?? undefined,
     })
   })
-  await mkdir(dirname(file), { recursive: true })
-  if (markdown === null) {
-    await writeAside(ctx, missingPath(ctx, entitySet), `# ${entitySet}\n\n${missingText(ctx)}`)
-    return null
-  }
+  // Nothing is written for an entity set `$metadata` does not list: the next operation looks again (and so renews the Índice de entidades).
+  if (markdown === null) return null
   await writeAside(ctx, file, markdown)
-  await rm(missingPath(ctx, entitySet), { force: true })
   return { path: file, regenerated: true }
-}
-
-const missingText = (ctx: UseContext) =>
-  `- ${CONTEXT_HEADER.fetched}: ${ctx.now().toISOString()}\n- ${CONTEXT_HEADER.odata}: ${ctx.config.versionOData}\n- $metadata did not list this entity set.\n`
-
-/** Written aside and renamed, so a parallel execution never reads half a file. */
-async function writeAside(ctx: UseContext, file: string, text: string): Promise<void> {
-  const temp = `${file}.${ctx.newId()}.tmp`
-  try {
-    await writeFile(temp, text)
-    await rename(temp, file)
-  } finally {
-    await rm(temp, { force: true })
-  }
 }
 
 async function savedTables(file: string): Promise<string[] | null> {
@@ -163,6 +128,7 @@ async function savedTables(file: string): Promise<string[] | null> {
  * it becomes a warning in the output and the operation goes ahead; an older ficha, if there is one, is still pointed to.
  */
 export async function contextForOperation(ctx: UseContext, entitySet: string, force: boolean | undefined): Promise<Record<string, unknown>> {
+  ctx.entitySets.add(entitySet)
   try {
     return contextSummary(await ensureContext(ctx, entitySet, { force }))
   } catch (e) {
@@ -192,7 +158,11 @@ export async function contextCommand(options: ContextCommandOptions): Promise<Us
     assertEntitySet(options.entitySet)
     const ctx = await openUse(options)
     const result = await ensureContext(ctx, options.entitySet, { force: options.refresh, tables: options.tables })
-    if (!result) throw new SboError('ENTITY_NOT_FOUND', `${options.entitySet} is not an entity set of this Service Layer ($metadata does not list it). Check the name. If it was just created, run "context ${options.entitySet} --refresh": this answer is remembered for a week unless you refresh.`)
+    if (!result) {
+      // `$metadata` was just downloaded and does not list it: the index is renewed with that same download, and read by the AI next.
+      await ensureEntityIndex(ctx, { force: true }).catch(() => {})
+      throw new SboError('ENTITY_NOT_FOUND', missingEntityMessage(ctx, [options.entitySet]))
+    }
     const text = await readFile(result.path, 'utf8')
     const header = readHeader(text)
     return success(200, {

@@ -14,7 +14,7 @@ test('CLI: password from the environment, default OData version from the B1 vers
   const root = await mkdtemp(join(tmpdir(), 'sbo-'))
   const { output, exitCode } = await main(args, { SBO_SL_PASSWORD_DEV: good.password }, root)
   assert.equal(exitCode, 0)
-  assert.deepEqual(output, { ok: true, configured: ['dev'], failed: [], warnings: [] })
+  assert.deepEqual(output, { ok: true, configured: ['dev'], indexed: ['dev'], failed: [], warnings: [] })
   assert.equal((await readConfig(root)).versionOData, 'v2')
   assert.equal((await readCredentials(root, 'dev')).password, good.password)
   assert.ok(!JSON.stringify(output).includes(good.password))

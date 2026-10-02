@@ -9,7 +9,7 @@ import { renderContext, readChosenTables, readHeader, tablesFor } from '../src/u
 import { CONTEXT_MAX_AGE_MS } from '../src/use/object-context.ts'
 import { main } from '../src/use/command.ts'
 import { defaultTransport, type HttpRequest, type Transport } from '../src/common/sl.ts'
-import { ensureUserFields, live, realCredentials, recordingOk as recording } from './sl-env.ts'
+import { ensureUserFields, live, plantIndex, realCredentials, recordingOk as recording } from './sl-env.ts'
 
 const good = realCredentials()
 const DAY = 24 * 3_600_000
@@ -17,6 +17,8 @@ const DAY = 24 * 3_600_000
 async function repo(versionOData: 'v1' | 'v2') {
   const root = await mkdtemp(join(tmpdir(), 'sbo-'))
   await writeSetup({ root, versionB1: 'FP 2608', versionOData, environments: { dev: good } })
+  // These tests count the downloads of `$metadata` for the ficha; the Índice de entidades has its own (use-entities.test.ts).
+  await plantIndex(root, new Date(), versionOData)
   return root
 }
 
@@ -284,33 +286,4 @@ test('--tables is marked in the ficha and kept when it is regenerated, by age or
   assert.match(plain, /^## User fields \(OITM\)$/m)
   assert.ok(!plain.includes('--tables'))
   assert.equal(readChosenTables(plain), null)
-})
-
-test('an entity that $metadata does not list is looked up once, not on every operation; only the developer looks again', async () => {
-  const root = await repo('v2')
-  const seen: HttpRequest[] = []
-  const transport = recording(seen)
-  const now = new Date()
-  const first = await live(root, () => main(['page', 'NoSuchThings'], root, { transport, now: () => now }))
-  assert.equal(first.ok, false)
-  assert.equal(metadataCalls(seen), 1)
-  const files = await readdir(join(root, '.sbo-skills/service-layer/dev/context'))
-  assert.deepEqual(files, ['NoSuchThings.missing'])
-
-  // Any other operation (and the context command) fails fast: no new download of ~2 MB.
-  await live(root, () => main(['count', 'NoSuchThings'], root, { transport, now: () => now }))
-  await live(root, () => main(['traverse', 'NoSuchThings'], root, { transport, now: () => now }))
-  const command = await live(root, () => main(['context', 'NoSuchThings'], root, { transport, now: () => now }))
-  assert.equal(command.error!.code, 'ENTITY_NOT_FOUND')
-  assert.match(command.error!.message, /--refresh/)
-  assert.equal(metadataCalls(seen), 1)
-
-  // A week later, the rule of the ficha: it is looked up again.
-  await live(root, () => main(['count', 'NoSuchThings'], root, { transport, now: () => new Date(now.getTime() + 8 * DAY) }))
-  assert.equal(metadataCalls(seen), 2)
-  // The developer's --refresh looks again at once, and so does a flag on an operation.
-  await live(root, () => main(['context', 'NoSuchThings', '--refresh'], root, { transport, now: () => now }))
-  assert.equal(metadataCalls(seen), 3)
-  await live(root, () => main(['count', 'NoSuchThings', '--refresh-context'], root, { transport, now: () => now }))
-  assert.equal(metadataCalls(seen), 4)
 })

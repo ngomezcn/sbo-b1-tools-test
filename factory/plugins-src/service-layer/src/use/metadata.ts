@@ -56,6 +56,9 @@ export function entityTypeOf(xml: string, entitySet: string): string | null {
   return type ? stripNamespace(type) : null
 }
 
+/** Every entity set `$metadata` lists. Actions and functions are not entity sets and never appear here. */
+export const entitySetNames = (xml: string): string[] => [...xml.matchAll(/<EntitySet\b[^>]*\bName="([^"]+)"/g)].map((m) => m[1])
+
 export function entityInfo(xml: string, entityType: string): EntityInfo | null {
   const text = block(xml, 'EntityType', entityType)
   if (!text) return null

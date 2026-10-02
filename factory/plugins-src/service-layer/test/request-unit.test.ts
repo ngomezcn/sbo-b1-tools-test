@@ -224,7 +224,7 @@ test('form-data builder: one `files` field per file, bytes intact', () => {
 
 interface Fake {
   transport: Transport
-  /** Everything sent besides the session itself and `$metadata`. */
+  /** Everything sent besides the session itself and what the Índice de entidades reads (`$metadata`, `UserTablesMD`, `UserObjectsMD`). */
   seen: HttpRequest[]
 }
 
@@ -242,6 +242,7 @@ function fake(handler: (r: HttpRequest) => HttpResponse): Fake {
       return res
     }
     if (r.url.endsWith('/$metadata')) return answer(200, '<edmx/>')
+    if (/\/User(Tables|Objects)MD\?/.test(r.url)) return answer(200, '{"value":[]}', { 'content-type': 'application/json' })
     seen.push(r)
     return handler(r)
   }

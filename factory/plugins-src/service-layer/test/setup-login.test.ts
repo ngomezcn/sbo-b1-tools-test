@@ -24,12 +24,14 @@ for (const versionOData of ['v1', 'v2'] as const) {
     assert.deepEqual(result.environments, ['dev'])
     assert.deepEqual(await readCredentials(root, 'dev'), good)
     assert.equal((await readConfig(root)).versionOData, versionOData)
-    assert.deepEqual(seen.map((r) => r.url.split('/').pop()), ['Login', 'Logout'])
+    // The test session is opened and discarded first; then the Índice de entidades is read with a session of its own, also discarded.
+    assert.deepEqual(seen.map((r) => r.url.split('/').pop()!.split('?')[0]), ['Login', 'Logout', 'Login', '$metadata', 'UserTablesMD', 'UserObjectsMD', 'Logout'])
 
     // The discarded session no longer works.
-    const cookie = seen[1].headers.Cookie
-    const after = await defaultTransport({ method: 'GET', url: `${baseUrl(good.url, versionOData)}/Items?$top=1`, headers: { Cookie: cookie } })
-    assert.equal(after.status, 401)
+    for (const logout of seen.filter((r) => r.url.endsWith('/Logout'))) {
+      const after = await defaultTransport({ method: 'GET', url: `${baseUrl(good.url, versionOData)}/Items?$top=1`, headers: { Cookie: logout.headers.Cookie } })
+      assert.equal(after.status, 401)
+    }
   })
 
   test(`${versionOData}: wrong password fails with the literal SL error and leaves nothing configured`, async () => {

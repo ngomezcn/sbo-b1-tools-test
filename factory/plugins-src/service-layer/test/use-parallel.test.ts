@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { writeSetup } from '../src/setup/setup.ts'
-import { dumpRoot, contextDir, envDir } from '../src/common/layout.ts'
+import { dumpRoot, contextDir, envDir, standardIndexPath, userIndexPath } from '../src/common/layout.ts'
 import { realCredentials } from './sl-env.ts'
 
 const CLI = fileURLToPath(new URL('../src/use/cli.ts', import.meta.url))
@@ -30,7 +30,7 @@ function run(root: string, args: string[]): Promise<{ out: any; stdout: string }
 }
 
 for (const version of ['v1', 'v2'] as const) {
-  test(`${version}: 8 processes at once on an empty repo: one session, one ficha, one Volcado each`, async () => {
+  test(`${version}: 8 processes at once on an empty repo: one session, one ficha, one index, one Volcado each`, async () => {
     const root = await mkdtemp(join(tmpdir(), 'sbo-par-'))
     await writeSetup({ root, versionB1: 'FP 2608', versionOData: version, environments: { dev: realCredentials() } })
 
@@ -49,7 +49,11 @@ for (const version of ['v1', 'v2'] as const) {
     assert.deepEqual(await readdir(contextDir(root, 'dev')), ['Items.md'])
     assert.ok((await readFile(join(contextDir(root, 'dev'), 'Items.md'), 'utf8')).startsWith('# Items'))
     const files = await readdir(envDir(root, 'dev'))
-    assert.deepEqual(files.sort(), ['context', 'credentials.json', 'data', 'session.json'])
+    assert.deepEqual(files.sort(), ['context', 'credentials.json', 'data', 'entities-standard.md', 'entities-user.md', 'session.json'])
+    // The index (two files) is made once, whole, by whoever got the lock first.
+    assert.ok((await readFile(standardIndexPath(root, 'dev'), 'utf8')).includes('# Standard SAP entities'))
+    assert.ok((await readFile(userIndexPath(root, 'dev'), 'utf8')).includes('# User-defined entities'))
+    for (const { out } of results) assert.equal(out.resumen.indiceError, undefined, JSON.stringify(out))
     JSON.parse(await readFile(join(envDir(root, 'dev'), 'session.json'), 'utf8'))
     const config = await readFile(join(root, '.sbo-skills', 'service-layer', 'config.md'), 'utf8')
     assert.match(config, /versionOData/)

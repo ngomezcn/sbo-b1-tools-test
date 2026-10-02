@@ -83,7 +83,7 @@ export async function main(argv: string[], env: Env, root: string): Promise<{ ou
       environments,
     })
     return {
-      output: { ok: result.ok, configured: result.environments, failed: result.failed, warnings: result.warnings },
+      output: { ok: result.ok, configured: result.environments, indexed: result.indexed, failed: result.failed, warnings: result.warnings },
       exitCode: result.ok ? 0 : 1,
     }
   } catch (e) {

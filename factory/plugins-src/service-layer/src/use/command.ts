@@ -5,6 +5,7 @@
  *   node use.mjs count <EntitySet> [--filter ...]
  *   query options: --filter --select --orderby --expand (passed to the Service Layer as given)
  *   node use.mjs context <EntitySet> [--refresh] [--show] [--tables OCRD,CRD1 | default]
+ *   node use.mjs entities [--refresh]   where the Índice de entidades is (standard SAP entities, user tables and objects)
  *   node use.mjs clean <id|folder|path>   deletes that Volcado only
  *   node use.mjs request <METHOD> <path> [--header "Name: value"]... [--body '<json>' | --body-file <path> | --file <path>... | --stream-file <path>] [--read]
  *   everything but a GET only prints the request unless --execute (--read declares a POST a read); on prod --execute also needs --allow-prod
@@ -13,11 +14,13 @@
 import { parseArgs } from 'node:util'
 import { SboError } from '../common/errors.ts'
 import type { Transport } from '../common/sl.ts'
-import type { UseOptions } from './context.ts'
+import type { RunState, UseOptions } from './context.ts'
 import { cleanDump } from './clean.ts'
 import { getByKey } from './get.ts'
 import { failure, type UseOutput } from './output.ts'
 import { contextCommand } from './object-context.ts'
+import { entitiesCommand } from './entities.ts'
+import { explainMissingEntity } from './entity-index.ts'
 import { count, readOnePage, traverse } from './read.ts'
 import { runRequest } from './request.ts'
 
@@ -33,6 +36,7 @@ const USAGE = {
   traverse: 'Usage: traverse <EntitySet> [--max-rows N] [--filter ...] [--select ...] [--orderby ...] [--expand ...]',
   count: 'Usage: count <EntitySet> [--filter ...]',
   context: 'Usage: context <EntitySet> [--refresh] [--show] [--tables TABLE,TABLE | default]',
+  entities: 'Usage: entities [--refresh]',
   clean: 'Usage: clean <id | folder name | path of the Volcado>',
   request: `Usage: request <GET|POST|PATCH|PUT|DELETE> <path> [--header "Name: value"]... [--body '<json>' | --body-file <path> | --file <path>... | --stream-file <path>] [--read] [--execute] [--allow-prod]. The path is relative to the service root (Orders(5)/Cancel, SQLQueries('q')/List, $batch).`,
 }
@@ -53,6 +57,15 @@ function parseTables(value: string | undefined): string[] | undefined {
 }
 
 export async function main(argv: string[], root: string, deps: Deps = {}): Promise<UseOutput> {
+  const run: RunState = { notes: {} }
+  let out = await dispatch(argv, root, deps, run)
+  // The SL says an entity does not exist: `$metadata` is looked at again and the Índice de entidades renewed before it is believed.
+  if (!out.ok && run.ctx) out = await explainMissingEntity(run.ctx, out)
+  // A warning of the Índice de entidades (`indiceError`) rides along with the answer of the command.
+  return out.ok && out.resumen && Object.keys(run.notes).length > 0 ? { ...out, resumen: { ...out.resumen, ...run.notes } } : out
+}
+
+async function dispatch(argv: string[], root: string, deps: Deps, run: RunState): Promise<UseOutput> {
   try {
     const { values, positionals } = parseArgs({
       args: argv,
@@ -81,7 +94,7 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
       },
     })
     const [command, ...rest] = positionals
-    const base: UseOptions = { root, environment: values.entorno, refreshContext: values['refresh-context'], ...deps }
+    const base: UseOptions = { root, environment: values.entorno, refreshContext: values['refresh-context'], run, ...deps }
     const query = { filter: values.filter, select: values.select, orderby: values.orderby, expand: values.expand }
     const one = (usage: string) => {
       if (rest.length !== 1) throw new SboError('INVALID_ARGUMENTS', usage)
@@ -99,6 +112,9 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
         return await count({ ...base, entitySet: one(USAGE.count), filter: values.filter })
       case 'context':
         return await contextCommand({ ...base, entitySet: one(USAGE.context), refresh: values.refresh, show: values.show, tables: parseTables(values.tables) })
+      case 'entities':
+        if (rest.length !== 0) throw new SboError('INVALID_ARGUMENTS', USAGE.entities)
+        return await entitiesCommand({ ...base, refresh: values.refresh })
       case 'clean':
         return await cleanDump({ ...base, target: one(USAGE.clean) })
       case 'request':
@@ -117,7 +133,7 @@ export async function main(argv: string[], root: string, deps: Deps = {}): Promi
           allowProd: values['allow-prod'],
         })
       default:
-        throw new SboError('UNKNOWN_COMMAND', `Unknown command "${command ?? ''}". Available: get, page, traverse, count, context, clean, request.`)
+        throw new SboError('UNKNOWN_COMMAND', `Unknown command "${command ?? ''}". Available: get, page, traverse, count, context, entities, clean, request.`)
     }
   } catch (e) {
     if ((e as { code?: string }).code?.startsWith('ERR_PARSE_ARGS')) return failure(new SboError('INVALID_ARGUMENTS', (e as Error).message))

@@ -30,7 +30,11 @@ export const sessionPath = (root: string, env: Environment) => join(envDir(root,
 export const sessionLockPath = (root: string, env: Environment) => join(envDir(root, env), 'session.lock')
 export const contextDir = (root: string, env: Environment) => join(envDir(root, env), 'context')
 export const contextPath = (root: string, env: Environment, entitySet: string) => join(contextDir(root, env), `${entitySet}.md`)
-export const dumpRoot = (root: string, env: Environment) => join(envDir(root, env), 'data')
+/** The Índice de entidades of an environment: two Markdown files next to the `context/` folder, plus the lock of `$metadata` work. */
+export const standardIndexPath = (root: string, env: Environment) => join(envDir(root, env), 'entities-standard.md')
+export const userIndexPath = (root: string, env: Environment) => join(envDir(root, env), 'entities-user.md')
+export const metadataLockPath = (root: string, env: Environment) => join(envDir(root, env), 'metadata.lock')
+export const dumpRoot =(root: string, env: Environment) => join(envDir(root, env), 'data')
 
 /** One folder per Uso execution: `<date>-<id>`, date as YYYYMMDD-HHmmss (UTC). */
 export function dumpDir(root: string, env: Environment, now: Date, id: string): string {

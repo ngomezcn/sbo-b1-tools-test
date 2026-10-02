@@ -157,7 +157,8 @@ export async function runWizard({ root, ask, say, transport }: WizardOptions): P
   // The Setup proper: starts from scratch and tests every login again before leaving anything configured.
   const result = await runSetup({ root, versionB1, versionOData, environments: good, transport })
   for (const w of result.warnings) if (!warnings.includes(w)) warnings.push(w)
-  for (const w of warnings) if (/gitignore/.test(w)) say(`Warning: ${w}`)
+  for (const w of warnings) if (/gitignore|entity index/i.test(w)) say(`Warning: ${w}`)
+  if (result.indexed.length > 0) say(`Entity index made for: ${result.indexed.join(', ')}.`)
   for (const f of result.failed) say(`${f.environment}: not configured (${f.code ?? ''} ${f.message})`)
   // Only what is left failing: an environment that failed and then worked on a retry is not a failure.
   const left = [...[...failures].filter(([env]) => !good[env]).map(([, f]) => f), ...result.failed].filter((f): f is SetupFailure => f !== undefined)

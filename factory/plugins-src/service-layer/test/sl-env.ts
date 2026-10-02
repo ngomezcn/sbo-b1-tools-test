@@ -1,7 +1,7 @@
 import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { baseUrl, defaultTransport, login, logout, request, type HttpRequest, type Transport } from '../src/common/sl.ts'
 import { ENVIRONMENTS } from '../src/common/versions.ts'
-import { envDir, sessionPath, type Credentials } from '../src/common/layout.ts'
+import { envDir, sessionPath, standardIndexPath, userIndexPath, type Credentials } from '../src/common/layout.ts'
 import { getByKey, type GetOptions } from '../src/use/get.ts'
 import type { UseOutput } from '../src/use/output.ts'
 
@@ -203,4 +203,19 @@ export async function dropUserTable(name: string): Promise<void> {
   } finally {
     await a.close()
   }
+}
+
+/** A recent Índice de entidades in `root`, so that a test about something else does not download `$metadata` for it. */
+export async function plantIndex(root: string, fetchedAt = new Date(), odata = 'v2'): Promise<void> {
+  const header = (title: string) => `# ${title}
+
+- Fetched: ${fetchedAt.toISOString()}
+- OData version: ${odata} (B1 FP 2608)
+
+`
+  await mkdir(envDir(root, 'dev'), { recursive: true })
+  await writeFile(standardIndexPath(root, 'dev'), `${header('Standard SAP entities')}BusinessPartners, Items, Orders
+`)
+  await writeFile(userIndexPath(root, 'dev'), `${header('User-defined entities')}None.
+`)
 }

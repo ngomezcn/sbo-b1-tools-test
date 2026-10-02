@@ -3,6 +3,8 @@ import {
   assertCredentials, clearLocalState, ensureGitignore, writeConfig, writeCredentials, type Credentials,
 } from '../common/layout.ts'
 import { defaultTransport, login, logout, SlError, type Transport } from '../common/sl.ts'
+import { openUse } from '../use/context.ts'
+import { readEntityIndex, writeEntityIndex } from '../use/entity-index.ts'
 import { checkB1Version, checkODataVersion, isEnvironment, type Environment, type ODataVersion } from '../common/versions.ts'
 
 export interface SetupOptions {
@@ -28,6 +30,8 @@ export interface SetupFailure {
 export interface LoginSetupResult extends SetupResult {
   ok: boolean
   failed: SetupFailure[]
+  /** Environments whose Índice de entidades was made at the end. A failure there is a warning, not a failed Setup. */
+  indexed: Environment[]
 }
 
 function checkInput(options: SetupOptions, names: string[]): void {
@@ -103,9 +107,34 @@ export async function runSetup(options: SetupOptions & { transport?: Transport }
     if (tested.warning) warnings.push(tested.warning)
   }
 
-  if (Object.keys(good).length === 0) return { ok: false, environments: [], warnings, failed }
+  if (Object.keys(good).length === 0) return { ok: false, environments: [], warnings, failed, indexed: [] }
   const written = await writeSetup({ ...options, environments: good })
   // writeSetup repeats the version warning; what is new is what it found while writing (.gitignore).
   for (const w of written.warnings) if (!warnings.includes(w)) warnings.push(w)
-  return { ok: failed.length === 0, environments: written.environments, warnings, failed }
+  const indexed: Environment[] = []
+  for (const name of written.environments) {
+    const error = await makeIndex(options.root, name, transport)
+    if (error === null) indexed.push(name)
+    else warnings.push(`The entity index of "${name}" could not be made (${error}). The Uso makes it on its next command.`)
+  }
+  return { ok: failed.length === 0, environments: written.environments, warnings, failed, indexed }
+}
+
+/**
+ * The Índice de entidades of one environment, from the files just written. Returns the reason when it cannot be made.
+ * It logs in on its own and logs out when done, like the login test: the Setup leaves no session behind.
+ */
+async function makeIndex(root: string, environment: Environment, transport: Transport): Promise<string | null> {
+  try {
+    const ctx = await openUse({ root, environment, transport }, { sweep: false, index: false })
+    const { cookie } = await login(ctx.credentials, ctx.config.versionOData, transport)
+    try {
+      await writeEntityIndex(ctx, await readEntityIndex(ctx, cookie))
+    } finally {
+      await logout(ctx.credentials, ctx.config.versionOData, cookie, transport).catch(() => {})
+    }
+    return null
+  } catch (e) {
+    return (e as Error).message
+  }
 }

@@ -9,7 +9,7 @@ The Setup is a script that asks the developer for everything and tests the login
 
 ## Steps
 
-1. Tell the developer what the Setup will ask: the B1 version, the OData version (`v2` is preselected from FP 2405, `v1` before), and, for each of dev, uat and prod that they want, the Service Layer URL, company database, user and password. At least one environment. Each run erases the previous setup, with its data and object contexts, and starts from scratch.
+1. Tell the developer what the Setup will ask: the B1 version, the OData version (`v2` is preselected from FP 2405, `v1` before), and, for each of dev, uat and prod that they want, the Service Layer URL, company database, user and password. At least one environment. Each run erases the previous setup, with its data and object contexts, and starts from scratch. When the logins pass, the Setup also makes the entity index of each environment by itself, asking nothing; if it cannot, it prints a warning and the Setup still succeeds (the Uso makes the index on its next command).
 2. Ask them to open **their own terminal** in the root of this repo and run:
 
    ```
