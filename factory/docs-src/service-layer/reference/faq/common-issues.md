@@ -1,7 +1,7 @@
 ---
 title: Common issues - CORS troubleshooting and intermittent errors from a broken node
 source: external (not in the Service Layer guide) - generic CORS testing and troubleshooting guide, plus one verified Service Layer case (broken node behind a load balancer)
-summary: Generic, browser-side CORS troubleshooting guide - curl tests, DevTools inspection, common CORS errors with cause and solution, expected headers and a checklist - and a Service Layer case verified on a demo - intermittent HTTP 500 / code 407 on some sessions because one node behind a load balancer is broken.
+summary: Generic, browser-side CORS troubleshooting guide - curl tests, DevTools inspection, common CORS errors with cause and solution, expected headers and a checklist - and a Service Layer case verified on FP 2608 - intermittent HTTP 500 / code 407 on some sessions because one node behind a load balancer is broken.
 ---
 
 # Common issues
@@ -20,7 +20,7 @@ summary: Generic, browser-side CORS troubleshooting guide - curl tests, DevTools
 This guide has two parts.
 
 - CORS (everything up to the troubleshooting checklist): the general guide for testing and troubleshooting CORS. It is **not part of the Service Layer guide** and does not describe Service Layer behavior: the URLs and header values are placeholders. When the user has a CORS problem, go through the tests, errors and checklist here and adapt them to the actual case (their origin, endpoint, headers and credentials).
-- [Intermittent errors: a broken node behind a load balancer](#intermittent-errors-a-broken-node-behind-a-load-balancer): a Service Layer case seen in practice and verified on a demo. Use it when some sessions fail with the same error on every request while others work.
+- [Intermittent errors: a broken node behind a load balancer](#intermittent-errors-a-broken-node-behind-a-load-balancer): a Service Layer case seen in practice and verified on FP 2608. Use it when some sessions fail with the same error on every request while others work.
 
 For how Service Layer enables CORS (`CorsEnable`, `CorsAllowedOrigins`, `CorsAllowedHeaders` in `b1s.conf`) and how its preflight requests look in the logs, see [Cross Origin Resource Sharing (CORS)](../consuming-service-layer/cors.md).
 
@@ -275,7 +275,7 @@ Sometimes Service Layer fails only for some sessions. The cause can be a single 
 
 Service Layer can sit behind a load balancer with several nodes. The login assigns a node and the `ROUTEID` cookie keeps the session on that node for its whole life. If one node is broken, every session that lands on it fails and the sessions on the other nodes do not.
 
-> **Verified (SL 1000340, FP 2608, demo SBODemoES, 2026-10-02):** The demo is behind a load balancer with several nodes (different `ROUTEID` values). In 50 logins, the 6 sessions that landed on one node (`.node4`) failed on every data request and the sessions on the other nodes never failed. After that node was stopped, 50 more logins and reads all succeeded. The table `@ZZVF_T` does not exist in the database (`UserTablesMD('ZZVF_T')` returns 404, `-2028`). Why only that node asks for it is not determined. Not verified on a customer's Service Layer: do not assume it behaves the same there.
+> **Verified (FP 2608, 2026-10-02):** The environment tested was behind a load balancer with several nodes (different `ROUTEID` values). In 50 logins, the 6 sessions that landed on one node (`.node4`) failed on every data request and the sessions on the other nodes never failed. After that node was stopped, 50 more logins and reads all succeeded. The table `@ZZVF_T` does not exist in the database (`UserTablesMD('ZZVF_T')` returns 404, `-2028`). Why only that node asks for it is not determined. Not verified on a customer's Service Layer: do not assume it behaves the same there.
 
 ### How to recognize it
 
@@ -287,7 +287,7 @@ Service Layer can sit behind a load balancer with several nodes. The login assig
 
 - Delete the stored session or force a new login, then repeat the request.
 - If it always fails, tell the Service Layer administrator, with the affected node.
-- Recommended: identify exactly which nodes produce the intermittent errors (log in several times and note the `ROUTEID` of the failing sessions), have the administrator take those nodes out of the balancer, and check whether everything works without them. On the demo, stopping the broken node made the errors disappear.
+- Recommended: identify exactly which nodes produce the intermittent errors (log in several times and note the `ROUTEID` of the failing sessions), have the administrator take those nodes out of the balancer, and check whether everything works without them. Stopping the broken node made the errors disappear.
 - It cannot be fixed from the client: Service Layer returns the error as is and does not retry.
 
 A 407 can also be legitimate: a user table that really does not exist. The criterion is whether the result changes with another session. If it does, suspect a node; if it fails the same way on every session, the table (or the request) is the problem.
