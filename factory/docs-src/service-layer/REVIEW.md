@@ -23,11 +23,11 @@ Status: `pending` (undecided) · `keep` · `described` (description added to the
 | l101-01 | link | 101 | consuming-service-layer/attachments/setup-folder.md | https://technet.microsoft.com/en-us/library/cc939973.aspx | removed | link removed at user request |
 | l101-02 | link | 101 | consuming-service-layer/attachments/setup-folder.md | https://www.samba.org/cifs/ | removed | link removed at user request |
 | l103-01 | link | 103 | consuming-service-layer/attachments/setup-folder.md | https://support.microsoft.com/en-us/windows/create-and-use-strong-passwords-c5cebb49-8c53-4f5e-2bc4-fe357ca048eb | removed | link removed at user request |
-| l110-01 | link | 110 | consuming-service-layer/stream-entity-upload.md | https://datatracker.ietf.org/doc/html/rfc5023#page-30 | pending | |
+| l110-01 | link | 110 | consuming-service-layer/stream-entity-upload.md | https://datatracker.ietf.org/doc/html/rfc5023#page-30 | removed | link removed at user request |
 | l110-02 | link | 110 | consuming-service-layer/stream-entity-upload.md | https://docs.microsoft.com/en-us/odata/client/getting-started | pending | |
-| l116-01 | link | 116 | consuming-service-layer/javascript-extension/framework.md | https://developers.google.com/v8 | pending | |
-| l119-01 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | pending | |
-| l119-02 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | pending | |
+| l116-01 | link | 116 | consuming-service-layer/javascript-extension/framework.md | https://developers.google.com/v8 | removed | link removed at user request |
+| l119-01 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | removed | link removed at user request |
+| l119-02 | link | 119 | consuming-service-layer/javascript-extension/http-api.md | https://www.visualstudio.com/en-us/features/node-js-vs.aspx | removed | link removed at user request |
 | l136-01 | link | 136 | consuming-service-layer/cors.md | http://enable-cors.org/ | pending | |
 | l136-02 | link | 136 | consuming-service-layer/cors.md | http://www.html5rocks.com/en/tutorials/cors/#toc-withcredentials | pending | |
 | l161-01 | link | 161 | etag/etag-usage.md | https://msdn.microsoft.com/library/dd541486.aspx | pending | |
