@@ -16,18 +16,21 @@ _Avoid_: Plugin de conocimiento, knowledge plugin, documentación por versión, 
 API REST de SAP Business One sobre la que se construye la primera pareja de plugins.
 
 **Caché de metadatos**:
-Copia local de los metadatos que un sistema expone sobre sí mismo, construida por el plugin de configuración.
+Conjunto de **Contextos de objeto** de un entorno, que el plugin de uso mantiene en `.sbo-b1/<sistema>/<entorno>/context/`.
 _Avoid_: Índice, catálogo
+
+**Contexto de objeto**:
+Ficha en Markdown (`context/<Entidad>.md`) con lo que un entorno expone de una entidad: campos estándar y de usuario, tipo, si pueden ir vacíos y valores válidos. Lleva la fecha de obtención y la Versión de OData con la que se obtuvo. La IA la lee antes de operar sobre la entidad; no hay un Contexto de objeto compartido entre entornos porque los campos de usuario difieren.
 
 **Sistema**:
 Tecnología de B1 contra la que se opera: Service Layer, SQL, DI API, etc. Cada sistema tiene su propio plugin de configuración, de uso y de documentación, y su propia carpeta `.sbo-b1/<sistema>/`.
 
 **Entorno**:
-Instancia B1 concreta a la que un desarrollador se conecta mediante un sistema, con sus credenciales y su propia caché de metadatos. Solo hay tres: dev, uat y prod, y pertenecen a un único cliente por proyecto. Vive en una carpeta local del repositorio desde donde se ejecuta la skill (`.sbo-b1/<sistema>/<entorno>/`), ignorada por git.
+Instancia B1 concreta a la que un desarrollador se conecta mediante un sistema, con sus credenciales y su propia **Caché de metadatos**. Solo hay tres: dev, uat y prod, y pertenecen a un único cliente por proyecto. Vive en una carpeta local del repositorio desde donde se ejecuta la skill (`.sbo-b1/<sistema>/<entorno>/`), ignorada por git.
 _Avoid_: Perfil, empresa, tenant
 
 **Plugin de configuración (`setup-`)**:
-Plugin, propio de cada sistema, que prepara `.sbo-b1/<sistema>/`: guarda las credenciales de cada entorno, prueba el login, genera su caché de metadatos y pregunta y guarda la versión de B1. Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
+Plugin, propio de cada sistema, que prepara `.sbo-b1/<sistema>/`: guarda las credenciales de cada entorno, prueba el login y pregunta y guarda la versión de B1 y la Versión de OData. Lo ejecuta un script, no la IA a mano. Cada ejecución limpia lo anterior y empieza de cero. Configura solo los entornos que el desarrollador indique, al menos uno.
 _Avoid_: Setup como comando de un plugin de uso
 
 **Setup**:
@@ -101,6 +104,6 @@ Lista (`REVIEW.md`) de imágenes y enlaces externos que una persona decide conse
 - El **Setup** de un **Sistema** pregunta al desarrollador la **Versión de B1** y la guarda; el sistema no detecta la versión del servidor por su cuenta.
 - Cada **Sistema** guarda su propia **Versión de B1**; los sistemas no las comparan entre sí.
 - El **Setup** de Service Layer pregunta también la **Versión de OData**, independiente de la **Versión de B1**: informa de desde qué Versión de B1 SAP recomienda `v2`, pero no impide elegir `v1` ni una combinación que falle.
-- Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, con la fecha en que se obtuvo.
+- Cada **Entorno** de un **Sistema** tiene sus credenciales y su **Caché de metadatos**, formada por un **Contexto de objeto** por entidad, cada uno con su fecha de obtención.
 - Una **Sección externa** se divide en **Bloques**; cada **Bloque** se construye en una sesión a partir de **Fragmentos** de sus fuentes, agrupados en **Unidades de trabajo** que producen **Hojas**.
-- La **Caché de metadatos** la genera el **Setup**; la IA solo puede pedir permiso al desarrollador para regenerarla.
+- Un **Contexto de objeto** lo genera la herramienta del **Plugin de uso** antes de operar sobre su entidad, si falta o tiene más de una semana, o cuando el desarrollador lo pide expresamente; la IA no lo regenera por su cuenta.
