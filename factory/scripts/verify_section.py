@@ -177,7 +177,10 @@ def main():
         rep.check("hojas", [f"no hojas under {root}"])
         sys.exit(rep.print())
     texts = {h: h.read_text(encoding="utf-8") for h in hojas}
-    rel = {h: h.relative_to(docs / "reference").as_posix() for h in hojas}
+    # hojas not transcribed from the PDF declare `source: external ...` and are outside these checks
+    texts = {h: t for h, t in texts.items() if not (read_frontmatter(t) or {}).get("source", "").startswith("external")}
+    hojas = list(texts)
+    rel ={h: h.relative_to(docs / "reference").as_posix() for h in hojas}
 
     # frontmatter -------------------------------------------------------
     problems, src_pages, src_secs = [], {}, {}
